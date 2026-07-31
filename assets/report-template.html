@@ -1,4 +1,6 @@
+<!doctype html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TICKER}} — analiză</title>
 <style>
 /* ─── tokens ─────────────────────────────────────────────────────────────── */
@@ -56,8 +58,16 @@ header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
   color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
 .themer:active{transform:scale(.94)}
 
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
 /* ─── section ────────────────────────────────────────────────────────────── */
-section{padding:30px 0;border-bottom:1px solid var(--rule)}
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
@@ -78,6 +88,10 @@ section{padding:30px 0;border-bottom:1px solid var(--rule)}
 .st[data-s=none]{color:var(--ink-3)}
 @media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
 :root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+/* comparație pe două companii: un rând, două semafoare (vezi varianta comentată) */
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
 
 /* ─── concept callout ────────────────────────────────────────────────────── */
 .concept{border-left:2px solid var(--accent);background:var(--wash);
@@ -211,11 +225,14 @@ footer b{color:var(--ink-2)}
   .wrap{padding:0 14px 56px}
   .row{grid-template-columns:1fr auto;gap:6px 10px}
   .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
   .tick h1{font-size:24px} .px .v{font-size:21px}
   .split .r{grid-template-columns:70px 1fr 70px}
 }
 @media print{
-  .themer{display:none} body{background:#fff}
+  .themer,nav.toc{display:none} body{background:#fff}
   section{break-inside:avoid;border-bottom:1px solid #ddd}
 }
 </style>
@@ -246,12 +263,29 @@ footer b{color:var(--ink-2)}
   </div>
 </header>
 
+<!-- ══ CUPRINS ═══════ static; șterge linkul dacă ștergi secțiunea lui ══════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
 <!-- ══ SCORECARD ═══════════════════════════════════════════════════════════
      data-s = good | warn | crit | none   (none = nu se aplică / date lipsă)
      Culoarea NU transmite singură sensul: fiecare stare are icon + etichetă.
      Nu pune semafor pe „Unde se află acțiunea" — nu e un indicator de calitate.
 ─────────────────────────────────────────────────────────────────────────── -->
-<section>
+<section id="scorecard">
   <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
   <div class="score">
     <div class="row">
@@ -271,10 +305,24 @@ footer b{color:var(--ink-2)}
     </div>
     <!-- restul: Buyback / diluție · Creștere și marje · Evaluare · Sentiment · Expunere la lume -->
   </div>
+
+  <!-- Varianta pentru comparația a două companii: înlocuiește .score de mai sus
+       cu blocul de mai jos. Un rând = un pilon, două semafoare (T1, apoi T2);
+       .t descrie contrastul, nu repetă ambele verdicte.
+  <div class="score">
+    <div class="duo-head"><span></span><span>{{T1}}</span><span>{{T2}}</span><span></span></div>
+    <div class="row duo">
+      <span class="k">Moat</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">{{contrastul într-o propoziție}}</span>
+    </div>
+  </div>
+  -->
 </section>
 
 <!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
-<section>
+<section id="s01">
   <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
 
   <!-- interval 52 săpt. — style="left:X%" unde X = (preț−min)/(max−min)*100 -->
@@ -311,7 +359,7 @@ footer b{color:var(--ink-2)}
   <div class="stats">
     <div class="stat"><div class="l">Beta</div><div class="v">{{2,21}}</div><div class="s">{{amplifică piața de ~2,2×}}</div></div>
     <div class="stat"><div class="l">Volatilitate (20z)</div><div class="v">{{6,9%}}</div><div class="s">{{pe zi}}</div></div>
-    <div class="stat"><div class="l">La 10.000 €</div><div class="v">{{−2.200 €}}</div><div class="s">{{la o corecție de piață de 10%}}</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v">{{−2.200 $}}</div><div class="s">{{la o corecție de piață de 10%}}</div></div>
   </div>
 
   <!-- vremea pieței — toate valorile cu dată; constată, nu prognoza -->
@@ -326,7 +374,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
-<section>
+<section id="s02">
   <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
   <p>{{Cine plătește, pentru ce, și de unde vin banii — fără jargon.}}</p>
   <div class="tw"><table>
@@ -338,7 +386,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
-<section>
+<section id="s03">
   <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
@@ -357,7 +405,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
-<section>
+<section id="s04">
   <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept"><div class="h">CE E FREE CASH FLOW</div><p>{{…}}</p></div>
   <figure class="viz" data-viz="bars">
@@ -372,7 +420,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
-<section>
+<section id="s05">
   <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept"><div class="h">DE CE CONTEAZĂ</div><p>{{…}}</p></div>
   <!-- lățimea barelor: % din valoarea mai mare dintre cele două -->
@@ -394,7 +442,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
-<section>
+<section id="s06">
   <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
@@ -422,7 +470,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
-<section>
+<section id="s07">
   <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
@@ -439,10 +487,23 @@ footer b{color:var(--ink-2)}
      "suffix":"%"}
     </script>
   </figure>
+  <!-- ritmul trimestrial (fetch 12) — piața tranzacționează ritmul, nu media anuală.
+       Creșterea YoY pe ultimele ~8 trimestre; pe lines, ca să se vadă direcția. -->
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["{{Q2 24}}","{{Q3 24}}","{{Q4 24}}","{{Q1 25}}","{{Q2 25}}","{{Q3 25}}","{{Q4 25}}","{{Q1 26}}"],
+     "series":[{"name":"Creștere YoY","values":[27.2,30.0,36.0,39.3,48.5,62.8,70.5,74.9]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+  <p>{{Ritmul: creșterea trimestrială accelerează sau încetinește? Spune ambele capete
+  — „de la X% în Q2 25 la Y% în Q1 26" — pentru că decelerarea e de obicei răspunsul
+  real la „de ce a scăzut", chiar când rezultatele bat așteptările.}}</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
-<section>
+<section id="s08">
   <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
   <div class="tw"><table>
     <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>Marjă brută</th><th>Creștere</th><th>Dat./EBITDA</th></tr></thead>
@@ -462,7 +523,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
-<section>
+<section id="s09">
   <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
   <div class="stats">
     <div class="stat"><div class="l">Deținere instituțională</div><div class="v">{{69,5%}}</div><div class="s">{{normal pentru mărimea ei}}</div></div>
@@ -479,7 +540,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
-<section>
+<section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
   <ul class="list">
     <li><b>{{CEO}}</b> — {{din anul X; fondator sau nu}}</li>
@@ -495,7 +556,7 @@ footer b{color:var(--ink-2)}
      Vremea de azi (dobânzi, sector, piață) apare în secțiunea 1, datată.
      Steagurile și pragurile: references/scorecard.md §8.
 ─────────────────────────────────────────────────────────────────────────── -->
-<section>
+<section id="s11">
   <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
   <div class="concept">
     <div class="h">COMPRIMAREA MULTIPLILOR</div>
@@ -525,7 +586,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
-<section>
+<section id="s12">
   <div class="sec"><span class="n">12</span><h2>Riscuri</h2></div>
   <!-- clasa "crit" pe riscurile majore -->
   <ul class="list">
@@ -541,7 +602,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
-<section>
+<section id="s13">
   <div class="sec"><span class="n">13</span><h2>Întrebări pentru următoarea companie</h2></div>
   <ul class="list qa">
     <li>{{Numărul de acțiuni a scăzut în ultimii 3 ani?}}</li>
@@ -552,7 +613,7 @@ footer b{color:var(--ink-2)}
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com · date la {{data}}.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR · date la {{data}}.
   Raportările au întârziere de până la un trimestru; short interest până la două
   săptămâni; dețineri instituționale până la 45 de zile.<br>
   <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu

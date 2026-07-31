@@ -60,6 +60,9 @@ Prețul acțiunii împărțit la profitul pe acțiune. Cât plătești pentru fi
 ### P/FCF (price to free cash flow)
 Același lucru, dar raportat la cash-ul real în loc de profitul contabil. Când P/E și P/FCF diferă mult, cash-ul e cel care spune adevărul.
 
+### Randamentul profitului (earnings yield)
+P/E-ul citit invers: cât profit „produce" compania la fiecare 100 de lei plătiți pe acțiune. La P/E 25, randamentul profitului e 4%; la P/E 137, e 0,7%. Cifra devine grăitoare abia pusă lângă dobânda fără risc: dacă obligațiunile fără niciun risc dau 4,7% și compania dă 0,7%, diferența e prețul pe care îl plătești pentru creșterea viitoare — dacă acea creștere nu vine, ai plătit degeaba. E o comparație între două fapte de azi, nu o prognoză.
+
 ### EV/EBITDA
 *Enterprise value* = capitalizare + datorie netă, adică prețul real de cumpărare al întregii afaceri (cine o cumpără preia și datoriile). Împărțit la EBITDA, dă un multiplu care nu e distorsionat de cât de îndatorată e compania. E mai onest decât P/E la companii cu datorie mare.
 
@@ -72,7 +75,7 @@ Cât rămâne din fiecare leu de vânzări după costul direct al produsului. E 
 ### Beta
 Cât de tare se mișcă acțiunea față de piață în ansamblu. Beta 1 înseamnă că se mișcă odată cu piața; beta 2 înseamnă că amplifică mișcările de aproximativ două ori, în ambele direcții. O acțiune cu beta mare nu e „mai bună" sau „mai proastă" — e mai obositoare de deținut, și asta contează, pentru că majoritatea pierderilor reale ale investitorilor de retail vin din vânzări în panică, nu din alegerea companiei greșite.
 
-Tradu întotdeauna beta în bani: „la 10.000 € investiți și beta 2,2, o corecție obișnuită de piață de 10% înseamnă −2.200 € în portofoliu."
+Tradu întotdeauna beta în bani: „la 10.000 $ investiți și beta 2,2, o corecție obișnuită de piață de 10% înseamnă −2.200 $ în portofoliu."
 
 ### Dobânda fără risc (risk-free rate)
 Randamentul pe care îl primești fără să riști practic nimic — de regulă dobânda obligațiunilor americane pe 10 ani. E gravitația tuturor evaluărilor: orice investiție riscantă trebuie să promită mai mult decât ea, altfel nimeni n-ar avea de ce să-și asume riscul. Când dobânda fără risc urcă, toate activele riscante valorează mai puțin în banii de azi — iar cel mai tare scad cele al căror profit e departe în viitor, adică exact acțiunile de creștere.
@@ -98,6 +101,9 @@ Dividendul plus răscumpărările, raportate la capitalizare. E suma reală pe c
 La fiecare raportare trimestrială, compania publică rezultatele și de obicei o estimare pentru trimestrul următor (*guidance*). Analiștii au estimări dinainte; rezultatul e „beat" dacă le depășește și „miss" dacă e sub.
 
 Aici e sursa celei mai mari confuzii pentru un începător: **o companie poate raporta rezultate excelente și acțiunea să scadă**. Nu e irațional. Prețul de dinainte reflecta deja așteptări și mai mari, sau guidance-ul pentru trimestrul următor a fost slab. Piața nu tranzacționează trecutul, ci diferența dintre ce a fost așteptat și ce s-a întâmplat.
+
+### Decelerare (growth deceleration)
+Creșterea care încetinește: compania încă crește, dar tot mai încet — de la +60% pe an la +40%, apoi la +30%. Pentru piață, decelerarea e o veste proastă chiar dacă cifrele rămân impresionante, pentru că prețul plătit ieri presupunea ritmul de ieri. E cealaltă jumătate a nedumeririi „rezultate bune, acțiunea scade" (prima e la *beat/miss*): rezultatele au fost bune, dar ritmul a încetinit, iar piața tranzacționează ritmul, nu media. De aceea cifrele trimestriale contează mai mult decât cele anuale — anul ascunde ce s-a întâmplat în ultimele trimestre.
 
 ### Acțiuni cu clase multiple (dual-class shares)
 Unele companii au clase de acțiuni cu drepturi de vot diferite. Cele vândute publicului au adesea un vot, sau zero, iar fondatorii dețin o clasă cu zece voturi pe acțiune. Poți deține o parte semnificativă din capital și să nu ai niciun cuvânt de spus în deciziile companiei.
@@ -135,6 +141,9 @@ Sunt lucruri diferite. O companie excelentă cumpărată la un preț absurd poat
 
 ### Extrapolarea creșterii recente
 O companie care a crescut 100% doi ani la rând nu va crește 100% în continuare — legea numerelor mari o oprește. Când vezi creștere spectaculoasă, întreabă cât din ea e structurală și cât e un vârf de cerere care se va normaliza.
+
+### Creșterea cumpărată cu achiziții
+O companie poate „crește" 20% pe an ani la rând cumpărând alte companii — cu datorie sau cu acțiuni noi care te diluează. Veniturile urcă, dar afacerea de bază poate stagna. Semnul pe bilanț: goodwill-ul sare în sus exact în anii cu creștere mare. Întrebările de pus: cât ar crește fără achiziții, și cu ce s-au plătit — cash generat de afacere, sau felia ta.
 
 ### Confuzia dintre valul sectorului și calitatea companiei
 Într-un sector la modă, aproape totul crește — și companiile bune, și cele mediocre. Randamentul acțiunii nu-ți spune dacă ai ales bine până nu-l compari cu sectorul ei: +40% când sectorul a făcut +60% înseamnă că ai ales unul dintre înotătorii slabi ai valului. Comparația cu S&P 500 nu prinde asta — compar-o și cu sectorul (un ETF de sector e etalonul comod). Iar când valul se retrage, diferența dintre înotători devine singurul lucru care contează.
