@@ -1,6 +1,6 @@
 ---
 name: stock-research
-description: Analizează o companie listată la bursă și explică în română, pentru un investitor de retail începător, ce se întâmplă cu ea — ce face compania, moat-ul, free cash flow, cash vs datorii, buyback vs diluție, creștere și marje, evaluare, instituționali, short interest, indici, insideri și riscuri — cu un scorecard verde/galben/roșu, explicații educaționale ale fiecărui concept și un raport HTML final cu grafice. Use this skill whenever the user mentions a stock ticker (NVDA, AAPL, PLTR, ASML...) or a listed company name and wants to understand it — including phrasings like "ce părere ai de X", "analizează X", "merită X", "ce se întâmplă cu X", "e scumpă X", "de ce a scăzut X", "explică-mi X", "should I look at X", "what's going on with X" — even when they don't use the word "analiză" or ask for a formal report. Also use when comparing two listed companies, or when the user asks about a specific pillar (moat, free cash flow, datorii, buyback, short interest, dilution) of a named company.
+description: Analizează o companie listată la bursă și explică în română, pentru un investitor de retail începător, ce se întâmplă cu ea — ce face compania, moat-ul, free cash flow, cash vs datorii, buyback vs diluție, creștere și marje, evaluare, instituționali, short interest, indici, insideri și riscuri — cu un scorecard verde/galben/roșu, explicații educaționale ale fiecărui concept și un raport HTML final cu grafice. Use this skill whenever the user mentions a stock ticker (NVDA, AAPL, PLTR, ASML...) or a listed company name and wants to understand it — including phrasings like "ce părere ai de X", "analizează X", "merită X", "ce se întâmplă cu X", "e scumpă X", "de ce a scăzut X", "explică-mi X", "should I look at X", "what's going on with X" — even when they don't use the word "analiză" or ask for a formal report. Also use when comparing two listed companies, or when the user asks about a specific pillar (moat, free cash flow, datorii, buyback, short interest, dilution) of a named company. Also use when the user asks how interest rates, tariffs, elections, or the overall market context affect a named listed company — "cum o afectează dobânzile pe X", "ce vânt are în față X", "contextul pieței pentru X".
 ---
 
 # Analiză de acțiuni pentru investitori începători
@@ -40,6 +40,8 @@ Pentru un ticker american `{T}` (scris cu litere mici în URL):
 | 7 | `marketbeat.com/stocks/{BURSA}/{T}/institutional-ownership/` | Câți investitori instituționali au **cumpărat vs. vândut** în 12 luni și **cât capital a intrat vs. a ieșit** în dolari |
 | 8 | `marketbeat.com/stocks/{BURSA}/{T}/insider-trades/` | Tranzacțiile insiderilor, nominal: cine, ce funcție, cumpărare sau vânzare, câte acțiuni, ce dată |
 | 9 | `finviz.com/quote.ashx?t=SPY` | Performanța S&P 500 pe aceleași orizonturi — **etalonul** față de care compari acțiunea |
+| 10 | `stockanalysis.com/stocks/{T}/financials/ratios/` | Multipli istorici pe an (P/E, P/FCF, EV/EBITDA) — media proprie pe 5 ani, pentru secțiunea de evaluare |
+| 11 | `finviz.com/groups.ashx?g=sector&v=140` | Performanța sectoarelor — sectorul companiei vs. piață, pentru secțiunile 1 și 11 |
 
 `{BURSA}` e `NASDAQ` sau `NYSE`, cu majuscule, iar tickerul tot cu majuscule. Dacă nu știi bursa, pune varianta cea mai probabilă în primul val de fetch-uri și reia doar aceste două URL-uri cu cealaltă dacă dau 404 — bursa reală o afli oricum din finviz în același val.
 
@@ -48,6 +50,16 @@ Fetch-ul 9 pare o risipă, dar e cea mai importantă cifră din raport pentru ci
 Bursele non-americane, ETF-uri, surse de rezervă, capcane de interpretare și ce faci când o pagină dă 404: citește `references/data-sources.md`.
 
 Dacă utilizatorul a cerut explicit doar un pilon (de exemplu „cum stă Palantir cu datoriile?"), scoate doar paginile relevante și livrează secțiunea aceea, nu tot raportul.
+
+### Valul doi — competitori și context
+
+După ce primul val ți-a dat industria, trimite în paralel:
+
+- **2–3 competitori direcți** — `stockanalysis.com/stocks/{peer}/statistics/` pentru fiecare. Alege competitori reali din aceeași nișă; alegerea e judecata ta, dar cifrele lor vin doar din paginile citite — tabelul comparativ din secțiunea 8 nu se umple din memorie.
+- **WebSearch, dobânzi** — nivelul dobânzii americane pe 10 ani azi și direcția ei pe ultimele ~12 luni, cu dată.
+- **WebSearch, politică și reglementare** — `{compania} antitrust / tarife / export controls / reglementare`, limitat la ultimele luni. În raport intră doar ce e concret și numit.
+
+Pentru toate trei: știrile și căutările sunt narativ, nu sursă de cifre; fiecare afirmație macro primește data ei; iar despre piață și dobânzi descrii unde *sunt*, niciodată unde *vor merge* — prognoza e interzisă la fel ca prețul-țintă.
 
 ## Faza 3 — Verifică înainte de a scrie
 
@@ -86,6 +98,7 @@ Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț si
 | Creștere și marje | | |
 | Evaluare (preț) | | |
 | Sentiment de piață | | |
+| Expunere la lume | | |
 
 ## 1. Unde se află acțiunea acum și de ce
 ## 2. Ce face compania, pe înțelesul oricui
@@ -97,18 +110,22 @@ Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț si
 ## 8. Evaluare — la ce preț, și ce presupune prețul ăsta
 ## 9. Sentiment de piață — instituționali, short interest, analiști
 ## 10. Management, insideri și structura de vot
-## 11. Riscuri — ce ar strica teza
-## 12. Ce ai învățat aici + întrebări pentru data viitoare
+## 11. Expunerea la lume — vânt din față sau din spate?
+## 12. Riscuri — ce ar strica teza
+## 13. Ce ai învățat aici + întrebări pentru data viitoare
 ```
 
-**Secțiunea 1 e cea care răspunde direct la „ce se întâmplă cu ea".** Pune-o prima, pentru că e întrebarea din capul omului. Conține patru lucruri:
+**Secțiunea 1 e cea care răspunde direct la „ce se întâmplă cu ea".** Pune-o prima, pentru că e întrebarea din capul omului. Conține cinci lucruri:
 
 1. **Unde e prețul** în intervalul de 52 de săptămâni — aproape de maxim, la mijloc, sau prăbușit.
 2. **Randamentul vs. S&P 500** pe YTD, 1 an, 3 ani și 5 ani, în tabel, unul lângă altul. Asta e comparația care lipsește din 99% din analizele pe care le citește un începător, și e singura care contează cu adevărat: dacă acțiunea a făcut +12% într-un an în care indicele a făcut +18%, investitorul a pierdut bani față de alternativa care nu cerea nicio muncă. Spune-o direct când se întâmplă.
 3. **Cât de violent se mișcă** — beta și volatilitatea, traduse în ceva concret: „beta 2,2 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 22%. Dacă ai 10.000 € aici, o corecție normală de piață înseamnă −2.200 €. Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare."
-4. **Ce a mutat prețul recent și ce urmează** — ultima raportare (a depășit sau a ratat așteptările, ce a spus conducerea despre trimestrul următor) și data următoarei raportări. Folosește titlurile de pe pagina principală stockanalysis și, dacă e nevoie de context, WebSearch — dar tratează știrile ca narativ, nu ca sursă de cifre.
+4. **Ce a mutat prețul recent și ce urmează** — ultima raportare (a depășit sau a ratat așteptările, ce a spus conducerea despre trimestrul următor) și data următoarei raportări. Folosește titlurile din tabelul de știri de pe pagina finviz (fetch-ul 6) și, dacă e nevoie de context, WebSearch — dar tratează știrile ca narativ, nu ca sursă de cifre.
+5. **Vremea pieței** — trei cifre datate care separă valul de înotător: unde e S&P 500 față de maximul pe 52 de săptămâni (din fetch-ul 9), dobânda americană pe 10 ani și direcția ei pe ultimul an (din valul doi), și sectorul companiei YTD față de S&P 500 (din fetch-ul 11). Dacă acțiunea scade odată cu tot sectorul, spune-o direct — „asta nu e o știre despre companie, e vremea". Adaugă 1–2 propoziții datate despre curentele politice sau de reglementare care ating compania acum, dacă există. Lecția întreagă despre expunere e în secțiunea 11 — aici doar constați vremea, nu o prognozezi.
 
 Secțiunea asta **nu primește semafor**. Performanța trecută a prețului nu spune nimic despre calitatea afacerii, iar un verde acolo ar sugera exact confuzia pe care skill-ul încearcă s-o prevină.
+
+**Secțiunea 11 pune compania în contextul pe care nu-l controlează.** Patru expuneri, judecate pe rând ca la moat: sensibilitatea evaluării la dobânzi (rândul „Dobânzi") (câtă parte din preț e profit din anii îndepărtați — aici predai *comprimarea multiplilor*, cu forward P/E-ul companiei ca exemplu), ciclicitatea cererii („Ciclu economic"), geografia veniturilor („Geografie și politică") (tarife, licențe de export, concentrare pe o țară) și suprafața de reglementare („Reglementare") (doar acțiuni concrete, numite). Steagurile și pragurile sunt în `references/scorecard.md`; formulările conceptelor, în glosar. Semaforul notează expunerea — o proprietate stabilă a afacerii — nu vremea de azi; expunere mare nu înseamnă companie proastă, ci volatilitate pe care cititorul trebuie să știe dinainte că o poate duce. Ce e specific companiei rămâne la Riscuri (secțiunea 12); aici stă doar ce e sistematic.
 
 Ce trebuie să conțină fiecare secțiune, ce praguri decid culoarea semaforului și explicațiile educaționale gata scrise:
 
@@ -134,11 +151,22 @@ Câteva reguli de ton care fac diferența:
 - **Spune și când un semnal e slab.** Brandul puternic e un moat mai fragil decât costurile de schimbare. Short interest mare e mai des un avertisment decât o oportunitate. Un începător care nu află asta de la tine o va afla de pe piață, mai scump.
 - **Nu netezi lucrurile.** Dacă bilanțul arată prost, spune direct. Un raport care sună mereu echilibrat și pozitiv nu ajută pe nimeni.
 
-Secțiunea 11 nu e un rezumat — e partea care rămâne. Enumeră 2-3 concepte pe care le-a întâlnit aici pentru prima dată și 3-4 întrebări concrete pe care să și le pună la următoarea companie (de exemplu: „numărul de acțiuni a scăzut în ultimii 3 ani?", „marja brută urcă sau coboară?").
+Secțiunea 13 nu e un rezumat — e partea care rămâne. Enumeră 2-3 concepte pe care le-a întâlnit aici pentru prima dată și 3-4 întrebări concrete pe care să și le pună la următoarea companie (de exemplu: „numărul de acțiuni a scăzut în ultimii 3 ani?", „marja brută urcă sau coboară?").
+
+## Varianta: două companii comparate
+
+Când utilizatorul cere o comparație („X sau Y?", „compară X cu Y"), fă **un singur raport**, nu două:
+
+- Rulează valul unu din Faza 2 pentru ambele companii într-un singur mesaj paralel, apoi valul doi la fel (sursele comune — SPY, sectoare, dobânzi — o singură dată).
+- Scorecard-ul primește două coloane de semafoare, una pe companie.
+- Fiecare secțiune discută ambele companii, una lângă alta, pe aceleași cifre. Graficele `lines` pot purta ambele serii (motorul suportă trei); randamentul față de indice primește câte un bloc `compare` pe companie.
+- Finalul nu e un verdict, ci **„diferențele care contează"**: 3–4 contraste concrete (cine se diluează, cui îi urcă marja, cine depinde de o țară sau de un client). „X e mai bună" nu apare — regula fără recomandări rămâne.
+
+Fișierul: `{T1}-vs-{T2}-{AAAA-LL-ZZ}.html`.
 
 ## Faza 5 — Generează raportul HTML
 
-După raportul din chat, produ și un fișier HTML de sine stătător. Pornește de la `assets/report-template.html`: copiază-l, înlocuiește conținutul dintre `{{...}}` și șterge secțiunile care nu se aplică. Salvează-l ca `{TICKER}-{AAAA-LL-ZZ}.html` și trimite-l utilizatorului cu SendUserFile (`display: "render"`).
+După raportul din chat, produ și un fișier HTML de sine stătător. Pornește de la `assets/report-template.html`: copiază-l, înlocuiește conținutul dintre `{{...}}` și șterge secțiunile care nu se aplică. Salvează-l ca `{TICKER}-{AAAA-LL-ZZ}.html` în directorul de lucru curent — nu în directorul skill-ului — și trimite-l utilizatorului cu SendUserFile (`display: "render"`).
 
 Template-ul conține deja CSS-ul, motorul de grafice și componentele. Nu rescrie stilurile și nu adăuga biblioteci — fișierul trebuie să rămână unul singur, care se deschide offline, cu temă deschisă și întunecată.
 

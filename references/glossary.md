@@ -74,6 +74,18 @@ Cât de tare se mișcă acțiunea față de piață în ansamblu. Beta 1 înseam
 
 Tradu întotdeauna beta în bani: „la 10.000 € investiți și beta 2,2, o corecție obișnuită de piață de 10% înseamnă −2.200 € în portofoliu."
 
+### Dobânda fără risc (risk-free rate)
+Randamentul pe care îl primești fără să riști practic nimic — de regulă dobânda obligațiunilor americane pe 10 ani. E gravitația tuturor evaluărilor: orice investiție riscantă trebuie să promită mai mult decât ea, altfel nimeni n-ar avea de ce să-și asume riscul. Când dobânda fără risc urcă, toate activele riscante valorează mai puțin în banii de azi — iar cel mai tare scad cele al căror profit e departe în viitor, adică exact acțiunile de creștere.
+
+### Comprimarea multiplilor (multiple compression)
+Fenomenul prin care o acțiune scade deși compania livrează: profitul crește, dar P/E-ul coboară de la 60 la 35, și prețul cade cu el. Multiplul e cât plătește piața pentru un leu de profit — și depinde de dobânzi și de dispoziția pieței, nu doar de companie. E a doua jumătate a răspunsului la nedumerirea clasică „rezultatele au fost bune, de ce a scăzut?": uneori așteptările erau și mai mari (vezi *beat/miss*), alteori s-a scumpit banul, nu s-a stricat afacerea.
+
+### Rotația de sector (sector rotation)
+Banii instituționali se mută periodic dintr-un sector în altul — dinspre creștere spre valoare când urcă dobânzile, dinspre ciclice spre defensive când vine frica de recesiune. De aceea o acțiune poate scădea 15% într-o lună în care compania n-a anunțat nimic: nu s-a schimbat compania, s-a schimbat direcția banilor. Verifică întâi cum s-a mișcat sectorul întreg înainte să cauți o explicație în companie.
+
+### Vânt din față, vânt din spate (headwind / tailwind)
+Metafora standard pentru contextul care ajută sau frânează o companie, independent de cât de bine e condusă. Un val de investiții în AI e vânt din spate pentru toți producătorii de cipuri; tarife noi pe importuri sunt vânt din față pentru cine produce în afară. Întrebarea de pus: cât din creșterea companiei e înotul ei și cât e valul — pentru că valurile se retrag, iar atunci se vede cine înoată.
+
 ### Etalon (benchmark)
 Alternativa cu care compari orice investiție. Pentru acțiuni americane, etalonul implicit e S&P 500 — indicele celor mai mari 500 de companii americane, pe care oricine îl poate cumpăra printr-un ETF, fără nicio muncă de analiză.
 
@@ -124,6 +136,9 @@ Sunt lucruri diferite. O companie excelentă cumpărată la un preț absurd poat
 ### Extrapolarea creșterii recente
 O companie care a crescut 100% doi ani la rând nu va crește 100% în continuare — legea numerelor mari o oprește. Când vezi creștere spectaculoasă, întreabă cât din ea e structurală și cât e un vârf de cerere care se va normaliza.
 
+### Confuzia dintre valul sectorului și calitatea companiei
+Într-un sector la modă, aproape totul crește — și companiile bune, și cele mediocre. Randamentul acțiunii nu-ți spune dacă ai ales bine până nu-l compari cu sectorul ei: +40% când sectorul a făcut +60% înseamnă că ai ales unul dintre înotătorii slabi ai valului. Comparația cu S&P 500 nu prinde asta — compar-o și cu sectorul (un ETF de sector e etalonul comod). Iar când valul se retrage, diferența dintre înotători devine singurul lucru care contează.
+
 ---
 
 ## 3. Analogii care funcționează
@@ -135,3 +150,5 @@ Folosește-le când explici, dar înlocuiește cifrele cu cele reale ale compani
 - **Moat prin costuri de schimbare:** „e diferența dintre a schimba marca de cafea și a schimba banca la care ai salariul, creditul și toate plățile programate."
 - **FCF vs. profit:** „profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce arată extrasul de cont."
 - **Marja brută în scădere:** „e ca un magazin care trebuie să dea reduceri tot mai mari ca să vândă la fel de mult — încă vinde, dar puterea de negociere s-a dus."
+- **Dobânzile și evaluările:** „dobânda fără risc e gravitația prețurilor — când urcă, toate evaluările sunt trase în jos, și cad cel mai tare cele cocoțate cel mai sus."
+- **Expunerea la context:** „o companie excelentă cu expunere mare e o corabie solidă pe o mare agitată — ajunge la destinație, dar nu ține pasagerii care sar peste bord la primul val."

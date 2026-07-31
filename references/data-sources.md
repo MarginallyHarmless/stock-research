@@ -39,6 +39,23 @@ Sursa care acoperă golul lăsat de stockanalysis. URL-ul cere bursa în majuscu
 
 **Surse verificate ca inaccesibile** — nu pierde timp cu ele: `finance.yahoo.com/quote/{T}/holders/` (503), `wsj.com/market-data/quotes/` (blocat), `fintel.io` (403), `nasdaq.com/market-activity/` (timeout).
 
+## Competitorii — valul doi
+
+Tabelul comparativ din secțiunea de evaluare cere 2–3 competitori direcți, iar cifrele lor trebuie să vină tot din pagini citite, nu din memorie. După primul val afli industria (pagina `/company/`); alege competitori reali din aceeași nișă — nu doar companii mari din același sector — și adu-le `stockanalysis.com/stocks/{peer}/statistics/` într-un al doilea val paralel. Alegerea competitorilor e judecata ta; cifrele lor nu.
+
+Dacă un competitor relevant e listat în afara SUA, folosește varianta `stockanalysis.com/quote/{bursa}/{TICKER}/statistics/` și spune în raport ce n-ai găsit.
+
+## Context de piață și sector
+
+| URL | Ce conține |
+|---|---|
+| `finviz.com/groups.ashx?g=sector&v=140` | Performanța sectoarelor (zi, lună, YTD…) — sectorul companiei față de piață — vizualizarea implicită nu expune datele la fetch; folosește parametrii |
+| `fred.stlouisfed.org/series/DGS10` | Dobânda obligațiunilor americane pe 10 ani — rezervă, dacă WebSearch nu dă o cifră datată |
+
+Sectorul companiei îl iei din câmpul „Sector" de pe pagina ei finviz (fetch-ul 6), ca să alegi rândul corect din tabelul de grupuri. Dacă pagina de grupuri nu se lasă citită, ia performanța sectorului prin WebSearch și spune în raport de unde vine cifra.
+
+Pentru dobânzi, sursa principală e WebSearch („10-year treasury yield"): vrei nivelul de azi și direcția pe ultimele ~12 luni, ambele cu dată. Regulile de la știri se aplică și aici: nivelul e un fapt, direcția trecută e un fapt, orice frază despre unde *vor merge* dobânzile nu intră în raport.
+
 ## Burse non-americane
 
 Structura URL-ului se schimbă: `stockanalysis.com/quote/{bursa}/{TICKER}/`, cu tickerul în majuscule.
