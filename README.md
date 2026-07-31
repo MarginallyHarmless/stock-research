@@ -8,7 +8,7 @@ Nu presupune că știi ce e un moat, un free cash flow sau un short interest —
 
 ## Ce produce
 
-Un raport pe 12 secțiuni, în română, cu termenii tehnici păstrați în engleză între paranteze:
+Un raport pe 13 secțiuni, în română, cu termenii tehnici păstrați în engleză între paranteze:
 
 | # | Secțiune | Răspunde la |
 |---|---|---|
