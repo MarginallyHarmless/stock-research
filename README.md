@@ -12,7 +12,7 @@ Un raport pe 12 secțiuni, în română, cu termenii tehnici păstrați în engl
 
 | # | Secțiune | Răspunde la |
 |---|---|---|
-| — | Scorecard | Cum stă pe cei șapte piloni, cu semafoare |
+| — | Scorecard | Cum stă pe cei opt piloni, cu semafoare |
 | 1 | Unde se află acțiunea acum | Poziția în interval, randamentul **față de S&P 500**, volatilitatea, ce a mutat prețul |
 | 2 | Ce face compania | Cine plătește, pentru ce, de unde vin banii |
 | 3 | Moat | Cele cinci tipuri de avantaj competitiv, evaluate pe rând |
@@ -23,8 +23,9 @@ Un raport pe 12 secțiuni, în română, cu termenii tehnici păstrați în engl
 | 8 | Evaluare | Companie bună — dar la ce preț, și ce presupune prețul ăsta |
 | 9 | Sentiment de piață | Instituționali, short interest, indici, analiști |
 | 10 | Management și insideri | Cine conduce, cumpără cu banii lor, structura de vot |
-| 11 | Riscuri | Ce ar invalida teza |
-| 12 | Ce ai învățat | Concepte noi și întrebări pentru următoarea companie |
+| 11 | Expunerea la lume | Cât o clatină dobânzile, ciclul, geopolitica — expunerea se notează, vremea nu |
+| 12 | Riscuri | Ce ar invalida teza |
+| 13 | Ce ai învățat | Concepte noi și întrebări pentru următoarea companie |
 
 Plus un fișier HTML de sine stătător, cu grafice, temă deschisă/întunecată, care se deschide offline și se printează curat.
 
@@ -56,6 +57,8 @@ Ultima formă livrează doar secțiunea cerută, nu tot raportul.
 **Se uită la numărul de acțiuni, nu la suma cheltuită pe buyback.** Multe companii răscumpără doar cât să compenseze acțiunile date angajaților: cheltuie miliarde, iar felia ta rămâne la fel.
 
 **Traduce volatilitatea în bani.** Nu „beta 2,2", ci cât ai pierde la o corecție obișnuită de piață — pentru că majoritatea pierderilor reale ale investitorilor de retail vin din vânzări în panică, nu din alegerea companiei greșite.
+
+**Pune compania în context.** Dobânzile, ciclul economic, tarifele și reglementarea intră în raport cu o regulă strictă: expunerea companiei la ele se notează — e o proprietate stabilă a afacerii — iar vremea de azi doar se descrie, datată. Prognozele de piață sunt interzise la fel ca prețurile-țintă.
 
 **Are praguri scrise, nu impresii.** Fiecare semafor are criterii explicite în [`references/scorecard.md`](references/scorecard.md), cu excepții pentru bănci, REIT-uri, biotech, utilități și companii ciclice — unde aplicarea mecanică a grilei dă răspunsuri greșite.
 
