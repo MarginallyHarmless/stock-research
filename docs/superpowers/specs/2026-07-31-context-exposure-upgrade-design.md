@@ -111,4 +111,4 @@ No scored weather. No VIX or technical indicators. No FRED API dependency (page 
 3. No new paid/keyed dependency; fetch list grows by exactly 2 fixed URLs + peer pages + ≤2 WebSearches.
 4. A live test run on one ticker (e.g. PLTR or NVDA) produces: weather tiles in §1 with dates, a scored §11 with four judged sub-rows, a competitor table whose every number traces to a fetched page, report saved in cwd.
 5. The words „va scădea/va crește" about markets/rates appear nowhere; no buy/sell language; missing data rendered as `N/A (nu apare pe sursă)`.
-6. Committed on `local/context-upgrade`; upstream `master` untouched.
+6. Committed on `local/context-upgrade`; upstream `main` untouched.

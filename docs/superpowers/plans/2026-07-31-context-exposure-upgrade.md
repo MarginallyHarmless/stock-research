@@ -568,8 +568,8 @@ Expected: TOC anchors match the renumbered headings (`#8-expunerea-la-lume`, `#9
 
 - [ ] **Step 4: Confirm clean tree and log.**
 
-Run: `git status --short && git log --oneline master..HEAD`
-Expected: clean tree; six commits on `local/context-upgrade` after the spec commit.
+Run: `git status --short && git log --oneline main..HEAD`
+Expected: clean tree; six new task commits on `local/context-upgrade` (after the spec and plan commits).
 
 ---
 
