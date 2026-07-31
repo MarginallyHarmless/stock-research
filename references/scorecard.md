@@ -12,8 +12,9 @@ Pragurile nu sunt legi. Când o companie e clar la limită, spune asta în text 
 5. [Creștere și marje](#5-creștere-și-marje)
 6. [Evaluare](#6-evaluare)
 7. [Sentiment de piață](#7-sentiment-de-piață)
-8. [Excepții pe tip de companie](#8-excepții-pe-tip-de-companie)
-9. [Secțiunile fără semafor](#9-secțiunile-fără-semafor) — management, structura de vot, riscuri
+8. [Expunerea la lume](#8-expunerea-la-lume)
+9. [Excepții pe tip de companie](#9-excepții-pe-tip-de-companie)
+10. [Secțiunile fără semafor](#10-secțiunile-fără-semafor) — management, structura de vot, riscuri
 
 ---
 
@@ -129,7 +130,7 @@ Un multiplu izolat nu spune nimic. Pune un tabel scurt cu 2-3 competitori direc�
 
 E pilonul cu cea mai slabă valoare predictivă din toate. Notează-l, dar spune explicit că nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum.
 
-- 🟢 — deținere instituțională peste 60%, capital instituțional intrat semnificativ mai mare decât cel ieșit în ultimele 12 luni, short interest sub 3% din float, prezență în indici mari.
+- 🟢 — capital instituțional intrat semnificativ mai mare decât cel ieșit în ultimele 12 luni, short interest sub 3% din float, prezență în indici mari. Nivelul deținerii instituționale e context, nu criteriu.
 - 🟡 — situație mixtă: intrări și ieșiri aproximativ egale, short interest 3–10%.
 - 🔴 — short interest peste 10% din float, ieșiri instituționale nete clare, sau risc de excludere din indici.
 
@@ -149,7 +150,35 @@ Raportul intrări/ieșiri de pe MarketBeat e mai informativ decât procentul de 
 
 ---
 
-## 8. Excepții pe tip de companie
+## 8. Expunerea la lume
+
+Pilonii 1–7 judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează — dobânzi, recesiuni, tarife, alegeri, reglementare.
+
+Distincția care ține pilonul onest: **expunerea se notează, vremea nu.** Unde sunt dobânzile azi sau ce sector e la modă se schimbă săptămânal și n-ar trece testul „aceleași culori indiferent de zi". Cât de sensibilă e compania la aceste mișcări e o proprietate a afacerii, aproape la fel de stabilă ca moat-ul — asta primește semafor. Vremea de azi apare în text, datată (secțiunea 1 din raport și textul acestei secțiuni), dar nu mută niciodată culoarea.
+
+Evaluează patru expuneri, pe rând, ca la moat:
+
+| Expunere | Întrebarea care o testează | Steag dacă… |
+|---|---|---|
+| **Dobânzi** (sensibilitatea evaluării) | Cât din prețul de azi e profit din anii îndepărtați? | Forward P/E mult peste piață (orientativ ~35+) **sau** FCF negativ azi |
+| **Ciclu economic** | Ce pățește cererea într-o recesiune — clienții amână, reduc, sau nu pot renunța? | Cerere discreționară care dispare în recesiuni |
+| **Geografie și politică** | Cât din venituri depinde de o singură țară sau de un lanț de aprovizionare sensibil politic? | O țară/regiune peste ~40% din venituri, sau dependență de tarife / licențe de export |
+| **Reglementare** | Există o acțiune concretă, cu nume, în curs — antitrust, o lege în dezbatere, o autorizație în pericol? | O amenințare activă, numită, cu impact plauzibil material |
+
+**Semafor:**
+- 🟢 — niciun steag: cerere care rezistă în recesiune, evaluare care nu depinde de profituri îndepărtate, venituri distribuite geografic, nicio amenințare regulatorie activă.
+- 🟡 — un steag (sau două parțiale).
+- 🔴 — două sau mai multe steaguri, sau o singură amenințare regulatorie concretă cu impact material.
+
+**De ce contează steagul de dobânzi cel mai mult la companiile de creștere:** prețul unei acțiuni cu P/E 60 e, în cea mai mare parte, profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi — și multiplul se comprimă. Compania poate livra exact ce a promis și acțiunea tot să scadă serios. Mecanismul e în glosar la *comprimarea multiplilor*; secțiunea 11 din raport îl predă cu cifrele companiei.
+
+**Expunere mare nu înseamnă companie proastă.** O companie poate avea 🔴 aici și verde la toate celelalte — o corabie excelentă pe o mare agitată. Lecția pentru cititor nu e „evit-o", ci „dimensionează poziția ca să suporți valurile": volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală.
+
+**Nu dubla riscurile.** Ce e sistematic (dobânzi, ciclu, geopolitică) stă aici; ce e specific companiei (concentrarea pe trei clienți, un produs nelansat) stă la Riscuri. Pentru companiile ciclice, citește întâi [excepțiile](#9-excepții-pe-tip-de-companie) — la ele ciclul e regula jocului, nu un steag surprinzător.
+
+---
+
+## 9. Excepții pe tip de companie
 
 Aplicarea mecanică a grilei dă rezultate greșite pe anumite modele de business. Verifică întâi în ce categorie intră compania:
 
@@ -163,7 +192,7 @@ Aplicarea mecanică a grilei dă rezultate greșite pe anumite modele de busines
 
 ---
 
-## 9. Secțiunile fără semafor
+## 10. Secțiunile fără semafor
 
 Două secțiuni din raport nu primesc culoare, pentru că nu se pot reduce la un prag. Nu înseamnă că sunt mai puțin importante.
 
