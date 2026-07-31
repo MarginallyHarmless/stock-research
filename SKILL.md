@@ -41,11 +41,15 @@ Pentru un ticker american `{T}` (scris cu litere mici în URL):
 | 8 | `marketbeat.com/stocks/{BURSA}/{T}/insider-trades/` | Tranzacțiile insiderilor, nominal: cine, ce funcție, cumpărare sau vânzare, câte acțiuni, ce dată |
 | 9 | `finviz.com/quote.ashx?t=SPY` | Performanța S&P 500 pe aceleași orizonturi — **etalonul** față de care compari acțiunea |
 | 10 | `stockanalysis.com/stocks/{T}/financials/ratios/` | Multipli istorici pe an (P/E, P/FCF, EV/EBITDA) — media proprie pe 5 ani, pentru secțiunea de evaluare |
-| 11 | `finviz.com/groups.ashx` | Performanța sectoarelor — sectorul companiei vs. piață, pentru secțiunile 1 și 11 |
+| 11 | `finviz.com/groups.ashx?g=sector&v=140` | Performanța sectoarelor — sectorul companiei vs. piață, pentru secțiunile 1 și 11 |
 
 `{BURSA}` e `NASDAQ` sau `NYSE`, cu majuscule, iar tickerul tot cu majuscule. Dacă nu știi bursa, pune varianta cea mai probabilă în primul val de fetch-uri și reia doar aceste două URL-uri cu cealaltă dacă dau 404 — bursa reală o afli oricum din finviz în același val.
 
 Fetch-ul 9 pare o risipă, dar e cea mai importantă cifră din raport pentru cineva care învață: fără ea nu poate ști dacă acțiunea a mers *bine* sau doar a mers odată cu piața. Vezi explicația din secțiunea 1 a raportului.
+
+Bursele non-americane, ETF-uri, surse de rezervă, capcane de interpretare și ce faci când o pagină dă 404: citește `references/data-sources.md`.
+
+Dacă utilizatorul a cerut explicit doar un pilon (de exemplu „cum stă Palantir cu datoriile?"), scoate doar paginile relevante și livrează secțiunea aceea, nu tot raportul.
 
 ### Valul doi — competitori și context
 
@@ -56,10 +60,6 @@ După ce primul val ți-a dat industria, trimite în paralel:
 - **WebSearch, politică și reglementare** — `{compania} antitrust / tarife / export controls / reglementare`, limitat la ultimele luni. În raport intră doar ce e concret și numit.
 
 Pentru toate trei: știrile și căutările sunt narativ, nu sursă de cifre; fiecare afirmație macro primește data ei; iar despre piață și dobânzi descrii unde *sunt*, niciodată unde *vor merge* — prognoza e interzisă la fel ca prețul-țintă.
-
-Bursele non-americane, ETF-uri, surse de rezervă, capcane de interpretare și ce faci când o pagină dă 404: citește `references/data-sources.md`.
-
-Dacă utilizatorul a cerut explicit doar un pilon (de exemplu „cum stă Palantir cu datoriile?"), scoate doar paginile relevante și livrează secțiunea aceea, nu tot raportul.
 
 ## Faza 3 — Verifică înainte de a scrie
 
@@ -115,7 +115,7 @@ Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț si
 ## 13. Ce ai învățat aici + întrebări pentru data viitoare
 ```
 
-**Secțiunea 1 e cea care răspunde direct la „ce se întâmplă cu ea".** Pune-o prima, pentru că e întrebarea din capul omului. Conține patru lucruri:
+**Secțiunea 1 e cea care răspunde direct la „ce se întâmplă cu ea".** Pune-o prima, pentru că e întrebarea din capul omului. Conține cinci lucruri:
 
 1. **Unde e prețul** în intervalul de 52 de săptămâni — aproape de maxim, la mijloc, sau prăbușit.
 2. **Randamentul vs. S&P 500** pe YTD, 1 an, 3 ani și 5 ani, în tabel, unul lângă altul. Asta e comparația care lipsește din 99% din analizele pe care le citește un începător, și e singura care contează cu adevărat: dacă acțiunea a făcut +12% într-un an în care indicele a făcut +18%, investitorul a pierdut bani față de alternativa care nu cerea nicio muncă. Spune-o direct când se întâmplă.
@@ -125,7 +125,7 @@ Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț si
 
 Secțiunea asta **nu primește semafor**. Performanța trecută a prețului nu spune nimic despre calitatea afacerii, iar un verde acolo ar sugera exact confuzia pe care skill-ul încearcă s-o prevină.
 
-**Secțiunea 11 pune compania în contextul pe care nu-l controlează.** Patru expuneri, judecate pe rând ca la moat: sensibilitatea evaluării la dobânzi (câtă parte din preț e profit din anii îndepărtați — aici predai *comprimarea multiplilor*, cu forward P/E-ul companiei ca exemplu), ciclicitatea cererii, geografia veniturilor (tarife, licențe de export, concentrare pe o țară) și suprafața de reglementare (doar acțiuni concrete, numite). Steagurile și pragurile sunt în `references/scorecard.md`; formulările conceptelor, în glosar. Semaforul notează expunerea — o proprietate stabilă a afacerii — nu vremea de azi; expunere mare nu înseamnă companie proastă, ci volatilitate pe care cititorul trebuie să știe dinainte că o poate duce. Ce e specific companiei rămâne la Riscuri (secțiunea 12); aici stă doar ce e sistematic.
+**Secțiunea 11 pune compania în contextul pe care nu-l controlează.** Patru expuneri, judecate pe rând ca la moat: sensibilitatea evaluării la dobânzi (rândul „Dobânzi") (câtă parte din preț e profit din anii îndepărtați — aici predai *comprimarea multiplilor*, cu forward P/E-ul companiei ca exemplu), ciclicitatea cererii („Ciclu economic"), geografia veniturilor („Geografie și politică") (tarife, licențe de export, concentrare pe o țară) și suprafața de reglementare („Reglementare") (doar acțiuni concrete, numite). Steagurile și pragurile sunt în `references/scorecard.md`; formulările conceptelor, în glosar. Semaforul notează expunerea — o proprietate stabilă a afacerii — nu vremea de azi; expunere mare nu înseamnă companie proastă, ci volatilitate pe care cititorul trebuie să știe dinainte că o poate duce. Ce e specific companiei rămâne la Riscuri (secțiunea 12); aici stă doar ce e sistematic.
 
 Ce trebuie să conțină fiecare secțiune, ce praguri decid culoarea semaforului și explicațiile educaționale gata scrise:
 
@@ -157,7 +157,7 @@ Secțiunea 13 nu e un rezumat — e partea care rămâne. Enumeră 2-3 concepte 
 
 Când utilizatorul cere o comparație („X sau Y?", „compară X cu Y"), fă **un singur raport**, nu două:
 
-- Rulează Faza 2 pentru ambele companii într-un singur val paralel (sursele comune — SPY, sectoare, dobânzi — o singură dată).
+- Rulează valul unu din Faza 2 pentru ambele companii într-un singur mesaj paralel, apoi valul doi la fel (sursele comune — SPY, sectoare, dobânzi — o singură dată).
 - Scorecard-ul primește două coloane de semafoare, una pe companie.
 - Fiecare secțiune discută ambele companii, una lângă alta, pe aceleași cifre. Graficele `lines` pot purta ambele serii (motorul suportă trei); randamentul față de indice primește câte un bloc `compare` pe companie.
 - Finalul nu e un verdict, ci **„diferențele care contează"**: 3–4 contraste concrete (cine se diluează, cui îi urcă marja, cine depinde de o țară sau de un client). „X e mai bună" nu apare — regula fără recomandări rămâne.

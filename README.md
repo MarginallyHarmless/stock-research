@@ -13,7 +13,7 @@ Un raport pe 13 secțiuni, în română, cu termenii tehnici păstrați în engl
 | # | Secțiune | Răspunde la |
 |---|---|---|
 | — | Scorecard | Cum stă pe cei opt piloni, cu semafoare |
-| 1 | Unde se află acțiunea acum | Poziția în interval, randamentul **față de S&P 500**, volatilitatea, ce a mutat prețul |
+| 1 | Unde se află acțiunea acum | Poziția în interval, randamentul **față de S&P 500**, volatilitatea, ce a mutat prețul, vremea pieței |
 | 2 | Ce face compania | Cine plătește, pentru ce, de unde vin banii |
 | 3 | Moat | Cele cinci tipuri de avantaj competitiv, evaluate pe rând |
 | 4 | Free cash flow | Generează cash real sau doar profit contabil |

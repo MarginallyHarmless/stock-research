@@ -49,7 +49,7 @@ Dacă un competitor relevant e listat în afara SUA, folosește varianta `stocka
 
 | URL | Ce conține |
 |---|---|
-| `finviz.com/groups.ashx` | Performanța sectoarelor (zi, lună, YTD…) — sectorul companiei față de piață |
+| `finviz.com/groups.ashx?g=sector&v=140` | Performanța sectoarelor (zi, lună, YTD…) — sectorul companiei față de piață — vizualizarea implicită nu expune datele la fetch; folosește parametrii |
 | `fred.stlouisfed.org/series/DGS10` | Dobânda obligațiunilor americane pe 10 ani — rezervă, dacă WebSearch nu dă o cifră datată |
 
 Sectorul companiei îl iei din câmpul „Sector" de pe pagina ei finviz (fetch-ul 6), ca să alegi rândul corect din tabelul de grupuri. Dacă pagina de grupuri nu se lasă citită, ia performanța sectorului prin WebSearch și spune în raport de unde vine cifra.

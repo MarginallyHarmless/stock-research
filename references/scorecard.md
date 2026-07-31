@@ -167,10 +167,12 @@ Evaluează patru expuneri, pe rând, ca la moat:
 
 **Semafor:**
 - 🟢 — niciun steag: cerere care rezistă în recesiune, evaluare care nu depinde de profituri îndepărtate, venituri distribuite geografic, nicio amenințare regulatorie activă.
-- 🟡 — un steag (sau două parțiale).
-- 🔴 — două sau mai multe steaguri, sau o singură amenințare regulatorie concretă cu impact material.
+- 🟡 — un steag (sau două parțiale) — cu excepția steagului de reglementare, care nu stă la galben: dacă e bifat, duce direct la 🔴.
+- 🔴 — două sau mai multe steaguri, sau doar steagul de reglementare (o amenințare activă, numită, cu impact plauzibil material).
 
-**De ce contează steagul de dobânzi cel mai mult la companiile de creștere:** prețul unei acțiuni cu P/E 60 e, în cea mai mare parte, profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi — și multiplul se comprimă. Compania poate livra exact ce a promis și acțiunea tot să scadă serios. Mecanismul e în glosar la *comprimarea multiplilor*; secțiunea 11 din raport îl predă cu cifrele companiei.
+Pe rândurile din raportul HTML, starea urmează steagul: fără steag → Solid (verde), steag parțial → Atenție (galben), steag → Risc (roșu); starea neutră („Absent"/gri) e doar pentru ce nu s-a putut verifica din surse.
+
+**De ce contează steagul de dobânzi cel mai mult la companiile de creștere:** prețul unei acțiuni cu P/E 60 e, în cea mai mare parte, profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi — și multiplul se comprimă. Compania poate livra exact ce a promis și acțiunea tot să scadă serios. Mecanismul e în glosar la *comprimarea multiplilor*; secțiunea 11 din raport îl predă cu cifrele companiei. Sensibilitatea bilanțului la refinanțare nu intră în acest steag — e treaba pilonului 3 (cash vs. datorii); alt „Nu dubla".
 
 **Expunere mare nu înseamnă companie proastă.** O companie poate avea 🔴 aici și verde la toate celelalte — o corabie excelentă pe o mare agitată. Lecția pentru cititor nu e „evit-o", ci „dimensionează poziția ca să suporți valurile": volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală.
 
@@ -210,10 +212,10 @@ Semnale că există structură duală: compania are mai multe tickere listate (d
 
 Nu enumera riscuri generice („concurența", „reglementarea") — se aplică la orice companie și nu ajută pe nimeni. Caută riscurile specifice acestei afaceri, în ordinea asta:
 
-1. **Concentrarea veniturilor** — cât din vânzări vine de la cei mai mari câțiva clienți, de la un singur produs, sau dintr-o singură țară? O companie unde trei clienți fac 40% din venituri e o companie fragilă, indiferent cât de bune arată cifrele. Datele apar în segmentele de pe pagina `/company/` și, complet, în secțiunea *Risk Factors* din 10-K.
-2. **Dependența de un ciclu** — cererea vine dintr-un val care se poate opri (construcții, semiconductoare, materii prime, un trend de investiții)?
-3. **Riscul de disrupție** — există o tehnologie sau un model de business care poate face produsul irelevant în 5 ani?
-4. **Riscul de reglementare**, dar concret: ce lege anume, în ce jurisdicție, cu ce impact estimat.
-5. **Riscul de execuție** — compania depinde de o singură persoană, de o integrare dificilă după o achiziție, sau de un produs care încă nu s-a lansat?
+1. **Concentrarea veniturilor** — cât din vânzări vine de la cei mai mari câțiva clienți sau de la un singur produs? O companie unde trei clienți fac 40% din venituri e o companie fragilă, indiferent cât de bune arată cifrele. Datele apar în segmentele de pe pagina `/company/` și, complet, în secțiunea *Risk Factors* din 10-K.
+2. **Riscul de disrupție** — există o tehnologie sau un model de business care poate face produsul irelevant în 5 ani?
+3. **Riscul de execuție** — compania depinde de o singură persoană, de o integrare dificilă după o achiziție, sau de un produs care încă nu s-a lansat?
+
+Ciclul, geografia, politica și reglementarea nu se enumeră aici — se judecă la [Expunerea la lume](#8-expunerea-la-lume). La Riscuri stă doar ce e specific acestei companii.
 
 Închide secțiunea cu **„ce ar invalida teza"**: două-trei evenimente observabile care ar însemna că povestea nu mai ține — o marjă brută sub un anumit prag, pierderea unui client mare, un al doilea trimestru consecutiv de venituri în scădere. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.
