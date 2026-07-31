@@ -55,7 +55,11 @@ Dacă utilizatorul a cerut explicit doar un pilon (de exemplu „cum stă Palant
 
 După ce primul val ți-a dat industria, trimite în paralel:
 
-- **2–3 competitori direcți** — `stockanalysis.com/stocks/{peer}/statistics/` pentru fiecare. Alege competitori reali din aceeași nișă; alegerea e judecata ta, dar cifrele lor vin doar din paginile citite — tabelul comparativ din secțiunea 8 nu se umple din memorie.
+- **2–3 competitori direcți** — `stockanalysis.com/stocks/{peer}/statistics/` pentru fiecare. Alege competitori reali din aceeași nișă; alegerea e judecata ta, dar cifrele lor vin doar din paginile citite — tabelul comparativ din secțiunea 8 nu se umple din memorie. Patru reguli la alegere:
+  - **Verifică întâi, printr-un WebSearch scurt, că lista e actuală.** „Competitorul clasic" din memoria ta poate fi între timp în colaps sau irelevant, iar comparația cu un muribund flatează compania fără să informeze. Dacă îl păstrezi tocmai pentru lecție — poveste de avertisment — spune asta explicit în proză.
+  - **Preferă peers cu multipli care există.** Un rând umplut cu n/a nu învață pe nimeni nimic.
+  - **Dacă cel mai apropiat competitor e privat** (fără ticker — un Databricks, un SpaceX), numele lui apare în proza secțiunii 8. Lipsa din tabel nu-l șterge din realitate.
+  - **Dacă compania are două afaceri distincte** (guvern + comercial, hardware + servicii), fiecare nișă primește cel puțin un peer — altfel tabelul compară doar jumătate de companie.
 - **WebSearch, dobânzi** — nivelul dobânzii americane pe 10 ani azi și direcția ei pe ultimele ~12 luni, cu dată.
 - **WebSearch, politică și reglementare** — `{compania} antitrust / tarife / export controls / reglementare`, limitat la ultimele luni. În raport intră doar ce e concret și numit.
 
