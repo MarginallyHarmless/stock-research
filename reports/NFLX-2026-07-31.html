@@ -1,0 +1,1085 @@
+<meta charset="utf-8">
+<title>NFLX — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule)}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+.grp{position:absolute;inset:0;display:flex;gap:2px}
+.grp .gc{flex:1;position:relative}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>NFLX</h1>
+    <span class="co">Netflix, Inc. · NASDAQ</span>
+  </div>
+  <div class="px">
+    <div class="v">71,46 $</div>
+    <div class="d down">−2,34% astăzi</div>
+  </div>
+  <div class="chips">
+    <span class="chip">Communication Services · <b>Entertainment</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq</b></span>
+    <span class="chip">Capitalizare <b>297,5 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>31 decembrie</b></span>
+    <span class="chip">Ultima raportare <b>16 iul. 2026</b></span>
+    <span class="chip">Angajați <b>16.000</b></span>
+    <span class="chip">IPO <b>mai 2002</b></span>
+  </div>
+</header>
+
+<!-- ══ NOTA SPLIT ══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="concept">
+    <div class="h">DE CITIT ÎNAINTE DE ORICE CIFRĂ</div>
+    <p>Prețul de <strong>71 $</strong> nu înseamnă că acțiunea s-a prăbușit de la 1.200 $.
+    Netflix a făcut un <strong>split 10-pentru-1</strong> pe 17 noiembrie 2025: fiecare acțiune
+    a devenit zece, iar prețul s-a împărțit la zece. Valoarea deținerii nu s-a schimbat cu nimic.
+    Toate cifrele istorice din acest raport sunt ajustate pentru split.</p>
+    <p><strong>Lecția generală:</strong> prețul pe acțiune nu spune nimic despre cât e de scumpă
+    o companie. O acțiune de 20 $ nu e „ieftină" și una de 800 $ nu e „scumpă". Capitalizarea
+    și multiplii spun asta.</p>
+  </div>
+</section>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei șapte piloni</h2></div>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Avantaj de scară real, dovedit în marje — dar clientul poate pleca mâine</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">11,2 mld $ TTM, în creștere de patru ani; marjă FCF 23%</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Datorie netă ~0,5× EBITDA — practic irelevantă</span>
+    </div>
+    <div class="row">
+      <span class="k">Buyback vs. diluție</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Acțiunile scad real, ~1,5%/an — dar au răscumpărat la maxime</span>
+    </div>
+    <div class="row">
+      <span class="k">Creștere și marje</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Marjă brută 41,6% → 49,1% în cinci ani; creșterea însă încetinește</span>
+    </div>
+    <div class="row">
+      <span class="k">Evaluare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">Multiplu înjumătățit într-un an, dar discountul are o cauză reală</span>
+    </div>
+    <div class="row">
+      <span class="k">Sentiment de piață</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Short mic, indici mari — deși prețul a fost masacrat în 12 luni</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:10.4%"></div>
+        <div class="now" style="left:10.4%">71,46</div>
+      </div>
+      <div class="ends"><span>min 65,08</span><span>max 126,71</span></div>
+    </div>
+  </figure>
+
+  <p style="margin-top:26px">Acțiunea e la <strong>10% deasupra minimului</strong> pe un an și cu
+  <strong>43,6% sub maxim</strong>. E jos, nu la mijloc.</p>
+
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"a":"NFLX","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":-23.78,"b":9.27},
+             {"label":"1 an","a":-38.36,"b":17.89},
+             {"label":"3 ani","a":62.80,"b":62.77},
+             {"label":"5 ani","a":38.08,"b":69.93},
+             {"label":"10 ani","a":683.18,"b":243.20}]}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
+    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă
+    puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". Fără această
+    comparație, un investitor poate pierde bani ani la rând fără să-și dea seama.</p>
+    <p><strong>Ce spune tabelul, direct:</strong> cine a cumpărat acum un an a pierdut 38% într-un
+    an în care indicele a făcut +18% — o diferență de 56 de puncte procentuale. Pe 3 ani e
+    <strong>exact la egalitate</strong> cu indicele. Pe 5 ani e <strong>în urma</strong> lui.
+    Doar pe 10 ani povestea e spectaculoasă. O companie poate fi excelentă și totuși să nu bată
+    indicele ani la rând, dacă ai intrat la un preț prea mare.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">1,52</div><div class="s">amplifică piața de ~1,5×</div></div>
+    <div class="stat"><div class="l">Volatilitate zilnică</div><div class="v">~3,3%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 €</div><div class="v down">−1.520 €</div><div class="s">la o corecție de piață de 10%</div></div>
+  </div>
+
+  <div class="concept">
+    <div class="h">LIMITA CONCEPTULUI DE BETA</div>
+    <p>Beta măsoară doar mișcarea <em>odată cu piața</em>, nu riscul specific companiei. În ultimul
+    an piața a urcat 18% și Netflix a scăzut 38% — beta nu prezicea asta. Riscul mare la o singură
+    acțiune nu e că piața cade, ci că <strong>acea companie</strong> dezamăgește.</p>
+  </div>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Ce a mutat prețul</h3>
+  <p>Pe <strong>16 iulie 2026</strong> Netflix a raportat Q2: venituri <strong>12,56 mld $</strong>
+  (+13% față de anul trecut, record trimestrial), profit net ~3,4 mld $ (+9%), EPS 0,80 $. Cifre
+  bune în valoare absolută. Acțiunea a căzut <strong>~9%</strong> în after-hours, atingând minimul
+  de 52 de săptămâni și cel mai jos nivel din septembrie 2024.</p>
+  <p>Cauza nu a fost trimestrul, ci <strong>estimările pentru trimestrul următor</strong>: guidance
+  Q3 de 12,86 mld $ față de consensul de ~13 mld $, EPS 0,82 $ față de 0,84 $ așteptat — plus
+  reducerea informațiilor publicate despre viewership. Netflix și-a îngustat estimarea pe tot 2026
+  la <strong>51,0–51,4 mld $</strong> (creștere 13–14%), menținând ținta de marjă operațională
+  de <strong>31,5%</strong>.</p>
+
+  <div class="concept">
+    <div class="h">BEAT, MISS ȘI GUIDANCE — CAPCANA CARE DERUTEAZĂ CEL MAI TARE</div>
+    <p>Piața nu tranzacționează trecutul, ci <strong>diferența dintre ce era deja așteptat și ce
+    s-a întâmplat</strong>. Prețul de dinainte de raportare conținea deja așteptarea de creștere.
+    Când compania a spus „trimestrul viitor va fi puțin mai slab decât credeați", prețul s-a
+    ajustat la noua realitate. Rezultatele au fost bune — doar că nu suficient de bune față de ce
+    se plătise deja. Odată ce înțelegi asta, jumătate din mișcările „inexplicabile" de la bursă
+    capătă sens.</p>
+  </div>
+
+  <p>Ultimele mișcări de business: acord de licențiere pentru <em>The Walking Dead</em> (~500 mil $),
+  200 mil $ pentru drepturile Cupei Mondiale feminine în SUA, parteneriat cu Flipkart (Walmart) în
+  India. Baird a tăiat ținta de preț de la 120 $ la 90 $, păstrând „Outperform".</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">02</span><h2>Ce face compania, pe înțelesul oricui</h2></div>
+  <p>Netflix vinde <strong>un abonament lunar</strong> pentru acces la filme, seriale, documentare,
+  jocuri și, tot mai mult, evenimente live. Modelul e simplu și frumos: încasezi lunar, în avans,
+  de la peste 300 de milioane de gospodării, în circa 190 de țări. Banii vin din trei surse:</p>
+  <ul class="list">
+    <li><b>Abonamente</b> — partea covârșitoare a veniturilor.</li>
+    <li><b>Publicitate</b> — planul ieftin cu reclame, lansat în 2022. Crește cel mai repede și are
+      marje mai bune, pentru că vinzi același conținut de două ori: o dată abonatului, o dată
+      advertiserului.</li>
+    <li><b>Extra membri</b> — taxa pentru partajarea contului în afara gospodăriei.</li>
+  </ul>
+  <p style="margin-top:14px"><strong>Defalcarea pe regiuni (UCAN / EMEA / LATAM / APAC): N/A — nu
+  apare pe sursele gratuite folosite aici.</strong> O găsești în raportul anual 10-K de pe SEC
+  EDGAR. Merită căutată: spune de unde vine creșterea și cât e expunerea valutară.</p>
+
+  <div class="concept">
+    <div class="h">CUM SE CITEȘTE CORECT BILANȚUL LOR</div>
+    <p>La Netflix, „capex"-ul e minuscul (688 mil $ în 2025) pentru că serverele stau la Amazon.
+    <strong>Adevărata investiție e conținutul — circa 18 mld $/an — și ea trece prin cash flow-ul
+    operațional</strong>, nu prin capex. Asta face ca free cash flow-ul lor să fie o cifră
+    neobișnuit de onestă: banii pentru filme au ieșit deja din cont înainte să ajungem la FCF.</p>
+  </div>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>Vine de la șanțul cu apă din jurul unui castel. E motivul pentru care un concurent cu bani
+    și oameni buni tot nu-ți poate lua clienții. Fără moat, orice profit bun atrage concurență,
+    iar concurența macină prețurile până când profitul dispare — asta se întâmplă în majoritatea
+    industriilor.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Absent</span>
+      <span class="t">Anulezi abonamentul în două clicuri, fără penalizare, fără date de migrat</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Slab</span>
+      <span class="t">Un abonat nou nu face serviciul mai bun pentru tine. Există doar un flywheel de scară: mai mulți abonați → buget mai mare → conținut mai bun</span></div>
+    <div class="row"><span class="k">Avantaj de cost / scară</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Cel mai mare buget de conținut din lume, împărțit la peste 300 mil de gospodării. Costul pe abonat e structural cel mai mic din industrie</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Real</span>
+      <span class="t">Biblioteca proprie de originale nu poate fi retrasă de un studio partener; plus algoritmul de recomandare alimentat de date unice</span></div>
+    <div class="row"><span class="k">Brand</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Mediu</span>
+      <span class="t">„Netflix" a devenit verb — dar brandul e cel mai fragil tip de moat, și în streaming contează mai puțin decât „ce se dă diseară"</span></div>
+  </div>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Dovada în cifre</h3>
+  <p>Poveștile despre moat le spune orice companie în raportul anual. <strong>Marja brută e
+  testul:</strong> dacă poate ține prețuri mari ani la rând fără să piardă clienți, moat-ul e real.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Marjă brută FY2021</div><div class="v">41,6%</div><div class="s">punctul de plecare</div></div>
+    <div class="stat"><div class="l">Marjă brută TTM</div><div class="v up">49,1%</div><div class="s">+7,5 pp în trei ani</div></div>
+    <div class="stat"><div class="l">ROIC</div><div class="v up">~31%</div><div class="s">prag pentru moat real: 15%</div></div>
+  </div>
+
+  <p><strong>Verdict: moat solid — dar cu o slăbiciune pe care trebuie s-o știi.</strong> Netflix
+  are avantaj de scară și bibliotecă proprie, dovedite în marje. Totuși <strong>costurile de
+  schimbare sunt zero</strong>, ceea ce e neobișnuit pentru o companie cu semafor verde la moat.
+  Toată teza depinde de churn (rata de anulare) — și exact acolo compania a redus transparența.
+  Vezi secțiunea 11.</p>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+  <div class="concept">
+    <div class="h">CE E FREE CASH FLOW</div>
+    <p>Banii care rămân în cont după ce compania și-a plătit toate cheltuielile <em>și</em>
+    investițiile. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști
+    veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar.</p>
+    <p><strong>Analogia:</strong> profitul e ce spune contabilul că ai câștigat; free cash flow-ul
+    e ce arată extrasul de cont.</p>
+  </div>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+     "series":[{"name":"FCF","values":[-0.13,1.62,6.93,6.92,9.46,11.15]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th>mld $</th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>TTM</th></tr></thead>
+    <tbody>
+      <tr><td>Cash flow operațional</td><td>0,39</td><td>2,03</td><td>7,27</td><td>7,36</td><td>10,15</td><td>11,97</td></tr>
+      <tr><td>Capex</td><td>−0,52</td><td>−0,41</td><td>−0,35</td><td>−0,44</td><td>−0,69</td><td>−0,82</td></tr>
+      <tr class="me"><td>Free cash flow</td><td>−0,13</td><td>1,62</td><td>6,93</td><td>6,92</td><td>9,46</td><td>11,15</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:12px;color:var(--ink-3)">Verificare: 10.149 − 688 = 9.461 mil $ pentru FY2025.
+  Se potrivește exact cu FCF-ul raportat.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Marjă FCF</div><div class="v up">23,1%</div><div class="s">prag pentru verde: 10%</div></div>
+    <div class="stat"><div class="l">Ani pozitivi din 5</div><div class="v">4 / 5</div><div class="s">singurul negativ: FY2021</div></div>
+    <div class="stat"><div class="l">Creștere FCF TTM</div><div class="v up">+31,2%</div><div class="s">față de anul anterior</div></div>
+  </div>
+
+  <p><strong>Ce înseamnă:</strong> transformarea din 2021 e una dintre cele mai clare din bursă.
+  Netflix a ars cash timp de un deceniu ca să construiască biblioteca de conținut, finanțându-se
+  din datorie. Din 2022 a trecut pe pozitiv și a crescut FCF-ul de la −0,1 la 11,2 mld $ în cinci
+  ani. Modelul s-a maturizat: cheltuiala pe conținut s-a stabilizat, veniturile au continuat să
+  crească, iar diferența cade în cont.</p>
+  <p>O nuanță importantă: <strong>profitul net TTM (13,65 mld $) e mai mare decât FCF-ul
+  (11,15 mld $)</strong>, ceea ce e neobișnuit — de regulă e invers. Motivul e la secțiunea 8.
+  Când profitul și cash-ul spun lucruri diferite, crede cash-ul.</p>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ</div>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență.
+    O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic. Una îndatorată
+    e forțată să ia decizii proaste exact în momentul cel mai prost.</p>
+  </div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția financiară curentă</b><span class="unit">mld USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Cash total</span>
+        <span class="t"><span class="f" style="width:54.8%;background:var(--accent)"></span></span>
+        <span class="v">9,13</span></div>
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
+        <span class="v">16,65</span></div>
+    </div>
+  </figure>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Datorie netă</div><div class="v">−7,52 mld</div><div class="s">datorie &gt; cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v up">~0,5×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Debt / Equity</div><div class="v">0,55</div><div class="s">confortabil</div></div>
+    <div class="stat"><div class="l">Current ratio</div><div class="v">1,14</div><div class="s">scăzut, dar explicabil</div></div>
+  </div>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Datorie netă pe an fiscal — scade constant</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25"],
+     "series":[{"name":"Datorie netă","values":[-9.37,-8.30,-7.41,-6.00,-5.40]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+
+  <p><strong>Ce înseamnă:</strong> la 0,5× EBITDA, dacă Netflix ar folosi tot profitul operațional
+  exclusiv pentru datorii, ar scăpa de ele în <strong>șase luni</strong>. Pragul de risc e 3×.
+  Datoria aici e practic irelevantă — e menținută pentru că e ieftină și oferă flexibilitate, nu
+  pentru că e nevoie de ea. Datoria netă a scăzut an de an, de la 9,4 la 5,4 mld $, în timp ce
+  EBITDA aproape s-a triplat.</p>
+  <p>Singura cifră care nu strălucește e <strong>current ratio 1,14</strong> — activele curente
+  acoperă datoriile curente de doar 1,14 ori. E scăzut, dar normal pentru Netflix: are obligații
+  mari pe termen scurt legate de conținut, contrabalansate de un flux de încasări lunare foarte
+  previzibil de la 300 de milioane de abonați care plătesc în avans.</p>
+</section>
+
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ — ȘI CAPCANA</div>
+    <p>Nu suma cheltuită pe răscumpărări, ci <strong>evoluția numărului de acțiuni</strong>. Multe
+    companii anunță buyback-uri de miliarde, dar în același an emit acțiuni noi pentru angajați de
+    aproape aceeași valoare. Numărul total rămâne plat: au cheltuit miliarde și felia ta nu a
+    crescut cu nimic.</p>
+    <p><strong>Testul: numărul de acțiuni pe 3–5 ani, nu suma anunțată.</strong></p>
+  </div>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație (ajustat pentru split)</b><span class="unit">miliarde</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","Acum"],
+     "series":[{"name":"Acțiuni în circulație","values":[4.554,4.517,4.495,4.395,4.342,4.160]}]}
+    </script>
+  </figure>
+  <p style="font-size:12px;color:var(--ink-3)">Valorile pe ani fiscali sunt calculate de mine din
+  capitaluri proprii ÷ valoare contabilă pe acțiune. Cifra „Acum" vine direct de pe pagina de
+  statistici (4,16 mld, variație anuală −1,48%).</p>
+
+  <p><strong>Netflix trece testul.</strong> Numărul de acțiuni scade real, în fiecare an, cu circa
+  1,5% pe an. Pe cinci ani, felia ta a crescut cu ~8–9% fără să faci nimic. Nu e buyback cosmetic.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Cheltuit pe buyback (TTM)</div><div class="v">9,92 mld</div><div class="s">acoperit din FCF de 11,15 mld</div></div>
+    <div class="stat"><div class="l">Randament buyback</div><div class="v up">3,33%</div><div class="s">pe an</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">nu plătește dividend</div></div>
+    <div class="stat"><div class="l">Randament total</div><div class="v up">3,33%</div><div class="s">buyback + dividend</div></div>
+  </div>
+
+  <div class="concept">
+    <div class="h">NU CONFUNDA „FĂRĂ DIVIDEND" CU „NU-MI DĂ NIMIC"</div>
+    <p>Un începător compară instinctiv doar dividendele și concluzionează că o companie fără
+    dividend nu returnează nimic. Fals. Netflix îți returnează 3,3% pe an prin răscumpărări —
+    economic aproape identic cu un dividend de 3,3%. Diferența practică: dividendul se impozitează
+    în anul în care îl primești, răscumpărarea abia când vinzi.</p>
+  </div>
+
+  <div class="concept" style="border-left-color:var(--crit);background:rgba(208,59,59,.06)">
+    <div class="h" style="color:var(--crit)">PARTEA NEPLĂCUTĂ</div>
+    <p>În FY2025 Netflix a cheltuit <strong>9,1 mld $</strong> răscumpărând acțiuni, într-un an în
+    care acțiunea a atins <strong>126,71 $</strong>. Azi e la <strong>71,46 $</strong>. Au cheltuit
+    banii acționarilor cumpărând la prețuri cu 40–70% peste cel de acum.</p>
+    <p>Nu e rea-credință — nimeni nu ghicește vârfurile. Dar e ilustrarea perfectă a principiului:
+    <strong>buyback-ul e bun doar dacă acțiunile sunt cumpărate la un preț rezonabil.</strong>
+    O companie care cumpără la maxime cheltuie prost banii acționarilor, exact ca oricine altcineva.</p>
+  </div>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
+    <p>Veniturile pot fi cumpărate cu discounturi și achiziții. Profitul net poate fi ajustat
+    contabil. Marja brută arată direct dacă compania <strong>mai poate cere prețul ei</strong>.
+    E ca un magazin care trebuie să dea reduceri tot mai mari ca să vândă la fel: încă vinde, dar
+    puterea de negociere s-a dus.</p>
+  </div>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Venituri pe an fiscal</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+     "series":[{"name":"Venituri","values":[29.70,31.62,33.72,39.00,45.18,48.37]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+     "series":[{"name":"Marjă brută","values":[41.64,39.37,41.54,46.06,48.49,49.12]},
+               {"name":"Marjă operațională","values":[20.86,17.82,20.62,26.71,29.49,29.68]},
+               {"name":"Marjă netă","values":[17.23,14.21,16.04,22.34,24.30,28.22]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th></th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>TTM</th></tr></thead>
+    <tbody>
+      <tr><td>Venituri (mld $)</td><td>29,70</td><td>31,62</td><td>33,72</td><td>39,00</td><td>45,18</td><td>48,37</td></tr>
+      <tr><td>Creștere</td><td>+18,8%</td><td>+6,5%</td><td>+6,7%</td><td>+15,7%</td><td>+15,9%</td><td>+16,0%</td></tr>
+      <tr class="me"><td>Marjă brută</td><td>41,64%</td><td>39,37%</td><td>41,54%</td><td>46,06%</td><td>48,49%</td><td>49,12%</td></tr>
+      <tr><td>Marjă operațională</td><td>20,86%</td><td>17,82%</td><td>20,62%</td><td>26,71%</td><td>29,49%</td><td>29,68%</td></tr>
+      <tr><td>Marjă netă</td><td>17,23%</td><td>14,21%</td><td>16,04%</td><td>22,34%</td><td>24,30%</td><td>28,22%</td></tr>
+      <tr><td>EPS (ajustat split)</td><td>1,12 $</td><td>0,99 $</td><td>1,20 $</td><td>1,98 $</td><td>2,53 $</td><td>3,18 $</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Ce se vede:</strong> venituri în creștere <strong>cinci ani din cinci</strong>. Marja
+  brută în urcare de patru ani. Marja operațională a urcat de la 17,8% (2022) la 29,7% — aproape
+  s-a dublat.</p>
+
+  <div class="concept">
+    <div class="h">OPERATING LEVERAGE — MECANISMUL DIN SPATELE MULTOR POVEȘTI DE SUCCES</div>
+    <p>Când marja operațională crește mai repede decât veniturile, e semn că <strong>costurile fixe
+    se împart la tot mai multe vânzări</strong>. La Netflix, bugetul de conținut nu crește
+    proporțional cu abonații: același sezon din <em>Stranger Things</em> costă la fel dacă îl văd
+    100 sau 300 de milioane de oameni. Fiecare abonat nou aduce venit aproape integral la linia de
+    profit. De asta veniturile au crescut 16% și profitul operațional a crescut 28%.</p>
+  </div>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Nuanțele care nu strălucesc</h3>
+  <ul class="list">
+    <li>Anii <b>2022–2023 au fost slabi</b> (+6,5%, +6,7%) — creșterea de acum vine de la o bază de
+      comparație joasă și din măsuri punctuale: interzicerea partajării parolelor, planul cu
+      reclame, majorări de preț.</li>
+    <li><b>Guidance-ul propriu pentru 2026 e 13–14%</b>, sub cei 16% de acum. Deci încetinire, chiar
+      dacă rămâne creștere solidă.</li>
+    <li><b>Creșterea de EPS estimată pentru anul următor e de doar ~6%</b> — semnificativ sub
+      creșterea veniturilor. Semnal că marjele nu mai pot urca la fel de repede.</li>
+  </ul>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">P/E (TTM)</div><div class="v">23,1</div><div class="s">22,5 pe finviz</div></div>
+    <div class="stat"><div class="l">Forward P/E</div><div class="v">21,1</div><div class="s">18,7 pe finviz — surse diferite</div></div>
+    <div class="stat"><div class="l">P/FCF</div><div class="v">27,3</div><div class="s">cifra de ancorat</div></div>
+    <div class="stat"><div class="l">EV/EBITDA</div><div class="v">21,2</div><div class="s"></div></div>
+    <div class="stat"><div class="l">P/S</div><div class="v">6,30</div><div class="s"></div></div>
+    <div class="stat"><div class="l">PEG</div><div class="v">0,86</div><div class="s"></div></div>
+  </div>
+
+  <div class="concept" style="border-left-color:var(--crit);background:rgba(208,59,59,.06)">
+    <div class="h" style="color:var(--crit)">UN AVERTISMENT DESPRE P/E-UL DE 23</div>
+    <p>Compară două cifre TTM: <strong>profit operațional 14,36 mld $</strong> și <strong>profit
+    net 13,65 mld $</strong>. Diferența e de doar 705 mil $ — dar acolo ar trebui să încapă
+    <em>și</em> dobânzile la 16,65 mld $ datorie, <em>și</em> impozitul pe profit. Rata de
+    impozitare implicită iese sub 5%, ceea ce nu e sustenabil.</p>
+    <p>Concluzia: <strong>profitul net TTM conține aproape sigur un element nerecurent</strong>
+    (cel mai probabil un beneficiu fiscal punctual). Asta face P/E-ul de 23 să pară mai ieftin
+    decât e.</p>
+    <p><strong>Verificare independentă:</strong> pe EPS-ul anului fiscal complet 2025 (2,53 $),
+    P/E-ul e <strong>28,2</strong>, nu 23. Iar cu guidance-ul propriu pe 2026 (51,2 mld $ venituri
+    × 31,5% marjă operațională ≈ 16,1 mld $ profit operațional, minus dobânzi și impozit normal),
+    profitul net normalizat iese pe la ~12 mld $ — adică un P/E în jur de <strong>25</strong>.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">FOLOSEȘTE P/FCF CÂND P/E-UL E SUSPECT</div>
+    <p>Profitul contabil se poate ajusta; cash-ul nu. <strong>P/FCF-ul de 27,3 e cifra pe care aș
+    ancora-o</strong>, nu P/E-ul de 23.</p>
+  </div>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Cât s-a comprimat multiplul</h3>
+  <p>Acum un an acțiunea era pe la <strong>116 $</strong> (calculat din −38,36% pe 12 luni).
+  Împărțit la EPS-ul FY2025 de 2,53 $, asta înseamnă un P/E de <strong>~46</strong>. Azi, pe
+  același EPS, e <strong>~28</strong>.</p>
+  <p><strong>Nu profitul a scăzut — profitul a crescut. Multiplul s-a înjumătățit.</strong> Piața a
+  decis să plătească mult mai puțin pentru fiecare dolar de profit al Netflix, pentru că nu mai
+  crede în ritmul de creștere de acum un an. Asta e povestea întregului an.</p>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Față de concurenți</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>Marjă brută</th><th>Creștere venituri</th><th>Dat. netă/EBITDA</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>Netflix (NFLX)</td><td>23,1</td><td>27,3</td><td>49,1%</td><td>13–14%</td><td>~0,5×</td></tr>
+      <tr><td>Disney (DIS)</td><td>15,4</td><td>23,5</td><td>37,2%</td><td>~5,4%</td><td>~2,3×</td></tr>
+      <tr><td>Spotify (SPOT)</td><td>35,2</td><td>29,5</td><td>32,3%</td><td>~13,7%</td><td>net cash</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:12px;color:var(--ink-3)">Bazele de creștere nu sunt identice — la Netflix e
+  guidance-ul propriu pe 2026, la ceilalți estimarea pe 3 ani a sursei. Citește coloana ca ordin
+  de mărime.</p>
+  <p>Netflix e la mijloc: mai scumpă decât Disney, mai ieftină decât Spotify — dar cu
+  <strong>marja brută cea mai mare din grup cu 12 puncte procentuale</strong> și cu bilanțul cel
+  mai curat după Spotify. Prima față de Disney e justificată de calitatea afacerii; întrebarea
+  deschisă e cât de mare ar trebui să fie prima.</p>
+
+  <div class="concept">
+    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
+    <p>La P/FCF 27,3, plătești 27 de ani de cash flow la nivelul de azi. Ca să iasă bine, ai nevoie
+    ca FCF-ul să crească semnificativ de aici. Piața pare să presupună creștere continuă de 10–15%
+    pe an în venituri și marje care se stabilizează la ~31%.</p>
+    <p><strong>Dacă Netflix livrează exact ce a promis, prețul de azi e rezonabil. Dacă creșterea
+    coboară spre o singură cifră, multiplul mai are loc să scadă.</strong></p>
+  </div>
+
+  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
+    <div class="h" style="color:#8a6100">EVALUAREA NU E UN SEMNAL DE TIMING</div>
+    <p>O acțiune ieftină poate rămâne ieftină ani buni, dacă afacerea chiar se deteriorează —
+    asta se numește <em>value trap</em>. Iar „a fost 126 $, acum e 71 $, deci e la jumătate de
+    preț" e cea mai comună capcană a începătorului: <strong>prețul anterior nu e o măsură a
+    valorii.</strong></p>
+    <p><strong>Verdict: galben.</strong> Netflix e clar mai ieftină decât propria istorie recentă,
+    dar nu suficient de ieftină cât să fie o evidență — mai ales că discountul are o cauză reală:
+    creșterea încetinește. Nu e nici capcană de valoare, nici chilipir.</p>
+  </div>
+</section>
+
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
+  <p><strong>Acesta e pilonul cu cea mai slabă valoare predictivă din tot raportul.</strong> Spune
+  ce cred alții acum, nu cât de bună e afacerea.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">83–84%</div><div class="s">normal pentru mărimea ei</div></div>
+    <div class="stat"><div class="l">Variație instituțională</div><div class="v">+0,05%</div><div class="s">practic plat</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v up">2,41%</div><div class="s">din float · 2,0–2,3 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Consens analiști</div><div class="v">1,69</div><div class="s">„Buy" · 51 analiști</div></div>
+    <div class="stat"><div class="l">Preț-țintă mediu</div><div class="v">94,4 $</div><div class="s">+32% față de prețul actual</div></div>
+    <div class="stat"><div class="l">Indici</div><div class="v" style="font-size:14px">S&amp;P 500</div><div class="s">+ Nasdaq</div></div>
+  </div>
+
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
+    <p>Cine vinde în lipsă împrumută acțiuni, le vinde, și speră să le răscumpere mai ieftin. Un
+    short interest mare înseamnă că mulți profesioniști pariază pe scădere. Un începător aude
+    „short squeeze" și îl citește ca pe o ocazie — în realitate e mult mai des un avertisment că
+    cineva mai bine informat vede o problemă.</p>
+    <p><strong>La Netflix nu e cazul:</strong> 2,41% din float e sub pragul de 3%, iar 2 zile de
+    acoperire e foarte puțin. Practic nimeni nu pariază agresiv pe prăbușire.</p>
+  </div>
+
+  <p><strong>Includerea în S&amp;P 500 și Nasdaq</strong> înseamnă cumpărare automată și constantă
+  din partea fondurilor pasive care replică indicii — o cerere care nu depinde de rezultatele
+  companiei.</p>
+
+  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
+    <div class="h" style="color:#8a6100">DESPRE FLUXURILE INSTITUȚIONALE — SUNT SINCER CU TINE</div>
+    <p>MarketBeat raportează 3.487 cumpărători vs. 1.323 vânzători, cu „intrări" de 196,8 mld $ și
+    „ieșiri" de 7,43 mld $. Cifra de 196,8 mld $ ar reprezenta două treimi din întreaga
+    capitalizare într-un an — <strong>nu e credibilă ca flux net</strong>. MarketBeat agregă
+    valoarea totală a pozițiilor raportate, nu tranzacțiile nete.</p>
+    <p>Folosește raportul cumpărători/vânzători (≈2,6:1, favorabil) și ignoră sumele. Semnalul mai
+    curat e „Inst Trans" de pe finviz: <strong>+0,05%, adică plat</strong>.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">DESPRE PREȚUL-ȚINTĂ AL ANALIȘTILOR, TREI LUCRURI DEODATĂ</div>
+    <p><strong>1.</strong> Analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul. Baird
+    tocmai a tăiat de la 120 $ la 90 $ — după ce acțiunea căzuse deja. Ținta descrie prezentul, nu
+    viitorul.</p>
+    <p><strong>2.</strong> Recomandările de vânzare sunt foarte rare, pentru că băncile vor să
+    păstreze relația cu compania. Un consens de „Buy" e starea implicită, nu o distincție.</p>
+    <p><strong>3.</strong> O țintă de 94 $ cu prețul la 71 $ înseamnă +32%. Tratează-l ca pe o
+    medie de păreri, nu ca pe o predicție.</p>
+  </div>
+
+  <p><strong>Verdict: verde pe criterii</strong> (deținere instituțională mare, short mic, indici
+  mari), <strong>dar cu asterisc</strong>: fluxurile instituționale sunt plate, nu în creștere, iar
+  prețul a scăzut 38% într-un an. Sentimentul „oficial" e pozitiv; comportamentul real al pieței,
+  nu.</p>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+  <ul class="list">
+    <li><b>Co-CEO: Ted Sarandos și Greg Peters</b> — model neobișnuit de conducere bicefală,
+      funcțional la Netflix de câțiva ani.</li>
+    <li><b>Reed Hastings</b> — cofondator (1997), acum în consiliul de administrație, nu la
+      conducerea operațională.</li>
+    <li><b>CFO: Spencer Neumann.</b></li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:22px 0 10px">Tranzacțiile insiderilor (ultimele 12 luni)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Data</th><th>Persoană</th><th>Funcție</th><th>Acțiune</th><th>Valoare</th></tr></thead>
+    <tbody>
+      <tr><td>17 iun. 2026</td><td>Bradford L. Smith</td><td>Director</td><td>Vânzare</td><td>2,79 mil $</td></tr>
+      <tr class="me"><td>1 iun. 2026</td><td>Reed Hastings</td><td>Director (cofondator)</td><td>Vânzare</td><td>33,24 mil $</td></tr>
+      <tr><td>7 mai 2026</td><td>Greg Peters</td><td>CEO</td><td>Vânzare</td><td>2,42 mil $</td></tr>
+      <tr><td>7 mai 2026</td><td>Spencer Neumann</td><td>CFO</td><td>Vânzare</td><td>0,82 mil $</td></tr>
+      <tr><td>5 mai 2026</td><td>Ted Sarandos</td><td>CEO</td><td>Vânzare</td><td>2,40 mil $</td></tr>
+      <tr class="me"><td>1 mai 2026</td><td>Reed Hastings</td><td>Director (cofondator)</td><td>Vânzare</td><td>37,96 mil $</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Bilanț: 0 cumpărări, 8 vânzări, ~512 mil $ în 12 luni.</strong> „Insider Trans" pe
+  finviz: −7,89%.</p>
+
+  <div class="concept">
+    <div class="h">CUM SE CITESC CORECT TRANZACȚIILE INSIDERILOR</div>
+    <p><strong>Vânzările spun puțin.</strong> Directorii sunt plătiți în mare parte în acțiuni și
+    vând programat, prin planuri stabilite cu luni înainte, ca să-și diversifice averea și să-și
+    plătească impozitele. Un CEO care vinde 2,4 mil $ dintr-un pachet de zeci de milioane nu spune
+    nimic.</p>
+    <p><strong>Cumpărările din bani proprii spun mult mai mult</strong>, pentru că există un singur
+    motiv pentru care cineva din interior cumpără cu banii lui.</p>
+    <p><strong>Ce e totuși de notat:</strong> zero cumpărări într-un an în care acțiunea a scăzut
+    38% și a atins minime de doi ani. Nu e un semnal de alarmă — e absența unui semnal pozitiv care
+    ar fi fost puternic dacă exista. Iar vânzările lui Hastings (71 mil $ în două luni) sunt mari
+    chiar și pentru un cofondator.</p>
+  </div>
+
+  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
+    <div class="h" style="color:#8a6100">DOUĂ AVERTISMENTE DESPRE DATE</div>
+    <p><strong>1.</strong> Lista de pe MarketBeat include tranzacții ale congresmanului
+    <strong>Ro Khanna</strong> (House, D-CA). Acela <strong>nu e insider al companiei</strong> — e
+    un politician american ale cărui tranzacții sunt publice prin lege. MarketBeat le amestecă în
+    aceeași tabelă. Nu le lua în calcul ca semnal de management.</p>
+    <p><strong>2.</strong> Deținerea insiderilor apare <strong>0,58%</strong> (stockanalysis) și
+    <strong>1,24%</strong> (marketbeat) — o diferență de peste 2×. Ambele sunt mici; ordinul de
+    mărime e „sub 1,5%", adică managementul nu deține practic nimic ca proporție.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">STRUCTURA DE VOT — DE VERIFICAT</div>
+    <p>Sursele gratuite folosite aici nu confirmă existența unor clase multiple de acțiuni. Nu am
+    indicii de structură duală la Netflix, dar <strong>verifică în 10-K sau în proxy statement pe
+    SEC EDGAR</strong> înainte să te bazezi pe asta.</p>
+    <p><strong>De ce contează:</strong> multe companii au clase de acțiuni cu drepturi de vot
+    diferite — publicul primește un vot pe acțiune, fondatorii dețin o clasă cu zece. Poți deține
+    5% din capital și să nu ai practic niciun cuvânt de spus. Nu e automat rău — controlul
+    fondatorului poate proteja strategia de presiunea trimestrială — dar dacă managementul
+    greșește, minoritarii nu au cum să-l schimbe.</p>
+  </div>
+</section>
+
+<!-- ══ 11. RISCURI ═════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">11</span><h2>Riscuri — ce ar strica teza</h2></div>
+  <p>Nu enumăr „concurența" și „reglementarea" — se aplică la orice companie. Iată riscurile
+  specifice acestei afaceri:</p>
+  <ul class="list">
+    <li class="crit"><b>Nu mai poți vedea indicatorul care contează.</b> Netflix a încetat să
+      raporteze numărul de abonați, iar la Q2 2026 a redus și informațiile despre viewership.
+      Într-o afacere unde <b>costul de schimbare pentru client e zero</b>, rata de anulare (churn)
+      e singura măsură reală de sănătate. Acum e ascunsă. Investitorii au reacționat corect:
+      transparența redusă a fost un factor major al căderii de 9% după raportare.
+      <b>Când o companie încetează să publice o cifră, presupune că nu e o veste bună.</b></li>
+    <li class="crit"><b>Creșterea vine tot mai mult din preț, nu din clienți noi.</b> Piețele mature
+      (SUA, Canada, Europa de Vest) sunt aproape de saturație. Abonații noi vin din regiuni cu venit
+      mediu pe utilizator mult mai mic. Motoarele recente de creștere — interzicerea partajării
+      parolelor, planul cu reclame, majorările de preț — sunt măsuri <b>cu utilizare unică</b>. Nu
+      poți interzice partajarea de două ori. Guidance-ul de 13–14% pentru 2026, sub cei 16%
+      actuali, reflectă exact asta.</li>
+    <li><b>Pariul pe sport și live e o schimbare de model, nu o extensie.</b> 200 mil $ pentru Cupa
+      Mondială feminină, 500 mil $ pentru <i>The Walking Dead</i>. Problema cu sportul: drepturile
+      se relicitează la fiecare ciclu, prețul crește de fiecare dată, iar conținutul <b>nu are
+      valoare de bibliotecă</b> — nimeni nu se uită la un meci de anul trecut. E exact mecanismul
+      care a distrus economia televiziunii tradiționale.</li>
+    <li><b>Concurenți cu buzunare mai adânci — și unul cu costuri aproape zero.</b> Amazon și Apple
+      pot subvenționa streamingul la nesfârșit din alte afaceri. Dar cel mai serios rival e
+      <b>YouTube</b>: are deja cea mai mare cotă din timpul de vizionare pe televizor în SUA și un
+      cost de conținut aproape nul, pentru că îl produc utilizatorii. Netflix concurează pentru
+      timp, nu doar pentru abonamente.</li>
+    <li><b>Expunere globală necuantificată aici.</b> Netflix încasează în zeci de valute și
+      cheltuie mult în dolari. Defalcarea pe regiuni nu apare pe sursele gratuite folosite
+      (<b>N/A</b>) — caut-o în 10-K. Fără ea nu poți estima nici riscul valutar, nici concentrarea
+      geografică.</li>
+    <li><b>Riscul de a plăti prea mult pentru propriile acțiuni.</b> Compania a demonstrat deja că
+      răscumpără agresiv la maxime (9,1 mld $ în 2025, cu acțiunea la 126 $). Dacă continuă
+      modelul, o parte din cei 3,3% randament anual se evaporă.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">CE AR INVALIDA TEZA</div>
+    <p><strong>1. Marja brută scade sub ~46% două trimestre consecutive.</strong> Ar însemna că
+    puterea de preț se erodează — exact opusul a ce a demonstrat compania în ultimii trei ani.
+    E primul loc unde se vede că moat-ul crapă.</p>
+    <p><strong>2. Creșterea veniturilor coboară sub 10% pe an</strong> în timp ce marja operațională
+    nu mai urcă. Ar transforma Netflix dintr-o companie de creștere într-una matură, iar un P/FCF
+    de 27 nu se justifică pentru o companie matură.</p>
+    <p><strong>3. FCF-ul stagnează sub ~10 mld $ în timp ce cheltuiala pe conținut și drepturi
+    sportive crește.</strong> Ar însemna că pariul pe live consumă exact motorul care a făcut
+    compania investibilă din 2022 încoace. Semnal complementar: dacă reduc buyback-ul ca să
+    finanțeze conținut.</p>
+    <p style="margin-bottom:0">Un investitor care își notează dinainte ce l-ar face să se
+    răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
+  </div>
+</section>
+
+<!-- ══ 12. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">12</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
+
+  <h3 style="font-size:14px;margin:0 0 12px">Trei concepte pe care le poți aplica la orice companie</h3>
+  <ul class="list">
+    <li><b>Splitul nu schimbă absolut nimic.</b> Netflix la 71 $ după un split 10:1 e exact aceeași
+      companie ca Netflix la 710 $ înainte. Dacă vezi o acțiune „ieftină" la 20 $ și una „scumpă"
+      la 800 $, prețul pe acțiune nu-ți spune nimic despre valoare — capitalizarea și multiplii, da.</li>
+    <li><b>Rezultate bune + acțiune în scădere = așteptările erau deja în preț.</b> Netflix a
+      raportat venituri record în iulie și a căzut 9%. Nu e iraționalitate. Piața tranzacționează
+      diferența dintre ce era așteptat și ce s-a întâmplat, nu cifra în sine.</li>
+    <li><b>Când profitul și cash-ul spun lucruri diferite, crede cash-ul.</b> P/E-ul de 23 al
+      Netflix arăta ieftin până când am observat că rata implicită de impozitare e sub 5% —
+      imposibil de susținut. P/FCF-ul de 27, calculat pe bani reali, e cifra onestă. Contabilitatea
+      se poate ajusta; extrasul de cont, nu.</li>
+    <li><b>Bonus — comparația cu indicele.</b> Netflix e o companie excelentă care, pe cinci ani, a
+      rămas în urma unui ETF pe S&amp;P 500 pe care îl poți cumpăra fără nicio muncă.
+      <b>Companie bună ≠ investiție bună.</b> Diferența e prețul plătit.</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:24px 0 12px">Patru întrebări de pus la următoarea companie</h3>
+  <ul class="list qa">
+    <li>Numărul de acțiuni a scăzut în ultimii 3–5 ani? (Nu cât s-a anunțat pe buyback — numărul efectiv.)</li>
+    <li>Marja brută urcă sau coboară? E cel mai timpuriu semnal că moat-ul se întărește sau crapă, cu ani înaintea profitului.</li>
+    <li>A bătut S&amp;P 500 pe 3 și pe 5 ani? Dacă nu, ce s-a schimbat de atunci ca să bată de acum înainte?</li>
+    <li>Ce cifră a încetat compania să mai publice? Când transparența scade, aproape întotdeauna e pentru că cifra a devenit neplăcută.</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com · date la 31 iulie 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două săptămâni;
+  dețineri instituționale până la 45 de zile. Numărul de acțiuni pe ani fiscali e derivat de mine
+  din capitaluri proprii ÷ valoare contabilă pe acțiune. Toate cifrele istorice sunt ajustate
+  pentru splitul 10-pentru-1 din noiembrie 2025.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit
+  de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a
+  nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    /* ── compare ──────────────────────────────────────────────────────────── */
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    /* ── bars: ÎNTOTDEAUNA de la zero ─────────────────────────────────────── */
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    /* ── lines ────────────────────────────────────────────────────────────── */
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
