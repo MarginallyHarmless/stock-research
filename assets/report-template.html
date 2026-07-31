@@ -1,0 +1,640 @@
+<meta charset="utf-8">
+<title>{{TICKER}} — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule)}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+.grp{position:absolute;inset:0;display:flex;gap:2px}
+.grp .gc{flex:1;position:relative}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare — două serii pe orizontale, fiecare rând scalat la maximul lui.
+   Randamentele pe 5 ani depășesc de zeci de ori pe cele YTD; într-un grafic
+   cu o scală comună, orizonturile scurte devin invizibile. Comparația reală
+   e oricum în interiorul rândului: acțiunea față de indice, pe același interval. */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>{{TICKER}}</h1>
+    <span class="co">{{Nume companie}}</span>
+  </div>
+  <div class="px">
+    <div class="v">{{$198,01}}</div>
+    <!-- clasa up / down după semn -->
+    <div class="d up">{{+1,52% astăzi}}</div>
+  </div>
+  <div class="chips">
+    <span class="chip">{{Sector}} · <b>{{Industrie}}</b></span>
+    <span class="chip">Indici: <b>{{S&P 500, NDX}}</b></span>
+    <span class="chip">Capitalizare <b>{{4,80 T$}}</b></span>
+    <span class="chip">An fiscal se încheie <b>{{ianuarie}}</b></span>
+    <span class="chip">Următoarea raportare <b>{{26 aug 2026}}</b></span>
+  </div>
+</header>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════
+     data-s = good | warn | crit | none   (none = nu se aplică / date lipsă)
+     Culoarea NU transmite singură sensul: fiecare stare are icon + etichetă.
+     Nu pune semafor pe „Unde se află acțiunea" — nu e un indicator de calitate.
+─────────────────────────────────────────────────────────────────────────── -->
+<section>
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei șapte piloni</h2></div>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">{{o propoziție, maximum}}</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">{{…}}</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">{{…}}</span>
+    </div>
+    <!-- restul: Buyback / diluție · Creștere și marje · Evaluare · Sentiment -->
+  </div>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <!-- interval 52 săpt. — style="left:X%" unde X = (preț−min)/(max−min)*100 -->
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:46.9%"></div>
+        <div class="now" style="left:46.9%">{{198,01}}</div>
+      </div>
+      <div class="ends"><span>min {{164,07}}</span><span>max {{236,54}}</span></div>
+    </div>
+  </figure>
+
+  <!-- randament vs S&P 500 — fiecare orizont scalat separat; „a" = acțiunea -->
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"a":"{{TICKER}}","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":38.4,"b":9.2},
+             {"label":"1 an","a":17.1,"b":17.8},
+             {"label":"3 ani","a":742.0,"b":62.7},
+             {"label":"5 ani","a":1180.0,"b":69.8}]}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
+    <p>{{Dacă acțiunea a crescut mai puțin decât indicele, ai pierdut bani față de
+    alternativa care nu cerea nicio muncă: un ETF pe S&P 500. E singura comparație
+    care spune dacă alegerea a meritat efortul.}}</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">{{2,21}}</div><div class="s">{{amplifică piața de ~2,2×}}</div></div>
+    <div class="stat"><div class="l">Volatilitate (20z)</div><div class="v">{{6,9%}}</div><div class="s">{{pe zi}}</div></div>
+    <div class="stat"><div class="l">La 10.000 €</div><div class="v">{{−2.200 €}}</div><div class="s">{{la o corecție de piață de 10%}}</div></div>
+  </div>
+
+  <p>{{Ce a mutat prețul recent: ultima raportare — a depășit sau a ratat
+  așteptările, ce a spus conducerea despre trimestrul următor, ce narativ domină.}}</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <p>{{Cine plătește, pentru ce, și de unde vin banii — fără jargon.}}</p>
+  <div class="tw"><table>
+    <thead><tr><th>Segment</th><th>Venituri</th><th>Pondere</th><th>Creștere</th></tr></thead>
+    <tbody>
+      <tr><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td><td class="up">{{…}}</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>{{definiția — vezi references/glossary.md}}</p>
+  </div>
+  <div class="score">
+    <!-- cele cinci tipuri, în ordinea durabilității -->
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">{{dovada}}</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">{{…}}</span></div>
+    <!-- Avantaj de cost · Active intangibile · Brand -->
+  </div>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
+  <div class="concept"><div class="h">CE E FREE CASH FLOW</div><p>{{…}}</p></div>
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY22","FY23","FY24","FY25","FY26"],
+     "series":[{"name":"FCF","values":[8.1,3.8,27.0,60.9,96.7]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+  <p>{{interpretarea}}</p>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
+  <div class="concept"><div class="h">DE CE CONTEAZĂ</div><p>{{…}}</p></div>
+  <!-- lățimea barelor: % din valoarea mai mare dintre cele două -->
+  <figure class="viz">
+    <figcaption><b>Poziția financiară netă</b><span class="unit">mld USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Cash</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--accent)"></span></span>
+        <span class="v">{{62,6}}</span></div>
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:17.6%;background:var(--crit)"></span></span>
+        <span class="v">{{11,0}}</span></div>
+    </div>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Poziție netă</div><div class="v up">{{+51,6 mld}}</div><div class="s">net cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">{{n/a}}</div><div class="s">prag de risc: 3,0</div></div>
+  </div>
+</section>
+
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>{{Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni.
+    Multe companii răscumpără doar cât să compenseze acțiunile date angajaților —
+    cheltuie miliarde, iar felia ta rămâne la fel.}}</p>
+  </div>
+  <!-- LINIE, nu bare. Variația e de câteva procente: bare pornite de la zero ar
+       arăta plat, iar bare cu axa trunchiată ar exagera o scădere de 3% într-una
+       vizuală de 70%. Liniile au voie să nu pornească de la zero — de aceea
+       graficul afișează explicit minimul și maximul axei. -->
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație</b><span class="unit">miliarde</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY22","FY23","FY24","FY25","FY26"],
+     "series":[{"name":"Acțiuni în circulație","values":[25.35,25.00,24.99,24.79,24.48]}]}
+    </script>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Variație 5 ani</div><div class="v up">{{−3,4%}}</div><div class="s">{{felia ta a crescut}}</div></div>
+    <div class="stat"><div class="l">Randament buyback</div><div class="v">{{0,8%}}</div><div class="s">pe an</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">{{0,51%}}</div><div class="s">pe an</div></div>
+    <div class="stat"><div class="l">Randament total</div><div class="v">{{1,3%}}</div><div class="s">buyback + dividend</div></div>
+  </div>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
+    <p>{{Veniturile pot fi cumpărate cu discounturi. Profitul net poate fi ajustat
+    contabil. Marja brută arată direct dacă compania mai poate cere prețul ei.}}</p>
+  </div>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY22","FY23","FY24","FY25","FY26"],
+     "series":[{"name":"Marjă brută","values":[64.9,56.9,72.7,75.0,71.1]},
+               {"name":"Marjă operațională","values":[37.3,15.7,54.1,62.4,60.4]},
+               {"name":"Marjă netă","values":[36.2,16.2,48.9,55.9,55.6]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>Marjă brută</th><th>Creștere</th><th>Dat./EBITDA</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>{{TICKER}}</td><td>{{29,9}}</td><td>{{39,9}}</td><td>{{71,1%}}</td><td>{{65,5%}}</td><td>{{net cash}}</td></tr>
+      <tr><td>{{Competitor 1}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td></tr>
+      <tr><td>{{Competitor 2}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td></tr>
+    </tbody>
+  </table></div>
+  <div class="concept">
+    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
+    <p>{{La P/E 29,9 care scade la 19,5 prospectiv, piața se așteaptă la o creștere
+    a profitului de ~53% în anul următor. Dacă vine doar 20%, ai plătit prea mult
+    chiar dacă compania merge bine. De asta o companie poate raporta rezultate
+    excelente și acțiunea să scadă.}}</p>
+  </div>
+</section>
+
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">{{69,5%}}</div><div class="s">{{normal pentru mărimea ei}}</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">{{+185 mld}}</div><div class="s">{{4.398 cumpărători / 3.530 vânzători}}</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v">{{1,39%}}</div><div class="s">din float · {{2,1}} zile de acoperire</div></div>
+  </div>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC</div>
+    <p>{{Un short interest mare înseamnă că profesioniști pariază pe scădere. E mult
+    mai des un avertisment că cineva mai informat vede o problemă decât o
+    oportunitate de „short squeeze" — care e un eveniment rar și imprevizibil,
+    nu o strategie.}}</p>
+  </div>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+  <ul class="list">
+    <li><b>{{CEO}}</b> — {{din anul X; fondator sau nu}}</li>
+    <li><b>Insideri:</b> {{X cumpărători / Y vânzători în 12 luni.}} {{Vânzările sunt
+      zgomot — directorii sunt plătiți parțial în acțiuni. Cumpărările din bani
+      proprii sunt semnalul rar și puternic.}}</li>
+    <li><b>Structura de vot:</b> {{o clasă / dual-class — de verificat în 10-K}}</li>
+  </ul>
+</section>
+
+<!-- ══ 11. RISCURI ═════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">11</span><h2>Riscuri</h2></div>
+  <!-- clasa "crit" pe riscurile majore -->
+  <ul class="list">
+    <li class="crit"><b>{{Concentrarea veniturilor}}</b> — {{specific, nu generic}}</li>
+    <li><b>{{Dependența de ciclu}}</b> — {{…}}</li>
+  </ul>
+  <div class="concept">
+    <div class="h">CE AR INVALIDA TEZA</div>
+    <p>{{Două-trei evenimente observabile. Un investitor care își notează dinainte
+    ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care
+    improvizează când prețul cade.}}</p>
+  </div>
+</section>
+
+<!-- ══ 12. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec"><span class="n">12</span><h2>Întrebări pentru următoarea companie</h2></div>
+  <ul class="list qa">
+    <li>{{Numărul de acțiuni a scăzut în ultimii 3 ani?}}</li>
+    <li>{{Marja brută urcă sau coboară?}}</li>
+    <li>{{A bătut indicele pe 3 și 5 ani?}}</li>
+    <li>{{Cât din venituri vine de la cei mai mari trei clienți?}}</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com · date la {{data}}.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    /* ── compare: perechi orizontale, fiecare rând cu scala lui ───────────── */
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    /* ── bars: ÎNTOTDEAUNA de la zero. Pentru variații mici, folosește lines. ─ */
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    /* ── lines: axa poate fi trunchiată, dar min/max sunt afișate explicit ─── */
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
