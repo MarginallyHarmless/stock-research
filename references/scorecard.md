@@ -90,6 +90,12 @@ Verifică și dacă dividendul e acoperit din free cash flow. Dacă plata divide
 - 🟡 — creștere care încetinește vizibil, sau marje care fluctuează cu peste 3 puncte procentuale fără explicație.
 - 🔴 — venituri în scădere doi ani consecutiv, sau marjă brută în scădere 3 ani la rând.
 
+**Ritmul trimestrial nuanțează culoarea anuală.** Anii ascund ce s-a întâmplat în ultimele trimestre: +56% pe an poate însemna trimestre care au decelerat de la 60% la 30%. Un 🟢 pe cifre anuale coboară la 🟡 dacă ultimele 3–4 trimestre arată o încetinire clară a creșterii — piața tranzacționează ritmul, nu media. Spune ambele cifre, cu trimestrele lor.
+
+**La companii care se diluează (peste ~2%/an), judecă creșterea și pe acțiune.** Veniturile totale pot crește cu 20% în timp ce veniturile *pe acțiune* cresc doar cu 16% — iar partea ta e a doua. Cifra pe acțiune e cea onestă; menționeaz-o lângă cea totală.
+
+**Creștere organică sau cumpărată?** Veniturile pot fi cumpărate cu achiziții. Testul rapid e goodwill-ul de pe bilanț (sau din EDGAR companyfacts): dacă sare în sus exact în anii cu creștere mare, creșterea e cumpărată, nu organică — și întrebarea devine ce rămâne fără achiziții și cu ce s-a plătit (cash, datorie sau diluție).
+
 **Marja brută e indicatorul cu cea mai mare valoare de semnal din tot raportul.** Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — adică dacă moat-ul mai ține.
 
 Când marja operațională crește mai repede decât veniturile, e semn de *operating leverage*: costurile fixe se împart la mai multe vânzări. E un lucru bun și merită explicat, pentru că e mecanismul din spatele multor povești de succes în bursă.
@@ -104,11 +110,14 @@ Nu există un P/E „corect" universal. Compară întotdeauna pe trei axe și sp
 2. **Față de competitorii direcți** — nu față de „piață" în general.
 3. **Față de creșterea proprie** — un P/E de 40 la o companie care crește 40%/an e altceva decât la una care crește 4%/an.
 
-- 🟢 — sub media proprie pe 5 ani **și** sub mediana sectorului, fără o deteriorare a afacerii care să justifice discountul.
-- 🟡 — în linie cu istoricul propriu și cu sectorul.
+- 🟢 — sub media proprie pe 5 ani **și** sub competitorii direcți din tabel, fără o deteriorare a afacerii care să justifice discountul.
+- 🟡 — în linie cu istoricul propriu și cu competitorii.
 - 🔴 — semnificativ peste ambele (orientativ, cu peste ~30%), sau multipli care presupun ani de creștere perfectă.
+- ⚪ *nu se aplică* — dacă există o ofertă fermă de preluare, prețul e ancorat de termenii tranzacției, nu de afacere; multiplii vs. istoric nu mai spun nimic. Spune asta în loc să forțezi o culoare (vezi [excepțiile](#9-excepții-pe-tip-de-companie)).
 
 **Preferă P/FCF în locul P/E** când cele două diferă mult: profitul e mai ușor de ajustat contabil decât cash-ul. Pentru companii cu datorie mare, EV/EBITDA e mai onest decât P/E, pentru că include și datoria în preț — cine cumpără compania preia și datoriile.
+
+**Randamentul profitului vs. dobânda fără risc** — ancora educațională a secțiunii, din două cifre deja aduse. Inversul P/E-ului (E/P) e cât „produce" compania la prețul de azi: la P/E 137, profitul îți dă ~0,7% pe an, în timp ce obligațiunile americane fără risc dau ~4,7%. Diferența e cât plătește cititorul pentru creșterea viitoare — o constatare din două fapte de azi, nu o prognoză. La P/E mici relația se inversează și devine la fel de grăitoare.
 
 **Spune limpede că evaluarea nu e un semnal de timing.** O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat (*value trap*).
 
@@ -146,7 +155,7 @@ Raportul intrări/ieșiri de pe MarketBeat e mai informativ decât procentul de 
 
 - Analiștii își revizuiesc țintele **după** ce se mișcă prețul, nu înainte. Un preț-țintă cu 50% peste piață descrie mai mult entuziasmul de acum decât viitorul.
 - Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania. O medie de „cumpărare" e starea implicită, nu o distincție.
-- Ținta e o medie a unor păreri care pot fi foarte împrăștiate. Când există, menționează și cât de mare e dispersia.
+- Ținta e o medie a unor păreri foarte împrăștiate. finviz dă doar media; intervalul (low / median / high) e pe `stockanalysis.com/stocks/{t}/forecast/`. Când dispersia e mare — de la −43% la +107% față de preț se întâmplă — media nu înseamnă aproape nimic, și exact asta merită spus.
 
 ---
 
@@ -191,6 +200,9 @@ Aplicarea mecanică a grilei dă rezultate greșite pe anumite modele de busines
 | **Biotech fără venituri** | FCF negativ e regula. Ce contează: câți bani mai au (cash runway) și ce e în pipeline. Diluția e aproape sigură — spune-o direct. |
 | **Utilități** | Datorie mare și creștere mică sunt normale. Contează stabilitatea dividendului și cadrul de reglementare. |
 | **Companii ciclice** (materii prime, auto, construcții) | Un P/E mic la vârf de ciclu e o capcană clasică, nu o ocazie. Uită-te la medii pe ciclu întreg, nu la ultimul an. |
+| **IPO recent / istoric scurt** (sub ~3 ani de date publice) | Grila cere tendințe pe 5 ani care nu există încă. Judecă pe ce este, scrie explicit „istoric scurt (listată în {an})" și nu da 🟢 pe pilonii de tendință (FCF, creștere) din doar două puncte de date. |
+| **Companie sub ofertă de preluare** | Prețul e ancorat de termenii tranzacției, nu de afacere. Evaluarea devine ⚪ „nu se aplică"; spune în secțiunea 1 că soarta acțiunii depinde de închiderea tranzacției, nu de trimestrele următoare. |
+| **Distress / restructurare** (avertisment *going concern*, scadențe neacoperite) | Grila de calitate devine secundară — totul atârnă de refinanțare. Spune direct că e o situație specială, nu o companie „ieftină". |
 
 ---
 
@@ -199,6 +211,8 @@ Aplicarea mecanică a grilei dă rezultate greșite pe anumite modele de busines
 Două secțiuni din raport nu primesc culoare, pentru că nu se pot reduce la un prag. Nu înseamnă că sunt mai puțin importante.
 
 ### Management, insideri și structura de vot
+
+**Cât din companie dețin cei care o conduc** — procentul insiderilor, de pe `/statistics/` — merită o propoziție: un management care deține 10–20% mănâncă din aceeași oală cu acționarii; unul cu 0,1% e salariat, nu co-proprietar. Nu e semafor, doar context care schimbă cum citești vânzările din secțiune.
 
 Pe lângă cine conduce și ce au făcut insiderii recent, verifică **structura acțiunilor** — un lucru de care majoritatea începătorilor nu știu că există.
 
