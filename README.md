@@ -8,7 +8,7 @@ Nu presupune că știi ce e un moat, un free cash flow sau un short interest —
 
 ## Ce produce
 
-Un raport pe 13 secțiuni, în română, cu termenii tehnici păstrați în engleză între paranteze:
+În chat: scorecard-ul cu semafoare și o sinteză de câteva fraze. Ca fișier: raportul complet — 13 secțiuni, în română, cu termenii tehnici păstrați în engleză între paranteze:
 
 | # | Secțiune | Răspunde la |
 |---|---|---|
@@ -19,7 +19,7 @@ Un raport pe 13 secțiuni, în română, cu termenii tehnici păstrați în engl
 | 4 | Free cash flow | Generează cash real sau doar profit contabil |
 | 5 | Cash vs. datorii | Cât de solidă e la o criză sau la dobânzi mari |
 | 6 | Buyback, dividend, diluție | Partea ta din companie crește sau scade |
-| 7 | Creștere și marje | Afacerea se întărește sau se erodează |
+| 7 | Creștere și marje | Afacerea se întărește sau se erodează — pe ani și pe trimestre |
 | 8 | Evaluare | Companie bună — dar la ce preț, și ce presupune prețul ăsta |
 | 9 | Sentiment de piață | Instituționali, short interest, indici, analiști |
 | 10 | Management și insideri | Cine conduce, cumpără cu banii lor, structura de vot |
@@ -27,7 +27,7 @@ Un raport pe 13 secțiuni, în română, cu termenii tehnici păstrați în engl
 | 12 | Riscuri | Ce ar invalida teza |
 | 13 | Ce ai învățat | Concepte noi și întrebări pentru următoarea companie |
 
-Plus un fișier HTML de sine stătător, cu grafice, temă deschisă/întunecată, care se deschide offline și se printează curat.
+Fișierul HTML e de sine stătător, cu grafice, cuprins, temă deschisă/întunecată; se deschide offline și se printează curat.
 
 ## Instalare
 
@@ -35,7 +35,7 @@ Plus un fișier HTML de sine stătător, cu grafice, temă deschisă/întunecat�
 git clone https://github.com/MarginallyHarmless/stock-research ~/.claude/skills/stock-research
 ```
 
-Nu are dependențe și nu cere nicio cheie API. Datele vin din surse publice gratuite (stockanalysis.com, finviz.com, marketbeat.com), citite cu WebFetch.
+Nu are dependențe și nu cere nicio cheie API. Datele vin din surse publice gratuite (stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR).
 
 ## Folosire
 
@@ -54,13 +54,17 @@ Ultima formă livrează doar secțiunea cerută, nu tot raportul.
 
 **Compară cu indicele.** Randamentul acțiunii apare mereu lângă cel al S&P 500, pe aceleași orizonturi. E comparația care lipsește din aproape orice analiză pentru începători și singura care spune dacă alegerea a meritat efortul — o acțiune care a făcut +12% într-un an în care indicele a făcut +18% a fost o decizie proastă, chiar dacă e pe verde în portofoliu.
 
+**Vede ritmul, nu doar media.** Creșterea se judecă și pe ultimele ~8 trimestre, nu doar pe ani — +56% anual poate ascunde trimestre care decelerează, iar decelerarea e de obicei răspunsul real la „de ce a scăzut", chiar când rezultatele bat așteptările.
+
+**Cifrele critice vin din rapoartele SEC.** Numărul de acțiuni, segmentele și geografia veniturilor, goodwill-ul — se citesc din EDGAR (XBRL și notele din 10-K) când sursele web nu le au sau se contrazic. Sursa primară, nu un agregator.
+
 **Se uită la numărul de acțiuni, nu la suma cheltuită pe buyback.** Multe companii răscumpără doar cât să compenseze acțiunile date angajaților: cheltuie miliarde, iar felia ta rămâne la fel.
 
 **Traduce volatilitatea în bani.** Nu „beta 2,2", ci cât ai pierde la o corecție obișnuită de piață — pentru că majoritatea pierderilor reale ale investitorilor de retail vin din vânzări în panică, nu din alegerea companiei greșite.
 
 **Pune compania în context.** Dobânzile, ciclul economic, tarifele și reglementarea intră în raport cu o regulă strictă: expunerea companiei la ele se notează — e o proprietate stabilă a afacerii — iar vremea de azi doar se descrie, datată. Prognozele de piață sunt interzise la fel ca prețurile-țintă.
 
-**Are praguri scrise, nu impresii.** Fiecare semafor are criterii explicite în [`references/scorecard.md`](references/scorecard.md), cu excepții pentru bănci, REIT-uri, biotech, utilități și companii ciclice — unde aplicarea mecanică a grilei dă răspunsuri greșite.
+**Are praguri scrise, nu impresii.** Fiecare semafor are criterii explicite în [`references/scorecard.md`](references/scorecard.md), cu excepții pentru bănci, REIT-uri, biotech, utilități, companii ciclice, istoric scurt (IPO recent) și companii sub ofertă de preluare — unde aplicarea mecanică a grilei dă răspunsuri greșite.
 
 **Nu dă recomandări.** Fără „cumpără" sau „vinde", fără preț-țintă propriu. Descrie compania și semnalele; concluzia rămâne a cititorului.
 
