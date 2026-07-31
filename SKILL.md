@@ -1,6 +1,6 @@
 ---
 name: stock-research
-description: Analizează o companie listată la bursă și explică în română, pentru un investitor de retail începător, ce se întâmplă cu ea — ce face compania, moat-ul, free cash flow, cash vs datorii, buyback vs diluție, creștere și marje, evaluare, instituționali, short interest, indici, insideri și riscuri — cu un scorecard verde/galben/roșu, explicații educaționale ale fiecărui concept și un raport HTML final cu grafice. Use this skill whenever the user mentions a stock ticker (NVDA, AAPL, PLTR, ASML...) or a listed company name and wants to understand it — including phrasings like "ce părere ai de X", "analizează X", "merită X", "ce se întâmplă cu X", "e scumpă X", "de ce a scăzut X", "explică-mi X", "should I look at X", "what's going on with X" — even when they don't use the word "analiză" or ask for a formal report. Also use when comparing two listed companies, or when the user asks about a specific pillar (moat, free cash flow, datorii, buyback, short interest, dilution) of a named company. Also use when the user asks how interest rates, tariffs, elections, or the overall market context affect a named listed company — "cum o afectează dobânzile pe X", "ce vânt are în față X", "contextul pieței pentru X".
+description: Analiză educațională în română a unei companii listate, pentru un investitor de retail începător. Use whenever the user mentions a stock ticker (NVDA, PLTR, ASML...) or a listed company name and wants to understand it — "ce părere ai de X", "analizează X", "merită X", "ce se întâmplă cu X", "e scumpă X", "de ce a scăzut X", "explică-mi X", "should I look at X", "what's going on with X" — even without the word "analiză" or a request for a formal report. Also use when comparing two listed companies, when the user asks about a single pillar (moat, free cash flow, datorii, buyback, short interest, diluție) of a named company, or when they ask how interest rates, tariffs, elections, or the overall market context affect a named listed company — "cum o afectează dobânzile pe X", "ce vânt are în față X", "contextul pieței pentru X".
 ---
 
 # Analiză de acțiuni pentru investitori începători
@@ -42,10 +42,13 @@ Pentru un ticker american `{T}` (scris cu litere mici în URL):
 | 9 | `finviz.com/quote.ashx?t=SPY` | Performanța S&P 500 pe aceleași orizonturi — **etalonul** față de care compari acțiunea |
 | 10 | `stockanalysis.com/stocks/{T}/financials/ratios/` | Multipli istorici pe an (P/E, P/FCF, EV/EBITDA) — media proprie pe 5 ani, pentru secțiunea de evaluare |
 | 11 | `finviz.com/groups.ashx?g=sector&v=140` | Performanța sectoarelor — sectorul companiei vs. piață, pentru secțiunile 1 și 11 |
+| 12 | `stockanalysis.com/stocks/{T}/financials/?p=quarterly` | Venituri și marje pe ultimele ~8 trimestre — **ritmul**: creșterea accelerează sau încetinește |
 
 `{BURSA}` e `NASDAQ` sau `NYSE`, cu majuscule, iar tickerul tot cu majuscule. Dacă nu știi bursa, pune varianta cea mai probabilă în primul val de fetch-uri și reia doar aceste două URL-uri cu cealaltă dacă dau 404 — bursa reală o afli oricum din finviz în același val.
 
 Fetch-ul 9 pare o risipă, dar e cea mai importantă cifră din raport pentru cineva care învață: fără ea nu poate ști dacă acțiunea a mers *bine* sau doar a mers odată cu piața. Vezi explicația din secțiunea 1 a raportului.
+
+Fetch-ul 12 e cel care răspunde de obicei la „de ce a scăzut": piața tranzacționează *ritmul*, nu media. Datele anuale pot arăta +56% în timp ce ultimele trimestre au încetinit de la 60% la 30% — iar asta e povestea reală. Fără trimestre, raportul nu o poate vedea.
 
 Bursele non-americane, ETF-uri, surse de rezervă, capcane de interpretare și ce faci când o pagină dă 404: citește `references/data-sources.md`.
 
@@ -60,6 +63,7 @@ După ce primul val ți-a dat industria, trimite în paralel:
   - **Preferă peers cu multipli care există.** Un rând umplut cu n/a nu învață pe nimeni nimic.
   - **Dacă cel mai apropiat competitor e privat** (fără ticker — un Databricks, un SpaceX), numele lui apare în proza secțiunii 8. Lipsa din tabel nu-l șterge din realitate.
   - **Dacă compania are două afaceri distincte** (guvern + comercial, hardware + servicii), fiecare nișă primește cel puțin un peer — altfel tabelul compară doar jumătate de companie.
+- **SEC EDGAR, segmente și geografie** — dacă pagina `/company/` nu a dat împărțirea veniturilor pe segmente sau pe geografii, ia-o din ultimul 10-K pe ruta EDGAR din `references/data-sources.md` (CIK → FilingSummary → pagina mică „Revenue by Geography"). Fără ea, steagul de geografie din secțiunea 11 nu se poate judeca din cifre — iar un semafor pus doar pe știri încalcă regula „știrile nu sunt sursă de cifre".
 - **WebSearch, dobânzi** — nivelul dobânzii americane pe 10 ani azi și direcția ei pe ultimele ~12 luni, cu dată.
 - **WebSearch, politică și reglementare** — `{compania} antitrust / tarife / export controls / reglementare`, limitat la ultimele luni. În raport intră doar ce e concret și numit.
 
@@ -69,19 +73,29 @@ Pentru toate trei: știrile și căutările sunt narativ, nu sursă de cifre; fi
 
 Datele de pe web sunt uneori inconsistente. Câteva verificări care prind majoritatea problemelor:
 
+- **Preț × număr de acțiuni ≈ capitalizare.** Dacă nu iese (±10%), undeva e un preț vechi sau o confuzie de unități (mil vs. mld) — găsește-o înainte să scrii, pentru că aceeași greșeală e probabil și în alte cifre din același fetch.
 - **FCF ar trebui să fie ≈ cash flow operațional − capex.** Dacă nu se potrivește, sursa folosește o altă definiție; spune ce definiție ai folosit.
+- **Istoricul numărului de acțiuni nu se derivează din alte mărimi.** Dacă sursele web diferă sau lipsesc ani, cifra autoritară e în EDGAR companyfacts (`CommonStockSharesOutstanding`) — vezi `references/data-sources.md`. O serie „derivată din valoarea contabilă pe acțiune" e o cifră inventată cu extra pași.
 - **Buyback mare, dar numărul de acțiuni nu scade** → compania răscumpără doar cât să compenseze acțiunile date angajaților. Asta schimbă complet interpretarea secțiunii de buyback. Vezi capcana explicată în `references/glossary.md`.
 - **Datorie netă = datorie totală − cash și echivalente.** Calculeaz-o tu; puține surse o afișează direct.
 - **Anul fiscal ≠ anul calendaristic** pentru multe companii. La NVIDIA, „FY2026" se încheie în ianuarie 2026, deci acoperă aproape tot 2025. Menționează asta când e cazul, altfel cifrele par decalate cu un an.
 - **Dacă două surse diferă cu peste 5%** la aceeași valoare, arată ambele și spune care e mai recentă.
 
-## Faza 4 — Scrie raportul
+## Faza 4 — Construiește raportul
 
-Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț simplu nu are nevoie de trei paragrafe despre datorii — dar păstrează ordinea și titlurile, pentru ca rapoartele pe companii diferite să fie comparabile.
+Raportul complet se scrie **o singură dată, în fișierul HTML** (Faza 5) — nu-l scrie și în chat, că dublezi munca și cele două versiuni divergă. În chat livrezi sinteza:
+
+1. **Scorecard-ul** — tabelul cu cei opt piloni și semafoare (aici emoji-urile 🟢/🟡/🔴 sunt în regulă).
+2. **„Ce se întâmplă"** — un paragraf de 5–8 fraze: ce face compania, unde e prețul și de ce, cele 2–3 semnale care domină tabloul, ce ar invalida teza.
+3. **Fișierul HTML**, trimis cu SendUserFile.
+
+Excepție: când utilizatorul a cerut un singur pilon („cum stă X cu datoriile?"), răspunsul e doar acea secțiune, în chat, fără HTML — dacă nu îl cere explicit.
+
+Structura raportului HTML e mai jos. Adaptează lungimea la companie — o firmă cu bilanț simplu nu are nevoie de trei paragrafe despre datorii — dar păstrează ordinea și titlurile, pentru ca rapoartele pe companii diferite să fie comparabile.
 
 ```markdown
 # {Nume companie} ({TICKER}) — analiză pentru investitor începător
-*Date la {data}. Surse: stockanalysis.com, finviz.com, marketbeat.com. Nu e consultanță de investiții.*
+*Date la {data}. Surse: stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR. Nu e consultanță de investiții.*
 
 ## Fișa rapidă
 | | |
@@ -123,8 +137,8 @@ Structura de mai jos. Adaptează lungimea la companie — o firmă cu bilanț si
 
 1. **Unde e prețul** în intervalul de 52 de săptămâni — aproape de maxim, la mijloc, sau prăbușit.
 2. **Randamentul vs. S&P 500** pe YTD, 1 an, 3 ani și 5 ani, în tabel, unul lângă altul. Asta e comparația care lipsește din 99% din analizele pe care le citește un începător, și e singura care contează cu adevărat: dacă acțiunea a făcut +12% într-un an în care indicele a făcut +18%, investitorul a pierdut bani față de alternativa care nu cerea nicio muncă. Spune-o direct când se întâmplă.
-3. **Cât de violent se mișcă** — beta și volatilitatea, traduse în ceva concret: „beta 2,2 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 22%. Dacă ai 10.000 € aici, o corecție normală de piață înseamnă −2.200 €. Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare."
-4. **Ce a mutat prețul recent și ce urmează** — ultima raportare (a depășit sau a ratat așteptările, ce a spus conducerea despre trimestrul următor) și data următoarei raportări. Folosește titlurile din tabelul de știri de pe pagina finviz (fetch-ul 6) și, dacă e nevoie de context, WebSearch — dar tratează știrile ca narativ, nu ca sursă de cifre.
+3. **Cât de violent se mișcă** — beta și volatilitatea, traduse în ceva concret: „beta 2,2 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 22%. Dacă ai 10.000 $ aici, o corecție normală de piață înseamnă −2.200 $. Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare."
+4. **Ce a mutat prețul recent și ce urmează** — ultima raportare (a depășit sau a ratat așteptările, ce a spus conducerea despre trimestrul următor) și data următoarei raportări. Cifrele vin din trimestrele fetch-ului 12: dacă creșterea trimestrială a încetinit de la un ritm la altul, spune-o cu ambele cifre — decelerarea e de obicei răspunsul real la „de ce a scăzut", chiar și când rezultatele „au bătut" așteptările. Titlurile din tabelul de știri finviz (fetch-ul 6) și WebSearch dau contextul — dar știrile rămân narativ, nu sursă de cifre. Iar dacă prețul e ancorat de o ofertă de preluare anunțată, spune-o aici — tot restul raportului se citește prin termenii tranzacției (vezi excepțiile din scorecard).
 5. **Vremea pieței** — trei cifre datate care separă valul de înotător: unde e S&P 500 față de maximul pe 52 de săptămâni (din fetch-ul 9), dobânda americană pe 10 ani și direcția ei pe ultimul an (din valul doi), și sectorul companiei YTD față de S&P 500 (din fetch-ul 11). Dacă acțiunea scade odată cu tot sectorul, spune-o direct — „asta nu e o știre despre companie, e vremea". Adaugă 1–2 propoziții datate despre curentele politice sau de reglementare care ating compania acum, dacă există. Lecția întreagă despre expunere e în secțiunea 11 — aici doar constați vremea, nu o prognozezi.
 
 Secțiunea asta **nu primește semafor**. Performanța trecută a prețului nu spune nimic despre calitatea afacerii, iar un verde acolo ar sugera exact confuzia pe care skill-ul încearcă s-o prevină.
@@ -162,7 +176,7 @@ Secțiunea 13 nu e un rezumat — e partea care rămâne. Enumeră 2-3 concepte 
 Când utilizatorul cere o comparație („X sau Y?", „compară X cu Y"), fă **un singur raport**, nu două:
 
 - Rulează valul unu din Faza 2 pentru ambele companii într-un singur mesaj paralel, apoi valul doi la fel (sursele comune — SPY, sectoare, dobânzi — o singură dată).
-- Scorecard-ul primește două coloane de semafoare, una pe companie.
+- Scorecard-ul primește două coloane de semafoare, una pe companie — template-ul are markup comentat pentru varianta asta (rândurile `.row.duo`), nu improviza altă structură.
 - Fiecare secțiune discută ambele companii, una lângă alta, pe aceleași cifre. Graficele `lines` pot purta ambele serii (motorul suportă trei); randamentul față de indice primește câte un bloc `compare` pe companie.
 - Finalul nu e un verdict, ci **„diferențele care contează"**: 3–4 contraste concrete (cine se diluează, cui îi urcă marja, cine depinde de o țară sau de un client). „X e mai bună" nu apare — regula fără recomandări rămâne.
 
@@ -170,7 +184,7 @@ Fișierul: `{T1}-vs-{T2}-{AAAA-LL-ZZ}.html`.
 
 ## Faza 5 — Generează raportul HTML
 
-După raportul din chat, produ și un fișier HTML de sine stătător. Pornește de la `assets/report-template.html`: copiază-l, înlocuiește conținutul dintre `{{...}}` și șterge secțiunile care nu se aplică. Salvează-l ca `{TICKER}-{AAAA-LL-ZZ}.html` în directorul de lucru curent — nu în directorul skill-ului — și trimite-l utilizatorului cu SendUserFile (`display: "render"`).
+Raportul HTML e livrabilul principal. Pornește de la `assets/report-template.html`: copiază-l, înlocuiește conținutul dintre `{{...}}` și șterge secțiunile care nu se aplică (și linkurile lor din cuprins). Salvează-l ca `{TICKER}-{AAAA-LL-ZZ}.html` în directorul de lucru curent — nu în directorul skill-ului — și trimite-l utilizatorului cu SendUserFile (`display: "render"`).
 
 Template-ul conține deja CSS-ul, motorul de grafice și componentele. Nu rescrie stilurile și nu adăuga biblioteci — fișierul trebuie să rămână unul singur, care se deschide offline, cu temă deschisă și întunecată.
 
@@ -178,7 +192,7 @@ Template-ul conține deja CSS-ul, motorul de grafice și componentele. Nu rescri
 
 | `data-viz` | Pentru ce | Formă |
 |---|---|---|
-| `bars` | O serie pe ani (FCF, venituri, dividende) | `{labels, series:[{name,values}], suffix}` |
+| `bars` | O serie pe ani (FCF, venituri, dividende) — motorul desenează doar prima serie | `{labels, series:[{name,values}], suffix}` |
 | `lines` | Una sau mai multe serii unde contează tendința (marje, număr de acțiuni) | la fel; până la 3 serii |
 | `compare` | Acțiunea față de un etalon, pe mai multe orizonturi | `{a, b, rows:[{label,a,b}], suffix, deltaUnit}` |
 
@@ -189,6 +203,20 @@ Trei reguli care țin graficele oneste:
 - **Niciun semafor nu se transmite doar prin culoare.** Fiecare stare are icon plus etichetă text (`Solid` / `Atenție` / `Risc` / `Absent`), pentru că aproximativ un bărbat din doisprezece nu distinge roșu de verde. Paleta e deja aleasă ca să treacă pragurile de contrast în ambele teme — nu o schimba.
 
 Fără emoji în HTML: în chat sunt utile, într-un document pe care omul îl păstrează arată neîngrijit. Template-ul are icoane SVG pentru toate stările.
+
+### Verificare finală, înainte de a trimite
+
+Fiecare eroare de mai jos a apărut sau poate apărea într-un raport real. Trece prin listă pe fișierul salvat, nu din memorie — primele două se verifică cu un `grep`:
+
+- [ ] **Niciun `{{` rămas** în fișier — un placeholder scăpat înseamnă o secțiune neterminată.
+- [ ] **Nicio prognoză de piață**: „va crește", „va scădea", „se va duce" despre piață, dobânzi sau preț — zero apariții. Constatarea e permisă, viitorul nu.
+- [ ] **Preț × acțiuni ≈ capitalizare** încă ține în fișier (prinde prețuri vechi și confuzii mil/mld).
+- [ ] Fiecare cifră importantă are **anul fiscal** ei; fiecare afirmație macro are **data** ei.
+- [ ] Valorile lipsă apar exact ca `N/A (nu apare pe sursă)` — nu aproximate, nu „derivate".
+- [ ] **Cifrele competitorilor** există în paginile citite în valul doi, nu din memorie.
+- [ ] Graficele respectă regulile: `bars` o singură serie, de la zero; variațiile mici pe `lines`; randament vs. indice pe `compare`.
+- [ ] **Fără emoji** în HTML; fiecare semafor are icon SVG + etichetă text.
+- [ ] Numele fișierului: `{TICKER}-{AAAA-LL-ZZ}.html` (comparație: `{T1}-vs-{T2}-{AAAA-LL-ZZ}.html`), salvat în directorul de lucru, trimis cu SendUserFile.
 
 ## Limitele skill-ului
 
