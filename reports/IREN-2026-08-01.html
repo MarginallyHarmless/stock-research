@@ -1,0 +1,921 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IREN — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer,nav.toc{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>IREN</h1>
+    <span class="co">IREN Limited (fostă Iris Energy) · NASDAQ</span>
+  </div>
+  <div class="px">
+    <div class="v">36,80 $</div>
+    <div class="d down">−52,1% față de maximul pe 52 săpt.</div>
+  </div>
+  <div class="chips">
+    <span class="chip">Clasificare oficială: <b>Financials · Capital Markets</b></span>
+    <span class="chip">Indici: <b>Russell 1000</b> (din 30 iun 2026)</span>
+    <span class="chip">Capitalizare <b>13,15 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>30 iunie</b></span>
+    <span class="chip">Următoarea raportare <b>27 aug 2026</b></span>
+  </div>
+</header>
+
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Diluție</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">Avantajul e în pământ (energie, teren, racord la rețea), nu în produs — și încă nu apare în randamente: ROIC negativ.</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Negativ în toți cei 5 ani, și tot mai adânc: −2,07 mld $ doar în 9 luni din FY2026.</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Datorie netă 1,75 mld $ contra unui EBITDA implicit de ~144 mln $ — peste 12× pragul de referință de 3×.</span>
+    </div>
+    <div class="row">
+      <span class="k">Buyback vs. diluție</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">De 6,5 ori mai multe acțiuni în trei ani, plus 3,69 mld $ obligațiuni convertibile care încă nu s-au convertit.</span>
+    </div>
+    <div class="row">
+      <span class="k">Creștere și marje</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">Anii arată +168%, ultimul trimestru arată 0% an/an și −40% în două trimestre. La un pas de roșu.</span>
+    </div>
+    <div class="row">
+      <span class="k">Evaluare</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">EV/Vânzări 19,7 față de 8,3 media proprie din FY2025; profitul din P/E vine dintr-un câștig contabil, nu din operațiuni.</span>
+    </div>
+    <div class="row">
+      <span class="k">Sentiment de piață</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">30,3% din float vândut în lipsă — de trei ori pragul roșu; deși instituționalii au cumpărat net 1,5 mld $.</span>
+    </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Patru steaguri din patru: dobânzi, dublă ciclicitate (bitcoin + capex AI), concentrare geografică, reglementare de rețea electrică.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD · 31 iul 2026</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:35.5%"></div>
+        <div class="now" style="left:35.5%">36,80</div>
+      </div>
+      <div class="ends"><span>min 14,72</span><span>max 76,87</span></div>
+    </div>
+  </figure>
+
+  <p>Acțiunea e la o treime din drumul dintre minimul și maximul ultimului an: <strong>+150% peste minim, dar −52% sub maxim</strong>. Ambele cifre sunt reale în același timp — și exact asta e problema cu ancorarea de un preț istoric. Cine a cumpărat la 76,87 $ a pierdut jumătate din bani; cine a cumpărat la 14,72 $ i-a dublat cu vârf. Prețul de ieri nu spune nimic despre valoarea de azi.</p>
+
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">% · 31 iul 2026</span></figcaption>
+    <script type="application/json">
+    {"a":"IREN","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":-2.57,"b":9.55},
+             {"label":"1 an","a":128.43,"b":18.19},
+             {"label":"3 ani","a":452.55,"b":63.18}]}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA CU INDICELE</div>
+    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". La IREN, răspunsul depinde violent de când ai intrat: pe 3 ani a bătut indicele cu peste 389 de puncte procentuale, pe ultimul an cu 110 pp — dar în 2026, de la 1 ianuarie încoace, e <strong>sub indice cu 12 pp</strong>. Aceeași companie, trei verdicte diferite.</p>
+    <p>Nu există rând „5 ani": IREN s-a listat pe 17 noiembrie 2021, deci nu are încă cinci ani de istoric public. Toată grila de mai jos se citește prin filtrul ăsta — nu ai destule cicluri ca să vezi cum se comportă compania la greu.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">4,28</div><div class="s">amplifică piața de ~4,3×</div></div>
+    <div class="stat"><div class="l">Volatilitate (30 zile)</div><div class="v">14,25%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $ investiți</div><div class="v down">−4.280 $</div><div class="s">la o corecție de piață de 10%</div></div>
+  </div>
+
+  <p><strong>Citește tabelul de mai sus înainte de orice altceva din raport.</strong> Beta 4,28 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 43%. Iar volatilitatea de 14,25% pe zi înseamnă că o mișcare de ±14% într-o singură ședință e <em>normalul</em> aici, nu un eveniment. Pentru comparație, S&amp;P 500 are beta 1,01 și volatilitate 1,34% pe zi — IREN se mișcă de peste zece ori mai violent. Dacă o zi de −14% te-ar face să vinzi în panică, poziția e prea mare, indiferent cât de bună ți se pare povestea.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,8%</div><div class="s">la 31 iul 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">de la ~4,4% în iul 2025</div></div>
+    <div class="stat"><div class="l">Tehnologie YTD vs. indice</div><div class="v">+7 pp</div><div class="s">tehnologie +16,6% · indice +9,6%</div></div>
+  </div>
+
+  <p><strong>Vremea pieței nu explică scăderea.</strong> S&amp;P 500 e la un pas de maximul pe 52 de săptămâni (−1,8% la 31 iulie 2026), iar sectorul tehnologic e cu 7 puncte procentuale peste indice de la începutul anului. IREN, în schimb, e −2,6% YTD, −15,1% în ultima lună și −38,5% în ultimele șase luni. <strong>Asta nu e vremea, e ceva la companie.</strong></p>
+
+  <p>O notă despre clasificare, pentru că e o capcană practică: finviz și stockanalysis o încadrează la <em>Financials · Capital Markets</em> — o rămășiță din perioada în care era pur minier de bitcoin. Sectorul „Financial" a făcut +7,2% YTD, dar comparația relevantă e cu tehnologia și cu ceilalți operatori de centre de date AI. Când te uiți la un ETF de sector ca etalon, verifică întâi dacă clasificarea are sens.</p>
+
+  <p><strong>Ce a mutat prețul.</strong> Ultima raportare, trimestrul încheiat la 31 martie 2026, a arătat venituri de 144,8 mln $ — practic identice cu cele de acum un an (144,8 mln $) și cu <strong>40% sub vârful de 240,3 mln $ din septembrie 2025</strong>. Pierderea netă a fost de 247,8 mln $, împinsă de o depreciere de active de 140,4 mln $ (retragerea minierelor vechi de bitcoin) și de o amortizare care s-a dublat la 121,2 mln $ pe trimestru.</p>
+
+  <p>Contra-narativul a venit pe 20 iulie 2026: 2,8 mld $ în contracte noi de AI Cloud și ridicarea țintei de venit anualizat (ARR) de la sfârșitul lui 2026 peste 4 mld $. Acțiunea a sărit 19,6% în ziua aceea — și a pierdut tot avansul în zece zile. Pe 30 iulie a mai urcat 30% după declarații ale conducerii despre cerere, ceea ce dă măsura nervozității din jurul acestei acțiuni. Între timp, pe 4 și 13 iulie 2026, prețul a căzut la anunțul unui pachet de acțiuni restricționate pentru cei doi co-CEO, evaluat la 700–800 mln $ (≈5% diluție). Următoarea raportare, rezultatele pe tot anul fiscal 2026, e programată pe <strong>27 august 2026</strong>.</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+
+  <p>IREN construiește și operează centre de date. Deține pământul, contractele de energie, racordurile la rețeaua electrică, clădirile și calculatoarele dinăuntru. Fondată în 2018 în Sydney ca <em>Iris Energy</em>, a fost până recent un miner de bitcoin: cumpăra energie ieftină, o transforma în putere de calcul și primea bitcoin. Din noiembrie 2024 se numește IREN și își convertește aceleași centre de date în ferme de plăci grafice NVIDIA pe care le închiriază companiilor de inteligență artificială.</p>
+
+  <p>Prin urmare are azi două afaceri complet diferite sub același acoperiș:</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Segment (trim. înch. 31 mar 2026)</th><th>Venituri</th><th>Pondere</th><th>Creștere an/an</th></tr></thead>
+    <tbody>
+      <tr><td>Minerit bitcoin</td><td>111,2 mln $</td><td>76,8%</td><td class="down">−21,3%</td></tr>
+      <tr><td>AI Cloud Services</td><td>33,6 mln $</td><td>23,2%</td><td class="up">+839%</td></tr>
+      <tr class="me"><td>Total</td><td>144,8 mln $</td><td>100%</td><td>−0,02%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Cifra de total ascunde tot ce contează: afacerea veche se contractă cu 21%, cea nouă crește de aproape zece ori — dar de la o bază atât de mică încât suma iese exact pe zero. Pe primele nouă luni din anul fiscal 2026, mineritul a fost 511,5 mln $ (89,8%) și AI Cloud 58,3 mln $ (10,2%). Toate cifrele astea vin din nota de segmente a raportului trimestrial depus la SEC pe 8 mai 2026.</p>
+
+  <p><strong>Unde sunt banii, geografic.</strong> Conform aceleiași depuneri, în perioadele raportate <em>toate</em> veniturile din minerit au fost înregistrate în Australia și <em>toate</em> veniturile din AI Cloud în Canada. Compania construiește în plus în Texas (campusurile Childress și Sweetwater), în Australia de Sud (racord de 800 MW, energizare țintită din 2028) și în Spania (achiziția Nostrum, 490 MW, finalizată în iunie 2026) — dar acelea încă nu produc venit contabilizat.</p>
+
+  <div class="concept">
+    <div class="h">CONTRACT ANUNȚAT ≠ VENIT ÎN PORTOFOLIU</div>
+    <p>Pe 2 noiembrie 2025 IREN a semnat cu Microsoft un acord de aproximativ <strong>9,7 miliarde $</strong> pe o durată medie de cinci ani, pentru servicii GPU la Childress, Texas, cu 20% din valoare plătită înainte de livrarea fiecărei tranșe. Titlurile din presă au raportat suma de 9,7 mld $. Raportul depus la SEC spune însă altceva, negru pe alb: compania include în obligațiile de performanță rămase (RPO — <em>remaining performance obligations</em>, adică backlog-ul contractual recunoscut) doar tranșele livrate și acceptate, iar la 31 martie 2026 <strong>nu fusese livrată și acceptată niciuna</strong>.</p>
+    <p>Backlog-ul real recunoscut la acea dată era de <strong>710,3 mln $</strong>, din care 308,0 mln $ urmează a fi recunoscuți în primele 12 luni. Diferența dintre 9,7 mld $ și 710 mln $ nu e o contradicție — e distincția dintre ce s-a semnat și ce s-a livrat. Când citești un comunicat cu o cifră mare de contract, caută în raportul trimestrial cât din ea a ajuns efectiv în RPO. E una dintre cele mai utile verificări pe care le poți face singur.</p>
+  </div>
+
+  <p>Un semn că banii încep totuși să circule: veniturile amânate (<em>deferred revenue</em> — bani încasați în avans pentru servicii încă neprestate) au sărit de la 0,9 mln $ la 30 iunie 2025 la <strong>120,4 mln $</strong> la 31 martie 2026. Sunt avansurile de 20% din contracte. Cash-ul a intrat; serviciul nu a fost încă livrat.</p>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Companiile care rămân profitabile zeci de ani sunt cele care au ceva ce nu se poate copia ușor.</p>
+    <p>Ordinea de mai jos e de la cel mai durabil la cel mai fragil. Un începător supraevaluează aproape întotdeauna brandul și subevaluează costurile de schimbare.</p>
+  </div>
+
+  <div class="score">
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Slab</span>
+      <span class="t">Contractele sunt multianuale, dar produsul e capacitate de calcul brută (<em>bare metal</em>). Un client care mută sarcina la alt furnizor nu trebuie să-și rescrie software-ul.</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Un client în plus nu face serviciul mai valoros pentru ceilalți.</span></div>
+    <div class="row"><span class="k">Avantaj de cost / scară</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Plauzibil</span>
+      <span class="t">Aici e singurul candidat serios: racorduri la rețea deja obținute — 2,75 GW în vestul Texasului, 800 MW în Australia de Sud, 490 MW în Spania. Cozile de racordare durează ani.</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
+      <span class="t">Parteneriat direct cu NVIDIA și statut „Exemplar Cloud" (iun 2026). Real, dar e o relație comercială, nu un brevet — se poate acorda și altora.</span></div>
+    <div class="row"><span class="k">Brand</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Nimeni nu plătește mai mult pentru o oră de GPU fiindcă e IREN pe factură.</span></div>
+  </div>
+
+  <div class="concept">
+    <div class="h">DOVADA ÎN CIFRE, NU POVESTEA</div>
+    <p>Orice companie susține în prezentări că are avantaje competitive. Testul numeric e ROIC — cât profit produce la fiecare dolar investit în afacere. Un ROIC constant peste ~15% e cea mai bună dovadă că moat-ul e real.</p>
+    <p><strong>La IREN, ROIC e −5,92% (stockanalysis) sau +2,43% (finviz)</strong> — cele două surse diferă pentru că folosesc definiții diferite ale capitalului investit, dar niciuna nu se apropie de 15%. Compania a băgat miliarde în active și încă nu scoate un randament pozitiv convingător din ele. Asta nu înseamnă că moat-ul nu poate apărea; înseamnă că, la 31 iulie 2026, nu e vizibil în cifre.</p>
+  </div>
+
+  <p><strong>Jumătatea de afacere care sigur nu are moat.</strong> Cele 77% din venituri care vin din minerit de bitcoin sunt o comoditate în forma cea mai pură posibilă: vinzi bitcoin la prețul pieței. Zero putere de negociere a prețului — nu există „bitcoinul IREN" pentru care cineva să plătească mai mult. Singurul avantaj posibil acolo e costul energiei, iar acela se erodează pe măsură ce toată lumea licitează pentru aceleași MW.</p>
+
+  <p>Verdictul e <strong>galben, nu verde</strong>: avantajul plauzibil al IREN e în pământ — energie contractată, terenuri, racorduri obținute înaintea altora. E un avantaj real într-un moment în care energia e resursa rară din construcția AI. Dar e un avantaj de <em>timing</em> pe o resursă pe care o vânează simultan zece companii cu bilanțuri mai mari, nu un avantaj structural în produs.</p>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+
+  <div class="concept">
+    <div class="h">CE E FREE CASH FLOW</div>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <em>și</em> investițiile în echipamente, clădiri sau servere. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar. Profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce arată extrasul de cont.</p>
+    <p>Din FCF vin toate lucrurile bune pentru acționar: dividende, răscumpărări, achiziții fără împrumut, rezistență la crize. Fără el, orice altceva e finanțat din datorie sau din acțiuni noi.</p>
+  </div>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mln USD · an fiscal înch. 30 iun</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","9L FY26"],
+     "series":[{"name":"FCF","values":[-79,-332,-110,-428,-1127,-2065]}],
+     "suffix":""}
+    </script>
+  </figure>
+
+  <p><strong>Cinci ani, cinci ani negativi, și accelerând.</strong> Ultima coloană acoperă doar nouă luni din anul fiscal 2026 (iulie 2025 – martie 2026) și e deja de aproape două ori mai adâncă decât tot anul precedent.</p>
+
+  <p>Partea nuanțată: cash flow-ul <em>operațional</em> — banii pe care îi produce afacerea înainte de investiții — e pozitiv și crește: 245,9 mln $ în FY2025 și 289,3 mln $ în primele nouă luni din FY2026. Problema nu e că afacerea pierde bani în operare. Problema e amploarea investiției: <strong>capex de 2.355 mln $ în nouă luni</strong>, din care 1.355 mln $ doar în trimestrul încheiat în martie 2026. Un singur trimestru de investiții a costat de patru ori și jumătate cash-ul generat în nouă luni.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Cash operațional (9L FY26)</div><div class="v up">+289 mln $</div><div class="s">afacerea produce cash</div></div>
+    <div class="stat"><div class="l">Capex (9L FY26)</div><div class="v down">−2.355 mln $</div><div class="s">de 8× cash-ul operațional</div></div>
+    <div class="stat"><div class="l">FCF (9L FY26)</div><div class="v down">−2.065 mln $</div><div class="s">diferența, finanțată din afară</div></div>
+  </div>
+
+  <p><strong>Întrebarea care contează la o companie cu FCF negativ e de unde vin banii.</strong> Din cash-ul existent e acceptabil; din datorie nouă e risc; din acțiuni noi te diluează. La IREN, în cele nouă luni: <strong>2.639 mln $ din emisiuni de acțiuni</strong> și <strong>1.676 mln $ din obligațiuni convertibile</strong>. Adică ambele variantele riscante, simultan, pentru un total de peste 4,3 mld $ atrași — aproape o treime din capitalizarea de azi, strânsă în nouă luni.</p>
+
+  <p>O ultimă cifră de context: plata în acțiuni către angajați (<em>stock-based compensation</em>) a fost de 162,1 mln $ în cele nouă luni, adică <strong>28% din venituri</strong>. E o cheltuială care nu iese ca numerar, deci nu strică FCF-ul raportat — dar te costă pe tine, prin diluție. Pragul de la care merită menționată e 10% din venituri; aici e aproape triplu.</p>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ</div>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică poate traversa o recesiune sau o creștere de dobânzi fără să vândă active pe nimic. Una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost.</p>
+    <p>Cifra de referință e <strong>datoria netă</strong> = datorie totală − cash. Împărțită la EBITDA (profitul operațional înainte de amortizare), spune în câți ani și-ar putea plăti datoriile dacă ar folosi tot ce produce doar pentru asta. Pragul de risc uzual: 3×.</p>
+  </div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția financiară la 31 martie 2026</b><span class="unit">mln USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Cash</span>
+        <span class="t"><span class="f" style="width:55.8%;background:var(--accent)"></span></span>
+        <span class="v">2.213</span></div>
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
+        <span class="v">3.965</span></div>
+    </div>
+  </figure>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Poziție netă</div><div class="v down">−1.752 mln $</div><div class="s">datorie netă</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v down">~12,2×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Lichiditate curentă</div><div class="v">3,72</div><div class="s">confortabil pe termen scurt</div></div>
+    <div class="stat"><div class="l">Scadențe sub 12 luni</div><div class="v">0 $</div><div class="s">niciun convertibil scadent</div></div>
+  </div>
+
+  <p>Raportul de 12,2× e derivat: finviz raporta EV/EBITDA 103,61 la 31 iulie 2026, ceea ce, la o valoare de întreprindere de 14,88 mld $, implică un EBITDA de aproximativ 144 mln $ pe ultimele 12 luni. Îl prezint ca ordin de mărime, nu ca precizie contabilă — dar chiar și cu o marjă generoasă de eroare, e de patru ori peste pragul de risc.</p>
+
+  <div class="concept">
+    <div class="h">CE E O OBLIGAȚIUNE CONVERTIBILĂ</div>
+    <p>Din cei 3.965 mln $ de datorie, <strong>3.688 mln $ sunt obligațiuni convertibile</strong>, emise aproape integral în ultimul an: 979 mln $ pe 14 octombrie 2025 și 2.270 mln $ pe 8 decembrie 2025.</p>
+    <p>O convertibilă e un împrumut cu o opțiune atașată: creditorul poate cere banii înapoi <em>sau</em> poate transforma împrumutul în acțiuni, la un preț fixat dinainte. Pentru companie e atractivă — dobânda e mult mai mică decât la un împrumut normal, tocmai fiindcă opțiunea are valoare. Pentru tine, ca acționar, e o <strong>diluție amânată</strong>: dacă prețul urcă peste pragul de conversie, apar acțiuni noi și felia ta scade. Datoria dispare din bilanț, dar plătită de tine, nu de companie.</p>
+    <p>Se întâmplă deja: în primele nouă luni din FY2026, IREN a convertit 530,7 mln $ de note în acțiuni, cu o cheltuială de stimulare a conversiei de 111,8 mln $ (a plătit ca deținătorii să convertească mai devreme).</p>
+  </div>
+
+  <p><strong>Ce atenuează tabloul:</strong> nicio convertibilă nu e scadentă în următoarele 12 luni, lichiditatea curentă e 3,72, iar 2,2 mld $ cash e o sumă reală. <strong>Ce îl agravează:</strong> la un ritm de capex de ~1,35 mld $ pe trimestru, cash-ul existent acoperă undeva sub două trimestre de construcție. Compania depinde de accesul continuu la piețele de capital — nu la o scadență, ci pentru a-și continua planul. Diferența e importantă: nu e o companie care riscă să nu-și plătească datoriile mâine, e o companie a cărei teză de investiție riscă să se oprească dacă fereastra de finanțare se închide.</p>
+</section>
+
+<!-- ══ 6. DILUȚIE ══════════════════════════════════════════════════════════ -->
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>Când o companie emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne neschimbat. Dacă deții 1% și compania emite cu 10% mai multe acțiuni, ajungi la 0,91% — fără să fi vândut nimic. Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu: vezi același număr de acțiuni, la același preț, și crezi că nu s-a întâmplat nimic.</p>
+    <p>De aceea semaforul se pune pe evoluția numărului de acțiuni, nu pe comunicate.</p>
+  </div>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Număr mediu ponderat de acțiuni</b><span class="unit">milioane · sursă: SEC EDGAR</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY23","FY24","FY25","9L FY26"],
+     "series":[{"name":"Acțiuni (medie ponderată)","values":[54.8,99.6,214.6,300.4]}]}
+    </script>
+  </figure>
+
+  <p>Cifrele sunt luate direct din rapoartele depuse la SEC, nu derivate din alte mărimi. Traiectoria: <strong>54,8 milioane de acțiuni în anul fiscal 2023 → 357,4 milioane la 30 aprilie 2026</strong>. De 6,5 ori mai multe acțiuni în mai puțin de trei ani. În ultimele 12 luni singure, numărul a crescut cu 52,3%.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Acțiuni FY2023</div><div class="v">54,8 mln</div><div class="s">medie ponderată</div></div>
+    <div class="stat"><div class="l">Acțiuni 30 apr 2026</div><div class="v">357,4 mln</div><div class="s">în circulație</div></div>
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+52,3%</div><div class="s">felia ta a scăzut cu ~34%</div></div>
+    <div class="stat"><div class="l">Dividend / buyback</div><div class="v">0 $</div><div class="s">niciodată plătite</div></div>
+  </div>
+
+  <p><strong>Cum se citește „+52,3%".</strong> Dacă acum un an dețineai 0,01% din companie și nu ai vândut nimic, azi deții 0,0066% — ai pierdut o treime din felia ta stând pe loc. E ca și cum ai pierde o treime din tort fără să fi mâncat nimic.</p>
+
+  <p>Randamentul total pentru acționar — dividend plus răscumpărări — e <strong>zero</strong>. Compania nu a plătit niciodată dividend și nu a răscumpărat niciodată acțiuni. Merge exact în direcția opusă. Asta nu e automat greșit la o companie care construiește infrastructură cu miliarde: o companie tânără în expansiune are nevoie de capital, iar capitalul vine de undeva. Dar e important să știi ce cumperi: <strong>plătești pentru viitorul companiei cu o felie care se subțiază în fiecare trimestru.</strong></p>
+
+  <p>Și diluția nu s-a terminat. Trei surse rămân deschise: cele 3.688 mln $ de obligațiuni convertibile care încă nu s-au convertit; plata în acțiuni către angajați, la 28% din venituri; și pachetul de 18,2 milioane de unități restricționate aprobat de consiliu pe 30 iunie 2026 pentru cei doi co-CEO — încă aproximativ 5% din companie.</p>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>An fiscal (înch. 30 iun)</th><th>Venituri</th><th>Creștere</th><th>Marjă brută*</th><th>Marjă operațională</th></tr></thead>
+    <tbody>
+      <tr><td>FY2022</td><td>59,1 mln $</td><td class="up">+595,7%</td><td>100,0%</td><td>0,5%</td></tr>
+      <tr><td>FY2023</td><td>75,5 mln $</td><td class="up">+27,9%</td><td>47,8%</td><td class="down">−208,2%</td></tr>
+      <tr><td>FY2024</td><td>187,2 mln $</td><td class="up">+147,9%</td><td>53,5%</td><td class="down">−14,6%</td></tr>
+      <tr><td>FY2025</td><td>501,0 mln $</td><td class="up">+167,7%</td><td>68,3%</td><td class="up">+3,5%</td></tr>
+      <tr class="me"><td>TTM (mar 2026)</td><td>757,1 mln $</td><td class="up">+104,0%</td><td>68,4%</td><td class="down">−53,6%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="font-size:12.5px">* Marja brută raportată de stockanalysis exclude amortizarea. Vezi caseta de mai jos — la o companie de infrastructură, asta schimbă complet cifra.</p>
+
+  <p>Pe ani, tabloul pare superb: cinci ani de creștere, marjă brută în urcare de la 47,8% la 68,4%. Un scorecard mecanic ar pune verde. <strong>Ar fi greșit</strong>, și de aceea trimestrele contează mai mult decât anii.</p>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Venituri pe trimestru</b><span class="unit">mln USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["Q4 FY24","Q1 FY25","Q2 FY25","Q3 FY25","Q4 FY25","Q1 FY26","Q2 FY26","Q3 FY26"],
+     "series":[{"name":"Venituri trimestriale","values":[57.4,52.8,116.1,144.8,187.3,240.3,184.7,144.8]}]}
+    </script>
+  </figure>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["Q4 FY24","Q1 FY25","Q2 FY25","Q3 FY25","Q4 FY25","Q1 FY26","Q2 FY26","Q3 FY26"],
+     "series":[{"name":"Creștere an/an","values":[67.8,53.4,172.8,166.5,226.3,355.4,59.0,0.0]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DECELERARE — DE CE „REZULTATE BUNE, ACȚIUNEA SCADE"</div>
+    <p>Piața nu tranzacționează media, ci <strong>ritmul</strong>. Prețul plătit ieri presupunea ritmul de ieri. La IREN, creșterea an/an a coborât de la <strong>+355% în trimestrul încheiat în septembrie 2025 la +59% în decembrie 2025 și la 0% în martie 2026</strong> — în două trimestre. Iar în valoare absolută, veniturile au căzut de la 240,3 mln $ la 144,8 mln $, adică <strong>−40%</strong>.</p>
+    <p>Cifra anuală de +168% pe FY2025 e adevărată și complet inutilă pentru a înțelege ce se întâmplă acum. Asta e lecția: când vezi o companie de creștere care „a bătut așteptările" și totuși scade, uită-te la ultimele patru trimestre, nu la ultimii cinci ani.</p>
+  </div>
+
+  <p><strong>Explicația e reală și e jumătate bună.</strong> Scăderea nu e pierdere de clienți: compania retrage din funcțiune minierele vechi de bitcoin ca să elibereze energie și spațiu pentru plăci grafice. Veniturile din minerit au scăzut 21,3% an/an tocmai fiindcă echipamentele au fost scoase deliberat — deprecierea de 140,4 mln $ din trimestru e chiar costul acelei retrageri. AI Cloud a crescut de la 3,6 la 33,6 mln $ pe trimestru în același timp.</p>
+
+  <p>Dar e o tranziție cu o gaură la mijloc, și gaura e mare. La ritmul din trimestrul martie 2026, AI Cloud produce aproximativ <strong>134 mln $ pe an</strong>. Ținta de venit anualizat anunțată de companie pentru sfârșitul lui 2026 e <strong>peste 4 mld $</strong>. Distanța dintre cele două cifre e de aproximativ 30 de ori, de parcurs în vreo nouă luni. Nu e o prognoză din partea mea — sunt două cifre publicate, puse una lângă alta, și e cel mai important lucru de urmărit la raportarea din 27 august 2026.</p>
+
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ: 68% SAU 14%?</div>
+    <p>stockanalysis raportează marjă brută de 68,4%; finviz raportează 19,6%. Nu e o eroare de extragere — e o diferență de definiție, și merită înțeleasă, pentru că apare la orice companie cu active grele.</p>
+    <p>Cifra de 68% exclude amortizarea. Din raportul trimestrial: în nouă luni, la venituri de 569,8 mln $, costul direct al veniturilor a fost 186,4 mln $ (mai ales electricitate: 167,9 mln $), dar amortizarea a fost <strong>305,6 mln $</strong>. Incluzând-o, marja brută reală scade la aproximativ <strong>13,7%</strong>.</p>
+    <p>Care e cea corectă? Pentru IREN, cea care include amortizarea. Plăcile grafice și minierele nu sunt o cheltuială contabilă abstractă — se uzează și trebuie înlocuite cu bani reali, la câțiva ani. La o companie de software, amortizarea e mică și marja brută „curată" spune adevărul. La una care își arde echipamentele, amortizarea <em>este</em> costul afacerii. <strong>Când vezi două marje brute foarte diferite pe aceeași companie, întreabă întâi cât de repede se uzează activele.</strong></p>
+  </div>
+
+  <p><strong>Creșterea pe acțiune, nu pe total.</strong> La o companie care se diluează cu peste 50% pe an, cifra totală e înșelătoare — partea ta e cea pe acțiune. Pe primele nouă luni: veniturile totale au crescut cu 81,6% (de la 313,7 la 569,8 mln $), dar numărul mediu de acțiuni a crescut de la 206,0 la 300,4 milioane. Veniturile pe acțiune au urcat de la 1,52 $ la 1,90 $, adică <strong>+24,6%</strong>. Tot creștere, dar o treime din cea afișată. Asta e cifra onestă.</p>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
+
+  <div class="concept">
+    <div class="h">P/E-UL DE 68 E O ILUZIE — IATĂ DE CE</div>
+    <p>IREN afișează un P/E de 67,7 (stockanalysis) sau 72,7 (finviz), calculat pe un profit net de 158,3 mln $ pe ultimele 12 luni. Pare o companie profitabilă, scumpă dar reală.</p>
+    <p>Deschide raportul trimestrial și profitul dispare. În primele nouă luni din FY2026, rezultatul include un <strong>câștig nerealizat din instrumente financiare de +533,9 mln $</strong> — reevaluarea contabilă a derivatelor legate de obligațiunile convertibile. Nu e cash și nu vine din vânzarea de servicii. Rezultatul <em>operațional</em> pe aceeași perioadă e negativ: −405,8 mln $ pe ultimele 12 luni.</p>
+    <p>Cu alte cuvinte, numitorul acelui P/E e un câștig pe hârtie dintr-un instrument financiar. De aceea rezultatul net sare de la +384,6 mln $ (trim. sept. 2025) la −247,8 mln $ (trim. mar. 2026) — nu se schimbă afacerea în trei luni, se schimbă marcajul la piață. <strong>Când profitul net oscilează sălbatic fără ca veniturile să oscileze la fel, caută linia care îl provoacă.</strong></p>
+  </div>
+
+  <p>Fiindcă P/E-ul nu e utilizabil aici, iar P/FCF-ul nu există (FCF-ul e negativ), multiplii care spun ceva sunt cei pe vânzări și pe valoarea de întreprindere.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Față de propria istorie</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>Azi</th></tr></thead>
+    <tbody>
+      <tr><td>Preț / Vânzări</td><td>4,12</td><td>11,33</td><td>7,51</td><td class="down">17,37</td></tr>
+      <tr><td>EV / Vânzări</td><td>3,22</td><td>9,18</td><td>8,30</td><td class="down">19,66</td></tr>
+      <tr><td>EV / EBITDA</td><td>n/a</td><td>73,92</td><td>20,96</td><td class="down">103,61</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="font-size:12.5px">„n/a" pe rândul EV/EBITDA din FY2023 înseamnă N/A (nu apare pe sursă) — compania avea EBITDA negativ în anul acela, deci raportul nu are sens.</p>
+
+  <p>Pe toate cele trei axe, acțiunea e evaluată la <strong>peste dublul mediei proprii recente</strong> — și asta după ce a scăzut 52% de la maxim. La vârful din ultimul an, multiplii erau de peste două ori cei de azi.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>Capitalizare</th><th>P/E</th><th>EV/Vânzări</th><th>Marjă brută</th><th>Datorie/Capitaluri</th><th>Short % float</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>IREN</td><td>13,15 mld $</td><td>67,7*</td><td>19,66</td><td>68,4%</td><td>1,49</td><td>30,3%</td></tr>
+      <tr><td>CoreWeave (CRWV)</td><td>39,16 mld $</td><td>n/a</td><td>11,57</td><td>69,4%</td><td>7,39</td><td>20,5%</td></tr>
+      <tr><td>Applied Digital (APLD)</td><td>7,98 mld $</td><td>n/a</td><td>18,80</td><td>25,9%</td><td>1,36</td><td>26,1%</td></tr>
+      <tr><td>TeraWulf (WULF)</td><td>8,75 mld $</td><td>n/a</td><td>68,04</td><td>64,0%</td><td>n/a</td><td>27,3%</td></tr>
+      <tr><td>Cipher Mining (CIFR)</td><td>9,13 mld $</td><td>n/a</td><td>62,73</td><td>12,4%</td><td>6,42</td><td>16,7%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="font-size:12.5px">* Singurul P/E din tabel, și acela pe un profit contabil, nu operațional — vezi caseta de mai sus. Toți ceilalți patru sunt în pierdere. Marjele brute exclud amortizarea, la toți.</p>
+
+  <p><strong>Ce spune tabelul.</strong> IREN e la mijlocul unui grup foarte scump: mai scumpă decât CoreWeave (11,6) și Applied Digital (18,8), mult mai ieftină decât TeraWulf (68,0) și Cipher (62,7). Niciuna dintre cele cinci nu are profit operațional, toate au datorie mare, toate au între 17% și 30% din float vândut în lipsă. Concluzia utilă nu e „IREN e ieftină față de WULF" — e că <strong>întregul grup e evaluat pe promisiuni, nu pe rezultate</strong>, iar comparația între ele spune mai mult despre entuziasmul sectorului decât despre valoare.</p>
+
+  <p>Doi competitori merită menționați în afara tabelului. <strong>Nebius (NBIS)</strong> joacă în aceeași nișă cu un model mai puțin intensiv în capital. Iar cel mai important punct de referință nu e nici măcar cotat: hiperscalerii — Microsoft, Google, Amazon, Meta — care sunt simultan <em>clienții</em> acestor companii și cei care le pot deveni concurenți construind singuri. Clientul tău cel mai mare, care poate decide oricând să facă lucrul acela intern, e o poziție structural fragilă.</p>
+
+  <div class="concept">
+    <div class="h">RANDAMENTUL PROFITULUI VS. DOBÂNDA FĂRĂ RISC</div>
+    <p>P/E-ul citit invers spune cât „produce" compania la prețul de azi. La P/E 67,7, randamentul profitului e <strong>1,48% pe an</strong> — și chiar și acel 1,48% e un câștig contabil din derivate, nu profit din operațiuni. În același timp, obligațiunile americane pe 10 ani, cu risc practic zero, dădeau <strong>4,75%</strong> la 31 iulie 2026.</p>
+    <p>Diferența e prețul pe care îl plătește cineva pentru creșterea viitoare. Nu e o prognoză, e o comparație între două fapte de azi: plătești ca să ai 1,5% (pe hârtie) în loc de 4,75% (garantat), pariind că afacerea de peste cinci ani va fi de multe ori mai mare. Dacă acea creștere nu vine, ai plătit degeaba.</p>
+  </div>
+
+  <p><strong>Nu există P/E prospectiv.</strong> Nici stockanalysis, nici finviz nu afișează unul — pentru că estimarea de consens pentru profitul pe acțiune al anului următor e <strong>−0,20 $</strong> (finviz), adică o pierdere. Nu poți calcula un multiplu al profitului când analiștii nu se așteaptă la profit. Asta îți spune mai mult decât orice multiplu: prețul de azi nu se sprijină pe câștiguri apropiate, ci pe o afacere care abia se construiește.</p>
+
+  <p><strong>Prețurile-țintă ale analiștilor, cu avertismentul de rigoare.</strong> 16 analiști, țintă medie 81,73 $ (finviz: 84,64 $), recomandare medie 1,71 („cumpărare puternică"). Dar dispersia e uriașă: de la <strong>41 $ la 131 $</strong> — de la +11% la +256% față de prețul de azi. Când cea mai pesimistă și cea mai optimistă țintă diferă de peste trei ori, media nu înseamnă aproape nimic; înseamnă doar că nimeni nu știe. Mai mult, analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul, iar recomandările de vânzare sunt rare, pentru că băncile care le emit vor să păstreze relația cu compania. O medie de „cumpărare" e starea implicită, nu o distincție.</p>
+
+  <p>Un ultim lucru, valabil pentru orice acțiune: <strong>evaluarea nu e un semnal de timing.</strong> O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat.</p>
+</section>
+
+<!-- ══ 9. SENTIMENT ════════════════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
+
+  <p>E pilonul cu cea mai slabă valoare predictivă din tot raportul. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum. Aici e neobișnuit de interesant, pentru că cele două semnale principale arată în direcții opuse.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">41–47%</div><div class="s">MarketBeat / stockanalysis</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+1,50 mld $</div><div class="s">334 cumpărători / 96 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v down">30,3%</div><div class="s">din float · 93,7 mln acțiuni</div></div>
+    <div class="stat"><div class="l">Zile de acoperire</div><div class="v">1,9–2,4</div><div class="s">volum mediu 49,2 mln/zi</div></div>
+  </div>
+
+  <p><strong>Banii instituționali au intrat masiv.</strong> În ultimele 12 luni, 334 de investitori instituționali au cumpărat și 96 au vândut; au intrat 2,21 mld $ și au ieșit 709 mln $. Asta e un raport de aproape 3 la 1 în favoarea cumpărării — semnalul cel mai clar pozitiv din tot raportul. Atenție însă: datele vin din formularele 13F, cu întârziere de până la 45 de zile, și sunt agregări brute. Citește-le ca direcție, nu ca măsură exactă. Iar procentul de deținere (41–47%) diferă între surse fiindcă numitorii diferă — nu e o eroare, și nici nu e informativ în sine.</p>
+
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
+    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde imediat, și speră să le răscumpere mai ieftin. La IREN, <strong>93,7 milioane de acțiuni — 30,3% din float — sunt în această situație.</strong> Pragul de la care semaforul devine roșu e 10%. Aici e de trei ori peste.</p>
+    <p>Un începător aude „short squeeze" și îl citește ca pe o ocazie: dacă prețul urcă, cei pe short sunt forțați să cumpere, ceea ce împinge prețul și mai sus. Se întâmplă — dar rar, imprevizibil, și de obicei prețul revine la fel de brutal. Mult mai des, un short interest de 30% înseamnă că un număr mare de profesioniști, care au citit aceleași rapoarte, văd o problemă. Nu îi ai de partea ta; sunt contrapartea ta.</p>
+    <p>Cifra de „zile de acoperire" (1,9–2,4) e neobișnuit de mică pentru un short interest atât de mare — ceea ce înseamnă că volumul zilnic e enorm (49 mln acțiuni) și că pozițiile short se pot închide repede. Asta explică ziua de +30% din 30 iulie 2026 și pe cea de −15% de dinainte: aceeași acțiune, mișcată în ambele sensuri de aceleași fluxuri.</p>
+  </div>
+
+  <p><strong>Indici.</strong> IREN a fost inclusă în Russell 1000 pe 30 iunie 2026. Includerea într-un indice aduce cumpărare automată din partea fondurilor pasive care îl replică — cerere care nu ține de rezultatele companiei. Nu e în S&amp;P 500, care are criterii de profitabilitate pe care IREN nu le îndeplinește azi.</p>
+
+  <p><strong>Cum se împacă cele două semnale?</strong> Nu se împacă, și asta e informația. O acțiune în care instituționalii cumpără net 1,5 mld $ în timp ce 30% din float e vândut în lipsă e o acțiune despre care profesioniștii au opinii diametral opuse. Rezultatul practic e beta 4,28: fiecare știre mută prețul violent, pentru că fiecare tabără crede că a primit confirmarea. E o descriere exactă a ceea ce vezi în graficul de preț.</p>
+</section>
+
+<!-- ══ 10. MANAGEMENT ══════════════════════════════════════════════════════ -->
+<section id="s10">
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+
+  <ul class="list">
+    <li><b>Co-CEO: Daniel Roberts și William Roberts</b> — frați, cofondatori, conduc compania de la înființare, din 2018. CFO: Anthony John Lewis. Sediul e în Sydney, Australia; compania depune rapoarte la SEC ca emitent american (10-Q/10-K).</li>
+    <li><b>Insiderii dețin 13,6%</b> din companie (finviz și stockanalysis; MarketBeat raportează 5,0%, folosind o bază de calcul diferită). Chiar la capătul de jos al intervalului, e o participație semnificativă — conducerea mănâncă din aceeași oală cu acționarii, ceea ce contează mai mult decât orice declarație de aliniere.</li>
+    <li><b>Tranzacții: 0 cumpărători, 2 vânzători în 12 luni.</b> Daniel Roberts a vândut 1.000.000 de acțiuni la 33,13 $ (33,1 mln $) pe 11 septembrie 2025; directorul Christopher Guzowski a vândut 11.958 de acțiuni pe 16 septembrie 2025. Vânzările sunt de obicei zgomot — directorii sunt plătiți parțial în acțiuni și vând programat. Absența cumpărărilor din bani proprii nu e un semnal de alarmă; e situația normală. Cumpărarea ar fi fost semnalul rar și puternic.</li>
+    <li><b>Nu confunda membrii Congresului cu insiderii.</b> MarketBeat listează în același tabel și tranzacțiile unor congresmeni americani (Dale W. Strong, Cleo Fields), raportate prin STOCK Act. Nu sunt insideri ai companiei și nu au acces la informații interne — exclude-i din numărătoare.</li>
+    <li><b>Structura de vot:</b> depunerile la SEC se referă la o singură clasă de acțiuni ordinare, fără indicii de structură duală. Dacă e o preocupare, verificarea sigură e în raportul anual (10-K) sau în documentul de vot (proxy statement) de pe SEC EDGAR.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">PACHETUL DE COMPENSARE — CE S-A ÎNTÂMPLAT ȘI DE CE CONTEAZĂ</div>
+    <p>Pe 30 iunie 2026, consiliul a aprobat pentru cei doi co-CEO un pachet de <strong>18,2 milioane de unități de acțiuni restricționate</strong>, evaluat la 700–800 mln $ la prețurile de atunci — aproximativ 5% din companie. Acțiunea a scăzut ~7% la anunț și ~10% în zilele următoare.</p>
+    <p>Obiecția acționarilor, inclusiv a unor investitori care susțineau compania: pachetul e <em>bazat pe timp</em>, nu pe performanță — adică se acordă dacă cei doi rămân în companie, indiferent ce fac acțiunile. Președintele independent al consiliului, David Bartholomew, a apărat decizia într-o scrisoare către acționari, argumentând că numărul de acțiuni e fix (deci frații suportă integral scăderea), că vine după o alocare mai mică amânată din 2025, și că pragurile de performanță anterioare fuseseră atinse prea repede ca să mai servească scopul de retenție.</p>
+    <p>Nu îți spun ce să crezi despre asta. Îți spun ce să reții ca metodă: <strong>guvernanța e un cost real, măsurabil în procente de diluție</strong>, iar o companie care își plătește fondatorii cu 5% din capital într-un an în care nu generează cash liber merită o citire atentă a documentului de vot înainte de a apăsa „cumpără".</p>
+  </div>
+</section>
+
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume — vânt din față sau din spate?</h2></div>
+
+  <p>Pilonii de până acum au judecat corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <em>expunerea</em> — o proprietate stabilă a afacerii — nu vremea de azi.</p>
+
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Nu există P/E prospectiv fiindcă nu e așteptat profit; FCF profund negativ. Tot prețul e valoarea unor profituri din anii îndepărtați.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Două ciclicități suprapuse: prețul bitcoin (77% din venituri) și capexul AI al hiperscalerilor — cea mai amânabilă cheltuială corporativă care există.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">77% din venituri înregistrate într-o singură țară (Australia), restul în Canada; construcția e concentrată în Texas, sub reguli de rețea în schimbare.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Texas SB 6 obligă orice consum nou peste 75 MW să participe la programe de reducere a cererii, cu deconectare în situații de criză a rețelei.</span></div>
+  </div>
+
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR — MECANISMUL DE ÎNȚELES AICI</div>
+    <p>Dobânda fără risc e gravitația tuturor evaluărilor. Orice investiție riscantă trebuie să promită mai mult decât ea, altfel nimeni n-ar avea de ce să-și asume riscul.</p>
+    <p>La o companie fără profit azi, <em>tot</em> prețul e valoarea unor câștiguri din anii 5–15 de acum încolo, aduse în prezent. Când dobânda urcă — și a urcat, de la ~4,4% în iulie 2025 la 4,75% la 31 iulie 2026 — viitorul îndepărtat valorează mai puțin în banii de azi. Multiplul se comprimă: piața plătește mai puțin pentru fiecare dolar de vânzări viitoare. <strong>Compania poate livra exact ce a promis și acțiunea tot să scadă.</strong> Nu s-a stricat afacerea; s-a scumpit banul.</p>
+    <p>Cu cât profitul e mai departe în viitor, cu atât efectul e mai mare. IREN e la capătul extrem al scalei: profitul e nu doar departe, ci nici măcar așteptat de consens pentru anul următor. E cea mai sensibilă categorie de acțiune la dobânzi care există.</p>
+  </div>
+
+  <p><strong>Despre dubla ciclicitate.</strong> Compania e expusă la două cicluri diferite în același timp, iar asta e neobișnuit. Mineritul de bitcoin depinde de prețul bitcoin, care e printre cele mai volatile active tranzacționate. Afacerea AI depinde de bugetele de investiții ale câtorva companii de tehnologie — bugete anunțate în creștere azi, dar care pot fi tăiate într-un trimestru dacă randamentele investiției în AI dezamăgesc. Niciuna dintre cele două nu e o cerere pe care clientul nu o poate amâna.</p>
+
+  <p><strong>Despre reglementare.</strong> Texas SB 6 e o lege adoptată, nu o propunere: consumatorii industriali noi peste 75 MW trebuie să participe la programe de răspuns la cerere, cu prevederi de deconectare de urgență la stres pe rețea. Pentru o companie care construiește campusuri de 1,4 GW și 2 GW în Texas, e o constrângere directă asupra activului principal. În paralel, în martie 2026, șapte mari companii de tehnologie au semnat un angajament de a finanța ele îmbunătățirile de rețea necesare — semn că presiunea publică asupra costurilor suportate de consumatorii casnici e reală și în creștere. Racordurile din Australia de Sud (energizare țintită din 2028) și Spania adaugă alte jurisdicții, cu alte reguli.</p>
+
+  <p><strong>Ce înseamnă patru steaguri din patru.</strong> Nu că e o companie proastă — expunerea și calitatea sunt lucruri diferite. Înseamnă că volatilitatea vine la pachet cu poziția, și că trebuie să știi asta <em>dinainte</em>, nu la prima furtună. E o corabie pe o mare foarte agitată. Lecția practică nu e „evit-o", ci „dimensionează poziția ca să poți suporta valurile": vânzarea în panică pe fundul valului e felul în care expunerea se transformă în pierdere reală. Cu beta 4,28, valurile sunt de patru ori cele ale pieței.</p>
+</section>
+
+<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Riscuri — ce ar strica teza</h2></div>
+
+  <ul class="list">
+    <li class="crit"><b>Concentrarea pe un singur client, într-un contract încă nelivrat</b> — acordul cu Microsoft de ~9,7 mld $ e de aproape 13 ori veniturile companiei pe ultimele 12 luni. Când va produce venit, un singur client va domina afacerea. Până atunci, riscul e invers: la 31 martie 2026 <strong>nicio tranșă nu fusese livrată și acceptată</strong>, deci contractul nu apare deloc în backlog-ul recunoscut. Toată teza AI atârnă de o livrare care încă nu s-a materializat contabil.</li>
+    <li class="crit"><b>Dependența de fereastra de finanțare</b> — capex de 1,36 mld $ într-un singur trimestru, contra 2,21 mld $ cash. Compania a atras 4,3 mld $ în nouă luni din acțiuni noi și convertibile. Dacă piețele de capital se închid sau prețul acțiunii scade suficient cât să facă emisiunile prohibitive, construcția se oprește — nu din lipsă de cerere, ci din lipsă de bani.</li>
+    <li class="crit"><b>Gaura dintre cele două afaceri</b> — mineritul scade deliberat (−21,3% an/an), AI Cloud crește dar e la 134 mln $ anualizat față de o țintă anunțată de peste 4 mld $ pentru finalul lui 2026. Dacă rampa întârzie cu câteva trimestre, compania rămâne cu costurile noi (amortizare de 121 mln $ pe trimestru, în creștere) și fără veniturile vechi.</li>
+    <li><b>Uzura accelerată a echipamentelor</b> — deprecieri de active de 188,4 mln $ în nouă luni și o amortizare care s-a dublat an/an. Plăcile grafice se învechesc rapid; contractul de 1,6 mld $ pentru hardware NVIDIA Blackwell (mai 2026) e un activ care începe să-și piardă valoarea din ziua instalării. Într-o afacere de închiriere de calcul, ritmul de înlocuire e costul central, nu o notă de subsol.</li>
+    <li><b>Execuția pe patru continente simultan</b> — Texas, Canada, Australia, Spania, în paralel, cu 457 de angajați și o echipă de conducere formată în mare parte din fondatori. Riscul de execuție nu se vede în niciun indicator financiar până în momentul în care se vede în toate.</li>
+    <li><b>Guvernanță</b> — pachet de compensare bazat pe timp de ~5% din companie pentru doi frați care sunt simultan cofondatori, co-CEO și directori executivi în consiliu, într-un an fără cash liber generat.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">CE AR INVALIDA TEZA</div>
+    <p>Notează-ți dinainte ce te-ar face să te răzgândești. Un investitor care își fixează pragurile înainte ia decizii mult mai bune decât unul care improvizează când prețul cade. Trei lucruri concrete și observabile:</p>
+    <p><strong>1.</strong> La raportarea din 27 august 2026: dacă tot nicio tranșă Microsoft nu e livrată și acceptată — adică backlog-ul recunoscut (RPO) nu urcă semnificativ peste 710 mln $ — contractul rămâne o promisiune, nu un venit.</p>
+    <p><strong>2.</strong> Dacă veniturile din AI Cloud nu depășesc veniturile din minerit în următoarele 3–4 trimestre, tranziția nu se închide și compania rămâne, în esență, un miner de bitcoin cu costuri de centru de date AI.</p>
+    <p><strong>3.</strong> Dacă apare o nouă emisiune mare de acțiuni la un preț sub cel de azi. Diluția la preț bun e capital; diluția la preț prost e transfer de valoare de la tine către cumpărătorul nou.</p>
+  </div>
+</section>
+
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
+
+  <p><strong>Patru concepte pe care compania asta le predă mai bine decât un manual:</strong></p>
+
+  <ul class="list">
+    <li><b>Contract anunțat ≠ backlog recunoscut.</b> Presa a scris „9,7 miliarde". Raportul depus la SEC spune că 0 tranșe au fost livrate și acceptate, iar RPO-ul e 710 mln $. Verificarea durează cinci minute și schimbă complet imaginea.</li>
+    <li><b>Profitul net poate veni de oriunde.</b> P/E-ul de 68 stă pe un câștig nerealizat din derivate, într-o companie cu rezultat operațional de −406 mln $. Când profitul net sare de la +385 mln $ la −248 mln $ în două trimestre fără ca veniturile să se miște, caută linia vinovată.</li>
+    <li><b>Aceeași marjă brută poate fi 68% sau 14%,</b> după cum incluzi sau nu amortizarea. La companiile cu active care se uzează repede, cifra care include amortizarea e cea onestă.</li>
+    <li><b>Obligațiunile convertibile sunt diluție amânată.</b> Apar ca datorie în bilanț, dar se sting adesea în acțiuni noi — plătite de acționarul existent, nu de companie.</li>
+  </ul>
+
+  <p style="margin-top:1.2em"><strong>Cinci întrebări de pus la următoarea companie pe care o analizezi:</strong></p>
+
+  <ul class="list qa">
+    <li>Numărul de acțiuni a crescut sau a scăzut în ultimii trei ani? (Cifra autoritară e în rapoartele de la SEC, nu derivată din valoarea contabilă pe acțiune.)</li>
+    <li>Profitul net vine din operațiuni sau din reevaluări contabile? Compară rezultatul operațional cu cel net.</li>
+    <li>Cât din contractele anunțate în comunicate a ajuns efectiv în obligațiile de performanță rămase (RPO)?</li>
+    <li>Cum se finanțează investițiile — din cash generat de afacere, din datorie nouă, sau din acțiuni noi care mă diluează?</li>
+    <li>Creșterea veniturilor accelerează sau încetinește în ultimele patru trimestre? (Nu în ultimii cinci ani.)</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (raport trimestrial depus 8 mai 2026, perioada încheiată 31 martie 2026) · preț și date de piață la închiderea din <b>31 iulie 2026</b>; raport întocmit la 1 august 2026.
+  Raportările financiare au întârziere de până la un trimestru; short interest până la două săptămâni; dețineri instituționale până la 45 de zile. Anul fiscal al IREN se încheie pe 30 iunie: „FY2025" acoperă iulie 2024 – iunie 2025.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    /* ── compare ─────────────────────────────────────────────────────────── */
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    /* ── bars: ÎNTOTDEAUNA de la zero ─────────────────────────────────────── */
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    /* ── lines ───────────────────────────────────────────────────────────── */
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
