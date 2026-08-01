@@ -240,7 +240,7 @@ De aceea **fiecare rând 🔴 sau 🟡 primește un al doilea cuvânt**: *de faz
 
 „De fază" se acordă numai dacă **toate trei** condițiile sunt îndeplinite:
 
-1. **Cauza e investiția, nu operarea.** FCF-ul e negativ din capex, nu din pierdere operațională: cash flow-ul operațional e pozitiv sau zero, **sau** capex-ul depășește FCF-ul negativ. Alternativ, compania intră într-una din categoriile din tabelul de mai sus care prevede explicit situația.
+1. **Cauza e investiția, nu operarea.** FCF-ul e negativ din capex, nu din pierdere operațională: cash flow-ul operațional e pozitiv sau zero, **sau** capex-ul e mai mare decât FCF-ul negativ luat în valoare absolută (adică arderea vine din investiție, nu din operare). Alternativ, compania intră într-una din categoriile din tabelul de mai sus care prevede explicit situația.
 2. **Finanțarea se vede în cifre.** Cash-ul și echivalentele plus facilitățile disponibile acoperă arderea pe cel puțin patru trimestre — *pista de cash* (cash runway), calculată din bilanț și cash flow, nu estimată din ochi.
 3. **Există un prag numit, cu dată.** O țintă publicată de companie — ARR, backlog contractat, guidance — care arată dacă faza funcționează sau nu.
 

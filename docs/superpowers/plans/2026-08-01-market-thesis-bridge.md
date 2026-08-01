@@ -531,6 +531,6 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 **Spec coverage:** phase labels → Task 1 Step 4, Task 3 Step 4, Task 4 Steps 3–4. Route B → Task 1 Step 2, Task 3 Step 4, Task 4 Step 5. Demand mechanics → Task 1 Step 3, Task 3 Step 4, Task 4 Steps 6–7. Symmetric §12 → Task 1 Step 5, Task 3 Steps 2–4, Task 4 Step 8. Glossary → Task 2. README → Task 5. Acceptance criteria 1–7 → Task 6 plus the per-task greps.
 
-**Known deviation:** one CSS line (`.sec ~ .sec`), Task 4 Step 1, documented in Global Constraints.
+**Known deviations, both deliberate:** one CSS line (`.sec ~ .sec`), Task 4 Step 1, documented in Global Constraints; and the reworded §8/§9 rows of the README table in Task 5 Step 2, which the spec did not ask for but which would otherwise describe the sections inaccurately after this change.
 
 **Stale cross-references** to „Riscuri" exist in three files and are each handled: `scorecard.md` §8 (Task 1 Step 6), `SKILL.md` §11 paragraph (Task 3 Step 3), `README.md` table (Task 5 Step 1). Task 3 Step 6 and Task 5 Step 4 grep for stragglers.
