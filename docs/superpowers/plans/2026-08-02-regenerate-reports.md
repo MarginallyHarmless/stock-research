@@ -29,15 +29,15 @@ Niciun prag nu s-a schimbat la niciun upgrade. Culorile unei companii nu trebuie
 | `PLTR-2026-07-31.html` | 8 | da | 4 din 8 | 1 |
 | `SOFI-2026-08-01.html` | 8 | da | 7 din 8 | 1 |
 
-## Înainte de orice — trei lucruri de rezolvat
+## Starea, la 2 august 2026
 
-**1. Sincronizează repo-ul.** `main` local e cu două commituri în urmă față de `origin/main` (rapoartele AMZN și ORCL există pe origin, nu local). Rulează `git pull` înainte de a atinge ceva, altfel vei crede că lipsesc.
+**Rezolvate deja, nu le mai face:** repo-ul e sincronizat, `hype-context` e merge-uit pe `main` și publicat, iar `IREN` și `PLTR` sunt regenerate și live.
 
-**2. Merge-uiește `hype-context`.** Upgrade-ul 2 stă pe branch-ul `hype-context`, nemerge-uit. Rapoartele regenerate trebuie să iasă din skill-ul nou, deci branch-ul trebuie să ajungă pe `main` întâi. Dacă merge-ul nu e încă decis de proprietar, **oprește-te și întreabă** — nu regenera din skill-ul vechi.
+**Regula pentru numele fișierelor.** IREN și PLTR au fost suprascrise pe același nume, ca să nu se miște linkurile publicate — dar asta a mers doar pentru că datele noi cădeau exact pe data din nume (IREN la 1 august, PLTR la închiderea de 31 iulie). La cele șase rămase nu se va potrivi: regenerezi pe 2 august sau mai târziu un fișier care se numește `NFLX-2026-07-31.html`.
 
-**3. Întreabă ce se întâmplă cu fișierele vechi.** Regenerarea produce fișiere cu data de azi (`NFLX-2026-08-02.html`), nu suprascrie `NFLX-2026-07-31.html`. Folderul ar rămâne cu două versiuni ale aceleiași companii, iar cititorul n-are cum să știe care e cea bună.
+Deci: **fișier nou cu data reală a datelor, iar cel vechi șters în același commit.** Un nume care spune 31 iulie peste un raport plin de cifre de august e o minciună mică, dar exact genul care se acumulează — iar cele șase nu sunt linkurile pe care proprietarul a cerut să le păstrăm. Nu lăsa niciodată două versiuni ale aceleiași companii în folder: cititorul n-are cum să știe care e cea bună.
 
-Recomandarea mea: **șterge versiunea veche în același commit cu cea nouă.** Rapoartele nu sunt un arhivă istorică — sunt exemple de ce produce skill-ul, iar un exemplu depășit dezinformează. Dar e decizia proprietarului; întreab-o explicit înainte să ștergi ceva.
+Dacă vrei să propui altceva, varianta corectă pe termen lung e ca numele să nu mai conțină deloc data (`reports/NFLX.html`), cu data doar în pagină. Linkurile se schimbă o dată și pe urmă niciodată. E o decizie a proprietarului, nu una de luat în trecere.
 
 ## Ordinea de lucru
 
