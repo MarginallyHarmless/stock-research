@@ -1,5 +1,7 @@
+<!doctype html>
 <meta charset="utf-8">
-<title>ONDS — analiză pentru investitor începător</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONDS — analiză</title>
 <style>
 /* ─── tokens ─────────────────────────────────────────────────────────────── */
 :root{
@@ -56,11 +58,20 @@ header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
   color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
 .themer:active{transform:scale(.94)}
 
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
 /* ─── section ────────────────────────────────────────────────────────────── */
-section{padding:30px 0;border-bottom:1px solid var(--rule)}
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -78,6 +89,9 @@ section{padding:30px 0;border-bottom:1px solid var(--rule)}
 .st[data-s=none]{color:var(--ink-3)}
 @media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
 :root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
 
 /* ─── concept callout ────────────────────────────────────────────────────── */
 .concept{border-left:2px solid var(--accent);background:var(--wash);
@@ -122,8 +136,6 @@ figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
 .bars{padding-top:16px}
 .xax{display:flex;gap:6px;margin-top:6px}
 .xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
-.grp{position:absolute;inset:0;display:flex;gap:2px}
-.grp .gc{flex:1;position:relative}
 
 /* lines */
 .lwrap{position:relative}
@@ -155,10 +167,7 @@ figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
 .split .r .f{display:block;height:100%;border-radius:3px}
 .split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
 
-/* compare — două serii pe orizontale, fiecare rând scalat la maximul lui.
-   Randamentele pe 5 ani depășesc de zeci de ori pe cele YTD; într-un grafic
-   cu o scală comună, orizonturile scurte devin invizibile. Comparația reală
-   e oricum în interiorul rândului: acțiunea față de indice, pe același interval. */
+/* compare */
 .cmp{display:grid;gap:15px}
 .cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
 .cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
@@ -213,11 +222,14 @@ footer b{color:var(--ink-2)}
   .wrap{padding:0 14px 56px}
   .row{grid-template-columns:1fr auto;gap:6px 10px}
   .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
   .tick h1{font-size:24px} .px .v{font-size:21px}
   .split .r{grid-template-columns:70px 1fr 70px}
 }
 @media print{
-  .themer{display:none} body{background:#fff}
+  .themer,nav.toc{display:none} body{background:#fff}
   section{break-inside:avoid;border-bottom:1px solid #ddd}
 }
 </style>
@@ -232,766 +244,460 @@ footer b{color:var(--ink-2)}
 <header>
   <div class="tick">
     <h1>ONDS</h1>
-    <span class="co">Ondas Inc.</span>
+    <span class="co">Ondas Inc. (fostă Ondas Holdings)</span>
   </div>
   <div class="px">
-    <div class="v">7,39 $</div>
-    <div class="d down">−2,51% astăzi</div>
+    <div class="v">7,49 $</div>
+    <div class="d down">−1,19% în ziua de 31 iul. 2026</div>
   </div>
   <div class="chips">
     <span class="chip">Technology · <b>Communication Equipment</b></span>
-    <span class="chip">Indici: <b>Russell 2000 doar</b></span>
-    <span class="chip">Capitalizare <b>4,21 mld $</b></span>
+    <span class="chip">Indici: <b>Russell 2000</b></span>
+    <span class="chip">Capitalizare <b>4,27 mld $</b></span>
     <span class="chip">An fiscal se încheie <b>decembrie</b></span>
     <span class="chip">Următoarea raportare <b>13 aug. 2026</b></span>
-    <span class="chip">Acțiuni <b>569,86 M (+286,7%/an)</b></span>
   </div>
 </header>
 
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
 <!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">SCORECARD</span><h2>Cei șapte piloni</h2></div>
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
   <div class="score">
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Nișă reală în counter-drone, dar zero dovadă în cifre: ROIC −9,1%</span>
+      <span class="t"><b>structural</b> — există lucruri greu de copiat (autorizații FAA pentru zbor fără vizibilitate directă, un standard radio adoptat în feroviar, contracte guvernamentale câștigate), dar niciunul nu se vede încă în cifre: marja brută a oscilat între 4,8% și 52,2% în cinci ani fiscali. Rândul e mereu structural — moat-ul descrie ceva care supraviețuiește oricărei etape.</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Negativ cinci ani din cinci, aproximativ −40 M $ pe an</span>
+      <span class="t"><b>structural</b> — negativ în toți cei cinci ani fiscali și −86,6 mln $ pe ultimele 12 luni. Nu e „de fază”: prima condiție pică din start, pentru că arderea vine din operare, nu din investiție — cash flow-ul operațional e −83,4 mln $, iar capexul e doar 3,2 mln $. Compania nu construiește ceva scump, ci cheltuie mai mult decât încasează.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">1,46 mld $ net cash, datorie aproape zero — dar cash cumpărat cu felia ta</span>
+      <span class="t">1.474 mln $ cash și investiții pe termen scurt (bilanț la 31 mar. 2026, 10-Q depus pe 15 mai 2026) față de 16,7 mln $ datorie totală. Poziție de net cash, cel mai puternic rând din tabel — plătit însă cu acțiuni noi, vezi rândul de mai jos.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Diluție de +286,7% în 12 luni. Zero buyback, zero dividend</span>
+      <span class="t"><b>structural</b> — 41,0 mln acțiuni la finalul lui 2021, 469,1 mln la 31 mar. 2026 (cifre depuse la SEC), 569,9 mln azi. Zero răscumpărări, zero dividend. Eticheta nu poate fi „de fază”: banii nu finanțează un capex care se vede în bilanț (3,2 mln $ în 12 luni), ci pierderea din operare și șase achiziții.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Venituri ×13 în doi ani, dar cumpărate; marjă operațională −90%</span>
+      <span class="t"><b>structural</b> — veniturile au crescut doar în 2 din 5 ani fiscali (au scăzut în 2022 și 2024), iar marja brută a sărit de la 52,2% la 4,8% și înapoi la 39,7%. Trimestrele accelerează spectaculos, dar goodwill-ul a urcat de la 27,8 la 381,8 mln $ în 18 luni: creșterea e în bună parte cumpărată, nu construită.</span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">28,5× vânzările. Prețul presupune execuție perfectă pe cinci fronturi</span>
+      <span class="t"><b>structural</b> — EV/Vânzări 29,10 față de o mediană a competitorilor de 5,26. Prețul încorporează un venit anual de ~534 mln $, de 5,5 ori cel de acum. Rândul e mereu structural: prețul de azi e un fapt despre azi, nu o etapă.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">43,9% din float vândut short — dar instituțiile cumpără net +616 M $</span>
+      <span class="t"><b>structural</b> — 43,9% din float vândut în lipsă, de peste patru ori pragul roșu, și un float care se rotește de ~41 de ori pe an. Banii instituționali au intrat net (+616 mln $ în 12 luni), dar pragul de short interest decide singur culoarea. Rândul e mereu structural.</span>
+    </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — două steaguri: free cash flow negativ azi (steagul de dobânzi) și 43,1% din veniturile trimestrului dintr-o singură țară, Israel, într-o industrie cu licențe de export. Două steaguri înseamnă roșu. Rândul e mereu structural.</span>
     </div>
   </div>
+  <p style="margin-top:14px">Cinci roșii, două galbene, un verde — și <b>niciun rând „de fază”</b>. Asta e informația cea mai importantă din tabel. Eticheta „de fază” se acordă doar când culoarea e cauzată de o investiție finanțată: cash flow operațional pozitiv sau capex mai mare decât arderea. La ONDS capexul e 3,2 mln $ pe 12 luni, iar arderea operațională 83,4 mln $ — deci roșul nu e al unui șantier, ci al unei afaceri care încă nu se susține. Un operator care construiește centre de date și compania asta arată identic în coloana culorilor; lecția e opusă.</p>
 </section>
 
 <!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
-<section>
+<section id="s01">
   <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
 
   <figure class="viz">
     <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
     <div class="range">
       <div class="tr">
-        <div class="mk" style="left:40.5%"></div>
-        <div class="now" style="left:40.5%">7,39</div>
+        <div class="mk" style="left:41.3%"></div>
+        <div class="now" style="left:41.3%">7,49</div>
       </div>
       <div class="ends"><span>min 2,01</span><span>max 15,28</span></div>
     </div>
   </figure>
 
-  <p>La 7,39 $, acțiunea e la 40% din intervalul anual: <strong>−51,6% de la vârful de
-  15,28 $</strong> și +268% de la minimul de 2,01 $. A scăzut șase săptămâni consecutiv
-  până la un minim de șapte luni.</p>
+  <p>Acțiunea e la 41% din intervalul ultimului an: cu 273% peste minim, dar cu <b>51% sub maximul de 15,28 $</b>. Ambele cifre descriu aceeași acțiune în douăsprezece luni — asta e amplitudinea cu care ai de-a face aici.</p>
 
   <figure class="viz" data-viz="compare">
     <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
     <script type="application/json">
     {"a":"ONDS","b":"S&P 500","suffix":"%","deltaUnit":" pp",
-     "rows":[{"label":"YTD","a":-24.23,"b":9.31},
-             {"label":"1 an","a":248.82,"b":17.93},
-             {"label":"3 ani","a":353.68,"b":62.83},
-             {"label":"5 ani","a":-6.75,"b":69.99}]}
+     "rows":[{"label":"YTD","a":-23.26,"b":9.55},
+             {"label":"1 an","a":253.30,"b":18.19},
+             {"label":"3 ani","a":359.51,"b":63.18},
+             {"label":"5 ani","a":-5.55,"b":70.36}]}
     </script>
   </figure>
 
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
-    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât
-    dacă puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". Fără
-    această comparație, cineva poate pierde bani ani la rând și să se simtă câștigător
-    pentru că vede verde în portofoliu.</p>
+    <p>Etalonul e alternativa care nu cerea nicio muncă: un ETF pe S&amp;P 500. Pe un an, ONDS a bătut indicele cu 235 de puncte procentuale — enorm. <b>Pe cinci ani, ONDS e pe −5,55%, iar indicele pe +70,36%.</b> Cine a cumpărat în 2021 și a ținut e, după cinci ani, în urma alternativei leneșe cu ~76 de puncte procentuale, în ciuda anului spectaculos.</p>
+    <p>Cele două cifre nu se contrazic: prima descrie ultimul val, a doua descrie ce a rămas din valurile anterioare. Un începător care se uită doar la „+253% într-un an” cumpără istoria valului, nu istoria companiei.</p>
   </div>
-
-  <p><strong>Uitați-vă lung la rândul de 5 ani.</strong> ONDS e −6,8% pe cinci ani, în
-  timp ce indicele a făcut +70%. Cine a cumpărat în 2021 e pe pierdere astăzi, deși pe
-  drum acțiunea a făcut +250% într-un singur an. Cum e posibil? Răspunsul e în secțiunea 6
-  și e singurul lucru care trebuie reținut din tot raportul: <strong>prețul a urcat, dar
-  numărul de acțiuni a urcat mult mai repede.</strong> Compania a devenit de zece ori mai
-  mare; felia unui acționar din 2021 s-a micșorat mai tare decât a crescut tortul.</p>
-
-  <p>Rândurile de 1 an și 3 ani sunt spectaculoase și reale. Dar descriu un val care a
-  pornit de la o bază minusculă — capitalizarea era 239 M $ la finalul lui 2024 — și care
-  în 2026 s-a întors.</p>
 
   <div class="stats">
-    <div class="stat"><div class="l">BETA (5 ANI)</div><div class="v">2,69</div><div class="s">amplifică piața de ~2,7×</div></div>
-    <div class="stat"><div class="l">VOLATILITATE ZILNICĂ</div><div class="v">8,74%</div><div class="s">medie pe ultima lună</div></div>
-    <div class="stat"><div class="l">LA 10.000 €</div><div class="v down">−2.700 €</div><div class="s">la o corecție de piață de 10%</div></div>
-    <div class="stat"><div class="l">VOLUM MEDIU</div><div class="v">85 M</div><div class="s">acțiuni/zi, din 570 M</div></div>
+    <div class="stat"><div class="l">Beta</div><div class="v">2,72</div><div class="s">amplifică piața de ~2,7×</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt.)</div><div class="v">10,6%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−2.720 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <p>Beta 2,69 înseamnă că, istoric, când piața scade 10%, ONDS scade în jur de 27%. Dar
-  volatilitatea zilnică e cifra mai șocantă: o mișcare <em>medie</em> de aproape 9% pe zi,
-  adică ±870 € pe 10.000 € într-o zi obișnuită, nu într-o zi de criză. Într-o singură zi
-  de iulie s-au tranzacționat 315 M de acțiuni — mai mult de jumătate din companie.
-  <strong>Asta nu mai e investiție, e trafic de speculație.</strong> Dacă cifra de −2.700 €
-  ar provoca o vânzare în panică, poziția e prea mare.</p>
+  <p>Beta 2,72 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 27%. Dacă ai 10.000 $ aici, o corecție normală de piață — genul care se întâmplă o dată la câțiva ani și nu e o criză — înseamnă în jur de −2.720 $. Iar volatilitatea zilnică de ~10,6% spune că mișcări de ±10% într-o singură ședință sunt normalul, nu excepția. Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare.</p>
 
-  <h3 style="font-size:14px;margin:22px 0 10px">Ce a mutat prețul recent</h3>
-  <ul class="list">
-    <li><b>T1 2026 (raportat 14 mai)</b> — venituri 50,1 M $, <b>+1.065%</b> față de anul
-      anterior. Marjă brută 49%. Ghidaj 2026 ridicat la ≥390 M $. Acțiunea a scăzut totuși
-      după raportare.</li>
-    <li><b>2 iulie: achiziția DZYNE Technologies, 875,8 M $</b> — 200 M $ cash și ~85 M de
-      acțiuni noi (~675 M $). Ghidaj urcat la <b>≥525 M $</b> pe 2026. Vânzătorii DZYNE
-      ajung să dețină ~13,8% din companie.</li>
-    <li><b>22 iulie</b> — 70 M $ în comenzi noi.</li>
-    <li><b>30 iulie</b> — BlackRock raportează o participație de 7,2%.</li>
-    <li><b>Backlog</b> — 457 M $ pro forma la T1 2026, față de 68,3 M $ la finalul lui 2025.</li>
-  </ul>
-  <p>Deci povestea de business se îmbunătățește vizibil, iar prețul scade de șase
-  săptămâni. Nu e o contradicție — explicația e în secțiunea 8.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">la 31 iul. 2026 · de la ~4,23% pe 1 aug. 2025</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v">+7,1 pp</div><div class="s">Technology +16,60% · indice +9,55%</div></div>
+  </div>
+
+  <p><b>Vremea pieței, la 31 iul. 2026:</b> indicele e practic la maxim, iar sectorul tehnologic e cu 7 puncte procentuale peste el de la începutul anului. Deci scăderea de 23% a ONDS din acest an <b>nu</b> e vremea — e ceva despre această acțiune. Al doilea lucru datat: dobânda americană pe 10 ani e 4,75%, în urcare de la ~4,23% acum un an. Contează aici mai mult decât la o companie obișnuită, pentru că întregul preț al ONDS e o promisiune despre profituri care nu există încă (vezi secțiunea 11). Nota de clasificare: finviz o încadrează la „Technology”, dar veniturile ei vin din apărare și securitate — sectorul din tabel e o etichetă de bază de date, nu descrierea afacerii.</p>
+
+  <p><b>Ce a mutat prețul recent.</b> Pe 14 mai 2026, la raportarea trimestrului I, compania a anunțat venituri record și și-a ridicat ținta pe 2026 la cel puțin 390 mln $; acțiunea a urcat 26,5% în ziua respectivă. Au urmat achiziția DZYNE Technologies (8 iul. 2026), comenzi noi de peste 40 mln $ (22 iun. 2026) și de 70 mln $ (22 iul. 2026). Pe 29 iulie a căzut 13,49% pe luare de profit, fără o știre negativă. Următoarea raportare, anunțată pe 30 iul. 2026: <b>13 august 2026</b>. Pe partea de reglementare, vântul e deocamdată din spate, nu din față: FAA pregătește regulile Part 108, care ar înlocui autorizațiile individuale pentru zborul fără vizibilitate directă cu un cadru general, iar subsidiara American Robotics operează deja pe astfel de autorizații.</p>
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">02</span><h2>Ce face compania, pe înțelesul oricui</h2></div>
-  <p>Ondas vinde <strong>sisteme autonome pentru apărare și securitate</strong>. Trei
-  lucruri concrete: sisteme <strong>counter-UAS</strong> care detectează și neutralizează
-  drone ostile (desfășurate la Davos și la Campionatul Mondial FIFA); <strong>drone și
-  roboți autonomi</strong> pentru supraveghere (ISR), securitate aeriană, logistică
-  autonomă, iar prin DZYNE și lovitură de precizie; și <strong>radiouri
-  software-defined</strong> (FullMAX) pentru comunicații securizate în căi ferate,
-  utilități, petrol și gaze.</p>
-
-  <p>Cine plătește: <strong>guverne și armate</strong>, nu clienți comerciali. Contracte
-  identificabile — aproximativ 220 M $ în premii agregate pentru 4M Defense și Indo-Earth
-  (securitate de frontieră), participare la un program IDIQ al Armatei SUA de 982 M $
-  (venit prin achiziția Mistral), contracte în Orientul Mijlociu, Europa și
-  Asia-Pacific.</p>
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <p>Ondas vinde două lucruri destul de diferite, prin două divizii. <b>Ondas Networks</b> face rețele radio private pentru industrii unde telefonia obișnuită nu ajunge sau nu e permisă: căi ferate, rețele electrice, petrol și gaze. <b>Ondas Autonomous Systems</b> face drone și sisteme împotriva dronelor — platforme autonome de supraveghere, sisteme de detecție și doborâre a dronelor ostile (counter-UAS), muniții cu rătăcire, vehicule terestre fără pilot.</p>
+  <p>În 2026 a doua divizie a înghițit prima ca importanță, prin cumpărături: șase achiziții într-un singur an, printre care DZYNE Technologies (iulie 2026) și Cyberhawk (iunie 2026). Cine plătește: în cea mai mare parte guverne și armate, direct sau prin licitații publice. Compania are 495 de angajați, e condusă de Eric A. Brock, a fost fondată în 2014 și e listată din 25 oct. 2018.</p>
 
   <div class="tw"><table>
-    <thead><tr><th>Segment</th><th>Situație la iulie 2026</th></tr></thead>
+    <thead><tr><th>Venituri T1 2026, după geografie</th><th>Sumă</th><th>Pondere</th></tr></thead>
     <tbody>
-      <tr><td>Ondas Autonomous Systems</td><td>Practic tot venitul actual — drone, counter-UAS, ISR</td></tr>
-      <tr><td>Ondas Networks</td><td>Deconsolidat din 16 ian. 2026 (câștig contabil 51,5 M $)</td></tr>
-      <tr><td>Defalcare pe produs</td><td>N/A (nu apare pe sursă)</td></tr>
+      <tr class="me"><td>Israel</td><td>21,6 mln $</td><td>43,1%</td></tr>
+      <tr><td>Europa</td><td>12,1 mln $</td><td>24,1%</td></tr>
+      <tr><td>Asia</td><td>12,0 mln $</td><td>23,9%</td></tr>
+      <tr><td>Asia — restul</td><td>3,3 mln $</td><td>6,6%</td></tr>
+      <tr><td>Emiratele Arabe Unite</td><td>0,3 mln $</td><td>0,6%</td></tr>
+      <tr><td>Alte țări</td><td>0,8 mln $</td><td>1,7%</td></tr>
+      <tr class="me"><td>Total</td><td>50,1 mln $</td><td>100%</td></tr>
     </tbody>
   </table></div>
 
-  <div class="concept">
-    <div class="h">UN DETALIU PE CARE SURSELE PUBLICE NU ÎL REFLECTĂ</div>
-    <p>Segmentul Ondas Networks a fost <strong>deconsolidat</strong> din 16 ianuarie 2026 —
-    nu mai intră în rezultate. Descrierea „două segmente" de pe stockanalysis.com e
-    depășită. Practic, ONDS e acum o companie de apărare, nu una de telecomunicații
-    industriale.</p>
-  </div>
-
-  <p><strong>Cum a fost construită compania asta:</strong> nu prin creștere organică, ci
-  prin cumpărături. Doar în 2026 — Mistral și World View (aprilie), Cyberhawk, DZYNE
-  (iulie), plus o investiție în FPF Defense. Bilanțul are peste <strong>694 M $ în goodwill
-  și active intangibile</strong>, adică prețul plătit peste valoarea activelor reale ale
-  companiilor cumpărate. Rețineți cifra pentru secțiunea de riscuri.</p>
+  <p>Tabelul de mai sus e din nota contabilă a raportului trimestrial depus la SEC pe 15 mai 2026 și merită citit de două ori. <b>Nu există o linie „Statele Unite”.</b> O companie americană, listată la New York, cu sediul în Florida, își face aproape tot venitul în afara Statelor Unite — 43% dintr-o singură țară, Israel, unde a cumpărat mai multe dintre firmele care produc efectiv. Asta explică și de ce steagul de geografie din secțiunea 11 e ridicat.</p>
+  <p>După tipul venitului, tot în trimestrul I 2026: produse 38,4 mln $ (76,5%), servicii 9,3 mln $ (18,6%), dezvoltare 2,4 mln $ (4,9%). Deci e în principal o companie care vinde echipamente, nu abonamente — un detaliu care contează, pentru că veniturile din echipamente vin în valuri, la ritmul comenzilor, în timp ce abonamentele se repetă singure.</p>
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru
-    care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii.
-    Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până
-    când profitul dispare.</p>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Ordinea de mai jos e de la cel mai durabil la cel mai fragil — un începător supraevaluează aproape întotdeauna brandul și subevaluează costurile de schimbare.</p>
   </div>
   <div class="score">
     <div class="row"><span class="k">Costuri de schimbare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Plauzibil</span>
-      <span class="t">O armată care integrează un sistem counter-UAS în doctrină și antrenament nu îl schimbă ușor. Dar nu există bază instalată mare care să dovedească asta.</span></div>
+      <span class="t">Un sistem de securitate a frontierei sau o rețea radio feroviară, o dată instalate, nu se schimbă la următorul buget. Dar contractele sunt tinere, iar dovada în cifre — clienți care rămân la prețuri mari ani la rând — încă nu există.</span></div>
     <div class="row"><span class="k">Efect de rețea</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Produsul nu devine mai valoros pe măsură ce se adaugă utilizatori.</span></div>
+      <span class="t">O dronă vândută unei armate nu face produsul mai valoros pentru următorul cumpărător. Nu e o rețea socială.</span></div>
     <div class="row"><span class="k">Avantaj de cost / scară</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Absent</span>
-      <span class="t">Cu 96,6 M $ venituri față de 1,98 mld $ la AeroVironment, ONDS e cel mic din industrie.</span></div>
+      <span class="t">Contrariul: cu 96,6 mln $ venituri pe 12 luni, ONDS e de 15–20 de ori mai mică decât Kratos sau AeroVironment. La această scară costul unitar e un dezavantaj, nu un avantaj.</span></div>
     <div class="row"><span class="k">Active intangibile</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, tânăr</span>
-      <span class="t">Cel mai autentic: certificări militare, aprobări de export, contracte-cadru guvernamentale, relații cu ministere de apărare. Bariere reale, dar recente.</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, dar tânăr</span>
+      <span class="t">Aici e partea serioasă: autorizații FAA pentru zbor dincolo de raza vizuală, un standard radio adoptat în industria feroviară americană, și statutul de contractant principal câștigat într-o licitație guvernamentală de securitate a frontierei. Autorizațiile și acreditările sunt un moat autentic — cât timp țin și cât timp nu le primesc și alții.</span></div>
     <div class="row"><span class="k">Brand</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Nu se aplică</span>
-      <span class="t">Cumpărătorii sunt comisii de achiziții publice, nu consumatori.</span></div>
+      <span class="t">Ministerele nu cumpără după siglă. Cumpără după caiet de sarcini și după cine a livrat data trecută.</span></div>
   </div>
-
-  <div class="stats">
-    <div class="stat"><div class="l">ROIC</div><div class="v down">−9,11%</div><div class="s">prag pentru moat real: +15%</div></div>
-    <div class="stat"><div class="l">MARJĂ OPERAȚIONALĂ</div><div class="v down">−90,2%</div><div class="s">pierde 90 de cenți pe dolar vândut</div></div>
-    <div class="stat"><div class="l">MARJĂ BRUTĂ</div><div class="v up">49,2%</div><div class="s">T1 2026, în urcare de la 4,8% în 2024</div></div>
+  <p><b>Verdictul: Atenție (galben), structural.</b> Testul cel mai onest al unui moat e marja brută: dacă o companie își poate ține prețurile ani la rând fără să piardă clienți, avantajul e real. La ONDS marja brută a fost 37,7% (2021), 52,2% (2022), 40,7% (2023), <b>4,8% (2024)</b>, 39,7% (2025) și 49,2% în trimestrul I 2026. O oscilație de la 52% la 5% și înapoi nu e putere de preț — e o companie mică ale cărei cifre sunt dominate de câteva contracte și de ce anume a livrat în trimestrul respectiv.</p>
+  <div class="concept">
+    <div class="h">O CAPCANĂ DE EVITAT AICI</div>
+    <p>Pe site-urile de bursă, ONDS afișează acum ROE 25,66% și ROIC 13,00% — cifre care, la prima vedere, ar fi exact dovada numerică a unui moat. <b>Nu sunt.</b> Ele se calculează pe un profit contabil care, în trimestrul I 2026, vine dintr-un câștig de 389,5 mln $ din reevaluarea unor warante și 51,5 mln $ dintr-o deconsolidare — nu din vânzarea de drone. Pe operare, aceeași perioadă arată o pierdere de 42,7 mln $. Când un indicator de rentabilitate contrazice violent marja operațională, indicatorul e cel care se verifică.</p>
   </div>
-
-  <p><strong>Atenție la o cifră contaminată:</strong> finviz afișează un ROIC de +13,00%,
-  dar aceea include câștigul contabil din warranturi explicat în secțiunea 8. Calculat pe
-  profitul operațional real de −90,7 M $, ROIC-ul e clar negativ.</p>
-
-  <p><strong>Verdict: <em>Atenție</em> — din motivul „nedemonstrat", nu din motivul „decent".</strong> Nișa
-  e reală și cererea e reală — bugetele de apărare pentru counter-drone explodează după
-  războiul din Ucraina. Dar ONDS n-a arătat încă că poate transforma cererea în profit. Un
-  moat se dovedește prin capacitatea de a cere prețuri bune ani la rând, iar compania asta
-  are un istoric de trei ani de venituri, nu de treizeci. Singurul semnal pozitiv solid e
-  marja brută în urcare.</p>
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept">
     <div class="h">CE E FREE CASH FLOW</div>
-    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile
-    <em>și</em> investițiile în echipamente sau fabrici. Profitul e o opinie contabilă —
-    depinde de cum amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul
-    e un fapt bancar. Profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce
-    arată extrasul de cont.</p>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <i>și</i> investițiile în echipamente sau fabrici. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști veniturile, ce reevaluezi. Cash flow-ul e un fapt bancar. La ONDS distincția nu e teoretică: contabil, ultimele 12 luni arată profit; bancar, arată o gaură de 86,6 mln $.</p>
   </div>
-
   <figure class="viz" data-viz="bars">
-    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">milioane USD</span></figcaption>
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mln USD</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25"],
-     "series":[{"name":"FCF","values":[-17.82,-40.84,-34.23,-35.11,-40.78]}],
-     "suffix":" M"}
+    {"labels":["FY21","FY22","FY23","FY24","FY25","ultimele 12 luni"],
+     "series":[{"name":"FCF","values":[-17.8,-40.8,-34.2,-35.1,-40.8,-86.6]}],
+     "suffix":" mln"}
     </script>
   </figure>
-
-  <div class="tw"><table>
-    <thead><tr><th>An fiscal</th><th>Cash flow operațional</th><th>Capex</th><th>Free cash flow</th><th>Acțiuni emise</th></tr></thead>
-    <tbody>
-      <tr><td>FY2021</td><td>−16,90</td><td>−0,92</td><td class="down">−17,82</td><td>48,98</td></tr>
-      <tr><td>FY2022</td><td>−37,96</td><td>−2,88</td><td class="down">−40,84</td><td>6,16</td></tr>
-      <tr><td>FY2023</td><td>−34,02</td><td>−0,21</td><td class="down">−34,23</td><td>14,73</td></tr>
-      <tr><td>FY2024</td><td>−33,47</td><td>−1,64</td><td class="down">−35,11</td><td>7,36</td></tr>
-      <tr class="me"><td>FY2025</td><td>−38,75</td><td>−2,03</td><td class="down">−40,78</td><td>860,35</td></tr>
-    </tbody>
-  </table></div>
-  <p style="font-size:12px;color:var(--ink-3)">Milioane USD. Verificat: FCF = cash flow
-  operațional − capex se potrivește la fiecare an.</p>
-
-  <p><strong>Verdict: <em>Risc</em>, fără nuanțe.</strong> Negativ cinci ani din cinci, în total ~169 M $
-  arși. Nu e un an prost dintr-o investiție mare — e modelul de funcționare.</p>
-
-  <p>Când FCF-ul e negativ, întrebarea devine <strong>de unde vin banii</strong>: din
-  cash-ul existent (acceptabil), din datorie nouă (risc), sau din emisiune de acțiuni noi
-  (te diluează). La ONDS răspunsul e clar varianta a treia. În 2025 compania a emis acțiuni
-  de <strong>860,35 M $</strong> — de 21 de ori FCF-ul negativ al anului. Fiecare dolar ars
-  a fost înlocuit cu bani de la investitori noi, iar prețul a fost felia acționarilor
-  existenți.</p>
-
+  <p>Negativ în fiecare an, fără excepție, și în accelerare: arderea din ultimele 12 luni e mai mult decât dublul celei din anul fiscal 2025. Asta e roșu după orice prag rezonabil.</p>
   <div class="concept">
-    <div class="h">„ADJUSTED EBITDA" — CE SE EXCLUDE</div>
-    <p>Conducerea raportează un adjusted EBITDA de −10,9 M $ pe T1 2026, față de −7,5 M $
-    anul anterior, și spune că firmele de produse au trecut deja pe EBITDA ajustat pozitiv.
-    E o îmbunătățire reală față de o pierdere operațională de −42,7 M $ pe același
-    trimestru. Dar „adjusted EBITDA" exclude, printre altele, plata angajaților în acțiuni
-    (16 M $ în 2025). <strong>Diferența dintre −10,9 M $ ajustat și −42,7 M $ operațional e
-    exact partea pe care compania vă cere să nu o numărați.</strong></p>
+    <div class="h">DE CE E „STRUCTURAL” ȘI NU „DE FAZĂ”</div>
+    <p>Regula are trei condiții, toate obligatorii, iar <b>prima pică imediat</b>: cauza trebuie să fie investiția, nu operarea. La ONDS, cash flow-ul operațional e <b>−83,4 mln $</b> pe 12 luni, iar capexul e <b>3,2 mln $</b>. Nu se construiește nimic scump; banii se duc pe salarii, cercetare, vânzări și administrativ — cheltuieli operaționale de 67,3 mln $ într-un singur trimestru, față de un profit brut de 24,7 mln $.</p>
+    <p>Merită spus și ce <i>nu</i> decide eticheta. Pista de cash — banii disponibili împărțiți la arderea trimestrială — e aici uriașă: 1.474 mln $ (bilanț la 31 mar. 2026, din 10-Q-ul depus pe 15 mai 2026) împărțiți la o ardere medie de ~21,6 mln $ pe trimestru înseamnă peste 60 de trimestre, iar cu arderea accelerată a ultimului an tot rămân peste 15 ani. Compania <b>nu</b> are o problemă de lichiditate. Dar a doua condiție îndeplinită nu salvează o primă condiție picată: roșul e roșu pentru că afacerea nu se susține din ea însăși, nu pentru că ar rămâne fără bani mâine.</p>
   </div>
+  <p><b>Încă o cifră care contează:</b> plata angajaților în acțiuni (stock-based compensation) a fost 34,1 mln $ în ultimele 12 luni — <b>35% din venituri</b>. Pragul de la care asta merită menționat e 10%. Cheltuiala nu iese ca numerar, deci nu strică free cash flow-ul raportat, dar te costă pe tine, prin diluție. Practic, o treime din valoarea a ceea ce vinde compania se duce în plata oamenilor cu felii din companie.</p>
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ</div>
-    <p>O companie cu datorie mică poate traversa o recesiune sau o creștere de dobânzi fără
-    să vândă active pe nimic sau să emită acțiuni noi la preț prost. Una îndatorată e
-    forțată să ia decizii proaste la momentul cel mai prost. Cele mai multe falimente nu
-    vin din lipsă de profit, ci din lipsă de cash la o scadență.</p>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică poate traversa o recesiune fără să vândă active pe nimic sau să emită acțiuni la preț prost. Una îndatorată e forțată să ia decizii proaste exact în momentul cel mai prost. Datoria netă = datorie totală minus banii pe care compania îi are deja.</p>
   </div>
-
   <figure class="viz">
-    <figcaption><b>Bilanțul la 31 martie 2026</b><span class="unit">milioane USD</span></figcaption>
+    <figcaption><b>Poziția financiară netă</b><span class="unit">mln USD</span></figcaption>
     <div class="split">
-      <div class="r"><span class="k">Cash</span>
+      <div class="r"><span class="k">Cash și investiții</span>
         <span class="t"><span class="f" style="width:100%;background:var(--accent)"></span></span>
         <span class="v">1.474</span></div>
-      <div class="r"><span class="k">Warranturi</span>
-        <span class="t"><span class="f" style="width:81.8%;background:var(--warn)"></span></span>
-        <span class="v">1.206</span></div>
-      <div class="r"><span class="k">Datorie reală</span>
-        <span class="t"><span class="f" style="width:0.35%;background:var(--crit)"></span></span>
-        <span class="v">4,4</span></div>
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:1.1%;background:var(--crit)"></span></span>
+        <span class="v">16,7</span></div>
     </div>
   </figure>
-
   <div class="stats">
-    <div class="stat"><div class="l">POZIȚIE NETĂ</div><div class="v up">+1,46 mld $</div><div class="s">net cash</div></div>
-    <div class="stat"><div class="l">DATORIE / CAPITALURI</div><div class="v">0,02</div><div class="s">practic zero</div></div>
-    <div class="stat"><div class="l">LICHIDITATE CURENTĂ</div><div class="v">10,9</div><div class="s">prag de confort: 1,5</div></div>
-    <div class="stat"><div class="l">DATORIE NETĂ / EBITDA</div><div class="v">n/a</div><div class="s">EBITDA negativ, raportul n-are sens</div></div>
+    <div class="stat"><div class="l">Poziție netă</div><div class="v up">+1.457 mln $</div><div class="s">net cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">nu se aplică</div><div class="s">poziție de net cash</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,02</div><div class="s">prag uzual de atenție: 1,0</div></div>
   </div>
-
-  <p><strong>Verdict: <em>Solid</em> — dar asterisc-ul e mare.</strong> Compania nu poate da faliment
-  în următorii ani. Cu 1,46 mld $ net cash și o ardere de ~40 M $/an, are runway măsurat în
-  ani, nu în trimestre. Datoria e practic inexistentă (surse: 4,37 M $ pe bilanț,
-  16,66 M $ pe pagina de statistici — ambele neglijabile).</p>
-
-  <p><strong>Însă</strong> cash-ul acela nu a venit din afacere. A venit din vânzarea a
-  860 M $ de acțiuni noi în 2025 și a unei emisiuni de <strong>1 miliard $</strong> în
-  ianuarie 2026. Bilanțul e solid pentru <em>companie</em>; pentru <em>acționarul
-  existent</em> a fost cumpărat cu felia lui.</p>
-
+  <p><b>Verdict: Solid (verde).</b> E singurul rând verde din tabel și e verde fără rezerve: 1.474 mln $ în cash și investiții pe termen scurt față de 16,7 mln $ datorie totală. Raportul curent e 10,9 — adică activele care se transformă în bani în mai puțin de un an acoperă de aproape unsprezece ori datoriile scadente în același interval. Nicio scadență din următoarele 12 luni nu e o problemă.</p>
+  <p>Notă de sursă: pagina de statistici arată 16,66 mln $ datorie totală, iar bilanțul arată 4,37 mln $ — diferența vine probabil din tratarea leasingurilor. Am folosit cifra mai mare, cea prudentă. La un cash de 1,47 mld $, alegerea nu schimbă nimic.</p>
   <div class="concept">
-    <div class="h">CEI 1,2 MILIARDE $ CARE PAR DATORIE ȘI NU SUNT</div>
-    <p>Datoriile totale au sărit de la 39,8 M $ (T3 2025) la 1.359 M $ (T1 2026) — dar
-    datoria bancară e sub 5 M $. Din ce e făcută diferența? <strong>1.206 M $ în „alte
-    datorii pe termen lung" = valoarea contabilă a warranturilor.</strong></p>
-    <p>În emisiunea din ianuarie 2026, ONDS a atașat acțiunilor vândute și warranturi
-    pentru <strong>121.580.548 de acțiuni, la preț de exercitare de 28,00 $, valabile șapte
-    ani</strong>. Contabil, se înregistrează ca datorie și se reevaluează trimestrial.</p>
-    <p>Nu e o datorie care trebuie plătită în bani — se stinge în acțiuni. Deci
-    <strong>nu amenință solvabilitatea, ci proprietatea.</strong> Dacă prețul urcă vreodată
-    peste 28 $, warranturile se exercită și apar 121,6 M de acțiuni noi peste cele 570 M
-    existente (+21%). Cu prețul la 7,39 $ sunt departe în afara banilor — dar sunt valabile
-    până în 2033.</p>
+    <div class="h">DE UNDE VIN BANII ĂȘTIA — ÎNTREBAREA CARE LEAGĂ RÂNDURILE</div>
+    <p>Un bilanț ca acesta arată la fel de bine indiferent dacă banii au fost câștigați sau emiși. Aici au fost emiși: în ultimele 12 luni compania a încasat 1.829 mln $ din vânzarea de acțiuni noi. Verdele din acest rând și roșul din următorul sunt <b>același fapt</b>, privit din două părți. Cine se uită doar la „net cash 1,46 mld $” vede o companie solidă; cine se uită și la numărul de acțiuni vede cine a plătit soliditatea.</p>
   </div>
 </section>
 
 <!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
-    <p>Când o companie emite acțiuni noi, felia ta din companie se micșorează, chiar dacă
-    numărul tău de acțiuni rămâne același. Dacă deții 1% dintr-o companie și ea emite cu 10%
-    mai multe acțiuni, ajungi la 0,91% — fără să fi vândut nimic. Diluția e cea mai discretă
-    formă de pierdere pentru un investitor de retail, pentru că <strong>nu apare nicăieri în
-    portofoliu</strong>.</p>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Când o companie emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne același. Dacă deții 1% și compania emite cu 10% mai multe acțiuni, ajungi la 0,91% fără să fi vândut nimic. Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu.</p>
   </div>
-
-  <figure class="viz" data-viz="bars">
-    <figcaption><b>Acțiuni în circulație</b><span class="unit">milioane</span></figcaption>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație (cifre depuse la SEC)</b><span class="unit">milioane</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","iul. 26"],
-     "series":[{"name":"Acțiuni","values":[34,42,53,70,221,570]}],
-     "suffix":" M"}
+    {"labels":["31 dec 21","31 dec 22","31 dec 23","31 dec 24","31 dec 25","31 mar 26"],
+     "series":[{"name":"Acțiuni în circulație","values":[41.0,44.1,61.9,93.2,380.8,469.1]}]}
     </script>
   </figure>
-  <p style="font-size:12px;color:var(--ink-3)">FY21–FY25: medie ponderată derivată din
-  profitul net și EPS-ul raportat. Iulie 2026: acțiuni efectiv în circulație (569,86 M).
-  Creșterea e de ordinul a 1.600%, deci barele de la zero nu ascund nimic.</p>
-
   <div class="stats">
-    <div class="stat"><div class="l">VARIAȚIE 12 LUNI</div><div class="v down">+286,7%</div><div class="s">felia ta s-a micșorat</div></div>
-    <div class="stat"><div class="l">VARIAȚIE ULTIMUL TRIMESTRU</div><div class="v down">+24,85%</div><div class="s">într-un singur trimestru</div></div>
-    <div class="stat"><div class="l">RANDAMENT DIVIDEND</div><div class="v">0%</div><div class="s">nu plătește dividend</div></div>
-    <div class="stat"><div class="l">RANDAMENT BUYBACK</div><div class="v">0%</div><div class="s">nu răscumpără nimic</div></div>
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+286,7%</div><div class="s">felia ta s-a micșorat de ~3,9 ori</div></div>
+    <div class="stat"><div class="l">Variație din 2021</div><div class="v down">+1.290%</div><div class="s">41,0 → 569,9 mln acțiuni</div></div>
+    <div class="stat"><div class="l">Randament buyback</div><div class="v">0%</div><div class="s">nicio răscumpărare</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">niciun dividend</div></div>
   </div>
-
-  <p><strong>Verdict: <em>Risc</em> — cel mai sever din tot raportul.</strong> Pragul de roșu din grilă
-  e „creștere peste ~2% pe an". ONDS e la +286% pe an. De la 2021 până acum, numărul de
-  acțiuni s-a înmulțit de aproximativ <strong>16,7 ori</strong>.</p>
-
+  <p><b>Verdict: Risc (roșu), structural.</b> Pragul de roșu e o creștere a numărului de acțiuni de peste ~2% pe an. Aici e +286,7% <i>într-un an</i>. Cifrele din grafic sunt luate direct din formularele depuse la SEC, nu derivate din alte mărimi: 41,0 mln acțiuni la finalul lui 2021, 469,1 mln la 31 mar. 2026, 569,9 mln la 31 iul. 2026. Cine deținea 1% din companie la finalul lui 2021 și nu a cumpărat nimic în plus deține azi 0,072%.</p>
+  <p>Randamentul total pentru acționar — dividend plus răscumpărări — e <b>zero</b>. Nu e neapărat o critică la o companie tânără care are nevoie de bani; e doar o constatare despre ce primești: nimic acum, totul din speranța de mai târziu.</p>
   <div class="concept">
-    <div class="h">AICI SE EXPLICĂ MISTERUL DIN SECȚIUNEA 1</div>
-    <p>Capitalizarea companiei a crescut de la 275 M $ (2021) la 4,21 mld $ (acum) —
-    <strong>de 15,3 ori</strong>. Un rezultat extraordinar pentru afacere. Dar prețul unei
-    acțiuni e −6,8% pe cinci ani, pentru că valoarea a fost împărțită la de 16,7 ori mai
-    multe felii. <strong>Compania a câștigat; acționarul din 2021 a pierdut.</strong></p>
-    <p>E ca și cum ai avea o felie dintr-un tort, tortul devine de cincisprezece ori mai
-    mare, dar între timp e tăiat în șaptesprezece ori mai multe felii. Felia ta e ceva mai
-    mică decât la început.</p>
+    <div class="h">DE CE „STRUCTURAL” ȘI NU „DE FAZĂ”</div>
+    <p>Diluția e unul dintre cele patru rânduri care <i>ar putea</i> primi eticheta „de fază” — dar numai dacă investiția e cauza dominantă a culorii acelui rând. Nu e cazul. Din cei 1.829 mln $ strânși în 12 luni, capexul a consumat 3,2 mln $. Restul a acoperit pierderea din operare și șase achiziții plătite în bani și în acțiuni. O companie care se diluează ca să cumpere alte companii și ca să-și acopere costurile nu e în aceeași situație cu una care se diluează ca să ridice o fabrică cu o dată de pornire anunțată. Prima nu are un moment în care construcția se termină.</p>
   </div>
-
-  <p><strong>Nu e neapărat rău-intenționat.</strong> Emisiunea din ianuarie 2026 a fost
-  făcută la prețuri apropiate de maximele istorice — adică managementul a vândut acțiuni
-  scump, ceea ce e exact ce ar trebui să facă pentru acționari, și a folosit banii ca să
-  cumpere afaceri reale cu venituri reale (DZYNE aduce 191 M $ în 2026). Dacă achizițiile
-  funcționează, diluția va fi meritat. Dar asta e o ipoteză despre viitor, nu un fapt.
-  Faptul e că, pe cinci ani, diluția a mâncat tot.</p>
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
-    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi
-    ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei. O
-    marjă brută în scădere e ca un magazin care trebuie să dea reduceri tot mai mari ca să
-    vândă la fel de mult: încă vinde, dar puterea de negociere s-a dus.</p>
+    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — și e indicatorul care semnalează cel mai devreme că un avantaj competitiv se erodează, cu ani înainte să se vadă în profit.</p>
   </div>
-
-  <figure class="viz" data-viz="bars">
-    <figcaption><b>Venituri pe an fiscal</b><span class="unit">milioane USD</span></figcaption>
-    <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM mar.26"],
-     "series":[{"name":"Venituri","values":[2.91,2.13,15.69,7.19,50.73,96.61]}],
-     "suffix":" M"}
-    </script>
-  </figure>
-
   <figure class="viz" data-viz="lines">
     <figcaption><b>Marja brută pe an fiscal</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM mar.26"],
-     "series":[{"name":"Marjă brută","values":[37.70,52.18,40.67,4.80,39.73,44.85]}],
+    {"labels":["FY21","FY22","FY23","FY24","FY25","T1 26"],
+     "series":[{"name":"Marjă brută","values":[37.70,52.18,40.67,4.80,39.73,49.20]}],
      "suffix":"%"}
     </script>
   </figure>
-
-  <div class="tw"><table>
-    <thead><tr><th>An fiscal</th><th>Venituri</th><th>Creștere</th><th>Marjă brută</th><th>Marjă operațională</th></tr></thead>
-    <tbody>
-      <tr><td>FY2021</td><td>2,91</td><td class="up">+34,3%</td><td>37,7%</td><td class="down">−618%</td></tr>
-      <tr><td>FY2022</td><td>2,13</td><td class="down">−26,9%</td><td>52,2%</td><td class="down">−3.266%</td></tr>
-      <tr><td>FY2023</td><td>15,69</td><td class="up">+638,1%</td><td>40,7%</td><td class="down">−253%</td></tr>
-      <tr><td>FY2024</td><td>7,19</td><td class="down">−54,2%</td><td class="down">4,8%</td><td class="down">−481%</td></tr>
-      <tr><td>FY2025</td><td>50,73</td><td class="up">+605,3%</td><td>39,7%</td><td class="down">−115%</td></tr>
-      <tr class="me"><td>TTM mar. 2026</td><td>96,61</td><td class="up">+793,2%</td><td class="up">44,9%</td><td class="down">−93,9%</td></tr>
-    </tbody>
-  </table></div>
-  <p style="font-size:12px;color:var(--ink-3)">Venituri în milioane USD. Trimestrial:
-  4,25 → 6,27 → 10,10 → 30,11 → 50,12 M $. Marja brută trimestrială: 35,0% → 53,1% →
-  25,8% → 42,3% → 49,2%.</p>
-
-  <p><strong>Verdict: <em>Atenție</em> — cu o parte clar verde și o parte clar roșie.</strong></p>
-
-  <p><strong>Ce e bun, și e serios:</strong> creșterea e reală și accelerează, backlog-ul a
-  sărit de la 68,3 M $ la 457 M $ într-un trimestru, iar <strong>marja brută urcă</strong> —
-  4,8% în 2024, 39,7% în 2025, 49,2% în T1 2026. Ăsta e cel mai valoros semnal pozitiv din
-  raport, pentru că e exact indicatorul care arată dacă compania poate cere prețul ei. Marja
-  operațională se îmbunătățește rapid ca tendință: −481% → −115% → −94%, semn de
-  <em>operating leverage</em> — costurile fixe se împart la vânzări tot mai mari.</p>
-
-  <p><strong>Ce e rău:</strong> veniturile au scăzut în <strong>doi din ultimii cinci
-  ani</strong> (−26,9% în 2022, −54,2% în 2024). Asta nu e o companie cu creștere
-  previzibilă; e una cu contracte mari și rare, unde un singur contract mută procentele cu
-  sute de puncte. Marja operațională e încă −90%, deci compania e departe de a-și acoperi
-  costurile. Și <strong>creșterea e cumpărată, nu organică</strong>: veniturile de 96,6 M $
-  TTM și ghidajul de 525 M $ conțin afaceri care nu existau în ONDS acum șase luni.</p>
-
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Venituri pe trimestru</b><span class="unit">mln USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["T2 24","T3 24","T4 24","T1 25","T2 25","T3 25","T4 25","T1 26"],
+     "series":[{"name":"Venituri","values":[0.96,1.48,4.13,4.25,6.27,10.10,30.11,50.12]}],
+     "suffix":" mln"}
+    </script>
+  </figure>
+  <p><b>Ritmul.</b> Trimestrele nu încetinesc, accelerează — creșterea an/an a mers de la <b>−82,5% în T2 2024</b> la <b>+1.079,9% în T1 2026</b>, iar veniturile trimestriale au urcat de la 0,96 la 50,12 mln $ în opt trimestre. Pe hârtie e cea mai bună serie din tot raportul. De obicei ritmul trimestrial e răspunsul la „de ce a scăzut acțiunea”; aici nu e, pentru că ritmul e excelent și acțiunea a scăzut oricum 23% de la începutul anului. Explicația e la secțiunile 8 și 9, nu aici.</p>
+  <p><b>Anii, în schimb, arată altceva.</b> Veniturile au crescut doar în 2 din cei 5 ani fiscali: 2,91 mln $ (2021), 2,13 (2022, <span class="down">−26,9%</span>), 15,69 (2023, +638%), 7,19 (2024, <span class="down">−54,2%</span>), 50,73 (2025, +605%). O afacere care poate pierde jumătate din venituri într-un an nu are încă un flux previzibil — are contracte mari care cad în ani diferiți. Pragul de verde cere creștere în 4 din 5 ani; nu e îndeplinit.</p>
   <div class="concept">
-    <div class="h">CAPCANA EXTRAPOLĂRII</div>
-    <p>O companie care a crescut 600% doi ani la rând nu va crește 600% în continuare —
-    legea numerelor mari o oprește. Când vezi creștere spectaculoasă, întreabă cât din ea e
-    structurală și cât e un vârf de cerere sau o achiziție care se numără o singură dată.
-    „A crescut 793%" nu prezice nimic despre anul viitor, pentru că depinde de următoarea
-    achiziție și de următoarea emisiune de acțiuni care o plătește.</p>
+    <div class="h">CREȘTERE ORGANICĂ SAU CUMPĂRATĂ?</div>
+    <p>Testul rapid e goodwill-ul de pe bilanț — surplusul plătit peste valoarea contabilă a companiilor cumpărate. La ONDS: <b>27,8 mln $ la finalul lui 2024, 251,8 mln $ la finalul lui 2025, 381,8 mln $ la 31 mar. 2026.</b> Sare în sus exact în anii cu creștere mare. Concluzia nu e că achizițiile sunt rele — în apărare, cumpărarea de capabilități e o strategie legitimă. Concluzia e că <i>nu știi încă</i> ce crește compania fără achiziții, iar cele două întrebări de pus sunt: cât ar crește fără ele, și cu ce s-au plătit? Răspunsul la a doua e în secțiunea 6.</p>
+    <p>Un mod concret de a vedea diferența: veniturile totale au crescut cu ~793% pe 12 luni, dar <b>veniturile pe acțiune</b> — partea ta — au crescut cu ~131%, pentru că numărul de acțiuni s-a aproape împătrit în același timp. Ambele cifre sunt mari. Doar a doua e a ta.</p>
   </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Galbenul nu vine din trimestre, care sunt bune, ci din instabilitatea anilor și din oscilația marjei brute cu peste 45 de puncte procentuale în cinci ani. Iar eticheta e structurală pentru că aceste cauze — dependența de câteva contracte mari și creșterea cumpărată — nu sunt o etapă care se închide la o dată anunțată.</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
-
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
   <div class="concept">
-    <div class="h">ÎNTÂI: IGNORAȚI P/E-UL. E FALS.</div>
-    <p>Sursele afișează P/E 16,89 (stockanalysis) sau 36,94 (finviz), și un profit net de
-    239,8 M $ pe TTM. La un prim contact, ONDS pare o companie profitabilă la un multiplu
-    rezonabil. Nu e nimic din asta adevărat.</p>
+    <div class="h">DE CE NU FOLOSIM P/E AICI</div>
+    <p>Site-urile de bursă arată pentru ONDS un P/E între 17 și 37 — o cifră care ar sugera o companie rezonabil evaluată. E o iluzie contabilă. Profitul din ultimele 12 luni vine dintr-un <b>câștig de 389,5 mln $ din reevaluarea unor warante</b> și 51,5 mln $ dintr-o deconsolidare de subsidiară, față de o <b>pierdere din operare de 42,7 mln $</b> în același trimestru (10-Q depus pe 15 mai 2026). Warantele sunt obligații care se reevaluează la fiecare raportare: când prețul acțiunii scade, obligația scade și apare un „profit” care nu a trecut prin nicio bancă. Estimarea pentru anul următor e, de altfel, −0,17 $ pe acțiune.</p>
+    <p>Regula e simplă: când profitul nu vine din afacere, multiplul pe profit nu se compară cu nimic. Se trece pe venituri.</p>
   </div>
-
   <div class="tw"><table>
-    <thead><tr><th>De unde vine „profitul" din T1 2026</th><th>Sumă</th></tr></thead>
+    <thead><tr><th>Companie</th><th>EV/Vânzări</th><th>P/S</th><th>Marjă brută</th><th>Venituri (12 luni)</th><th>Poziție netă</th></tr></thead>
     <tbody>
-      <tr><td>Pierdere operațională reală</td><td class="down">−42,7 M $</td></tr>
-      <tr><td>Câștig non-cash din reevaluarea warranturilor</td><td class="up">+389,5 M $</td></tr>
-      <tr><td>Câștig din deconsolidarea Ondas Networks</td><td class="up">+51,5 M $</td></tr>
-      <tr class="me"><td>= Profit net raportat</td><td class="up">+361,7 M $</td></tr>
+      <tr class="me"><td>ONDS</td><td>29,10</td><td>44,18</td><td>31,2%</td><td>96,6 mln $</td><td>net cash 1,46 mld $</td></tr>
+      <tr><td>AeroVironment (AVAV)</td><td>3,91</td><td>3,81</td><td>25,3%</td><td>1,98 mld $</td><td>net cash 0,20 mld $</td></tr>
+      <tr><td>Kratos (KTOS)</td><td>5,26</td><td>6,17</td><td>22,9%</td><td>1,42 mld $</td><td>net cash 1,28 mld $</td></tr>
+      <tr><td>Red Cat (RCAT)</td><td>18,84</td><td>21,00</td><td>7,5%</td><td>54,6 mln $</td><td>net cash 0,12 mld $</td></tr>
     </tbody>
   </table></div>
-
+  <p>Trei competitori reali, toți cotați, toți citiți de pe aceleași pagini. AeroVironment și Kratos sunt versiunile mature ale aceleiași idei — drone și sisteme fără pilot pentru armate — de 15 până la 20 de ori mai mari ca venituri. Red Cat e cel mai apropiat ca stadiu: mic, pe pierdere, evaluat tot pe poveste. Cel mai relevant competitor privat, <b>Anduril</b>, nu are ticker și deci nu apare în tabel; absența lui din tabel nu îl șterge din realitate, și e probabil concurentul cel mai serios pentru contractele pe care le urmărește ONDS.</p>
+  <p>Marja brută a ONDS e cea mai bună din grup, ceea ce e un semnal real. Multiplul e însă de 5,5 ori mediana grupului — deci întrebarea nu e „e scumpă?”, ci „ce presupune prețul?”.</p>
   <div class="concept">
-    <div class="h">CUM FUNCȚIONEAZĂ — ȘI NU E UN TRUC, E REGULA CONTABILĂ</div>
-    <p>Warranturile emise în octombrie 2025 și ianuarie 2026 sunt clasificate ca datorie și
-    reevaluate trimestrial cu modelul Black-Scholes. Când prețul acțiunii <strong>scade</strong>,
-    warranturile la 28 $ devin mai puțin probabil să fie exercitate, deci „datoria" scade —
-    iar scăderea unei datorii se înregistrează ca <strong>profit</strong>.</p>
-    <p>Cu alte cuvinte: <strong>ONDS a raportat 389,5 M $ profit exact pentru că acțiunea
-    s-a prăbușit.</strong> În trimestrul anterior, când acțiunea urca, aceeași mecanică a
-    produs o pierdere: T4 2025 a arătat −101,0 M $ net pe o pierdere operațională de doar
-    −23,3 M $.</p>
-    <p>Concluzia practică: la ONDS, profitul net e zgomot pur. Nu-l folosiți la nimic.
-    Uitați-vă la profitul operațional și la free cash flow. Cifra care contează pentru
-    evaluare e <strong>vânzările</strong>.</p>
+    <div class="h">CE VENIT ÎNCORPOREAZĂ PREȚUL</div>
+    <p>Calculul are patru pași și folosește doar cifre citite. <b>Multiplul:</b> EV/Vânzări 29,10 (valoare de întreprindere 2,81 mld $ împărțită la venituri de 96,6 mln $ pe 12 luni). <b>Ancora:</b> valoarea mai mică dintre media proprie pe 5 ani (45,17) și mediana competitorilor din tabel (5,26) — deci <b>5,26</b>. <b>Venitul implicit:</b> la valoarea de întreprindere de azi, multiplul revine la ancoră când veniturile anuale ajung la <b>~534 mln $</b> — de 5,5 ori cele de acum.</p>
+    <p>Al patrulea pas, anii impliciți, e locul unde calculul mecanic dă un rezultat corect și inutil. La ritmul ultimelor patru trimestre (+793% an/an), 534 mln $ s-ar atinge în sub un an — dar acel ritm e în cea mai mare parte cumpărat cu șase achiziții, deci nu e un ritm care se poate proiecta. Reperul onest e altul: <b>compania însăși și-a fixat, pe 14 mai 2026, o țintă de cel puțin 390 mln $ venituri pentru 2026.</b> Prețul de azi încorporează cu ~37% mai mult decât propria țintă a companiei pentru acest an — și o încorporează ca pe un nivel deja atins și susținut, nu ca pe un vârf.</p>
+    <p>Două precizări obligatorii. Prima: media proprie pe 5 ani (45,17) e mai mare decât multiplul de azi, ceea ce ar putea părea un argument că acțiunea e „ieftină față de istoria ei”. Nu e — în 2021 și 2022 compania avea venituri de 2–3 mln $, iar un multiplu de 80× pe 2,9 mln $ venituri nu e un reper, e o diviziune fără conținut. De aceea regula ia valoarea mai mică dintre cele două ancore. A doua: calculul presupune că multiplul revine la ancoră. Poate să nu revină, în nicio direcție — piața a plătit ani la rând multipli peste medie pentru companii care au livrat. <b>Nu e un preț-țintă și nu se traduce într-unul.</b></p>
   </div>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Comparația cu competitorii direcți</h3>
-  <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>Cap.</th><th>Venituri TTM</th><th>P/S</th><th>EV/Vânzări</th><th>Marjă brută</th><th>Marjă oper.</th><th>Acțiuni +1an</th><th>Short float</th><th>Poziție netă</th></tr></thead>
-    <tbody>
-      <tr class="me"><td>ONDS</td><td>4,21 mld</td><td>96,6 M</td><td>43,6×</td><td>28,5×</td><td>44,9%</td><td class="down">−90,2%</td><td class="down">+286,7%</td><td class="down">43,9%</td><td class="up">+1,46 mld</td></tr>
-      <tr><td>AeroVironment (AVAV)</td><td>7,54 mld</td><td>1,98 mld</td><td>3,84×</td><td>3,94×</td><td>25,3%</td><td>−3,6%</td><td>+74,2%</td><td>7,6%</td><td class="down">−202 M</td></tr>
-      <tr><td>Kratos (KTOS)</td><td>8,68 mld</td><td>1,42 mld</td><td>6,07×</td><td>5,16×</td><td>22,9%</td><td class="up">+2,0%</td><td>+10,6%</td><td>5,5%</td><td class="up">+1,28 mld</td></tr>
-      <tr><td>Red Cat (RCAT)</td><td>1,15 mld</td><td>54,6 M</td><td>20,6×</td><td>18,4×</td><td>7,5%</td><td class="down">−149%</td><td>+35,0%</td><td>23,6%</td><td class="up">+118 M</td></tr>
-    </tbody>
-  </table></div>
-
-  <p>Pe cifrele de azi, ONDS e evaluată la <strong>7× multiplul de vânzări al lui
-  AeroVironment</strong>, deși AVAV are venituri de douăzeci de ori mai mari și e aproape de
-  breakeven operațional. Marja brută a lui ONDS e cea mai bună din grup — dar și diluția și
-  short interest-ul sunt cele mai mari, de departe.</p>
-
+  <p><b>Verdict: Risc (roșu), structural.</b> Cu o notă de metodă, pentru că grila nu prinde exact acest caz: pragul de roșu cere „semnificativ peste ambele repere”, iar ONDS e mult peste competitori dar sub propria medie istorică. Am dat roșu pentru că media istorică e cifra fără conținut (vezi mai sus), pentru că se aplică a doua clauză a pragului — multipli care presupun ani de creștere fără greșeală — și pentru că a spune „ieftină față de propria istorie” despre o companie care avea 2 mln $ venituri ar fi tehnic adevărat și complet înșelător. Rândul e, ca întotdeauna, structural: prețul de azi e un fapt despre azi, nu o etapă.</p>
   <div class="concept">
-    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
-    <p><strong>Calculul optimist, făcut corect:</strong> valoarea întreprinderii
-    (capitalizare minus net cash) e 2,86 mld $. La ghidajul conducerii de ≥525 M $ venituri
-    în 2026, asta dă un <strong>EV/Vânzări de ~5,4×</strong> — în linie cu Kratos (5,16×) și
-    complet rezonabil pentru o companie de apărare cu creștere mare. Deci prețul de azi nu e
-    absurd.</p>
-    <p>Dar iată ce trebuie să se întâmple, tot, ca să fie justificat: (1) ghidajul de
-    525 M $ trebuie <strong>atins</strong>, de la 96,6 M $ realizați pe ultimele 12 luni;
-    (2) cele patru achiziții trebuie <strong>integrate</strong> fără să piardă clienți;
-    (3) marja operațională trebuie să treacă de la <strong>−90% la pozitiv</strong>, nu doar
-    „adjusted EBITDA"; (4) compania trebuie să nu mai emită masiv acțiuni; (5) cererea
-    guvernamentală pentru counter-UAS trebuie să fie un trend de un deceniu, nu un vârf de
-    doi ani.</p>
-    <p>Cinci ipoteze care trebuie să se împlinească aproape toate. Nu e imposibil — e o
-    listă lungă. <strong><em>Risc</em>, pe criteriul „multipli care presupun ani de creștere
-    perfectă".</strong></p>
+    <div class="h">EVALUAREA NU E UN SEMNAL DE MOMENT</div>
+    <p>O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat. Nimic din secțiunea asta nu spune ce face prețul mâine. Spune doar pe ce pariezi dacă îl plătești azi: pe venituri de ordinul a jumătate de miliard de dolari, susținute, la o companie care acum face 96,6 mln $ și pierde bani din operare.</p>
   </div>
-
-  <div class="concept">
-    <div class="h">DE CE O COMPANIE POATE RAPORTA REZULTATE EXCELENTE ȘI ACȚIUNEA SĂ SCADĂ</div>
-    <p>ONDS a raportat +1.065% creștere de venituri în T1 2026 și a ridicat ghidajul de două
-    ori. Acțiunea e −24% pe an. Nu e irațional. Prețul de la începutul anului reflecta deja
-    așteptări mari — la 15,28 $ acțiunea era evaluată la peste 60× vânzările proiectate.
-    Piața nu tranzacționează trecutul, ci diferența dintre ce era așteptat și ce s-a
-    întâmplat. Cine cumpără o poveste la un preț care presupune perfecțiune plătește de două
-    ori: o dată la cumpărare, și o dată când perfecțiunea nu vine.</p>
-  </div>
-
-  <p style="font-size:12.5px;color:var(--ink-3)"><strong>Evaluarea nu e un semnal de
-  timing.</strong> O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi
-  ieftină pentru un motiv întemeiat (<em>value trap</em>).</p>
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
   <div class="stats">
-    <div class="stat"><div class="l">DEȚINERE INSTITUȚIONALĂ</div><div class="v">41,4%</div><div class="s">37,7% MarketBeat · 36,2% finviz</div></div>
-    <div class="stat"><div class="l">CAPITAL NET INTRAT (12 LUNI)</div><div class="v up">+616 M $</div><div class="s">212 cumpărători / 40 vânzători</div></div>
-    <div class="stat"><div class="l">SHORT INTEREST</div><div class="v down">43,9%</div><div class="s">din float · 2,7 zile de acoperire</div></div>
-    <div class="stat"><div class="l">ȚINTĂ ANALIȘTI</div><div class="v">19,81 $</div><div class="s">Strong Buy, 8 analiști</div></div>
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">41,3%</div><div class="s">sub normalul unei companii mari</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+616 mln $</div><div class="s">212 cumpărători / 40 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v down">43,9%</div><div class="s">din float · 2,7 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">41×</div><div class="s">pe an · se tranzacționează, nu se deține</div></div>
   </div>
-
-  <p><strong>Verdict: <em>Risc</em>, pe cel mai clar prag din tot scorecardul.</strong> Pragul de roșu
-  e short interest peste 10% din float. ONDS e la 43,9% — 229,56 M de acțiuni vândute short,
-  adică 40,3% din toate acțiunile companiei.</p>
-
+  <p>E pilonul cu cea mai slabă valoare predictivă din toate. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum. Aici însă cifrele sunt atât de extreme încât explică o bună parte din ce se vede pe grafic.</p>
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITIȚI-L CA RISC, NU CA OPORTUNITATE</div>
-    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde
-    imediat, și speră să le răscumpere mai ieftin. Un short interest de 43,9% din float
-    înseamnă că, pentru fiecare două acțiuni disponibile la tranzacționare, aproape una e
-    vândută de cineva care pariază pe scădere.</p>
-    <p>Un începător aude „short squeeze" și îl citește ca pe o oportunitate. În realitate,
-    un short interest de această mărime e mult mai des un avertisment că profesioniști cu
-    resurse de analiză serioase văd o problemă — și aici e ușor de ghicit care: diluția de
-    +287% pe an, marja operațională de −90%, și 121,6 M de warranturi care atârnă deasupra
-    prețului. Squeeze-ul e un eveniment rar și imprevizibil, nu o strategie.</p>
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă (short) împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. La ONDS, <b>229,6 milioane de acțiuni — 43,9% din float</b> — sunt în această situație. Pragul de la care grila dă roșu e 10%. Aproape jumătate din acțiunile disponibile la tranzacționare sunt pariuri pe scădere.</p>
+    <p>Un începător aude „short squeeze” și citește asta ca pe o oportunitate. E mult mai des un avertisment că cineva mai bine informat vede o problemă. Squeeze-ul e un eveniment rar și imprevizibil, nu o strategie. <i>Days to cover</i> e 2,7 — adică, la volumul normal, toți cei pe short ar putea ieși în mai puțin de trei zile de tranzacționare; sub pragul de 5 zile, deci presiunea de răscumpărare e mai mică decât ar sugera procentul brut.</p>
   </div>
-
-  <p>Short interest-ul a <strong>crescut</strong> de la 197,6 M la 229,6 M de acțiuni în
-  ultima lună, în timp ce acțiunea scădea. Cei pe short nu închid pozițiile — le măresc. A
-  stat peste 30% din float de cinci luni.</p>
-
-  <p><strong>Semnalul contrar, și e serios:</strong> banii instituționali merg clar în
-  direcția opusă. 212 instituții au cumpărat față de 40 care au vândut, cu un flux net de
-  <strong>+616 M $</strong> (767 M $ intrați vs. 151 M $ ieșiți), și <strong>BlackRock a
-  raportat 7,2%</strong> din companie pe 30 iulie. E o divergență reală și neobișnuită:
-  fonduri mari acumulează exact acțiunea pe care aproape jumătate din float o pariază pe
-  scădere. Cine are dreptate se va vedea în execuție, nu în sentiment.</p>
-
   <div class="concept">
-    <div class="h">DESPRE ȚINTA DE 19,81 $ (+168%)</div>
-    <p>Trei lucruri de știut, ca să nu fie citită greșit. Analiștii își revizuiesc țintele
-    <strong>după</strong> ce se mișcă prețul, nu înainte — ținta asta descrie mai mult
-    entuziasmul de la 15 $ decât viitorul de la 7 $. Recomandările de vânzare sunt foarte
-    rare, pentru că băncile care le emit vor să păstreze relația cu compania; „Strong Buy" e
-    starea implicită pentru o companie mică de creștere, nu o distincție. Și e o medie a 8
-    păreri, la o companie unde intervalul rezonabil de rezultate e enorm.</p>
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 85,4 mln acțiuni × 250 de zile ÷ un float de 522,8 mln acțiuni = <b>~41×</b>. Tot free float-ul își schimbă proprietarul de patruzeci și una de ori într-un an. O companie deținută de investitori pe termen lung se rotește de câteva ori pe an. Aici acțiunea nu se deține, se tranzacționează — e cel mai ieftin indicator de speculație din raport, pentru că măsoară direct raportul dintre cei care pariază și cei care dețin.</p>
+    <p><b>Combustibilul.</b> Cu 43,9% din float vândut în lipsă, o știre bună nu mișcă prețul cu cât valorează știrea, ci cu cât costă ieșirea celor prinși pe partea greșită. Anunțul de 70 mln $ comenzi noi din 22 iul. 2026 e ~72% din veniturile unui an întreg — dar reacția violentă, urmată de −13,49% pe 29 iulie la prima luare de profit, e mecanica shorturilor, nu aritmetica contractului. Aceeași știre, într-o companie fără shorturi, ar fi produs o fracțiune din mișcare. Asta nu e o teză de investiție; e doar explicația unei mișcări care altfel pare irațională.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la 31 iul. 2026: consolidarea apărării autonome — drone, sisteme anti-dronă și muniții cu rătăcire, pe fondul bugetelor de apărare în creștere din Europa și Statele Unite. ONDS a fost cumpărătorul cel mai activ din nișă în 2026, cu șase achiziții. Narativul e real ca forță asupra prețului și nu e o prognoză de venituri.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de bine poți vinde mâine, niciodată cât câștigă compania. De aceea acest pilon nu mută nicio culoare din celelalte șapte rânduri.</p>
   </div>
-
-  <p>Nefiind în S&amp;P 500 sau Nasdaq-100, ONDS nu beneficiază de cumpărarea automată din
-  partea marilor fonduri pasive. E în Russell 2000, unde intrările pasive sunt mult mai
-  mici.</p>
-
-  <p style="font-size:12.5px;color:var(--ink-3)">Acest pilon are cea mai slabă valoare
-  predictivă din tot raportul: nu spune nimic despre calitatea afacerii, doar despre ce cred
-  alții acum.</p>
+  <p><b>Banii instituționali spun invers.</b> În 12 luni au intrat 767,5 mln $ și au ieșit 151,0 mln $, de la 212 cumpărători față de 40 vânzători — un flux net pozitiv de 616,5 mln $. Direcția banilor e mult mai informativă decât procentul de deținere (41,3%, sub normalul de 60–80% al unei companii americane mari, ceea ce e de așteptat la o firmă intrată recent în atenție). Deci tabloul e contradictoriu: instituțiile cumpără net, iar aproape jumătate din float e vândut în lipsă. Ambele sunt adevărate simultan și descriu o acțiune pe care lumea se ceartă intens.</p>
+  <p><b>Indici:</b> ONDS e în Russell 2000, nu în S&amp;P 500 sau Nasdaq-100. Fondurile pasive care replică indicii mari nu sunt obligate să o cumpere — deci nu are acel val constant de cerere automată care nu ține de rezultate.</p>
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR, CU AVERTISMENTELE LUI</div>
+    <p>Recomandarea medie e „cumpărare” (1,00 pe o scală unde 1 e cel mai favorabil), cu un preț-țintă mediu de 19,81 $ față de 7,49 $ pe piață — cu 164% peste. Trei lucruri de știut înainte să însemne ceva: analiștii își revizuiesc țintele <i>după</i> ce se mișcă prețul, nu înainte, deci o țintă cu 164% peste piață descrie entuziasmul de acum, nu viitorul. Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania — o medie de „cumpărare” e starea implicită, nu o distincție. Iar ținta e o medie a unor păreri foarte împrăștiate; la o companie fără profit din operare, dispersia e de regulă enormă, iar media nu înseamnă aproape nimic.</p>
+  </div>
 </section>
 
 <!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
-<section>
+<section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
   <ul class="list">
-    <li><b>CEO: Eric A. Brock</b> — Chairman, CEO și President, toate trei rolurile.
-      Compania a fost fondată în 2014 și listată în octombrie 2018. 495 de angajați.</li>
-    <li class="crit"><b>Concentrarea de putere merită notată</b> — același om e CEO și
-      președinte al consiliului care ar trebui să-l supravegheze. Nu e ilegal și e comun la
-      companii mici, dar slăbește controlul acționarilor exact într-o companie care emite
-      acțiuni agresiv și face achiziții mari plătite în acțiuni.</li>
-    <li><b>Insideri: 0 cumpărători, 6 vânzători în 12 luni.</b> Total vândut: 3.848.791
-      acțiuni, 44,28 M $.</li>
-    <li><b>Structura de vot</b> — nu am găsit indicii de acțiuni cu clase multiple pe
-      sursele publice folosite. Merită verificat în 10-K sau în proxy statement pe SEC EDGAR
-      înainte de a considera asta confirmat.</li>
+    <li><b>Eric A. Brock</b> — director general (CEO). Compania a fost fondată în 2014 și listată pe 25 oct. 2018; și-a schimbat numele din Ondas Holdings în Ondas Inc. în ianuarie 2026.</li>
+    <li><b>Cât dețin cei care conduc:</b> sursele nu sunt de acord — finviz arată 8,25% deținere de insideri, pagina de statistici arată 0,78%. Diferența e prea mare ca să o mediezi; probabil una include participațiile prin entități afiliate și cealaltă nu. Ambele sunt însă departe de pragul la care un management „mănâncă din aceeași oală” cu acționarii într-un mod evident.</li>
+    <li class="crit"><b>Insideri, 12 luni: 6 vânzători, 0 cumpărători, 44,2 mln $ vânduți.</b> Vânzările insiderilor sunt de obicei zgomot — directorii sunt plătiți parțial în acțiuni și vând programat. Aici sunt totuși două lucruri de spus, ambele factuale: nu există nicio cumpărare din bani proprii în 12 luni, iar cea mai mare tranzacție e vânzarea a 2.378.245 de acțiuni de către CEO pe 2 iun. 2026, la 13,43 $ — <b>31,9 mln $, la un preț apropiat de maximul de 15,28 $ al ultimului an</b>. Nu e o acuzație și nu e ilegal; e o informație pe care merită să o ai când citești entuziasmul din comunicate.</li>
+    <li><b>Structura de vot:</b> sursele gratuite nu arată clase multiple de acțiuni ordinare. Raportul trimestrial arată însă „dividende preferențiale atribuibile intereselor minoritare” — adică <b>există acțiuni preferențiale deținute de investitori din afară la nivelul unei subsidiare</b>, nu la nivelul companiei-mamă. Practic: o parte din valoarea diviziei de sisteme autonome aparține altcuiva decât acționarilor ONDS. Merită verificat exact în raportul anual (10-K) și în documentul de vot (proxy statement) de pe SEC EDGAR înainte de orice concluzie.</li>
   </ul>
-
-  <div class="tw"><table>
-    <thead><tr><th>Data</th><th>Insider</th><th>Funcție</th><th>Acțiuni</th><th>Preț</th><th>Valoare</th></tr></thead>
-    <tbody>
-      <tr class="me"><td>2 iun. 2026</td><td>Eric A. Brock</td><td>CEO</td><td>2.378.245</td><td>13,43 $</td><td>31,94 M $</td></tr>
-      <tr><td>20 mai 2026</td><td>Richard M. Cohen</td><td>Director</td><td>7.500</td><td>9,50 $</td><td>71 K $</td></tr>
-      <tr><td>19 mai 2026</td><td>Randy Seidl</td><td>Director</td><td>10.000</td><td>9,83 $</td><td>98 K $</td></tr>
-      <tr><td>31 dec. 2025</td><td>Eric A. Brock</td><td>CEO</td><td>475.000</td><td>9,71 $</td><td>4,61 M $</td></tr>
-      <tr><td>26 nov. 2025</td><td>Ron Stern</td><td>Director</td><td>850.000</td><td>7,91 $</td><td>6,72 M $</td></tr>
-      <tr><td>22 dec. 2025</td><td>4 insideri</td><td>—</td><td>81.605</td><td>9,48 $</td><td>774 K $</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="concept">
-    <div class="h">CUM SE CITESC TRANZACȚIILE INSIDERILOR</div>
-    <p>Vânzările spun de obicei puțin — directorii primesc o parte din salariu în acțiuni și
-    vând programat, ca să-și plătească facturile. „0 cumpărători, 6 vânzători" e situația
-    normală la o companie de tehnologie și nu e, în sine, un semnal de alarmă. Invers însă,
-    un director care cumpără din bani proprii e un semnal rar și puternic, pentru că există
-    un singur motiv să faci asta.</p>
-    <p><strong>Dar aici e o excepție care merită spusă direct.</strong> Vânzarea CEO-ului
-    din 2 iunie nu se citește ca zgomot de rutină: <strong>31,9 M $ într-o singură zi, la
-    13,43 $</strong>, când acțiunea era la ~88% din maximul istoric — cu opt săptămâni
-    înainte ca prețul să scadă la 7,39 $. Nu implică nimic ilegal, iar vânzările
-    executivilor sunt adesea programate din timp (plan 10b5-1). Dar e o cifră mare, la un
-    moment bun, făcută de omul care conduce compania și care are cea mai bună vizibilitate
-    asupra ei — și niciun insider nu a cumpărat nimic în timp ce acțiunea a scăzut cu
-    jumătate.</p>
-  </div>
-
-  <p><strong>Deținerea insiderilor:</strong> sursele diferă mult — 0,78% (stockanalysis),
-  1,67% (MarketBeat), 8,25% (finviz). Diferența vine probabil din ce se numără ca „insider"
-  (doar directori și executivi, sau și acționari cu peste 10%). Oricum se calculează, e
-  mică. După diluția de +287% și vânzările de 44 M $, conducerea nu mai are o expunere
-  financiară semnificativă la soarta acțiunii.</p>
 </section>
 
-<!-- ══ 11. RISCURI ═════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">11</span><h2>Riscuri — ce ar strica teza</h2></div>
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <b>expunerea</b> — o proprietate stabilă a afacerii, aproape la fel de stabilă ca moat-ul — nu vremea de azi. Unde sunt dobânzile în această săptămână e în secțiunea 1, cu data lor.</p>
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR</div>
+    <p>Când o companie nu are profit azi, <b>tot</b> prețul ei e profitul anilor îndepărtați, adus în prezent. Dobânda fără risc e gravitația care face aducerea asta: la 4,75% pe obligațiunile americane pe 10 ani (31 iul. 2026, în urcare de la ~4,23% acum un an), un dolar câștigat peste zece ani valorează azi vizibil mai puțin decât valora anul trecut. Multiplul se comprimă, iar acțiunea scade <i>deși compania livrează exact ce a promis</i>. Nu s-a stricat afacerea; s-a scumpit banul. Efectul e cel mai brutal exact la companiile ca aceasta, unde nu există niciun profit prezent care să amortizeze lovitura — și e o parte din explicația pentru −23% de la începutul anului într-un an în care sectorul tehnologic a făcut +16,6%.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag ridicat.</b> Free cash flow negativ azi (−86,6 mln $ pe 12 luni) și niciun P/E prospectiv publicat, pentru că estimarea pe anul următor e o pierdere. Întreaga evaluare stă în profituri care nu există încă.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Fără steag. Cererea vine din bugete de apărare și securitate a frontierelor, nu din buzunarul consumatorului — genul de cheltuială care nu se amână pentru că vine o recesiune. Riscul aici e politic (cine votează bugetul), nu ciclic, și stă la rândul următor.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag ridicat.</b> 43,1% din veniturile trimestrului I 2026 vin din Israel, peste pragul de ~40% pentru o singură țară, iar restul se împarte între Europa, Asia și Emirate — practic nimic din Statele Unite (10-Q, 15 mai 2026). În plus, echipamentele de apărare circulă pe licențe de export, care sunt decizii politice, nu comerciale.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Nicio acțiune concretă, numită, în curs împotriva companiei. Cadrul care se schimbă — regulile FAA Part 108 pentru zborul dincolo de raza vizuală — merge deocamdată în favoarea ei, nu împotrivă. Un cadru care se poate schimba în ambele direcții nu e un steag; o anchetă sau o autorizație în pericol ar fi.</span></div>
+  </div>
+  <p><b>Verdict: Risc (roșu), structural.</b> Două steaguri ridicate din patru duc la roșu. Rândul e prin construcție structural: descrie proprietăți ale afacerii — unde își face banii și cât din preț e viitor îndepărtat — care supraviețuiesc oricărei etape de creștere.</p>
+  <p>Expunere mare nu înseamnă companie proastă. Înseamnă volatilitate pe care trebuie să o poți duce <i>dinainte</i>, nu să o descoperi la prima furtună — și, în cazul de față, o beta de 2,72 confirmă în cifre ce spun steagurile. O corabie pe o mare agitată ajunge la destinație, dar nu ține pasagerii care sar peste bord la primul val. Lecția practică nu e „evit-o”, e „dimensionează poziția ca să suporți valurile”. Ce e specific companiei — concentrarea contractelor, integrarea achizițiilor — nu se dublează aici; stă la secțiunea 12.</p>
+</section>
+
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu compusă de mine.</p>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
   <ul class="list">
-    <li class="crit"><b>Diluția continuă</b> — riscul numărul unu, și cel mai probabil.
-      Modelul de business e literal: emite acțiuni → cumpără companii → raportează creștere
-      → emite iar. Cât timp cash flow-ul operațional e negativ, nu există alt combustibil.
-      Cine cumpără azi trebuie să presupună că va fi diluat în continuare.</li>
-    <li class="crit"><b>Warranturile de la 28 $</b> — 121,58 M de warranturi valabile până
-      în 2033, plus 41,79 M de pre-funded warrants din aceeași emisiune și warranturile din
-      octombrie 2025. Sunt un plafon informal deasupra prețului: pe măsură ce acțiunea urcă
-      spre 28 $, presiunea de vânzare din exercitare crește.</li>
-    <li class="crit"><b>Riscul de integrare și de impairment</b> — peste 694 M $ în goodwill
-      și intangibile dintr-un total de 2,44 mld $ active, după patru achiziții în șase luni.
-      Dacă una nu performează, regulile contabile obligă la o depreciere care șterge sute de
-      milioane din capitalurile proprii într-un trimestru. DZYNE singură a costat 875,8 M $ —
-      mai mult decât toate veniturile companiei de la înființare la un loc.</li>
-    <li class="crit"><b>Concentrarea veniturilor</b> — clientul e statul, contractele sunt
-      mari și rare. Ghidajul de 525 M $ se sprijină pe câteva programe identificabile: ~220 M $
-      pentru 4M Defense și Indo-Earth, participare la un IDIQ al Armatei de 982 M $, și cele
-      191 M $ pe care DZYNE trebuie să le livreze. Când veniturile au scăzut −54% în 2024,
-      motivul a fost exact asta: un contract care nu s-a repetat. Un „IDIQ" e un
-      contract-cadru, nu o comandă garantată — statul poate comanda de la zero la plafon.
-      Defalcarea pe clienți se găsește în secțiunea <em>Risk Factors</em> din 10-K.</li>
-    <li><b>Dependența de un ciclu de cheltuieli</b> — cererea pentru counter-drone e reală
-      și vine dintr-o schimbare de doctrină militară după Ucraina. Dar bugetele de apărare
-      sunt decizii politice, se pot amâna cu un an la o schimbare de administrație sau o
-      criză fiscală, iar valul actual de investiții în „defense tech" are semnele unui trend
-      aglomerat. ONDS e într-o categorie care se mișcă în bloc.</li>
-    <li><b>Riscul de execuție și de persoană-cheie</b> — Eric Brock e CEO, președinte de
-      consiliu și arhitectul strategiei de achiziții. Integrarea a patru companii în șase
-      luni, cu 495 de angajați, e o sarcină dificilă chiar pentru echipe experimentate.</li>
-    <li><b>Presiunea din oferta de acțiuni</b> — din cele 85 M de acțiuni date vânzătorilor
-      DZYNE, doar 45 M sunt blocate șase luni; restul pot fi vândute. Compania a înregistrat
-      deja 3,4 M de acțiuni pentru revânzare de către deținători existenți în iulie. Fiecare
-      astfel de înregistrare adaugă ofertă pe o piață care are deja 43,9% din float pe
-      short.</li>
+    <li><b>Ținta de venituri de cel puțin 390 mln $ pentru 2026</b> — ridicată de companie pe 14 mai 2026, odată cu rezultatele trimestrului I. Reperul: veniturile ultimelor 12 luni sunt 96,6 mln $, iar ale trimestrului I au fost 50,1 mln $. Ținta cere ca restul anului să aducă de câteva ori cât a adus începutul.</li>
+    <li><b>Backlog pro forma de 457 mln $</b> — cifră comunicată de companie și reluată în presa financiară pe 23 iul. 2026. Backlogul contractat nu e o estimare de piață, e muncă vândută; întrebarea e cât din el se transformă în venit raportat și în cât timp.</li>
+    <li><b>Comenzi noi de 70 mln $ (anunțate 22 iul. 2026) și de peste 40 mln $ (22 iun. 2026)</b> — ambele raportate prin formulare 8-K depuse la SEC. Sunt cea mai solidă parte a tezei taurului, pentru că sunt evenimente depuse, nu declarații.</li>
+    <li><b>Contractul de sistem autonom de protecție a frontierei</b>, în care compania a anunțat că a fost selectată contractant principal în urma unei licitații, cu prima comandă fermă așteptată în ianuarie 2026 și cu desfășurare de mii de drone. E cea mai mare promisiune din listă și, tocmai de aceea, cea de verificat cel mai atent în raportările următoare.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Concentrarea veniturilor, pe țări și pe contracte.</b> În trimestrul I 2026, 43,1% din venituri au venit din Israel și încă 23,9% dintr-o singură linie „Asia” de exact 12,0 mln $ — cifra rotundă a unui singur contract. Două treimi din venituri atârnă de câteva decizii de achiziție publică. O companie unde câteva contracte fac majoritatea vânzărilor e fragilă indiferent cât de bine arată creșterea.</li>
+    <li class="crit"><b>Profitul e contabil, iar mecanismul poate funcționa invers.</b> Cele 361,7 mln $ „profit” din trimestrul I 2026 vin din +389,5 mln $ reevaluare de warante și +51,5 mln $ deconsolidare, minus 46,2 mln $ pierdere la achiziția unei entități. Reevaluarea warantelor produce câștig când acțiunea scade — deci un trimestru bun pentru acțiune poate produce o pierdere contabilă mare, iar cine citește doar linia de jos va înțelege exact pe dos ce s-a întâmplat.</li>
+    <li><b>Integrarea a șase achiziții într-un an.</b> Goodwill-ul a urcat de la 27,8 la 381,8 mln $ în 18 luni, prin companii cumpărate în Israel, Marea Britanie și Statele Unite. Riscul nu e că achizițiile sunt o strategie greșită, ci că integrarea simultană a șase culturi, echipe de vânzări și linii de producție e printre cele mai des ratate operațiuni din management.</li>
+    <li><b>Modelul de finanțare e diluția.</b> 1.829 mln $ strânși din emisiune de acțiuni în 12 luni și 34,1 mln $ pe an plată în acțiuni către angajați (35% din venituri). Atât timp cât operarea arde bani, felia fiecărui acționar continuă să se micșoreze — iar asta e o pierdere reală care nu apare niciodată în portofoliu.</li>
   </ul>
 
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>Notați-vă asta acum, dinainte, pentru că e mult mai ușor să gândiți limpede când
-    prețul nu se mișcă:</p>
-    <p><strong>1.</strong> Ghidajul de 525 M $ pe 2026 e ratat sau redus la raportarea din
-    13 august sau la cea de la finalul anului. Ar însemna că achizițiile nu livrează, iar
-    toată evaluarea se sprijină pe acel număr.<br>
-    <strong>2.</strong> Marja brută coboară din nou sub ~35%. A fost 4,8% în 2024, e 49,2%
-    acum. Dacă recade, înseamnă că prețurile bune de acum vin din câteva contracte
-    norocoase, nu din poziție de piață.<br>
-    <strong>3.</strong> O nouă emisiune mare de acțiuni la prețul actual. Diluția la 15 $ e
-    o decizie bună de management; diluția la 7 $ înseamnă că banii se termină și compania e
-    forțată să vândă ieftin.<br>
-    <strong>4.</strong> O depreciere de goodwill la oricare dintre cele patru achiziții.</p>
+    <div class="h">ARBITRUL</div>
+    <p>Trei verificări observabile, cu datele lor. <b>Prima, pe 13 august 2026</b> (raportarea trimestrului II, dată anunțată de companie pe 30 iul. 2026): trec veniturile trimestriale de vârful de 50,12 mln $ din trimestrul I, și rămâne ținta de 390 mln $ pentru 2026 în picioare sau se schimbă formularea?</p>
+    <p><b>A doua, în aceeași raportare:</b> se îngustează sau se lărgește arderea din operare? Reperul e −83,4 mln $ cash flow operațional pe ultimele 12 luni, față de −38,8 mln $ în anul fiscal 2025. Dacă veniturile cresc de cinci ori și arderea crește tot de două ori, întrebarea „când se susține singură” nu are încă răspuns.</p>
+    <p><b>A treia, pe orizontul următoarelor două-trei raportări:</b> apare o defalcare a creșterii organice, separat de cea adusă de achiziții? Și se transformă backlogul de 457 mln $ în venit raportat, la un ritm care poate fi urmărit trimestru de trimestru? Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
   </div>
 </section>
 
-<!-- ══ 12. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">12</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
-
-  <h3 style="font-size:14px;margin:0 0 10px">Trei concepte pe care ONDS le ilustrează mai bine decât orice manual</h3>
-  <ul class="list">
-    <li><b>Diluția e o pierdere invizibilă.</b> Compania a crescut de 15 ori în valoare, iar
-      acționarul din 2021 e pe minus. Nu apare niciodată în portofoliu ca „pierdere" — pur și
-      simplu felia ta se micșorează. E cel mai important lucru pe care investitorii de retail
-      nu îl verifică.</li>
-    <li><b>Profitul net poate fi complet fictiv.</b> ONDS a raportat 361,7 M $ profit într-un
-      trimestru în care a pierdut 42,7 M $ din operațiuni — pentru că acțiunea a scăzut și
-      asta a redus contabil valoarea unor warranturi. P/E-ul de 16,89 afișat pe site-uri de
-      bursă e literalmente lipsit de sens. Când vedeți un P/E surprinzător de bun la o
-      companie cu pierderi operaționale, căutați linia de „change in fair value".</li>
-    <li><b>„Adjusted EBITDA" e cifra pe care compania vrea să o vedeți.</b> Diferența dintre
-      −10,9 M $ ajustat și −42,7 M $ operațional e exact ce vă cere conducerea să nu
-      numărați. Uneori ajustările sunt legitime; verificați întotdeauna ce anume se
-      exclude.</li>
-  </ul>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Patru întrebări de pus la următoarea companie, în ordinea asta</h3>
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual.</b> Primul: <i>profitul contabil nu e cash</i> — ONDS raportează profit și pierde 86,6 mln $ pe an din cont, pentru că o obligație reevaluată produce „câștig” fără să treacă prin bancă. Al doilea: <i>diferența dintre roșu de fază și roșu structural</i> — testul nu e culoarea, ci ce o cauzează, iar aici testul se rezolvă în două cifre puse alături, capex 3,2 mln $ și ardere operațională 83,4 mln $. Al treilea: <i>așteptarea implicită</i> — un multiplu nu e o etichetă de „scump”, ci o afirmație despre viitor pe care piața a făcut-o deja, și pe care o poți traduce în venituri, cum am făcut în secțiunea 8.</p>
   <ul class="list qa">
-    <li>Numărul de acțiuni a scăzut, a stat pe loc, sau a crescut în ultimii 5 ani? Verificați
-      asta <em>înaintea</em> prețului — se găsește pe pagina de statistici a oricărui site de
-      bursă.</li>
-    <li>A bătut S&amp;P 500 pe 3 și pe 5 ani? Dacă nu, orice altă analiză e academică.</li>
-    <li>Cum arată free cash flow-ul pe 5 ani, și dacă e negativ — de unde vin banii? Din cash
-      existent, din datorie, sau din acțiuni noi? Al treilea răspuns costă cel mai mult.</li>
-    <li>Marja brută urcă sau coboară? E singurul indicator care spune devreme dacă un avantaj
-      competitiv e real.</li>
+    <li>Profitul raportat vine din vânzări, sau dintr-o reevaluare contabilă? Uită-te sub linia „profit din operare”, nu la cea de jos.</li>
+    <li>Numărul de acțiuni a crescut sau a scăzut în ultimii 3 ani? Ia cifra din formularele depuse la SEC, nu una derivată.</li>
+    <li>Dacă free cash flow-ul e negativ: vine din capex sau din operare? Cele două cifre sunt una lângă alta în situația fluxurilor de numerar.</li>
+    <li>Goodwill-ul a sărit în sus exact în anii cu creștere mare? Atunci creșterea e cumpărată, iar întrebarea devine cu ce s-a plătit.</li>
+    <li>A bătut acțiunea indicele pe 3 și pe 5 ani, nu doar pe ultimul an?</li>
+    <li>Cât din venituri vine dintr-o singură țară sau de la cei mai mari trei clienți?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, comunicate Ondas IR, SEC
-  EDGAR · date la 31 iulie 2026. Raportările au întârziere de până la un trimestru; short
-  interest până la două săptămâni; dețineri instituționale până la 45 de zile. Unde sursele
-  diferă cu peste 5% (marjă brută, ROIC, deținere insideri, datorie totală) sunt afișate
-  ambele cifre.<br>
-  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul
-  potrivit de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau
-  toleranța la risc a nimănui.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (formular 10-Q depus pe 15 mai 2026, bilanț la 31 mar. 2026; serie istorică a numărului de acțiuni din companyfacts) · date de piață la închiderea din <b>31 iulie 2026</b>.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
 </footer>
 </div>
-
 
 <div id="tip"></div>
 <script>
@@ -1028,7 +734,6 @@ footer b{color:var(--ink-2)}
     var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
     var type=fig.dataset.viz,sfx=d.suffix||'';
 
-    /* ── compare: perechi orizontale, fiecare rând cu scala lui ───────────── */
     if(type==='compare'){
       var rows=d.rows||[];if(!rows.length)return;
       var html=rows.map(function(r){
@@ -1054,7 +759,6 @@ footer b{color:var(--ink-2)}
     var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
     if(!all.length)return;
 
-    /* ── bars: ÎNTOTDEAUNA de la zero. Pentru variații mici, folosește lines. ─ */
     if(type==='bars'){
       var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
       var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
@@ -1077,7 +781,6 @@ footer b{color:var(--ink-2)}
       return;
     }
 
-    /* ── lines: axa poate fi trunchiată, dar min/max sunt afișate explicit ─── */
     if(type==='lines'){
       var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
       var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
