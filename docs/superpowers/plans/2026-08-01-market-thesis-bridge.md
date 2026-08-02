@@ -493,11 +493,11 @@ This is the real test. Text edits can look right and still produce a bad report.
 **Files:**
 - Create: `IREN-<today>.html`, `PLTR-<today>.html` in a scratch directory (not the repo)
 
-- [ ] **Step 1: Run the skill on IREN** — the route-B case (loss-making, buildout, 7 reds). Use a fresh session so the skill loads from disk.
+- [ ] **Step 1: Run the skill on IREN** — the route-B case (loss-making, buildout, 6 reds + 2 yellows). Use a fresh session so the skill loads from disk.
 
 - [ ] **Step 2: Check the IREN output against these five criteria.** Each is a pass/fail, not a judgment call:
 
-  1. Still **seven red pillars**. If any color moved, the change leaked into the thresholds — revert and find where.
+  1. **All eight colors identical to the prior report** — six red, two yellow (Moat and Creștere și marje). If any color moved, the change leaked into the thresholds — revert and find where.
   2. Every 🟡/🔴 row opens with **de fază** or **structural**, and for each „de fază" the three conditions are visible in the report text (cause, cash runway with a number, named target with a date).
   3. §8 carries the **route-B block** with all four numbers: multiple, anchor, implied revenue, implied years. Anchor traceable to `/financials/ratios/` or the peer table.
   4. §9 carries the **float-turnover figure** and names the current narrative with a date.

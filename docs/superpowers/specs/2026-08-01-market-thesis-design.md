@@ -5,9 +5,9 @@
 
 ## Problema
 
-Rapoartele pe companii speculative ies aproape integral roșii — IREN 7 roșii din 8 piloni, SOFI 7 din 8 pe atenție sau risc — în timp ce piața le tranzacționează cu entuziasm. Rapoartele nu sunt greșite: cei opt piloni măsoară **afacerea de azi** (FCF-ul de anul trecut, datoria de pe bilanț, diluția din ultimii trei ani, multiplii pe profitul curent). Pentru o companie evaluată pe opționalitate, pilonii ăștia sunt roșii *prin construcție* — FCF negativ e cum arată un buildout de capital, diluția e cum se finanțează o companie pre-profit, multiplul pe profitul de azi nu descrie o afacere care se scalează.
+Rapoartele pe companii speculative ies aproape integral roșii — IREN 6 roșii și 2 galbene, SOFI 7 din 8 pe atenție sau risc — în timp ce piața le tranzacționează cu entuziasm. Rapoartele nu sunt greșite: cei opt piloni măsoară **afacerea de azi** (FCF-ul de anul trecut, datoria de pe bilanț, diluția din ultimii trei ani, multiplii pe profitul curent). Pentru o companie evaluată pe opționalitate, pilonii ăștia sunt roșii *prin construcție* — FCF negativ e cum arată un buildout de capital, diluția e cum se finanțează o companie pre-profit, multiplul pe profitul de azi nu descrie o afacere care se scalează.
 
-Rezultatul pentru cititorul-țintă: vede șapte roșii, se uită apoi la +150% de la minim și trage una din două concluzii, ambele greșite — „raportul e prost" sau „piața e proastă". Adevărul e a treia: **raportul descrie o afacere, prețul descrie o așteptare, iar între ele nu există niciun pod.**
+Rezultatul pentru cititorul-țintă: vede șase roșii și două galbene, se uită apoi la +150% de la minim și trage una din două concluzii, ambele greșite — „raportul e prost" sau „piața e proastă". Adevărul e a treia: **raportul descrie o afacere, prețul descrie o așteptare, iar între ele nu există niciun pod.**
 
 ## Scopul
 
@@ -46,6 +46,11 @@ Culoarea nu se mișcă. Fiecare rând 🔴 sau 🟡 primește un calificativ de 
 
 Pică oricare condiție → **structural**. Fără nuanțe intermediare; scopul e ca doi oameni diferiți să pună aceeași etichetă.
 
+**Două precizări adăugate după testul pe IREN**, fără de care regula nu era mecanică:
+
+- **Ce cifră de cash intră în pistă** — numărătorul e cash-ul din ultimul bilanț depus (10-Q/10-K), nu dintr-un comunicat preliminar al companiei. Dacă cele două dau etichete diferite, câștigă bilanțul. Numitorul e arderea medie pe patru trimestre; când arderea accelerează prin plan, se spune că pista reală e mai scurtă, dar cifra nu se ajustează. Fără regula asta, aceleași fetch-uri dădeau șase „de fază" sau zero, după cum alegea cititorul.
+- **Care rânduri pot primi eticheta** — doar cele patru pe care le cauzează mecanic un buildout: FCF, cash vs. datorii, buyback/diluție, creștere și marje. Moat, evaluare, sentiment și expunere sunt întotdeauna „structural". Evaluarea în special: prețul de azi e un fapt despre azi, iar „evaluare de fază" s-ar citi ca o scuză pentru preț.
+
 **Unde apare.** Prefix în coloana „în două cuvinte" a scorecard-ului, cu `<b>`. Zero CSS nou, zero componentă nouă.
 
 **Exemplu (IREN).** FCF rămâne 🔴, dar textul devine „**de fază** — negativ din capex de buildout, finanțat, testul e ARR-ul de 4 mld $ la raportarea din 27 aug". Dacă runway-ul nu ține patru trimestre, eticheta e **structural** și raportul spune de ce distincția contează.
@@ -61,7 +66,7 @@ Pică oricare condiție → **structural**. Fără nuanțe intermediare; scopul 
 **Ruta B — compania e pe pierdere sau P/E-ul nu are sens.** Pe venituri:
 
 1. **Multiplul folosit** = EV/Vânzări, pentru că include datoria — la o companie cu 1,75 mld $ datorie netă, P/S ascunde exact partea care contează. P/S doar dacă EV/Vânzări lipsește de pe sursă, și atunci se spune explicit.
-2. **Ancora** = valoarea mai mică dintre media proprie pe 5 ani a multiplului (fetch 10, `/financials/ratios/`) și mediana peers (valul doi, `/statistics/`). Ambele sunt cifre extrase; alegerea e o regulă, nu o judecată.
+2. **Ancora** = valoarea mai mică dintre media proprie pe 5 ani a multiplului (fetch 10, `/financials/ratios/`) și mediana peers (valul doi, `/statistics/`). Ambele sunt cifre extrase; alegerea e o regulă, nu o judecată. Sub cinci ani de istoric public, se folosesc anii care există și se spune câți. Când peers-ii sunt și ei aproape fără venituri, mediana lor e aritmetic uriașă și fără conținut — se spune asta, iar ancora rămâne pe istoricul propriu (testul pe IREN a dat o mediană peers de 40,8 față de 5,95 propriu).
 3. **Venitul implicit** = la EV-ul de azi, ce venit anual duce multiplul la ancoră.
 4. **Anii impliciți** = la ritmul de creștere al ultimelor patru trimestre (fetch 12), în câți ani se atinge venitul implicit.
 
@@ -133,7 +138,7 @@ DCF invers. Pilon nou sau renumerotare. Date de opțiuni sau social media (făr�
 1. Cele șase fișiere actualizate; opt piloni peste tot; nicio renumerotare de secțiune (grep după „13" și „Riscuri" nu găsește rămășițe inconsistente).
 2. `references/scorecard.md` §9 conține regula de fază cu exact cele trei condiții, formulate mecanic.
 3. Zero fetch-uri noi în Faza 2 față de versiunea curentă.
-4. Rerularea pe **IREN** produce tot **șapte roșii** — plus etichete de fază pe fiecare, o cifră de așteptare implicită pe ruta B, rotația float-ului în §9 și o teză a taurului cu surse datate în §12.
+4. Rerularea pe **IREN** produce exact aceleași opt culori ca raportul anterior — **șase roșii și două galbene** — plus etichete de fază pe fiecare, o cifră de așteptare implicită pe ruta B, rotația float-ului în §9 și o teză a taurului cu surse datate în §12.
 5. Rerularea pe **PLTR** (companie pe profit) folosește ruta A, neschimbată, și produce etichete de fază coerente pe cele trei roșii.
 6. Cuvintele „va crește"/„va scădea" despre piață, dobânzi sau preț apar nicăieri; niciun preț-țintă; așteptarea implicită nu apare convertită în preț.
 7. Commis pe `hype-context`; `main` neatins.

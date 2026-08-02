@@ -112,7 +112,7 @@ Nu există un P/E „corect" universal. Compară întotdeauna pe trei axe și sp
 
 - 🟢 — sub media proprie pe 5 ani **și** sub competitorii direcți din tabel, fără o deteriorare a afacerii care să justifice discountul.
 - 🟡 — în linie cu istoricul propriu și cu competitorii.
-- 🔴 — semnificativ peste ambele (orientativ, cu peste ~30%), sau multipli care presupun ani de creștere perfectă.
+- 🔴 — semnificativ peste ambele (orientativ, cu peste ~30%), sau multipli care presupun ani de creștere perfectă. Când peers-ii sunt aproape fără venituri sau fără profit, multiplii lor sunt aritmetic uriași și comparația nu spune nimic — atunci „peste ambele" nu se poate aplica, iar culoarea se decide pe istoricul propriu și pe a doua clauză. Spune limpede că acțiunea e sub mediana peers, dacă e, ca cititorul să nu creadă că ai ascuns-o.
 - ⚪ *nu se aplică* — dacă există o ofertă fermă de preluare, prețul e ancorat de termenii tranzacției, nu de afacere; multiplii vs. istoric nu mai spun nimic. Spune asta în loc să forțezi o culoare (vezi [excepțiile](#9-excepții-pe-tip-de-companie)).
 
 **Preferă P/FCF în locul P/E** când cele două diferă mult: profitul e mai ușor de ajustat contabil decât cash-ul. Pentru companii cu datorie mare, EV/EBITDA e mai onest decât P/E, pentru că include și datoria în preț — cine cumpără compania preia și datoriile.
@@ -132,7 +132,7 @@ Asta e ideea cea mai importantă din secțiune, pentru că explică fenomenul ca
 **Când compania e pe pierdere, ruta de mai sus nu funcționează** — un P/E negativ sau absurd nu se compară cu nimic. Atunci calculul se mută pe venituri, în patru pași mecanici:
 
 1. **Multiplul** — EV/Vânzări, nu P/S. La o companie cu datorie netă mare, P/S ascunde exact partea care contează: cine cumpără compania preia și datoriile. Folosește P/S doar dacă EV/Vânzări lipsește de pe sursă, și spune că ai făcut-o.
-2. **Ancora** — valoarea mai mică dintre media proprie pe 5 ani a multiplului (pagina `/financials/ratios/`) și mediana competitorilor din tabel. Amândouă sunt cifre citite, iar „mai mică" e o regulă tocmai ca să nu alegi tu.
+2. **Ancora** — valoarea mai mică dintre media proprie pe 5 ani a multiplului (pagina `/financials/ratios/`) și mediana competitorilor din tabel. Amândouă sunt cifre citite, iar „mai mică" e o regulă tocmai ca să nu alegi tu. Dacă istoricul are sub cinci ani (companie listată recent), folosește anii care există și scrie câți sunt — „media pe 4 ani, că atâta istoric public are". Dacă peers-ii sunt și ei aproape fără venituri, mediana lor e o cifră fără conținut: spune-o și lasă ancora pe istoricul propriu.
 3. **Venitul implicit** — la valoarea de întreprindere de azi, ce venit anual ar duce multiplul înapoi la ancoră.
 4. **Anii impliciți** — la ritmul de creștere al ultimelor patru trimestre, în cât timp se ajunge acolo.
 
@@ -245,6 +245,10 @@ De aceea **fiecare rând 🔴 sau 🟡 primește un al doilea cuvânt**: *de faz
 3. **Există un prag numit, cu dată.** O țintă publicată de companie — ARR, backlog contractat, guidance — care arată dacă faza funcționează sau nu.
 
 Pică oricare condiție → **structural**. Fără variante intermediare: rostul etichetei e ca doi oameni diferiți să pună același cuvânt.
+
+**Ce cifră de cash intră în pistă.** Numărătorul e cash-ul din **ultimul bilanț depus** (10-Q sau 10-K), nu dintr-un comunicat al companiei. Un comunicat preliminar poate fi mai recent, dar e neauditat — și e exact cifra pe care o companie care are nevoie de bani o prezintă cât mai bine. Dacă cifra din comunicat e mai nouă, arată-le pe amândouă și spune care e care; iar dacă cele două dau etichete diferite, **câștigă bilanțul** și eticheta e „structural". Numitorul e arderea medie pe ultimele patru trimestre. Când arderea accelerează prin plan — o companie care își multiplică capacitatea — media trailing subestimează, deci pista reală e mai scurtă decât cifra; spune asta în text, nu ajusta cifra.
+
+**Care rânduri pot primi „de fază".** Doar cele patru pe care le cauzează mecanic un buildout finanțat: free cash flow, cash vs. datorii, buyback/diluție, creștere și marje. Celelalte patru — moat, evaluare, sentiment, expunere — sunt **întotdeauna „structural"**, pentru că descriu lucruri care supraviețuiesc fazei. Evaluarea în special: prețul de azi e un fapt despre azi, nu o etapă, iar „evaluare de fază" s-ar citi ca o scuză pentru preț. Și în cele patru rânduri eligibile, eticheta se acordă doar dacă investiția e cauza dominantă a culorii *acelui rând*: dacă diluția vine în bună parte din plata în acțiuni a angajaților, nu din finanțarea construcției, rândul e structural chiar dacă restul companiei e într-o fază.
 
 **Eticheta nu compensează culoarea și nu se adună într-un scor.** Un raport cu opt „de fază" e tot un raport cu opt semafoare proaste. „De fază" înseamnă „normal pentru stadiul ăsta, uite cum verifici dacă merge", nu „nu-ți face griji".
 
