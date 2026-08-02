@@ -71,6 +71,7 @@ section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12p
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -247,31 +248,30 @@ footer b{color:var(--ink-2)}
   </div>
   <div class="px">
     <div class="v">36,80 $</div>
-    <div class="d down">−52,1% față de maximul pe 52 săpt.</div>
+    <div class="d down">−3,82% ultima ședință</div>
   </div>
   <div class="chips">
-    <span class="chip">Clasificare oficială: <b>Financials · Capital Markets</b></span>
-    <span class="chip">Indici: <b>Russell 1000</b> (din 30 iun 2026)</span>
+    <span class="chip">Financials · <b>Capital Markets</b></span>
+    <span class="chip">Indici: <b>N/A (nu apare pe sursă)</b></span>
     <span class="chip">Capitalizare <b>13,15 mld $</b></span>
     <span class="chip">An fiscal se încheie <b>30 iunie</b></span>
-    <span class="chip">Următoarea raportare <b>27 aug 2026</b></span>
+    <span class="chip">Următoarea raportare <b>N/A (nu apare pe sursă)</b></span>
   </div>
 </header>
 
-<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
 <nav class="toc" aria-label="Cuprins">
   <a href="#s01"><span class="tn">01</span>Poziția</a>
   <a href="#s02"><span class="tn">02</span>Compania</a>
   <a href="#s03"><span class="tn">03</span>Moat</a>
   <a href="#s04"><span class="tn">04</span>Free cash flow</a>
   <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
-  <a href="#s06"><span class="tn">06</span>Diluție</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
   <a href="#s07"><span class="tn">07</span>Creștere</a>
   <a href="#s08"><span class="tn">08</span>Evaluare</a>
   <a href="#s09"><span class="tn">09</span>Sentiment</a>
   <a href="#s10"><span class="tn">10</span>Management</a>
   <a href="#s11"><span class="tn">11</span>Expunere</a>
-  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
   <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
 </nav>
 
@@ -282,44 +282,45 @@ footer b{color:var(--ink-2)}
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Avantajul e în pământ (energie, teren, racord la rețea), nu în produs — și încă nu apare în randamente: ROIC negativ.</span>
+      <span class="t"><b>structural</b> — avantajul stă în teren, energie și racorduri la rețea, nu în produs; marja operațională TTM e −29,82% (finviz, 1 aug. 2026). Rândul e mereu structural: descrie ceva care supraviețuiește construcției.</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Negativ în toți cei 5 ani, și tot mai adânc: −2,07 mld $ doar în 9 luni din FY2026.</span>
+      <span class="t"><b>de fază</b> — negativ în toți cei 5 ani fiscali și −2,32 mld $ pe ultimele 12 luni; dar cash flow-ul operațional e pozitiv (+392,4 mln $), capexul (2,71 mld $) e mai mare decât arderea, pista de cash e 10,2 trimestre pe arderea medie (4,6 pe ultimul trimestru), iar ținta numită e ARR peste 4 mld $ la 31 dec. 2026.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Datorie netă 1,75 mld $ contra unui EBITDA implicit de ~144 mln $ — peste 12× pragul de referință de 3×.</span>
+      <span class="t"><b>de fază</b> — datorie netă 1,75 mld $ la 31 mar. 2026, datorie netă/EBITDA ~12,2× și EBIT negativ, deci acoperirea dobânzii e sub pragul de 3×. Datoria a fost ridicată pentru GPU-uri și centre de date, nu pentru a acoperi pierderi din operare; aceleași trei condiții ca la rândul de mai sus.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">De 6,5 ori mai multe acțiuni în trei ani, plus 3,69 mld $ obligațiuni convertibile care încă nu s-au convertit.</span>
+      <span class="t"><b>de fază</b> — acțiuni +52,27% într-un an, zero răscumpărări, zero dividend. Din diluție, 2,02 mld $ sunt acțiuni emise pentru bani (finanțarea construcției) și 180,8 mln $ sunt plata în acțiuni a angajaților — adică 8,2% din total, deci investiția e cauza dominantă. Pista de cash și ținta de ARR sunt aceleași ca mai sus.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Anii arată +168%, ultimul trimestru arată 0% an/an și −40% în două trimestre. La un pas de roșu.</span>
+      <span class="t"><b>structural</b> — anul fiscal 2025 arată +167,7%, dar trimestrul mar. 2026 arată −0,02% an/an. Cauza dominantă a culorii nu e construcția: segmentul AI a urcat de la 3,6 la 33,6 mln $, iar mineritul a coborât cu aproximativ aceeași sumă. Ce ține totalul pe loc e afacerea veche care se erodează, nu capacitatea nouă care întârzie.</span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">EV/Vânzări 19,7 față de 8,3 media proprie din FY2025; profitul din P/E vine dintr-un câștig contabil, nu din operațiuni.</span>
+      <span class="t"><b>structural</b> — EV/Vânzări 19,69 față de o ancoră de 5,95 (media proprie pe cei 4 ani cu date). Rândul e mereu structural: prețul de azi e un fapt despre azi, nu o etapă.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">30,3% din float vândut în lipsă — de trei ori pragul roșu; deși instituționalii au cumpărat net 1,5 mld $.</span>
+      <span class="t"><b>structural</b> — 30,42% din float vândut în lipsă, de trei ori pragul roșu, și un float care se rotește de ~40 de ori pe an. Rândul e mereu structural.</span>
     </div>
     <div class="row">
       <span class="k">Expunere la lume</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Patru steaguri din patru: dobânzi, dublă ciclicitate (bitcoin + capex AI), concentrare geografică, reglementare de rețea electrică.</span>
+      <span class="t"><b>structural</b> — steag de dobânzi, steag de ciclu dublu și steag de reglementare (regulile australiene anunțate pe 15 iul. 2026). Steagul de reglementare singur duce la roșu. Rândul e mereu structural.</span>
     </div>
   </div>
+  <p style="margin-top:14px">Șase roșii și două galbene. Eticheta „de fază" nu înmoaie nicio culoare și nu se adună într-un scor — înseamnă doar „normal pentru stadiul ăsta, uite cum verifici dacă merge". Patru rânduri o pot primi (free cash flow, cash vs. datorii, buyback, creștere); celelalte patru sunt prin construcție structurale.</p>
 </section>
 
 <!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
@@ -327,7 +328,7 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
 
   <figure class="viz">
-    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD · 31 iul 2026</span></figcaption>
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
     <div class="range">
       <div class="tr">
         <div class="mk" style="left:35.5%"></div>
@@ -337,10 +338,10 @@ footer b{color:var(--ink-2)}
     </div>
   </figure>
 
-  <p>Acțiunea e la o treime din drumul dintre minimul și maximul ultimului an: <strong>+150% peste minim, dar −52% sub maxim</strong>. Ambele cifre sunt reale în același timp — și exact asta e problema cu ancorarea de un preț istoric. Cine a cumpărat la 76,87 $ a pierdut jumătate din bani; cine a cumpărat la 14,72 $ i-a dublat cu vârf. Prețul de ieri nu spune nimic despre valoarea de azi.</p>
+  <p>Prețul e la 35,5% din interval — a fost de peste două ori mai sus în ultimele 12 luni (76,87 $) și de două ori și jumătate mai jos (14,72 $). Amplitudinea asta, pe o singură companie, într-un singur an, e cifra pe care trebuie s-o reții înainte de orice altceva din raport.</p>
 
   <figure class="viz" data-viz="compare">
-    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">% · 31 iul 2026</span></figcaption>
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
     <script type="application/json">
     {"a":"IREN","b":"S&P 500","suffix":"%","deltaUnit":" pp",
      "rows":[{"label":"YTD","a":-2.57,"b":9.55},
@@ -350,456 +351,372 @@ footer b{color:var(--ink-2)}
   </figure>
 
   <div class="concept">
-    <div class="h">DE CE CONTEAZĂ COMPARAȚIA CU INDICELE</div>
-    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". La IREN, răspunsul depinde violent de când ai intrat: pe 3 ani a bătut indicele cu peste 389 de puncte procentuale, pe ultimul an cu 110 pp — dar în 2026, de la 1 ianuarie încoace, e <strong>sub indice cu 12 pp</strong>. Aceeași companie, trei verdicte diferite.</p>
-    <p>Nu există rând „5 ani": IREN s-a listat pe 17 noiembrie 2021, deci nu are încă cinci ani de istoric public. Toată grila de mai jos se citește prin filtrul ăsta — nu ai destule cicluri ca să vezi cum se comportă compania la greu.</p>
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
+    <p>Etalonul e alternativa care nu cere nicio muncă: un ETF pe S&amp;P 500. Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât indicele?". Pe 1 an și pe 3 ani, IREN a bătut indicele de câteva ori. De la 1 ianuarie 2026 însă e pe −2,57%, în timp ce indicele e pe +9,55% — adică <b>sub indice cu 12,1 puncte procentuale în șapte luni</b>, după ce în anul precedent îl bătuse cu 110 puncte. Aceeași acțiune, două lecții opuse, în funcție de fereastra pe care o alegi.</p>
+    <p>Randamentul pe 5 ani nu apare: <b>N/A (nu apare pe sursă)</b>. IREN e listată din noiembrie 2021, deci nici nu ar avea cinci ani întregi de istoric public. Vezi mai jos ce înseamnă „istoric scurt" pentru restul raportului.</p>
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="l">Beta</div><div class="v">4,28</div><div class="s">amplifică piața de ~4,3×</div></div>
-    <div class="stat"><div class="l">Volatilitate (30 zile)</div><div class="v">14,25%</div><div class="s">pe zi</div></div>
-    <div class="stat"><div class="l">La 10.000 $ investiți</div><div class="v down">−4.280 $</div><div class="s">la o corecție de piață de 10%</div></div>
+    <div class="stat"><div class="l">Beta (5 ani)</div><div class="v">4,28</div><div class="s">4,30 pe finviz</div></div>
+    <div class="stat"><div class="l">Volatilitate</div><div class="v">14,25%</div><div class="s">finviz, 1 aug. 2026</div></div>
+    <div class="stat"><div class="l">La 10.000 $ investiți</div><div class="v down">−4.300 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <p><strong>Citește tabelul de mai sus înainte de orice altceva din raport.</strong> Beta 4,28 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 43%. Iar volatilitatea de 14,25% pe zi înseamnă că o mișcare de ±14% într-o singură ședință e <em>normalul</em> aici, nu un eveniment. Pentru comparație, S&amp;P 500 are beta 1,01 și volatilitate 1,34% pe zi — IREN se mișcă de peste zece ori mai violent. Dacă o zi de −14% te-ar face să vinzi în panică, poziția e prea mare, indiferent cât de bună ți se pare povestea.</p>
+  <p><b>Ce înseamnă beta 4,28:</b> istoric, când piața a scăzut 10%, acțiunea asta a scăzut în jur de 43%. Dacă ai 10.000 $ aici, o corecție obișnuită de piață — genul care se întâmplă o dată la un an sau doi și nu e o știre — înseamnă în jur de −4.300 $ în portofoliu, fără ca la companie să se fi întâmplat ceva. Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare. Majoritatea pierderilor reale ale investitorilor de retail vin din vânzarea pe fundul valului, nu din alegerea companiei greșite.</p>
 
   <div class="stats">
-    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,8%</div><div class="s">la 31 iul 2026</div></div>
-    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">de la ~4,4% în iul 2025</div></div>
-    <div class="stat"><div class="l">Tehnologie YTD vs. indice</div><div class="v">+7 pp</div><div class="s">tehnologie +16,6% · indice +9,6%</div></div>
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,74%</div><div class="s">la 31 iul. 2026, de la ~4,22% acum un an</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v">−2,3 pp</div><div class="s">Financials +7,23% · indice +9,55%</div></div>
   </div>
 
-  <p><strong>Vremea pieței nu explică scăderea.</strong> S&amp;P 500 e la un pas de maximul pe 52 de săptămâni (−1,8% la 31 iulie 2026), iar sectorul tehnologic e cu 7 puncte procentuale peste indice de la începutul anului. IREN, în schimb, e −2,6% YTD, −15,1% în ultima lună și −38,5% în ultimele șase luni. <strong>Asta nu e vremea, e ceva la companie.</strong></p>
+  <p><b>Vremea pieței, la 31 iulie 2026:</b> indicele american e la 1,76% sub maximul pe 52 de săptămâni — practic la maxim, deci nu e o piață în cădere. Dobânda americană pe 10 ani e la 4,74%, cu circa o jumătate de punct mai sus decât acum un an. Asta e gravitația evaluărilor și e relevantă direct aici, pentru că prețul IREN e aproape în întregime profit din anii îndepărtați (vezi secțiunea 11).</p>
 
-  <p>O notă despre clasificare, pentru că e o capcană practică: finviz și stockanalysis o încadrează la <em>Financials · Capital Markets</em> — o rămășiță din perioada în care era pur minier de bitcoin. Sectorul „Financial" a făcut +7,2% YTD, dar comparația relevantă e cu tehnologia și cu ceilalți operatori de centre de date AI. Când te uiți la un ETF de sector ca etalon, verifică întâi dacă clasificarea are sens.</p>
+  <p><b>O notă de clasificare care contează:</b> atât stockanalysis.com cât și finviz o încadrează la <b>Financials / Capital Markets</b> — o moștenire a mineritului de bitcoin. Sectorul ăsta a făcut +7,23% YTD. Dar acțiunea se tranzacționează pe narativul centrelor de date pentru AI, iar sectorul Technology a făcut +16,60% YTD. Când citești „sectorul ei", verifică întâi în ce sector o pune sursa — aici cele două povești nu coincid.</p>
 
-  <p><strong>Ce a mutat prețul.</strong> Ultima raportare, trimestrul încheiat la 31 martie 2026, a arătat venituri de 144,8 mln $ — practic identice cu cele de acum un an (144,8 mln $) și cu <strong>40% sub vârful de 240,3 mln $ din septembrie 2025</strong>. Pierderea netă a fost de 247,8 mln $, împinsă de o depreciere de active de 140,4 mln $ (retragerea minierelor vechi de bitcoin) și de o amortizare care s-a dublat la 121,2 mln $ pe trimestru.</p>
+  <p><b>Ce a mutat prețul recent.</b> Pe 20 iulie 2026, compania a anunțat contracte noi de 2,8 mld $ valoare totală și a ridicat ținta de venit anualizat (ARR) pentru finalul lui 2026 de la 3,7 la peste 4 mld $ (8-K depus la SEC în aceeași zi, Exhibit 99.1). Pe 23 iulie 2026, titlurile au legat mișcarea de majorarea prognozei de capex pentru AI anunțată de Alphabet. Pe 30 iulie 2026, acțiunea a urcat aproximativ 30% într-o zi după declarații ale conducerii despre cererea care depășește oferta (titluri finviz). În sens invers: ultima raportare depusă, cea pentru trimestrul încheiat la 31 martie 2026, a arătat venit de 144,8 mln $, adică <b>−0,02% față de același trimestru al anului trecut</b>, după +59,0% și +355,4% în cele două trimestre dinainte. Decelerarea asta e, de regulă, răspunsul real la „de ce a scăzut", chiar când restul știrilor sună bine.</p>
 
-  <p>Contra-narativul a venit pe 20 iulie 2026: 2,8 mld $ în contracte noi de AI Cloud și ridicarea țintei de venit anualizat (ARR) de la sfârșitul lui 2026 peste 4 mld $. Acțiunea a sărit 19,6% în ziua aceea — și a pierdut tot avansul în zece zile. Pe 30 iulie a mai urcat 30% după declarații ale conducerii despre cerere, ceea ce dă măsura nervozității din jurul acestei acțiuni. Între timp, pe 4 și 13 iulie 2026, prețul a căzut la anunțul unui pachet de acțiuni restricționate pentru cei doi co-CEO, evaluat la 700–800 mln $ (≈5% diluție). Următoarea raportare, rezultatele pe tot anul fiscal 2026, e programată pe <strong>27 august 2026</strong>.</p>
+  <p><b>Curentul de reglementare, datat:</b> pe 15 iulie 2026, guvernul australian a anunțat standarde naționale obligatorii pentru centrele de date — obligația de a injecta în rețea cel puțin cât consumă, plata integrală a costurilor de racordare, reducerea consumului la stres pe rețea și reguli de apă. Legislația e așteptată la începutul lui 2027. IREN are anunțat un campus de 800 MW în Australia de Sud (comunicat din 3 iunie 2026), deci regula o atinge direct.</p>
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
 <section id="s02">
   <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
-
-  <p>IREN construiește și operează centre de date. Deține pământul, contractele de energie, racordurile la rețeaua electrică, clădirile și calculatoarele dinăuntru. Fondată în 2018 în Sydney ca <em>Iris Energy</em>, a fost până recent un miner de bitcoin: cumpăra energie ieftină, o transforma în putere de calcul și primea bitcoin. Din noiembrie 2024 se numește IREN și își convertește aceleași centre de date în ferme de plăci grafice NVIDIA pe care le închiriază companiilor de inteligență artificială.</p>
-
-  <p>Prin urmare are azi două afaceri complet diferite sub același acoperiș:</p>
-
+  <p>IREN cumpără sau dezvoltă teren cu acces la energie ieftină, își construiește singură substațiile și centrele de date, și apoi vinde ce iese din ele. Până acum, ce ieșea era <b>bitcoin</b>: computere care rezolvă calcule și primesc monede. De vreo doi ani, aceleași terenuri și aceeași energie sunt folosite pentru a doua afacere — <b>închirierea de putere de calcul pe plăci grafice NVIDIA</b> către companii care antrenează sau rulează modele de inteligență artificială.</p>
+  <p>Diferența dintre cele două e importantă pentru cine citește bilanțul. La bitcoin, clientul e piața: nu ai contract, nu ai preț garantat, încasezi cât valorează moneda în ziua aceea. La AI Cloud, clientul e o companie care semnează pe mai mulți ani și uneori plătește în avans. Compania a comunicat că noile contracte au un termen mediu ponderat de aproximativ 4 ani și că unele includ plăți în avans de circa 45% din costul plăcilor grafice aferente (8-K din 20 iulie 2026).</p>
+  <p>Compania e înregistrată în Australia, cu sediul la Sydney, are 257 de angajați și e condusă de frații Daniel și William Roberts, cofondatori și co-CEO din 2018. S-a numit Iris Energy până în noiembrie 2024.</p>
   <div class="tw"><table>
-    <thead><tr><th>Segment (trim. înch. 31 mar 2026)</th><th>Venituri</th><th>Pondere</th><th>Creștere an/an</th></tr></thead>
+    <thead><tr><th>Segment</th><th>Venit T3 FY26</th><th>Pondere</th><th>An/an</th></tr></thead>
     <tbody>
-      <tr><td>Minerit bitcoin</td><td>111,2 mln $</td><td>76,8%</td><td class="down">−21,3%</td></tr>
-      <tr><td>AI Cloud Services</td><td>33,6 mln $</td><td>23,2%</td><td class="up">+839%</td></tr>
-      <tr class="me"><td>Total</td><td>144,8 mln $</td><td>100%</td><td>−0,02%</td></tr>
+      <tr><td>Minerit de bitcoin</td><td>111,2 mln $</td><td>76,8%</td><td class="down">în scădere</td></tr>
+      <tr><td>AI Cloud Services</td><td>33,6 mln $</td><td>23,2%</td><td class="up">de la 3,6 mln $</td></tr>
+      <tr><td>Total</td><td>144,8 mln $</td><td>100%</td><td>−0,02%</td></tr>
     </tbody>
   </table></div>
-
-  <p>Cifra de total ascunde tot ce contează: afacerea veche se contractă cu 21%, cea nouă crește de aproape zece ori — dar de la o bază atât de mică încât suma iese exact pe zero. Pe primele nouă luni din anul fiscal 2026, mineritul a fost 511,5 mln $ (89,8%) și AI Cloud 58,3 mln $ (10,2%). Toate cifrele astea vin din nota de segmente a raportului trimestrial depus la SEC pe 8 mai 2026.</p>
-
-  <p><strong>Unde sunt banii, geografic.</strong> Conform aceleiași depuneri, în perioadele raportate <em>toate</em> veniturile din minerit au fost înregistrate în Australia și <em>toate</em> veniturile din AI Cloud în Canada. Compania construiește în plus în Texas (campusurile Childress și Sweetwater), în Australia de Sud (racord de 800 MW, energizare țintită din 2028) și în Spania (achiziția Nostrum, 490 MW, finalizată în iunie 2026) — dar acelea încă nu produc venit contabilizat.</p>
-
-  <div class="concept">
-    <div class="h">CONTRACT ANUNȚAT ≠ VENIT ÎN PORTOFOLIU</div>
-    <p>Pe 2 noiembrie 2025 IREN a semnat cu Microsoft un acord de aproximativ <strong>9,7 miliarde $</strong> pe o durată medie de cinci ani, pentru servicii GPU la Childress, Texas, cu 20% din valoare plătită înainte de livrarea fiecărei tranșe. Titlurile din presă au raportat suma de 9,7 mld $. Raportul depus la SEC spune însă altceva, negru pe alb: compania include în obligațiile de performanță rămase (RPO — <em>remaining performance obligations</em>, adică backlog-ul contractual recunoscut) doar tranșele livrate și acceptate, iar la 31 martie 2026 <strong>nu fusese livrată și acceptată niciuna</strong>.</p>
-    <p>Backlog-ul real recunoscut la acea dată era de <strong>710,3 mln $</strong>, din care 308,0 mln $ urmează a fi recunoscuți în primele 12 luni. Diferența dintre 9,7 mld $ și 710 mln $ nu e o contradicție — e distincția dintre ce s-a semnat și ce s-a livrat. Când citești un comunicat cu o cifră mare de contract, caută în raportul trimestrial cât din ea a ajuns efectiv în RPO. E una dintre cele mai utile verificări pe care le poți face singur.</p>
-  </div>
-
-  <p>Un semn că banii încep totuși să circule: veniturile amânate (<em>deferred revenue</em> — bani încasați în avans pentru servicii încă neprestate) au sărit de la 0,9 mln $ la 30 iunie 2025 la <strong>120,4 mln $</strong> la 31 martie 2026. Sunt avansurile de 20% din contracte. Cash-ul a intrat; serviciul nu a fost încă livrat.</p>
+  <p style="font-size:12.5px">Trimestrul încheiat la 31 martie 2026 (T3 din anul fiscal 2026). Împărțirea pe segmente nu apare pe pagina de profil a companiei; cifrele de mai sus vin din comunicarea rezultatelor din 7 mai 2026. <b>Împărțirea veniturilor pe geografii: N/A (nu apare pe sursă)</b> — nu am găsit-o nici în paginile citite, nici în situațiile financiare descărcate din EDGAR. Consecința e la secțiunea 11.</p>
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
 <section id="s03">
-  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
-
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Companiile care rămân profitabile zeci de ani sunt cele care au ceva ce nu se poate copia ușor.</p>
-    <p>Ordinea de mai jos e de la cel mai durabil la cel mai fragil. Un începător supraevaluează aproape întotdeauna brandul și subevaluează costurile de schimbare.</p>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Ordinea de mai jos e de la cel mai durabil la cel mai fragil — un începător tinde să supraevalueze brandul și să subevalueze costurile de schimbare.</p>
   </div>
-
   <div class="score">
     <div class="row"><span class="k">Costuri de schimbare</span>
-      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Slab</span>
-      <span class="t">Contractele sunt multianuale, dar produsul e capacitate de calcul brută (<em>bare metal</em>). Un client care mută sarcina la alt furnizor nu trebuie să-și rescrie software-ul.</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
+      <span class="t">Contracte multianuale (termen mediu ponderat ~4 ani) și plăți în avans de ~45% din capexul de GPU-uri leagă clientul pe durata contractului. Dar un contract care expiră nu e același lucru cu un client care nu poate pleca: la reînnoire, clientul compară prețul cu al oricui altcuiva.</span></div>
     <div class="row"><span class="k">Efect de rețea</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Un client în plus nu face serviciul mai valoros pentru ceilalți.</span></div>
+      <span class="t">Al doilea client nu face serviciul mai valoros pentru primul. Nu există aici.</span></div>
     <div class="row"><span class="k">Avantaj de cost / scară</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Plauzibil</span>
-      <span class="t">Aici e singurul candidat serios: racorduri la rețea deja obținute — 2,75 GW în vestul Texasului, 800 MW în Australia de Sud, 490 MW în Spania. Cozile de racordare durează ani.</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
+      <span class="t">Compania își construiește singură infrastructura electrică, ceea ce în teorie coboară costul pe megawatt. Dovada în cifre nu e încă acolo: marja operațională pe ultimele 12 luni e −29,82% (finviz), iar în trimestrul mar. 2026 a apărut o depreciere de 140,4 mln $ pe echipamente de minerit și de centru de date.</span></div>
     <div class="row"><span class="k">Active intangibile</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
-      <span class="t">Parteneriat direct cu NVIDIA și statut „Exemplar Cloud" (iun 2026). Real, dar e o relație comercială, nu un brevet — se poate acorda și altora.</span></div>
+      <span class="t">Aici e candidatul cel mai serios: acordurile de racordare la rețea. Contractul din Australia de Sud asigură patru ieșiri de 330 kV la substație pentru până la 800 MW fără upgrade de rețea. O astfel de autorizație nu se cumpără cu bani, se obține cu ani. Cât ține protecția, ține și avantajul — iar regula australiană din 15 iul. 2026 arată cât de repede se poate schimba cadrul.</span></div>
     <div class="row"><span class="k">Brand</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Nimeni nu plătește mai mult pentru o oră de GPU fiindcă e IREN pe factură.</span></div>
+      <span class="t">Nimeni nu plătește mai mult per GPU-oră pentru sigla IREN. Oricum ar fi cel mai fragil moat din listă.</span></div>
   </div>
-
-  <div class="concept">
-    <div class="h">DOVADA ÎN CIFRE, NU POVESTEA</div>
-    <p>Orice companie susține în prezentări că are avantaje competitive. Testul numeric e ROIC — cât profit produce la fiecare dolar investit în afacere. Un ROIC constant peste ~15% e cea mai bună dovadă că moat-ul e real.</p>
-    <p><strong>La IREN, ROIC e −5,92% (stockanalysis) sau +2,43% (finviz)</strong> — cele două surse diferă pentru că folosesc definiții diferite ale capitalului investit, dar niciuna nu se apropie de 15%. Compania a băgat miliarde în active și încă nu scoate un randament pozitiv convingător din ele. Asta nu înseamnă că moat-ul nu poate apărea; înseamnă că, la 31 iulie 2026, nu e vizibil în cifre.</p>
-  </div>
-
-  <p><strong>Jumătatea de afacere care sigur nu are moat.</strong> Cele 77% din venituri care vin din minerit de bitcoin sunt o comoditate în forma cea mai pură posibilă: vinzi bitcoin la prețul pieței. Zero putere de negociere a prețului — nu există „bitcoinul IREN" pentru care cineva să plătească mai mult. Singurul avantaj posibil acolo e costul energiei, iar acela se erodează pe măsură ce toată lumea licitează pentru aceleași MW.</p>
-
-  <p>Verdictul e <strong>galben, nu verde</strong>: avantajul plauzibil al IREN e în pământ — energie contractată, terenuri, racorduri obținute înaintea altora. E un avantaj real într-un moment în care energia e resursa rară din construcția AI. Dar e un avantaj de <em>timing</em> pe o resursă pe care o vânează simultan zece companii cu bilanțuri mai mari, nu un avantaj structural în produs.</p>
+  <p><b>Ce înseamnă, pus cap la cap: 🟡 — structural.</b> Există un avantaj plauzibil, dar el stă în pământ, energie și racorduri, nu în produs — iar produsul (o oră de GPU) e o marfă. Marja brută e testul standard, și aici are o problemă de definiție pe care merită s-o vezi: stockanalysis.com raportează 68,3% pe anul fiscal 2025 și 72,4% în trimestrul mar. 2026, în timp ce finviz raportează 19,60% pe ultimele 12 luni. Diferența, de peste trei ori, vine din faptul că una dintre surse pune amortizarea echipamentelor în costul direct și cealaltă nu. La o afacere unde echipamentul <em>este</em> costul, versiunea cu amortizare e cea onestă. Ambele cifre sunt în raport tocmai ca să nu alegi tu una fără să știi de ce.</p>
+  <p>De ce „structural" și nu „de fază": eticheta de fază se acordă doar pe cele patru rânduri pe care le cauzează mecanic o construcție finanțată. Moat-ul nu e unul dintre ele — un avantaj competitiv descrie ceva care rămâne și după ce se termină construcția, sau nu era acolo de la început.</p>
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
 <section id="s04">
-  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
-
+  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept">
     <div class="h">CE E FREE CASH FLOW</div>
     <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <em>și</em> investițiile în echipamente, clădiri sau servere. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar. Profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce arată extrasul de cont.</p>
-    <p>Din FCF vin toate lucrurile bune pentru acționar: dividende, răscumpărări, achiziții fără împrumut, rezistență la crize. Fără el, orice altceva e finanțat din datorie sau din acțiuni noi.</p>
+    <p>Când FCF-ul e negativ, întrebarea nu e „e rău?", ci <b>de unde vin banii</b>: din cash-ul existent (acceptabil), din datorie nouă (risc), sau din emisiune de acțiuni noi (te diluează). La IREN răspunsul e „din ultimele două, în paralel".</p>
   </div>
-
   <figure class="viz" data-viz="bars">
-    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mln USD · an fiscal înch. 30 iun</span></figcaption>
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","9L FY26"],
-     "series":[{"name":"FCF","values":[-79,-332,-110,-428,-1127,-2065]}],
-     "suffix":""}
+    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM mar26"],
+     "series":[{"name":"FCF","values":[-0.079,-0.332,-0.110,-0.428,-1.127,-2.321]}],
+     "suffix":" mld"}
     </script>
   </figure>
-
-  <p><strong>Cinci ani, cinci ani negativi, și accelerând.</strong> Ultima coloană acoperă doar nouă luni din anul fiscal 2026 (iulie 2025 – martie 2026) și e deja de aproape două ori mai adâncă decât tot anul precedent.</p>
-
-  <p>Partea nuanțată: cash flow-ul <em>operațional</em> — banii pe care îi produce afacerea înainte de investiții — e pozitiv și crește: 245,9 mln $ în FY2025 și 289,3 mln $ în primele nouă luni din FY2026. Problema nu e că afacerea pierde bani în operare. Problema e amploarea investiției: <strong>capex de 2.355 mln $ în nouă luni</strong>, din care 1.355 mln $ doar în trimestrul încheiat în martie 2026. Un singur trimestru de investiții a costat de patru ori și jumătate cash-ul generat în nouă luni.</p>
-
   <div class="stats">
-    <div class="stat"><div class="l">Cash operațional (9L FY26)</div><div class="v up">+289 mln $</div><div class="s">afacerea produce cash</div></div>
-    <div class="stat"><div class="l">Capex (9L FY26)</div><div class="v down">−2.355 mln $</div><div class="s">de 8× cash-ul operațional</div></div>
-    <div class="stat"><div class="l">FCF (9L FY26)</div><div class="v down">−2.065 mln $</div><div class="s">diferența, finanțată din afară</div></div>
+    <div class="stat"><div class="l">Cash operațional (12 luni)</div><div class="v up">+392,4 mln $</div><div class="s">pozitiv în 4 din 4 trimestre</div></div>
+    <div class="stat"><div class="l">Capex (12 luni)</div><div class="v down">−2.714 mln $</div><div class="s">de 7 ori cash-ul operațional</div></div>
+    <div class="stat"><div class="l">FCF (12 luni)</div><div class="v down">−2.321 mln $</div><div class="s">392,4 − 2.714</div></div>
+    <div class="stat"><div class="l">SBC / venituri</div><div class="v">23,9%</div><div class="s">180,8 mln $ plată în acțiuni</div></div>
+  </div>
+  <p><b>Cifrele:</b> FCF a fost negativ în toți cei cinci ani fiscali și e −2,32 mld $ pe ultimele 12 luni — de trei ori venitul anual. Verificarea de consistență ține: 392,4 − 2.714 = −2.321,6, adică exact cifra raportată de sursă ca free cash flow.</p>
+  <p><b>Dar structura contează.</b> Cash flow-ul operațional e <em>pozitiv</em>, +392,4 mln $, și a fost pozitiv în fiecare dintre ultimele patru trimestre. Adică afacerea, așa cum e ea azi, nu arde bani din operare — arde bani pentru că cumpără plăci grafice și construiește centre de date. Asta e diferența dintre un buildout finanțat și o afacere care pur și simplu pierde bani, iar în tabel arată identic.</p>
+  <p><b>Plata în acțiuni umflă cifra.</b> Compania a înregistrat 180,8 mln $ de stock-based compensation pe ultimele 12 luni, adică 23,9% din venituri — mult peste pragul de ~10% de la care merită menționat. Banii ăștia nu ies din cont, deci nu apar în FCF, dar te costă pe tine prin diluție. Un FCF „doar" −2,32 mld $ e, economic, ceva mai rău de atât.</p>
+
+  <div class="concept">
+    <div class="h">PISTA DE CASH — CALCULATĂ, NU ESTIMATĂ</div>
+    <p><b>Ce e:</b> câte trimestre mai poate funcționa o companie care arde bani, cu banii pe care îi are. E întrebarea care decide dacă un free cash flow negativ e o etapă sau un sfârșit. Sub patru trimestre, diluția sau împrumutul devin aproape sigure — și amândouă te costă.</p>
+    <p><b>Ce cifră de cash am folosit și de ce.</b> Numărătorul trebuie să fie cea mai recentă cifră <em>depusă la SEC</em>. Ultimul bilanț trimestrial (10-Q pentru 31 mar. 2026, depus la 8 mai 2026) arată <b>2.213 mln $</b>. Dar pe 20 iulie 2026 compania a depus un <b>8-K</b> (accesiunea 0001140361-26-028871, punctele 2.02 și 9.01) al cărui Exhibit 99.1 spune: „As of June 30, 2026, IREN held approximately $7.6bn in cash and cash equivalents", cu nota că suma „includes $1.7bn of restricted cash in connection with the GPU financing for the Microsoft contract at Horizon 1-4". Comunicatul e <em>depus</em>, nu doar publicat pe site — deci se califică. Cash-ul restricționat nu poate plăti facturi, deci se scade: <b>7,6 − 1,7 = 5,9 mld $</b> la 30 iunie 2026.</p>
+    <p><b>Numitorul</b> e arderea. Media pe ultimele patru trimestre e 580 mln $ pe trimestru (2.321 ÷ 4); ultimul trimestru singur a ars 1.280 mln $.</p>
+    <p><b>Rezultatul, în ambele variante:</b> 5.900 ÷ 580 = <b>10,2 trimestre</b> pe arderea medie; 5.900 ÷ 1.280 = <b>4,6 trimestre</b> pe arderea ultimului trimestru. Varianta a doua e cea relevantă aici, pentru că arderea accelerează prin plan — o companie care își multiplică capacitatea cheltuiește tot mai mult, iar media trailing subestimează. Chiar și așa, pragul de patru trimestre e depășit — dar cu o marjă de o jumătate de trimestru, nu cu una confortabilă.</p>
+    <p><b>Cât atârnă totul de un singur document:</b> dacă am fi folosit ultimul bilanț depus (2.213 mln $ la 31 mar. 2026), pista ar fi ieșit 3,8 trimestre pe arderea medie și 1,7 trimestre pe ultimul trimestru — sub prag în ambele variante, iar eticheta de pe patru rânduri din scorecard ar fi devenit „structural". Toată diferența o face faptul că anunțul din 20 iulie 2026 a fost depus ca 8-K, nu doar publicat.</p>
   </div>
 
-  <p><strong>Întrebarea care contează la o companie cu FCF negativ e de unde vin banii.</strong> Din cash-ul existent e acceptabil; din datorie nouă e risc; din acțiuni noi te diluează. La IREN, în cele nouă luni: <strong>2.639 mln $ din emisiuni de acțiuni</strong> și <strong>1.676 mln $ din obligațiuni convertibile</strong>. Adică ambele variantele riscante, simultan, pentru un total de peste 4,3 mld $ atrași — aproape o treime din capitalizarea de azi, strânsă în nouă luni.</p>
-
-  <p>O ultimă cifră de context: plata în acțiuni către angajați (<em>stock-based compensation</em>) a fost de 162,1 mln $ în cele nouă luni, adică <strong>28% din venituri</strong>. E o cheltuială care nu iese ca numerar, deci nu strică FCF-ul raportat — dar te costă pe tine, prin diluție. Pragul de la care merită menționată e 10% din venituri; aici e aproape triplu.</p>
+  <p><b>🔴 — de fază.</b> Cele trei condiții, toate verificabile mai sus: <b>(1)</b> cauza e investiția, nu operarea — cash flow operațional pozitiv (+392,4 mln $) și capex (2.714 mln $) mai mare decât arderea în valoare absolută (2.321 mln $); <b>(2)</b> finanțarea se vede în cifre — 5,9 mld $ nerestricționați la 30 iun. 2026 din 8-K-ul din 20 iul. 2026, adică 10,2 trimestre pe arderea medie și 4,6 pe ultimul trimestru, peste pragul de patru în ambele variante; <b>(3)</b> există un prag numit cu dată — venit anualizat (ARR) de peste 4 mld $ la 31 dec. 2026, anunțat pe 20 iul. 2026 în același 8-K. Eticheta nu schimbă culoarea: rămâne roșu, pentru că −2,32 mld $ rămân −2,32 mld $.</p>
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
 <section id="s05">
-  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
-
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ</div>
-    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică poate traversa o recesiune sau o creștere de dobânzi fără să vândă active pe nimic. Una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost.</p>
-    <p>Cifra de referință e <strong>datoria netă</strong> = datorie totală − cash. Împărțită la EBITDA (profitul operațional înainte de amortizare), spune în câți ani și-ar putea plăti datoriile dacă ar folosi tot ce produce doar pentru asta. Pragul de risc uzual: 3×.</p>
+    <p>Datoria netă = datoria totală minus banii pe care compania îi are deja. Cifra brută a datoriei singură nu spune nimic. Raportul <em>datorie netă / EBITDA</em> e standardul de piață: „de 4× înseamnă că, dacă ar folosi tot profitul operațional exclusiv pentru datorii, i-ar lua patru ani să scape de ele — timp în care n-ar investi nimic în afacere."</p>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic; una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost.</p>
   </div>
-
   <figure class="viz">
-    <figcaption><b>Poziția financiară la 31 martie 2026</b><span class="unit">mln USD</span></figcaption>
+    <figcaption><b>Poziția financiară netă la 31 mar. 2026 (ultimul bilanț depus)</b><span class="unit">mld USD</span></figcaption>
     <div class="split">
       <div class="r"><span class="k">Cash</span>
         <span class="t"><span class="f" style="width:55.8%;background:var(--accent)"></span></span>
-        <span class="v">2.213</span></div>
+        <span class="v">2,21</span></div>
       <div class="r"><span class="k">Datorie totală</span>
         <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
-        <span class="v">3.965</span></div>
+        <span class="v">3,97</span></div>
     </div>
   </figure>
-
   <div class="stats">
-    <div class="stat"><div class="l">Poziție netă</div><div class="v down">−1.752 mln $</div><div class="s">datorie netă</div></div>
-    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v down">~12,2×</div><div class="s">prag de risc: 3,0×</div></div>
-    <div class="stat"><div class="l">Lichiditate curentă</div><div class="v">3,72</div><div class="s">confortabil pe termen scurt</div></div>
-    <div class="stat"><div class="l">Scadențe sub 12 luni</div><div class="v">0 $</div><div class="s">niciun convertibil scadent</div></div>
+    <div class="stat"><div class="l">Datorie netă</div><div class="v down">−1,75 mld $</div><div class="s">3,97 − 2,21, la 31 mar. 2026</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v down">~12,2×</div><div class="s">prag de risc: 3,0</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">1,49</div><div class="s">de la 0,53 în FY25</div></div>
+    <div class="stat"><div class="l">Acoperirea dobânzii</div><div class="v down">sub 3×</div><div class="s">EBIT negativ pe 12 luni</div></div>
   </div>
-
-  <p>Raportul de 12,2× e derivat: finviz raporta EV/EBITDA 103,61 la 31 iulie 2026, ceea ce, la o valoare de întreprindere de 14,88 mld $, implică un EBITDA de aproximativ 144 mln $ pe ultimele 12 luni. Îl prezint ca ordin de mărime, nu ca precizie contabilă — dar chiar și cu o marjă generoasă de eroare, e de patru ori peste pragul de risc.</p>
-
-  <div class="concept">
-    <div class="h">CE E O OBLIGAȚIUNE CONVERTIBILĂ</div>
-    <p>Din cei 3.965 mln $ de datorie, <strong>3.688 mln $ sunt obligațiuni convertibile</strong>, emise aproape integral în ultimul an: 979 mln $ pe 14 octombrie 2025 și 2.270 mln $ pe 8 decembrie 2025.</p>
-    <p>O convertibilă e un împrumut cu o opțiune atașată: creditorul poate cere banii înapoi <em>sau</em> poate transforma împrumutul în acțiuni, la un preț fixat dinainte. Pentru companie e atractivă — dobânda e mult mai mică decât la un împrumut normal, tocmai fiindcă opțiunea are valoare. Pentru tine, ca acționar, e o <strong>diluție amânată</strong>: dacă prețul urcă peste pragul de conversie, apar acțiuni noi și felia ta scade. Datoria dispare din bilanț, dar plătită de tine, nu de companie.</p>
-    <p>Se întâmplă deja: în primele nouă luni din FY2026, IREN a convertit 530,7 mln $ de note în acțiuni, cu o cheltuială de stimulare a conversiei de 111,8 mln $ (a plătit ca deținătorii să convertească mai devreme).</p>
-  </div>
-
-  <p><strong>Ce atenuează tabloul:</strong> nicio convertibilă nu e scadentă în următoarele 12 luni, lichiditatea curentă e 3,72, iar 2,2 mld $ cash e o sumă reală. <strong>Ce îl agravează:</strong> la un ritm de capex de ~1,35 mld $ pe trimestru, cash-ul existent acoperă undeva sub două trimestre de construcție. Compania depinde de accesul continuu la piețele de capital — nu la o scadență, ci pentru a-și continua planul. Diferența e importantă: nu e o companie care riscă să nu-și plătească datoriile mâine, e o companie a cărei teză de investiție riscă să se oprească dacă fereastra de finanțare se închide.</p>
+  <p><b>Cifrele.</b> La 31 martie 2026: datorie totală 3.965 mln $, cash 2.213 mln $, deci datorie netă 1.752 mln $. EBITDA implicit pe 12 luni e în jur de 144 mln $ (valoarea de întreprindere de 14.903 mln $ împărțită la EV/EBITDA de 103,61 de pe finviz), deci raportul iese pe la <b>12,2×</b> — de patru ori pragul roșu de 3×. Tradus: dacă ar folosi tot profitul operațional brut exclusiv pentru datorii, i-ar lua douăzeci și ceva de ani. Iar profitul operațional propriu-zis (EBIT) e negativ pe ultimele 12 luni, ceea ce înseamnă că rata de acoperire a dobânzii e sub pragul de 3× prin definiție. Oricare dintre cele două clauze, singură, dă roșu.</p>
+  <p><b>Cum a ajuns aici.</b> Datoria totală era 964 mln $ la 30 iunie 2025 și 1,3 mln $ la 30 iunie 2024. În opt luni a crescut de patru ori. Banii au mers în plăci grafice și centre de date — anunțurile depuse arată un acord de 1,6 mld $ pentru hardware NVIDIA Blackwell prin Dell (27 mai 2026) și o finanțare de GPU-uri legată de contractul Microsoft la Horizon 1-4, aceeași care ține blocați cei 1,7 mld $ de cash restricționat.</p>
+  <p><b>Ce nu se poate calcula, și de ce contează.</b> 8-K-ul din 20 iulie 2026 dă cash-ul la 30 iunie 2026 (7,6 mld $ brut, 5,9 mld $ nerestricționat), dar <em>nu</em> dă datoria la aceeași dată. O datorie netă la 30 iunie 2026 ar cere ambele cifre din documente depuse — deci: <b>N/A (nu apare pe sursă)</b>. Cifra de datorie netă de mai sus e cea de la 31 martie 2026 și e aproape sigur veche, pentru că finanțarea de GPU-uri care a adus cash-ul a adus și datorie. Bilanțul de la 30 iunie 2026 apare în 10-K-ul anual.</p>
+  <p><b>🔴 — de fază.</b> Aceleași trei condiții ca la free cash flow, aplicate acestui rând: cauza îndatorării e investiția, nu acoperirea unor pierderi din operare (cash flow-ul operațional e pozitiv); pista de cash e peste patru trimestre în ambele variante; ținta de ARR cu dată există. Ce nu schimbă eticheta: 12,2× rămâne 12,2×, iar o datorie contractată pentru active care încă nu produc venit e o datorie ale cărei dobânzi curg de azi.</p>
 </section>
 
-<!-- ══ 6. DILUȚIE ══════════════════════════════════════════════════════════ -->
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
 <section id="s06">
-  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
-
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
-    <p>Când o companie emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne neschimbat. Dacă deții 1% și compania emite cu 10% mai multe acțiuni, ajungi la 0,91% — fără să fi vândut nimic. Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu: vezi același număr de acțiuni, la același preț, și crezi că nu s-a întâmplat nimic.</p>
-    <p>De aceea semaforul se pune pe evoluția numărului de acțiuni, nu pe comunicate.</p>
+    <p>Nu suma cheltuită pe răscumpărări, ci <b>evoluția numărului de acțiuni</b>. Când o companie emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne același: dacă deții 1% și compania emite cu 10% mai multe acțiuni, ajungi la 0,91% fără să fi vândut nimic. Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu.</p>
   </div>
-
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Număr mediu ponderat de acțiuni</b><span class="unit">milioane · sursă: SEC EDGAR</span></figcaption>
+    <figcaption><b>Acțiuni în circulație (coperta 10-Q, EDGAR)</b><span class="unit">milioane</span></figcaption>
     <script type="application/json">
-    {"labels":["FY23","FY24","FY25","9L FY26"],
-     "series":[{"name":"Acțiuni (medie ponderată)","values":[54.8,99.6,214.6,300.4]}]}
+    {"labels":["31 oct. 2025","30 ian. 2026","30 apr. 2026"],
+     "series":[{"name":"Acțiuni în circulație","values":[283.47,332.28,357.38]}]}
     </script>
   </figure>
-
-  <p>Cifrele sunt luate direct din rapoartele depuse la SEC, nu derivate din alte mărimi. Traiectoria: <strong>54,8 milioane de acțiuni în anul fiscal 2023 → 357,4 milioane la 30 aprilie 2026</strong>. De 6,5 ori mai multe acțiuni în mai puțin de trei ani. În ultimele 12 luni singure, numărul a crescut cu 52,3%.</p>
-
   <div class="stats">
-    <div class="stat"><div class="l">Acțiuni FY2023</div><div class="v">54,8 mln</div><div class="s">medie ponderată</div></div>
-    <div class="stat"><div class="l">Acțiuni 30 apr 2026</div><div class="v">357,4 mln</div><div class="s">în circulație</div></div>
-    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+52,3%</div><div class="s">felia ta a scăzut cu ~34%</div></div>
-    <div class="stat"><div class="l">Dividend / buyback</div><div class="v">0 $</div><div class="s">niciodată plătite</div></div>
+    <div class="stat"><div class="l">Variație pe 12 luni</div><div class="v down">+52,27%</div><div class="s">felia ta s-a micșorat cu ~34%</div></div>
+    <div class="stat"><div class="l">Acțiuni emise pentru bani</div><div class="v">2,02 mld $</div><div class="s">finanțarea construcției</div></div>
+    <div class="stat"><div class="l">Plată în acțiuni (SBC)</div><div class="v">180,8 mln $</div><div class="s">8,2% din diluția în dolari</div></div>
+    <div class="stat"><div class="l">Randament total pentru acționar</div><div class="v">0%</div><div class="s">zero buyback, zero dividend</div></div>
   </div>
-
-  <p><strong>Cum se citește „+52,3%".</strong> Dacă acum un an dețineai 0,01% din companie și nu ai vândut nimic, azi deții 0,0066% — ai pierdut o treime din felia ta stând pe loc. E ca și cum ai pierde o treime din tort fără să fi mâncat nimic.</p>
-
-  <p>Randamentul total pentru acționar — dividend plus răscumpărări — e <strong>zero</strong>. Compania nu a plătit niciodată dividend și nu a răscumpărat niciodată acțiuni. Merge exact în direcția opusă. Asta nu e automat greșit la o companie care construiește infrastructură cu miliarde: o companie tânără în expansiune are nevoie de capital, iar capitalul vine de undeva. Dar e important să știi ce cumperi: <strong>plătești pentru viitorul companiei cu o felie care se subțiază în fiecare trimestru.</strong></p>
-
-  <p>Și diluția nu s-a terminat. Trei surse rămân deschise: cele 3.688 mln $ de obligațiuni convertibile care încă nu s-au convertit; plata în acțiuni către angajați, la 28% din venituri; și pachetul de 18,2 milioane de unități restricționate aprobat de consiliu pe 30 iunie 2026 pentru cei doi co-CEO — încă aproximativ 5% din companie.</p>
+  <p><b>Cifrele.</b> Numărul de acțiuni a crescut cu 52,27% în 12 luni. Coperta rapoartelor trimestriale depuse la SEC arată drumul: 283,5 mln la 31 oct. 2025, 332,3 mln la 30 ian. 2026, 357,4 mln la 30 apr. 2026 — plus 26% în șase luni. Nu există răscumpărări și nu există dividend, deci randamentul total pentru acționar e zero; direcția e opusă.</p>
+  <p><b>Ce înseamnă concret.</b> Dacă aveai 1% din companie acum un an și nu ai cumpărat nimic în plus, azi ai 0,657%. E ca și cum ai fi pierdut o treime din felia ta de tort fără să fi mâncat nimic. Compania a folosit felia ta ca să plătească pentru centre de date; dacă ele produc, felia mai mică dintr-un tort mult mai mare poate să merite. Dacă nu, ai plătit oricum.</p>
+  <p><b>De ce „de fază" și nu „structural" — judecata cea mai delicată din raport.</b> Regula spune că, dacă diluția vine în bună parte din plata în acțiuni a angajaților și nu din finanțarea construcției, rândul e structural chiar dacă restul companiei e într-o fază. Aici cele două se măsoară în dolari: 2.020 mln $ acțiuni emise pentru bani, 180,8 mln $ plată în acțiuni. SBC-ul e <b>8,2%</b> din diluția totală în dolari — restul de 91,8% e capital ridicat pentru construcție. Judecata în acțiuni dă același răspuns și mai apăsat: numărul de acțiuni a crescut cu circa 123 de milioane în 12 luni, iar 180,8 mln $ de SBC la un preț mediu în jur de 40 $ înseamnă vreo 4-5 milioane de acțiuni, adică sub 4% din creștere. Investiția e cauza dominantă a culorii acestui rând, deci: <b>de fază</b>.</p>
+  <p><b>Contra-cifra, ca s-o vezi și pe ea.</b> Aceeași plată în acțiuni reprezintă <b>23,9% din venituri</b> — de peste două ori pragul de la care merită semnalată. Cele două procente măsoară lucruri diferite (cât din diluție e SBC, respectiv cât de scumpi sunt angajații față de vânzări) și trag în direcții opuse. Pentru eticheta de pe acest rând contează primul, pentru că întrebarea e ce cauzează diluția. Al doilea rămâne un semnal real despre cost și e menționat și la secțiunea 4.</p>
+  <p><b>🔴.</b> Peste 2%/an înseamnă roșu; 52% pe an nu e „aproape de galben". Eticheta „de fază" explică de ce se întâmplă, nu o face mai puțin costisitoare pentru tine.</p>
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
 <section id="s07">
-  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
-
-  <div class="tw"><table>
-    <thead><tr><th>An fiscal (înch. 30 iun)</th><th>Venituri</th><th>Creștere</th><th>Marjă brută*</th><th>Marjă operațională</th></tr></thead>
-    <tbody>
-      <tr><td>FY2022</td><td>59,1 mln $</td><td class="up">+595,7%</td><td>100,0%</td><td>0,5%</td></tr>
-      <tr><td>FY2023</td><td>75,5 mln $</td><td class="up">+27,9%</td><td>47,8%</td><td class="down">−208,2%</td></tr>
-      <tr><td>FY2024</td><td>187,2 mln $</td><td class="up">+147,9%</td><td>53,5%</td><td class="down">−14,6%</td></tr>
-      <tr><td>FY2025</td><td>501,0 mln $</td><td class="up">+167,7%</td><td>68,3%</td><td class="up">+3,5%</td></tr>
-      <tr class="me"><td>TTM (mar 2026)</td><td>757,1 mln $</td><td class="up">+104,0%</td><td>68,4%</td><td class="down">−53,6%</td></tr>
-    </tbody>
-  </table></div>
-
-  <p style="font-size:12.5px">* Marja brută raportată de stockanalysis exclude amortizarea. Vezi caseta de mai jos — la o companie de infrastructură, asta schimbă complet cifra.</p>
-
-  <p>Pe ani, tabloul pare superb: cinci ani de creștere, marjă brută în urcare de la 47,8% la 68,4%. Un scorecard mecanic ar pune verde. <strong>Ar fi greșit</strong>, și de aceea trimestrele contează mai mult decât anii.</p>
-
-  <figure class="viz" data-viz="lines">
-    <figcaption><b>Venituri pe trimestru</b><span class="unit">mln USD</span></figcaption>
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
+    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — adică dacă moat-ul mai ține. E indicatorul care arată cel mai devreme, cu ani înainte să apară în profit, dacă un avantaj se erodează.</p>
+  </div>
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Venituri pe an fiscal</b><span class="unit">mln USD</span></figcaption>
     <script type="application/json">
-    {"labels":["Q4 FY24","Q1 FY25","Q2 FY25","Q3 FY25","Q4 FY25","Q1 FY26","Q2 FY26","Q3 FY26"],
-     "series":[{"name":"Venituri trimestriale","values":[57.4,52.8,116.1,144.8,187.3,240.3,184.7,144.8]}]}
+    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+     "series":[{"name":"Venituri","values":[8.49,59.05,75.51,187.19,501.02,757.07]}],
+     "suffix":" mln"}
     </script>
   </figure>
-
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Venituri pe trimestru</b><span class="unit">mln USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["iun 24","sep 24","dec 24","mar 25","iun 25","sep 25","dec 25","mar 26"],
+     "series":[{"name":"Venit trimestrial","values":[57.40,52.76,116.14,144.82,187.29,240.30,184.69,144.80]}],
+     "suffix":" mln"}
+    </script>
+  </figure>
   <figure class="viz" data-viz="lines">
     <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["Q4 FY24","Q1 FY25","Q2 FY25","Q3 FY25","Q4 FY25","Q1 FY26","Q2 FY26","Q3 FY26"],
-     "series":[{"name":"Creștere an/an","values":[67.8,53.4,172.8,166.5,226.3,355.4,59.0,0.0]}],
+    {"labels":["iun 24","sep 24","dec 24","mar 25","iun 25","sep 25","dec 25","mar 26"],
+     "series":[{"name":"Creștere an/an","values":[67.76,53.40,172.81,166.47,226.29,355.41,59.02,-0.02]}],
      "suffix":"%"}
     </script>
   </figure>
-
-  <div class="concept">
-    <div class="h">DECELERARE — DE CE „REZULTATE BUNE, ACȚIUNEA SCADE"</div>
-    <p>Piața nu tranzacționează media, ci <strong>ritmul</strong>. Prețul plătit ieri presupunea ritmul de ieri. La IREN, creșterea an/an a coborât de la <strong>+355% în trimestrul încheiat în septembrie 2025 la +59% în decembrie 2025 și la 0% în martie 2026</strong> — în două trimestre. Iar în valoare absolută, veniturile au căzut de la 240,3 mln $ la 144,8 mln $, adică <strong>−40%</strong>.</p>
-    <p>Cifra anuală de +168% pe FY2025 e adevărată și complet inutilă pentru a înțelege ce se întâmplă acum. Asta e lecția: când vezi o companie de creștere care „a bătut așteptările" și totuși scade, uită-te la ultimele patru trimestre, nu la ultimii cinci ani.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">Marjă brută FY23 → FY25</div><div class="v up">47,8% → 68,3%</div><div class="s">stockanalysis, în urcare</div></div>
+    <div class="stat"><div class="l">Marjă brută TTM (finviz)</div><div class="v">19,60%</div><div class="s">altă definiție — vezi secțiunea 3</div></div>
+    <div class="stat"><div class="l">Marjă operațională TTM</div><div class="v down">−29,82%</div><div class="s">finviz, 1 aug. 2026</div></div>
+    <div class="stat"><div class="l">Venit pe acțiune</div><div class="v down">2,25 → 2,12 $</div><div class="s">FY25 vs. ultimele 12 luni</div></div>
   </div>
-
-  <p><strong>Explicația e reală și e jumătate bună.</strong> Scăderea nu e pierdere de clienți: compania retrage din funcțiune minierele vechi de bitcoin ca să elibereze energie și spațiu pentru plăci grafice. Veniturile din minerit au scăzut 21,3% an/an tocmai fiindcă echipamentele au fost scoase deliberat — deprecierea de 140,4 mln $ din trimestru e chiar costul acelei retrageri. AI Cloud a crescut de la 3,6 la 33,6 mln $ pe trimestru în același timp.</p>
-
-  <p>Dar e o tranziție cu o gaură la mijloc, și gaura e mare. La ritmul din trimestrul martie 2026, AI Cloud produce aproximativ <strong>134 mln $ pe an</strong>. Ținta de venit anualizat anunțată de companie pentru sfârșitul lui 2026 e <strong>peste 4 mld $</strong>. Distanța dintre cele două cifre e de aproximativ 30 de ori, de parcurs în vreo nouă luni. Nu e o prognoză din partea mea — sunt două cifre publicate, puse una lângă alta, și e cel mai important lucru de urmărit la raportarea din 27 august 2026.</p>
-
-  <div class="concept">
-    <div class="h">MARJA BRUTĂ: 68% SAU 14%?</div>
-    <p>stockanalysis raportează marjă brută de 68,4%; finviz raportează 19,6%. Nu e o eroare de extragere — e o diferență de definiție, și merită înțeleasă, pentru că apare la orice companie cu active grele.</p>
-    <p>Cifra de 68% exclude amortizarea. Din raportul trimestrial: în nouă luni, la venituri de 569,8 mln $, costul direct al veniturilor a fost 186,4 mln $ (mai ales electricitate: 167,9 mln $), dar amortizarea a fost <strong>305,6 mln $</strong>. Incluzând-o, marja brută reală scade la aproximativ <strong>13,7%</strong>.</p>
-    <p>Care e cea corectă? Pentru IREN, cea care include amortizarea. Plăcile grafice și minierele nu sunt o cheltuială contabilă abstractă — se uzează și trebuie înlocuite cu bani reali, la câțiva ani. La o companie de software, amortizarea e mică și marja brută „curată" spune adevărul. La una care își arde echipamentele, amortizarea <em>este</em> costul afacerii. <strong>Când vezi două marje brute foarte diferite pe aceeași companie, întreabă întâi cât de repede se uzează activele.</strong></p>
-  </div>
-
-  <p><strong>Creșterea pe acțiune, nu pe total.</strong> La o companie care se diluează cu peste 50% pe an, cifra totală e înșelătoare — partea ta e cea pe acțiune. Pe primele nouă luni: veniturile totale au crescut cu 81,6% (de la 313,7 la 569,8 mln $), dar numărul mediu de acțiuni a crescut de la 206,0 la 300,4 milioane. Veniturile pe acțiune au urcat de la 1,52 $ la 1,90 $, adică <strong>+24,6%</strong>. Tot creștere, dar o treime din cea afișată. Asta e cifra onestă.</p>
+  <p><b>Pe ani, povestea e superbă:</b> venituri în creștere în fiecare dintre cei cinci ani, de la 8,5 mln $ în FY21 la 501,0 mln $ în FY25 și 757,1 mln $ pe ultimele 12 luni. Marja brută urcă de la 47,8% (FY23) la 68,3% (FY25) pe cifrele stockanalysis. Grila ar da verde: creștere în 4 din 5 ani și marjă brută în urcare.</p>
+  <p><b>Pe trimestre, povestea se schimbă.</b> Creșterea an/an a fost +355,4% în trimestrul sep. 2025, +59,0% în dec. 2025 și <b>−0,02% în mar. 2026</b>. Venitul absolut a scăzut trei trimestre la rând: 240,3 → 184,7 → 144,8 mln $. Piața tranzacționează ritmul, nu media, iar ritmul s-a oprit. Regula spune că un verde pe cifre anuale coboară la galben când ultimele trimestre arată o încetinire clară — și asta e exact ce se vede. <b>🟡.</b></p>
+  <p><b>Ce e sub totalul plat.</b> În trimestrul mar. 2026, mineritul de bitcoin a adus 111,2 mln $ și AI Cloud 33,6 mln $, față de 3,6 mln $ în AI cu un an înainte. Segmentul nou a crescut de peste nouă ori; totalul e plat pentru că mineritul a scăzut cu aproximativ cât a crescut AI-ul. Cu alte cuvinte: partea care se construiește livrează, partea veche se erodează, iar rezultatul se anulează.</p>
+  <p><b>Creșterea pe acțiune, singura care e a ta.</b> Veniturile totale au crescut cu 51,1% față de perioada echivalentă de acum un an — dar numărul de acțiuni a crescut cu 52,27%. Venitul pe acțiune a coborât ușor, de la circa 2,25 $ (FY25) la circa 2,12 $ pe ultimele 12 luni. Compania e mai mare; partea ta din ea, nu. Cifra pe acțiune e cea onestă la o companie care se diluează cu peste 2% pe an, și aici e negativă.</p>
+  <p><b>Creștere organică sau cumpărată?</b> Goodwill-ul e zero pe bilanț în toți anii, deci creșterea de până acum nu e cumpărată cu achiziții. O excepție proaspătă de urmărit: achiziția Nostrum (490 MW capacitate de centru de date în Spania), finalizată pe 15 iunie 2026 — deci după ultimul bilanț depus.</p>
+  <p><b>🟡 — structural.</b> Rândul e eligibil pentru „de fază", dar eticheta se acordă numai dacă investiția e cauza <em>dominantă</em> a culorii acestui rând. Aici nu e: construcția <em>adaugă</em> venit (AI Cloud, de la 3,6 la 33,6 mln $), iar ce ține totalul pe loc e scăderea afacerii de minerit, care nu are legătură cu buildout-ul — ține de prețul bitcoinului și de dificultatea rețelei. O construcție întârzie venitul nou; nu îl micșorează pe cel vechi. De aceea: structural. Ce ar muta eticheta: un trimestru în care AI Cloud crește mai repede decât scade mineritul, iar totalul repornește.</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
 <section id="s08">
-  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
-
-  <div class="concept">
-    <div class="h">P/E-UL DE 68 E O ILUZIE — IATĂ DE CE</div>
-    <p>IREN afișează un P/E de 67,7 (stockanalysis) sau 72,7 (finviz), calculat pe un profit net de 158,3 mln $ pe ultimele 12 luni. Pare o companie profitabilă, scumpă dar reală.</p>
-    <p>Deschide raportul trimestrial și profitul dispare. În primele nouă luni din FY2026, rezultatul include un <strong>câștig nerealizat din instrumente financiare de +533,9 mln $</strong> — reevaluarea contabilă a derivatelor legate de obligațiunile convertibile. Nu e cash și nu vine din vânzarea de servicii. Rezultatul <em>operațional</em> pe aceeași perioadă e negativ: −405,8 mln $ pe ultimele 12 luni.</p>
-    <p>Cu alte cuvinte, numitorul acelui P/E e un câștig pe hârtie dintr-un instrument financiar. De aceea rezultatul net sare de la +384,6 mln $ (trim. sept. 2025) la −247,8 mln $ (trim. mar. 2026) — nu se schimbă afacerea în trei luni, se schimbă marcajul la piață. <strong>Când profitul net oscilează sălbatic fără ca veniturile să oscileze la fel, caută linia care îl provoacă.</strong></p>
-  </div>
-
-  <p>Fiindcă P/E-ul nu e utilizabil aici, iar P/FCF-ul nu există (FCF-ul e negativ), multiplii care spun ceva sunt cei pe vânzări și pe valoarea de întreprindere.</p>
-
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
+  <p>Toate cele patru companii comparabile sunt pe pierdere, deci P/E și P/FCF ar fi rânduri de „n/a" care nu învață pe nimeni nimic. Tabelul de mai jos folosește în locul lor multiplul pe venituri, marja brută, diluția și datoria — mărimile care există la toate cinci. Toate cifrele vin din paginile de statistici citite pe 1 august 2026.</p>
   <div class="tw"><table>
-    <thead><tr><th>Față de propria istorie</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>Azi</th></tr></thead>
+    <thead><tr><th>Companie</th><th>Venit 12 luni</th><th>EV/Vânzări</th><th>Marjă brută</th><th>Acțiuni a/a</th><th>Short % float</th><th>Datorie totală</th></tr></thead>
     <tbody>
-      <tr><td>Preț / Vânzări</td><td>4,12</td><td>11,33</td><td>7,51</td><td class="down">17,37</td></tr>
-      <tr><td>EV / Vânzări</td><td>3,22</td><td>9,18</td><td>8,30</td><td class="down">19,66</td></tr>
-      <tr><td>EV / EBITDA</td><td>n/a</td><td>73,92</td><td>20,96</td><td class="down">103,61</td></tr>
+      <tr class="me"><td>IREN</td><td>757 mln $</td><td>19,69</td><td>68,3% (FY25)</td><td>+52,3%</td><td>30,4%</td><td>3,97 mld $</td></tr>
+      <tr><td>CoreWeave (CRWV)</td><td>6.230 mln $</td><td>11,57</td><td>69,4%</td><td>+122,4%</td><td>20,5%</td><td>35,15 mld $</td></tr>
+      <tr><td>Applied Digital (APLD)</td><td>611 mln $</td><td>18,80</td><td>25,9%</td><td>+36,8%</td><td>26,1%</td><td>5,10 mld $</td></tr>
+      <tr><td>Cipher Mining (CIFR)</td><td>210 mln $</td><td>62,73</td><td>12,4%</td><td>+15,8%</td><td>16,7%</td><td>4,75 mld $</td></tr>
+      <tr><td>TeraWulf (WULF)</td><td>168 mln $</td><td>68,04</td><td>64,0%</td><td>+8,9%</td><td>27,3%</td><td>5,31 mld $</td></tr>
     </tbody>
   </table></div>
-
-  <p style="font-size:12.5px">„n/a" pe rândul EV/EBITDA din FY2023 înseamnă N/A (nu apare pe sursă) — compania avea EBITDA negativ în anul acela, deci raportul nu are sens.</p>
-
-  <p>Pe toate cele trei axe, acțiunea e evaluată la <strong>peste dublul mediei proprii recente</strong> — și asta după ce a scăzut 52% de la maxim. La vârful din ultimul an, multiplii erau de peste două ori cei de azi.</p>
-
-  <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>Capitalizare</th><th>P/E</th><th>EV/Vânzări</th><th>Marjă brută</th><th>Datorie/Capitaluri</th><th>Short % float</th></tr></thead>
-    <tbody>
-      <tr class="me"><td>IREN</td><td>13,15 mld $</td><td>67,7*</td><td>19,66</td><td>68,4%</td><td>1,49</td><td>30,3%</td></tr>
-      <tr><td>CoreWeave (CRWV)</td><td>39,16 mld $</td><td>n/a</td><td>11,57</td><td>69,4%</td><td>7,39</td><td>20,5%</td></tr>
-      <tr><td>Applied Digital (APLD)</td><td>7,98 mld $</td><td>n/a</td><td>18,80</td><td>25,9%</td><td>1,36</td><td>26,1%</td></tr>
-      <tr><td>TeraWulf (WULF)</td><td>8,75 mld $</td><td>n/a</td><td>68,04</td><td>64,0%</td><td>n/a</td><td>27,3%</td></tr>
-      <tr><td>Cipher Mining (CIFR)</td><td>9,13 mld $</td><td>n/a</td><td>62,73</td><td>12,4%</td><td>6,42</td><td>16,7%</td></tr>
-    </tbody>
-  </table></div>
-
-  <p style="font-size:12.5px">* Singurul P/E din tabel, și acela pe un profit contabil, nu operațional — vezi caseta de mai sus. Toți ceilalți patru sunt în pierdere. Marjele brute exclud amortizarea, la toți.</p>
-
-  <p><strong>Ce spune tabelul.</strong> IREN e la mijlocul unui grup foarte scump: mai scumpă decât CoreWeave (11,6) și Applied Digital (18,8), mult mai ieftină decât TeraWulf (68,0) și Cipher (62,7). Niciuna dintre cele cinci nu are profit operațional, toate au datorie mare, toate au între 17% și 30% din float vândut în lipsă. Concluzia utilă nu e „IREN e ieftină față de WULF" — e că <strong>întregul grup e evaluat pe promisiuni, nu pe rezultate</strong>, iar comparația între ele spune mai mult despre entuziasmul sectorului decât despre valoare.</p>
-
-  <p>Doi competitori merită menționați în afara tabelului. <strong>Nebius (NBIS)</strong> joacă în aceeași nișă cu un model mai puțin intensiv în capital. Iar cel mai important punct de referință nu e nici măcar cotat: hiperscalerii — Microsoft, Google, Amazon, Meta — care sunt simultan <em>clienții</em> acestor companii și cei care le pot deveni concurenți construind singuri. Clientul tău cel mai mare, care poate decide oricând să facă lucrul acela intern, e o poziție structural fragilă.</p>
+  <p>Ce se vede imediat: <b>tot grupul e evaluat așa</b>. Nicio companie din tabel nu are profit, toate se diluează, toate au între 4 și 35 mld $ datorie, și la toate între 16% și 30% din float e vândut în lipsă. Nu e o particularitate a IREN — e o industrie întreagă care își construiește capacitatea cu banii altora, în același timp, pe aceeași temă.</p>
 
   <div class="concept">
     <div class="h">RANDAMENTUL PROFITULUI VS. DOBÂNDA FĂRĂ RISC</div>
-    <p>P/E-ul citit invers spune cât „produce" compania la prețul de azi. La P/E 67,7, randamentul profitului e <strong>1,48% pe an</strong> — și chiar și acel 1,48% e un câștig contabil din derivate, nu profit din operațiuni. În același timp, obligațiunile americane pe 10 ani, cu risc practic zero, dădeau <strong>4,75%</strong> la 31 iulie 2026.</p>
-    <p>Diferența e prețul pe care îl plătește cineva pentru creșterea viitoare. Nu e o prognoză, e o comparație între două fapte de azi: plătești ca să ai 1,5% (pe hârtie) în loc de 4,75% (garantat), pariind că afacerea de peste cinci ani va fi de multe ori mai mare. Dacă acea creștere nu vine, ai plătit degeaba.</p>
+    <p>P/E-ul citit invers arată cât „produce" compania la prețul de azi. La P/E 67,74, randamentul profitului e <b>1,48%</b> pe an. Obligațiunile americane pe 10 ani, la care nu riști practic nimic, dau <b>4,74%</b> (31 iul. 2026). Diferența de peste trei puncte e ce plătește cumpărătorul de azi pentru creșterea viitoare — o comparație între două fapte de azi, nu o prognoză.</p>
+    <p>Iar P/E-ul de aici e și mai fragil decât pare: profitul net pe ultimele 12 luni (158,1 mln $) vine dintr-un singur trimestru cu +384,6 mln $ (sep. 2025), în timp ce ultimele două au adus −155,4 și −247,8 mln $. E un câștig contabil, nu un flux din operațiuni. De asta la companiile de tipul ăsta ruta pe venituri de mai jos e singura care spune ceva.</p>
   </div>
-
-  <p><strong>Nu există P/E prospectiv.</strong> Nici stockanalysis, nici finviz nu afișează unul — pentru că estimarea de consens pentru profitul pe acțiune al anului următor e <strong>−0,20 $</strong> (finviz), adică o pierdere. Nu poți calcula un multiplu al profitului când analiștii nu se așteaptă la profit. Asta îți spune mai mult decât orice multiplu: prețul de azi nu se sprijină pe câștiguri apropiate, ci pe o afacere care abia se construiește.</p>
-
-  <p><strong>Prețurile-țintă ale analiștilor, cu avertismentul de rigoare.</strong> 16 analiști, țintă medie 81,73 $ (finviz: 84,64 $), recomandare medie 1,71 („cumpărare puternică"). Dar dispersia e uriașă: de la <strong>41 $ la 131 $</strong> — de la +11% la +256% față de prețul de azi. Când cea mai pesimistă și cea mai optimistă țintă diferă de peste trei ori, media nu înseamnă aproape nimic; înseamnă doar că nimeni nu știe. Mai mult, analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul, iar recomandările de vânzare sunt rare, pentru că băncile care le emit vor să păstreze relația cu compania. O medie de „cumpărare" e starea implicită, nu o distincție.</p>
-
-  <p>Un ultim lucru, valabil pentru orice acțiune: <strong>evaluarea nu e un semnal de timing.</strong> O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat.</p>
-</section>
-
-<!-- ══ 9. SENTIMENT ════════════════════════════════════════════════════════ -->
-<section id="s09">
-  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
-
-  <p>E pilonul cu cea mai slabă valoare predictivă din tot raportul. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum. Aici e neobișnuit de interesant, pentru că cele două semnale principale arată în direcții opuse.</p>
-
-  <div class="stats">
-    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">41–47%</div><div class="s">MarketBeat / stockanalysis</div></div>
-    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+1,50 mld $</div><div class="s">334 cumpărători / 96 vânzători</div></div>
-    <div class="stat"><div class="l">Short interest</div><div class="v down">30,3%</div><div class="s">din float · 93,7 mln acțiuni</div></div>
-    <div class="stat"><div class="l">Zile de acoperire</div><div class="v">1,9–2,4</div><div class="s">volum mediu 49,2 mln/zi</div></div>
-  </div>
-
-  <p><strong>Banii instituționali au intrat masiv.</strong> În ultimele 12 luni, 334 de investitori instituționali au cumpărat și 96 au vândut; au intrat 2,21 mld $ și au ieșit 709 mln $. Asta e un raport de aproape 3 la 1 în favoarea cumpărării — semnalul cel mai clar pozitiv din tot raportul. Atenție însă: datele vin din formularele 13F, cu întârziere de până la 45 de zile, și sunt agregări brute. Citește-le ca direcție, nu ca măsură exactă. Iar procentul de deținere (41–47%) diferă între surse fiindcă numitorii diferă — nu e o eroare, și nici nu e informativ în sine.</p>
 
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
-    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde imediat, și speră să le răscumpere mai ieftin. La IREN, <strong>93,7 milioane de acțiuni — 30,3% din float — sunt în această situație.</strong> Pragul de la care semaforul devine roșu e 10%. Aici e de trei ori peste.</p>
-    <p>Un începător aude „short squeeze" și îl citește ca pe o ocazie: dacă prețul urcă, cei pe short sunt forțați să cumpere, ceea ce împinge prețul și mai sus. Se întâmplă — dar rar, imprevizibil, și de obicei prețul revine la fel de brutal. Mult mai des, un short interest de 30% înseamnă că un număr mare de profesioniști, care au citit aceleași rapoarte, văd o problemă. Nu îi ai de partea ta; sunt contrapartea ta.</p>
-    <p>Cifra de „zile de acoperire" (1,9–2,4) e neobișnuit de mică pentru un short interest atât de mare — ceea ce înseamnă că volumul zilnic e enorm (49 mln acțiuni) și că pozițiile short se pot închide repede. Asta explică ziua de +30% din 30 iulie 2026 și pe cea de −15% de dinainte: aceeași acțiune, mișcată în ambele sensuri de aceleași fluxuri.</p>
+    <div class="h">CE VENIT ÎNCORPOREAZĂ PREȚUL</div>
+    <p><b>1. Multiplul.</b> EV/Vânzări = <b>19,69</b> (stockanalysis, 1 aug. 2026). Folosesc valoarea de întreprindere, nu prețul acțiunii, pentru că datoria netă e mare — cine cumpără compania preia și cele 3,97 mld $ de datorie.</p>
+    <p><b>2. Ancora — și de ce nu e mediana competitorilor.</b> Regula normală ia valoarea mai mică dintre media proprie și mediana peers. Mediana celor patru companii din tabel e <b>40,77</b> (între 18,80 și 62,73). Dar două dintre ele, Cipher Mining și TeraWulf, au valori de întreprindere de 13,2 și 11,4 mld $ pe venituri de 0,21 și 0,17 mld $ — practic fără numitor. Un EV/Vânzări de 62,7 sau 68,0 nu descrie o evaluare, e o împărțire la aproape zero, și exact aceste două companii stau pe pozițiile care formează mediana. <b>Mediana peers e o cifră fără conținut aici</b>, deci ancora rămâne pe istoricul propriu. (În cazul de față ordinea nici nu contează: media proprie e oricum mult mai mică, deci regula „cea mai mică dintre cele două" ar fi dat același răspuns.)</p>
+    <p><b>Ancora = 5,95</b>, media proprie a EV/Vânzări pe anii cu date: 3,09 (FY22), 3,22 (FY23), 9,18 (FY24), 8,30 (FY25). <b>Sunt patru ani, nu cinci</b> — pentru FY21 pagina de rate nu are valoare, compania fiind listată abia în noiembrie 2021. Media pe patru ani, că atâta istoric public are.</p>
+    <p><b>3. Venitul implicit.</b> La valoarea de întreprindere de azi, 14.903 mln $, un multiplu de 5,95 ar cere un venit anual de <b>2.505 mln $</b> — adică <b>de 3,3 ori</b> cei 757 mln $ de acum.</p>
+    <p><b>4. Anii impliciți.</b> La ritmul ultimelor patru trimestre (+51,1% față de perioada echivalentă), de la 757 la 2.505 mln $ sunt aproximativ <b>2,9 ani</b> de creștere fără nicio încetinire. Constatarea, scrisă întreg: prețul de azi încorporează un venit anual de circa 2,5 mld $ — de trei ori și ceva cel de acum — adică vreo trei ani de creștere la ritmul mediu al ultimului an, fără o singură pauză.</p>
+    <p><b>Iar pauza există deja.</b> Ritmul „ultimelor patru trimestre" e o medie care conține un trimestru cu +355% și unul cu −0,02%. Pe ritmul ultimului trimestru singur, calculul nu ajunge niciodată la 2,5 mld $. Cele două cifre nu se pot împăca; le pun pe amândouă, pentru că amândouă sunt fapte despre aceleași patru trimestre.</p>
+    <p><b>Fraza-pereche, obligatorie:</b> calculul presupune că multiplul revine la ancoră. Poate să nu revină, în nicio direcție — piața a plătit ani la rând multipli peste medie pentru companii care au livrat, și tot ani la rând multipli sub medie pentru companii care păreau ieftine. Nu e un preț-țintă și nu se traduce într-unul.</p>
+    <p><b>Și partea care ar putea părea ascunsă, ca să nu fie:</b> la EV/Vânzări 19,69, IREN e <b>sub</b> mediana peers de 40,77 și sub CIFR și WULF. Dacă ai fi comparat-o doar cu grupul, ai fi ieșit cu impresia că e ieftină. E ieftină față de niște companii care aproape nu au venituri — ceea ce nu e o informație.</p>
   </div>
-
-  <p><strong>Indici.</strong> IREN a fost inclusă în Russell 1000 pe 30 iunie 2026. Includerea într-un indice aduce cumpărare automată din partea fondurilor pasive care îl replică — cerere care nu ține de rezultatele companiei. Nu e în S&amp;P 500, care are criterii de profitabilitate pe care IREN nu le îndeplinește azi.</p>
-
-  <p><strong>Cum se împacă cele două semnale?</strong> Nu se împacă, și asta e informația. O acțiune în care instituționalii cumpără net 1,5 mld $ în timp ce 30% din float e vândut în lipsă e o acțiune despre care profesioniștii au opinii diametral opuse. Rezultatul practic e beta 4,28: fiecare știre mută prețul violent, pentru că fiecare tabără crede că a primit confirmarea. E o descriere exactă a ceea ce vezi în graficul de preț.</p>
+  <p><b>🔴 — structural.</b> Clauza normală de roșu („peste ambele ancore cu peste ~30%") nu se poate aplica, pentru că a doua ancoră nu e utilizabilă. Culoarea se decide pe istoricul propriu — 19,69 față de 5,95, adică de 3,3 ori — și pe a doua clauză: un multiplu care presupune ani de creștere perfectă, în condițiile în care ultimul trimestru raportat a crescut cu zero. Eticheta e structurală prin regulă, și pe bună dreptate: prețul de azi e un fapt despre azi, nu o etapă, iar „evaluare de fază" s-ar citi ca o scuză pentru preț.</p>
+  <p><b>Evaluarea nu e un semnal de timing.</b> O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat. Cifrele de mai sus spun ce trebuie să se întâmple ca prețul de azi să aibă sens, nu unde ajunge prețul.</p>
 </section>
 
-<!-- ══ 10. MANAGEMENT ══════════════════════════════════════════════════════ -->
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">48,4%</div><div class="s">41,1% pe MarketBeat</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+1,50 mld $</div><div class="s">333 cumpărători / 95 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v down">30,42%</div><div class="s">din float · 2,44 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">~40×</div><div class="s">pe an · se tranzacționează, nu se deține</div></div>
+  </div>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC</div>
+    <p>Cine vinde în lipsă împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. Un short interest de 30,42% din float înseamnă că aproape o treime din acțiunile disponibile la tranzacționare sunt vândute de cineva care pariază pe scădere — de trei ori pragul de la care grila dă roșu. Un începător aude „short squeeze" și îl citește ca pe o oportunitate; în realitate e mult mai des un avertisment că cineva mai bine informat vede o problemă. Squeeze-ul e un eveniment rar și imprevizibil, nu o strategie.</p>
+    <p><b>Days to cover</b> e 2,44 — adică, la volumul normal, toți cei pe short ar putea ieși în două zile și jumătate de tranzacționare. E o cifră mică; pozițiile sunt mari, dar lichiditatea le permite să iasă repede.</p>
+  </div>
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului.</b> Volum mediu 49,18 mln acțiuni pe zi × 250 de zile ÷ 308,08 mln acțiuni în float = <b>aproximativ 40 de rotații pe an</b>. Tot free float-ul își schimbă proprietarul de patruzeci de ori într-un an. O companie mare, deținută de investitori pe termen lung, se rotește de câteva ori pe an. Aici se tranzacționează, nu se deține — și asta e cel mai ieftin indicator de speculație din tot raportul.</p>
+    <p><b>Combustibilul de squeeze.</b> Cu 30% din float vândut în lipsă, o știre bună nu mișcă prețul cu cât valorează știrea, ci cu cât costă ieșirea celor prinși pe partea greșită. Pe <b>30 iulie 2026</b>, acțiunea a urcat aproximativ 30% într-o zi după declarații ale conducerii despre cererea care depășește oferta — o declarație, nu un contract. Aceeași declarație, într-o companie fără shorturi, ar fi produs o fracțiune din mișcare. Asta nu e o teză; e explicația mecanică a unei mișcări care altfel pare irațională.</p>
+    <p><b>Narativul, numit și datat.</b> La 1 august 2026, povestea tranzacționată e <b>buildout-ul de centre de date pentru AI</b>: pe 20 iul. 2026 contractele de 2,8 mld $ și ținta de ARR ridicată, pe 23 iul. 2026 majorarea prognozei de capex AI a Alphabet care a mișcat tot grupul (Nebius, CoreWeave, IREN), pe 6 iul. 2026 titluri despre interesul Anthropic pentru 1,4 GW în Australia. Narativul nu e aprobat aici și nu se transformă în cifră.</p>
+    <p><b>Banii instituționali merg în direcția opusă shorturilor:</b> 333 de instituții au cumpărat și 95 au vândut în ultimele 12 luni, cu 2,21 mld $ intrări față de 0,71 mld $ ieșiri — net +1,50 mld $. Deținerea instituțională de ~48% e context, nu criteriu; direcția banilor e cea care spune ceva. Cele două semnale se contrazic, și e onest să vezi asta: profesioniștii nu sunt de acord între ei.</p>
+  </div>
+  <p><b>Consensul analiștilor, cu contextul lui.</b> Preț-țintă mediu 84,64 $ față de un preț de 36,80 $, recomandare medie 1,71 („cumpărare") pe finviz. Trei lucruri de știut înainte să te bazezi pe ele: analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul, nu înainte — o țintă cu 130% peste piață descrie mai mult entuziasmul de acum decât altceva; recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania, deci „cumpărare" e starea implicită, nu o distincție; iar ținta e o medie a unor păreri împrăștiate, iar finviz dă doar media. Intervalul complet e pe pagina de forecast a companiei; aici nu a fost citit, deci: <b>N/A (nu apare pe sursă)</b>.</p>
+  <p><b>🔴 — structural.</b> Peste 10% din float pe short dă roșu prin grilă; 30,42% e de trei ori atât. Rândul e prin construcție structural: sentimentul nu e o etapă a unei construcții, iar cifrele lui se schimbă săptămânal. <b>Fraza care leagă tot pilonul:</b> hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de bine poți vinde mâine, niciodată cât câștigă compania — de aceea sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
 <section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
-
   <ul class="list">
-    <li><b>Co-CEO: Daniel Roberts și William Roberts</b> — frați, cofondatori, conduc compania de la înființare, din 2018. CFO: Anthony John Lewis. Sediul e în Sydney, Australia; compania depune rapoarte la SEC ca emitent american (10-Q/10-K).</li>
-    <li><b>Insiderii dețin 13,6%</b> din companie (finviz și stockanalysis; MarketBeat raportează 5,0%, folosind o bază de calcul diferită). Chiar la capătul de jos al intervalului, e o participație semnificativă — conducerea mănâncă din aceeași oală cu acționarii, ceea ce contează mai mult decât orice declarație de aliniere.</li>
-    <li><b>Tranzacții: 0 cumpărători, 2 vânzători în 12 luni.</b> Daniel Roberts a vândut 1.000.000 de acțiuni la 33,13 $ (33,1 mln $) pe 11 septembrie 2025; directorul Christopher Guzowski a vândut 11.958 de acțiuni pe 16 septembrie 2025. Vânzările sunt de obicei zgomot — directorii sunt plătiți parțial în acțiuni și vând programat. Absența cumpărărilor din bani proprii nu e un semnal de alarmă; e situația normală. Cumpărarea ar fi fost semnalul rar și puternic.</li>
-    <li><b>Nu confunda membrii Congresului cu insiderii.</b> MarketBeat listează în același tabel și tranzacțiile unor congresmeni americani (Dale W. Strong, Cleo Fields), raportate prin STOCK Act. Nu sunt insideri ai companiei și nu au acces la informații interne — exclude-i din numărătoare.</li>
-    <li><b>Structura de vot:</b> depunerile la SEC se referă la o singură clasă de acțiuni ordinare, fără indicii de structură duală. Dacă e o preocupare, verificarea sigură e în raportul anual (10-K) sau în documentul de vot (proxy statement) de pe SEC EDGAR.</li>
+    <li><b>Daniel Roberts și William Roberts</b> — frați, cofondatori, co-CEO din 2018. Compania e condusă de fondatori, nu de manageri angajați.</li>
+    <li><b>Cât dețin:</b> insiderii dețin 13,57% din companie (stockanalysis) / 13,67% (finviz) / 5,02% (MarketBeat). Cele trei surse diferă cu mult peste 5%, probabil pentru că numără altfel acțiunile nevestite; cea mai recentă și cea mai apropiată de definiția uzuală e cea de pe finviz și stockanalysis, în jur de 13,6%. La orice nivel din intervalul ăsta, conducerea mănâncă din aceeași oală cu acționarii — ceea ce schimbă cum citești vânzările de mai jos.</li>
+    <li><b>Insideri, ultimele 12–24 de luni:</b> zero cumpărători, doi vânzători. Daniel Roberts (CEO) a vândut 1.000.000 de acțiuni pe 11 sep. 2025, pentru 33,13 mln $; Christopher Guzowski (director) a vândut 11.958 de acțiuni pe 16 sep. 2025. Vânzările spun puțin — directorii sunt plătiți parțial în acțiuni și vând programat. <b>Cumpărările din bani proprii spun mult mai mult</b>, pentru că există un singur motiv pentru care cineva din interior cumpără cu banii lui. Aici nu există niciuna, într-un an în care acțiunea a făcut +128%.</li>
+    <li><b>Structura de vot:</b> nu am găsit indicii de clase multiple de acțiuni în sursele citite. IREN e o companie australiană listată pe NASDAQ, cu o structură care nu se poate confirma din surse gratuite. De verificat în 10-K sau în documentul de vot (proxy statement) de pe SEC EDGAR înainte de a presupune ceva — un vot pe acțiune nu e garantat doar pentru că nu scrie contrariul.</li>
   </ul>
-
-  <div class="concept">
-    <div class="h">PACHETUL DE COMPENSARE — CE S-A ÎNTÂMPLAT ȘI DE CE CONTEAZĂ</div>
-    <p>Pe 30 iunie 2026, consiliul a aprobat pentru cei doi co-CEO un pachet de <strong>18,2 milioane de unități de acțiuni restricționate</strong>, evaluat la 700–800 mln $ la prețurile de atunci — aproximativ 5% din companie. Acțiunea a scăzut ~7% la anunț și ~10% în zilele următoare.</p>
-    <p>Obiecția acționarilor, inclusiv a unor investitori care susțineau compania: pachetul e <em>bazat pe timp</em>, nu pe performanță — adică se acordă dacă cei doi rămân în companie, indiferent ce fac acțiunile. Președintele independent al consiliului, David Bartholomew, a apărat decizia într-o scrisoare către acționari, argumentând că numărul de acțiuni e fix (deci frații suportă integral scăderea), că vine după o alocare mai mică amânată din 2025, și că pragurile de performanță anterioare fuseseră atinse prea repede ca să mai servească scopul de retenție.</p>
-    <p>Nu îți spun ce să crezi despre asta. Îți spun ce să reții ca metodă: <strong>guvernanța e un cost real, măsurabil în procente de diluție</strong>, iar o companie care își plătește fondatorii cu 5% din capital într-un an în care nu generează cash liber merită o citire atentă a documentului de vot înainte de a apăsa „cumpără".</p>
-  </div>
 </section>
 
 <!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
 <section id="s11">
-  <div class="sec"><span class="n">11</span><h2>Expunerea la lume — vânt din față sau din spate?</h2></div>
-
-  <p>Pilonii de până acum au judecat corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <em>expunerea</em> — o proprietate stabilă a afacerii — nu vremea de azi.</p>
-
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR</div>
+    <p>Prețul unei acțiuni fără profit stabil e, aproape în întregime, profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă — 4,74% azi față de ~4,22% acum un an — viitorul îndepărtat valorează mai puțin în banii de azi, și multiplul se comprimă. Compania poate livra exact ce a promis și acțiunea tot să scadă serios. Nu s-a stricat afacerea; s-a scumpit banul. Dobânda fără risc e gravitația prețurilor: când urcă, toate evaluările sunt trase în jos, și cad cel mai tare cele cocoțate cel mai sus.</p>
+  </div>
   <div class="score">
     <div class="row"><span class="k">Dobânzi</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Nu există P/E prospectiv fiindcă nu e așteptat profit; FCF profund negativ. Tot prețul e valoarea unor profituri din anii îndepărtați.</span></div>
+      <span class="t">Steag bifat pe clauza de free cash flow negativ: −2,32 mld $ pe 12 luni. Un P/E prospectiv nu există (estimarea de profit pe anul următor e negativă), deci nici măcar nu se poate compara cu pragul de ~35. Aproape tot prețul e profit din ani îndepărtați.</span></div>
     <div class="row"><span class="k">Ciclu economic</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Două ciclicități suprapuse: prețul bitcoin (77% din venituri) și capexul AI al hiperscalerilor — cea mai amânabilă cheltuială corporativă care există.</span></div>
+      <span class="t">Dublă ciclicitate. 76,8% din venitul trimestrului mar. 2026 vine din minerit de bitcoin, adică din prețul unei mărfi volatile fără contract. Restul depinde de bugetele de capex pentru AI ale unor companii mari — o cheltuială discreționară care se poate amâna. Ambele picioare sunt ciclice, în cicluri diferite.</span></div>
     <div class="row"><span class="k">Geografie și politică</span>
-      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">77% din venituri înregistrate într-o singură țară (Australia), restul în Canada; construcția e concentrată în Texas, sub reguli de rețea în schimbare.</span></div>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Nu s-a putut verifica: împărțirea veniturilor pe țări nu apare nici pe paginile citite, nici în situațiile financiare descărcate din EDGAR — <b>N/A (nu apare pe sursă)</b>. Se știe doar că activele sunt în Canada, Statele Unite, Australia și, din 15 iun. 2026, Spania. Un semafor pus doar pe știri ar fi o judecată deghizată în cifră, deci rămâne gri.</span></div>
     <div class="row"><span class="k">Reglementare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Texas SB 6 obligă orice consum nou peste 75 MW să participe la programe de reducere a cererii, cu deconectare în situații de criză a rețelei.</span></div>
+      <span class="t">Acțiune concretă, numită, în curs: pe 15 iul. 2026 guvernul australian a anunțat standarde naționale obligatorii pentru centrele de date — obligația de a injecta în rețea cel puțin cât consumă, plata integrală a costurilor de racordare, reducerea consumului la stres pe rețea, reguli de apă. Revizuire în Cabinetul Național, legislație așteptată la începutul lui 2027. IREN are anunțat un campus de 800 MW în Australia de Sud (3 iun. 2026), iar avantajul ei declarat stă tocmai în racordurile la rețea.</span></div>
   </div>
-
-  <div class="concept">
-    <div class="h">COMPRIMAREA MULTIPLILOR — MECANISMUL DE ÎNȚELES AICI</div>
-    <p>Dobânda fără risc e gravitația tuturor evaluărilor. Orice investiție riscantă trebuie să promită mai mult decât ea, altfel nimeni n-ar avea de ce să-și asume riscul.</p>
-    <p>La o companie fără profit azi, <em>tot</em> prețul e valoarea unor câștiguri din anii 5–15 de acum încolo, aduse în prezent. Când dobânda urcă — și a urcat, de la ~4,4% în iulie 2025 la 4,75% la 31 iulie 2026 — viitorul îndepărtat valorează mai puțin în banii de azi. Multiplul se comprimă: piața plătește mai puțin pentru fiecare dolar de vânzări viitoare. <strong>Compania poate livra exact ce a promis și acțiunea tot să scadă.</strong> Nu s-a stricat afacerea; s-a scumpit banul.</p>
-    <p>Cu cât profitul e mai departe în viitor, cu atât efectul e mai mare. IREN e la capătul extrem al scalei: profitul e nu doar departe, ci nici măcar așteptat de consens pentru anul următor. E cea mai sensibilă categorie de acțiune la dobânzi care există.</p>
-  </div>
-
-  <p><strong>Despre dubla ciclicitate.</strong> Compania e expusă la două cicluri diferite în același timp, iar asta e neobișnuit. Mineritul de bitcoin depinde de prețul bitcoin, care e printre cele mai volatile active tranzacționate. Afacerea AI depinde de bugetele de investiții ale câtorva companii de tehnologie — bugete anunțate în creștere azi, dar care pot fi tăiate într-un trimestru dacă randamentele investiției în AI dezamăgesc. Niciuna dintre cele două nu e o cerere pe care clientul nu o poate amâna.</p>
-
-  <p><strong>Despre reglementare.</strong> Texas SB 6 e o lege adoptată, nu o propunere: consumatorii industriali noi peste 75 MW trebuie să participe la programe de răspuns la cerere, cu prevederi de deconectare de urgență la stres pe rețea. Pentru o companie care construiește campusuri de 1,4 GW și 2 GW în Texas, e o constrângere directă asupra activului principal. În paralel, în martie 2026, șapte mari companii de tehnologie au semnat un angajament de a finanța ele îmbunătățirile de rețea necesare — semn că presiunea publică asupra costurilor suportate de consumatorii casnici e reală și în creștere. Racordurile din Australia de Sud (energizare țintită din 2028) și Spania adaugă alte jurisdicții, cu alte reguli.</p>
-
-  <p><strong>Ce înseamnă patru steaguri din patru.</strong> Nu că e o companie proastă — expunerea și calitatea sunt lucruri diferite. Înseamnă că volatilitatea vine la pachet cu poziția, și că trebuie să știi asta <em>dinainte</em>, nu la prima furtună. E o corabie pe o mare foarte agitată. Lecția practică nu e „evit-o", ci „dimensionează poziția ca să poți suporta valurile": vânzarea în panică pe fundul valului e felul în care expunerea se transformă în pierdere reală. Cu beta 4,28, valurile sunt de patru ori cele ale pieței.</p>
+  <p><b>🔴 — structural.</b> Două steaguri complete ar fi fost deja suficiente; sunt trei. Iar steagul de reglementare, singur, duce direct la roșu prin grilă — pentru că o regulă care schimbă economia racordării la rețea atinge exact activul pe care se sprijină teza companiei.</p>
+  <p><b>Expunere mare nu înseamnă companie proastă.</b> O companie poate avea roșu aici și verde peste tot altundeva — o corabie excelentă pe o mare agitată. Lecția nu e „evit-o", ci „dimensionează poziția ca să suporți valurile". Cu beta 4,28 și 30% din float pe short, valurile de aici sunt mari, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală.</p>
+  <p><b>Ce nu e aici, ca să nu se dubleze:</b> sensibilitatea bilanțului la refinanțare e treaba secțiunii 5, nu a steagului de dobânzi. Concentrarea pe clienți și riscul de execuție sunt specifice acestei companii și stau la secțiunea 12.</p>
 </section>
 
-<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
 <section id="s12">
-  <div class="sec"><span class="n">12</span><h2>Riscuri — ce ar strica teza</h2></div>
-
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <p>Fiecare rând de mai jos e o cifră publicată de companie, cu data ei. Niciunul nu e o opinie a acestui raport și niciunul nu e o extrapolare.</p>
   <ul class="list">
-    <li class="crit"><b>Concentrarea pe un singur client, într-un contract încă nelivrat</b> — acordul cu Microsoft de ~9,7 mld $ e de aproape 13 ori veniturile companiei pe ultimele 12 luni. Când va produce venit, un singur client va domina afacerea. Până atunci, riscul e invers: la 31 martie 2026 <strong>nicio tranșă nu fusese livrată și acceptată</strong>, deci contractul nu apare deloc în backlog-ul recunoscut. Toată teza AI atârnă de o livrare care încă nu s-a materializat contabil.</li>
-    <li class="crit"><b>Dependența de fereastra de finanțare</b> — capex de 1,36 mld $ într-un singur trimestru, contra 2,21 mld $ cash. Compania a atras 4,3 mld $ în nouă luni din acțiuni noi și convertibile. Dacă piețele de capital se închid sau prețul acțiunii scade suficient cât să facă emisiunile prohibitive, construcția se oprește — nu din lipsă de cerere, ci din lipsă de bani.</li>
-    <li class="crit"><b>Gaura dintre cele două afaceri</b> — mineritul scade deliberat (−21,3% an/an), AI Cloud crește dar e la 134 mln $ anualizat față de o țintă anunțată de peste 4 mld $ pentru finalul lui 2026. Dacă rampa întârzie cu câteva trimestre, compania rămâne cu costurile noi (amortizare de 121 mln $ pe trimestru, în creștere) și fără veniturile vechi.</li>
-    <li><b>Uzura accelerată a echipamentelor</b> — deprecieri de active de 188,4 mln $ în nouă luni și o amortizare care s-a dublat an/an. Plăcile grafice se învechesc rapid; contractul de 1,6 mld $ pentru hardware NVIDIA Blackwell (mai 2026) e un activ care începe să-și piardă valoarea din ziua instalării. Într-o afacere de închiriere de calcul, ritmul de înlocuire e costul central, nu o notă de subsol.</li>
-    <li><b>Execuția pe patru continente simultan</b> — Texas, Canada, Australia, Spania, în paralel, cu 457 de angajați și o echipă de conducere formată în mare parte din fondatori. Riscul de execuție nu se vede în niciun indicator financiar până în momentul în care se vede în toate.</li>
-    <li><b>Guvernanță</b> — pachet de compensare bazat pe timp de ~5% din companie pentru doi frați care sunt simultan cofondatori, co-CEO și directori executivi în consiliu, într-un an fără cash liber generat.</li>
+    <li><b>Venit anualizat (ARR) de peste 4 mld $ la 31 dec. 2026</b> — țintă ridicată de la 3,7 mld $, din care aproximativ 85% e deja sub contract. Sursa: 8-K depus la SEC pe <b>20 iulie 2026</b>, Exhibit 99.1. Față de 757 mln $ venit pe ultimele 12 luni, e o multiplicare de peste cinci ori în ritm anualizat.</li>
+    <li><b>2,8 mld $ valoare totală de contract în acorduri noi multianuale</b>, cu termen mediu ponderat de aproximativ 4 ani, cu clienți printre care Microsoft, NVIDIA, Perplexity, Figure AI, Together AI, Fluidstack. Sursa: același 8-K, <b>20 iulie 2026</b>.</li>
+    <li><b>Plăți în avans de circa 45% din capexul de GPU-uri aferent</b> contractelor recente, ceea ce reduce necesarul net de finanțare pentru acele desfășurări. Sursa: același 8-K, <b>20 iulie 2026</b>. Compania precizează în aceeași notă că termenii variază pe contract și că nu există garanția că viitoarele contracte vor avea condiții similare.</li>
+    <li><b>480 MW capacitate AI Cloud construită în proprie livrare în 2026, de la aproximativ 3 MW cu 12 luni în urmă, și 1,2 GW țintiți pentru 2027.</b> Sursa: același 8-K, <b>20 iulie 2026</b>, declarația co-CEO Daniel Roberts.</li>
+    <li><b>Campus de 800 MW în Australia de Sud</b>, cu acord de racordare care asigură patru ieșiri de 330 kV la substație fără upgrade de rețea. Sursa: comunicat al companiei, <b>3 iunie 2026</b>.</li>
   </ul>
-
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Concentrarea veniturilor nu e cuantificată public, dar cea mai mare finanțare e legată de un singur client.</b> Cei 1,7 mld $ de cash restricționat sunt legați explicit de „GPU financing for the Microsoft contract at Horizon 1-4" (8-K, 20 iul. 2026). Compania publică lista de clienți, dar nu ponderea fiecăruia — deci cât din ARR-ul de peste 4 mld $ atârnă de un singur nume rămâne <b>N/A (nu apare pe sursă)</b>. Împărțirea completă e de căutat la <em>Risk Factors</em> în 10-K.</li>
+    <li class="crit"><b>Afacerea veche se erodează mai repede decât crește cea nouă.</b> În trimestrul mar. 2026, mineritul a adus 111,2 mln $ și a scăzut cu aproximativ cât a crescut AI Cloud (3,6 → 33,6 mln $), iar totalul a rămas plat. Plus o depreciere de 140,4 mln $ pe echipamente de minerit și de centru de date în același trimestru — recunoașterea contabilă că o parte din active valorează mai puțin decât s-a plătit.</li>
+    <li class="crit"><b>Riscul de execuție e la scara la care se rupe.</b> De la ~3 MW la 480 MW în 12 luni și 1,2 GW țintiți pentru 2027 înseamnă construcție, racordare, livrare de GPU-uri și punere în funcțiune, în paralel, pe patru țări. Fiecare lună de întârziere e o lună de dobânzi plătite pe echipamente care nu produc venit — iar arderea ultimului trimestru a fost 1,28 mld $.</li>
+    <li><b>Diluția e mecanismul de finanțare, nu un accident.</b> +52,27% acțiuni în 12 luni, 2,02 mld $ acțiuni noi emise. Dacă programul din 2027 cere din nou capital la aceeași scară, sursa cea mai probabilă e aceeași.</li>
+  </ul>
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>Notează-ți dinainte ce te-ar face să te răzgândești. Un investitor care își fixează pragurile înainte ia decizii mult mai bune decât unul care improvizează când prețul cade. Trei lucruri concrete și observabile:</p>
-    <p><strong>1.</strong> La raportarea din 27 august 2026: dacă tot nicio tranșă Microsoft nu e livrată și acceptată — adică backlog-ul recunoscut (RPO) nu urcă semnificativ peste 710 mln $ — contractul rămâne o promisiune, nu un venit.</p>
-    <p><strong>2.</strong> Dacă veniturile din AI Cloud nu depășesc veniturile din minerit în următoarele 3–4 trimestre, tranziția nu se închide și compania rămâne, în esență, un miner de bitcoin cu costuri de centru de date AI.</p>
-    <p><strong>3.</strong> Dacă apare o nouă emisiune mare de acțiuni la un preț sub cel de azi. Diluția la preț bun e capital; diluția la preț prost e transfer de valoare de la tine către cumpărătorul nou.</p>
+    <div class="h">ARBITRUL</div>
+    <p>Trei verificări observabile în trimestrele următoare. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
+    <p><b>1.</b> La raportarea anuală pentru anul fiscal încheiat la <b>30 iunie 2026</b>: confirmă bilanțul auditat cei 7,6 mld $ de cash și cei 1,7 mld $ restricționați anunțați pe 20 iul. 2026 ca „unaudited preliminary"? Și care e datoria totală la aceeași dată — cifra care lipsește azi din secțiunea 5?</p>
+    <p><b>2.</b> Trece venitul trimestrial peste vârful anterior de <b>240,3 mln $</b> din trimestrul sep. 2025? Ultimele trei trimestre au coborât de la acel vârf la 144,8 mln $. Repornirea totalului, nu doar creșterea segmentului AI, e testul.</p>
+    <p><b>3.</b> La 31 decembrie 2026: apare un venit anualizat (ARR) de peste 4 mld $, așa cum a fost anunțat pe 20 iul. 2026? Din el, cei ~85% declarați sub contract sunt partea verificabilă; restul e capacitate încă nealocată.</p>
   </div>
 </section>
 
 <!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
 <section id="s13">
-  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
-
-  <p><strong>Patru concepte pe care compania asta le predă mai bine decât un manual:</strong></p>
-
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual:</b></p>
   <ul class="list">
-    <li><b>Contract anunțat ≠ backlog recunoscut.</b> Presa a scris „9,7 miliarde". Raportul depus la SEC spune că 0 tranșe au fost livrate și acceptate, iar RPO-ul e 710 mln $. Verificarea durează cinci minute și schimbă complet imaginea.</li>
-    <li><b>Profitul net poate veni de oriunde.</b> P/E-ul de 68 stă pe un câștig nerealizat din derivate, într-o companie cu rezultat operațional de −406 mln $. Când profitul net sare de la +385 mln $ la −248 mln $ în două trimestre fără ca veniturile să se miște, caută linia vinovată.</li>
-    <li><b>Aceeași marjă brută poate fi 68% sau 14%,</b> după cum incluzi sau nu amortizarea. La companiile cu active care se uzează repede, cifra care include amortizarea e cea onestă.</li>
-    <li><b>Obligațiunile convertibile sunt diluție amânată.</b> Apar ca datorie în bilanț, dar se sting adesea în acțiuni noi — plătite de acționarul existent, nu de companie.</li>
+    <li><b>Pista de cash (cash runway)</b> — câte trimestre mai poate funcționa o companie care arde bani. Aici e diferența dintre 4,6 trimestre (cu cifra din 8-K-ul din 20 iul. 2026) și 1,7 trimestre (cu ultimul bilanț trimestrial). Aceeași companie, două cifre, un singur document depus între ele. Când citești „mai are bani destui", întreabă întotdeauna din ce document și de la ce dată.</li>
+    <li><b>Roșu de fază vs. roșu structural</b> — un buildout finanțat și o afacere care pur și simplu pierde bani arată identic în tabel: free cash flow negativ, diluție, evaluare peste medie. Diferența nu e culoarea, e ce o cauzează. Citit greșit în orice direcție, te costă: ori ratezi o companie normală pentru stadiul ei, ori ții una care nu are cum să ajungă la mal.</li>
+    <li><b>Rotația float-ului</b> — de 40 de ori pe an aici. Separă cine deține de cine tranzacționează, și e gratuit de calculat din două cifre de pe finviz.</li>
   </ul>
-
-  <p style="margin-top:1.2em"><strong>Cinci întrebări de pus la următoarea companie pe care o analizezi:</strong></p>
-
+  <p style="margin-top:16px"><b>Patru întrebări de pus la următoarea companie:</b></p>
   <ul class="list qa">
-    <li>Numărul de acțiuni a crescut sau a scăzut în ultimii trei ani? (Cifra autoritară e în rapoartele de la SEC, nu derivată din valoarea contabilă pe acțiune.)</li>
-    <li>Profitul net vine din operațiuni sau din reevaluări contabile? Compară rezultatul operațional cu cel net.</li>
-    <li>Cât din contractele anunțate în comunicate a ajuns efectiv în obligațiile de performanță rămase (RPO)?</li>
-    <li>Cum se finanțează investițiile — din cash generat de afacere, din datorie nouă, sau din acțiuni noi care mă diluează?</li>
-    <li>Creșterea veniturilor accelerează sau încetinește în ultimele patru trimestre? (Nu în ultimii cinci ani.)</li>
+    <li>Numărul de acțiuni a crescut sau a scăzut în ultimii 3 ani — și dacă a crescut, banii au intrat în active sau în buzunarele angajaților?</li>
+    <li>Cash flow-ul operațional e pozitiv? (Dacă da, un free cash flow negativ e o alegere; dacă nu, e o problemă.)</li>
+    <li>Creșterea trimestrială accelerează sau încetinește față de anul trecut — și ce spun ultimele patru trimestre, nu ultimul an?</li>
+    <li>Când o sursă îmi dă o cifră de bilanț, din ce document depus vine și de la ce dată?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (raport trimestrial depus 8 mai 2026, perioada încheiată 31 martie 2026) · preț și date de piață la închiderea din <b>31 iulie 2026</b>; raport întocmit la 1 august 2026.
-  Raportările financiare au întârziere de până la un trimestru; short interest până la două săptămâni; dețineri instituționale până la 45 de zile. Anul fiscal al IREN se încheie pe 30 iunie: „FY2025" acoperă iulie 2024 – iunie 2025.<br>
-  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a nimănui.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (8-K din 20 iul. 2026, accesiunea 0001140361-26-028871 și Exhibit 99.1; 10-Q pentru 31 mar. 2026, depus 8 mai 2026; copertele 10-Q pentru numărul de acțiuni) · date la 1 august 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
 </footer>
 </div>
 
@@ -838,7 +755,6 @@ footer b{color:var(--ink-2)}
     var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
     var type=fig.dataset.viz,sfx=d.suffix||'';
 
-    /* ── compare ─────────────────────────────────────────────────────────── */
     if(type==='compare'){
       var rows=d.rows||[];if(!rows.length)return;
       var html=rows.map(function(r){
@@ -864,7 +780,6 @@ footer b{color:var(--ink-2)}
     var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
     if(!all.length)return;
 
-    /* ── bars: ÎNTOTDEAUNA de la zero ─────────────────────────────────────── */
     if(type==='bars'){
       var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
       var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
@@ -887,7 +802,6 @@ footer b{color:var(--ink-2)}
       return;
     }
 
-    /* ── lines ───────────────────────────────────────────────────────────── */
     if(type==='lines'){
       var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
       var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;

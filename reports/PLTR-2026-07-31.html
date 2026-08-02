@@ -1,4 +1,6 @@
+<!doctype html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PLTR — analiză</title>
 <style>
 /* ─── tokens ─────────────────────────────────────────────────────────────── */
@@ -56,11 +58,20 @@ header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
   color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
 .themer:active{transform:scale(.94)}
 
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
 /* ─── section ────────────────────────────────────────────────────────────── */
-section{padding:30px 0;border-bottom:1px solid var(--rule)}
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -78,6 +89,10 @@ section{padding:30px 0;border-bottom:1px solid var(--rule)}
 .st[data-s=none]{color:var(--ink-3)}
 @media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
 :root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+/* comparație pe două companii: un rând, două semafoare (vezi varianta comentată) */
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
 
 /* ─── concept callout ────────────────────────────────────────────────────── */
 .concept{border-left:2px solid var(--accent);background:var(--wash);
@@ -211,11 +226,14 @@ footer b{color:var(--ink-2)}
   .wrap{padding:0 14px 56px}
   .row{grid-template-columns:1fr auto;gap:6px 10px}
   .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
   .tick h1{font-size:24px} .px .v{font-size:21px}
   .split .r{grid-template-columns:70px 1fr 70px}
 }
 @media print{
-  .themer{display:none} body{background:#fff}
+  .themer,nav.toc{display:none} body{background:#fff}
   section{break-inside:avoid;border-bottom:1px solid #ddd}
 }
 </style>
@@ -230,70 +248,87 @@ footer b{color:var(--ink-2)}
 <header>
   <div class="tick">
     <h1>PLTR</h1>
-    <span class="co">Palantir Technologies</span>
+    <span class="co">Palantir Technologies Inc. · NASDAQ</span>
   </div>
   <div class="px">
-    <div class="v">$123,06</div>
+    <div class="v">123,06 $</div>
     <div class="d up">+0,65% astăzi</div>
   </div>
   <div class="chips">
     <span class="chip">Technology · <b>Software – Infrastructure</b></span>
-    <span class="chip">Indici: <b>S&P 500, NDX</b></span>
-    <span class="chip">Capitalizare <b>~295 mld $</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq-100</b></span>
+    <span class="chip">Capitalizare <b>295,0 mld $</b></span>
     <span class="chip">An fiscal se încheie <b>decembrie</b></span>
     <span class="chip">Următoarea raportare <b>3 aug 2026</b></span>
   </div>
 </header>
 
-<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
-<section>
+<!-- ══ CUPRINS ═══════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
+<!-- ══ SCORECARD ═════════════════════════════════════════════════════════ -->
+<section id="scorecard">
   <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
   <div class="score">
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Costuri de schimbare reale; ROIC 26%, marjă brută în urcare.</span>
+      <span class="t">Costuri de schimbare mari plus acreditări de securitate; marja brută urcă de 4 ani (78,0% în FY2021 → 84,1% TTM).</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">2,1 mld $ în FY2025, marjă ~47% — dar umflat de plata în acțiuni.</span>
+      <span class="t">Pozitiv 5 ani din 5, de la 0,32 mld $ (FY2021) la 2,10 mld $ (FY2025); marjă FCF 46,9%.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Net cash ~7,8 mld $; datoria e o eroare de rotunjire.</span>
+      <span class="t">8,03 mld $ cash și investiții față de 0,21 mld $ datorie — poziție de net cash de 7,81 mld $.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Acțiunile cresc cu +3,2%/an; răscumpărările sunt cosmetice.</span>
+      <span class="t"><b>structural</b> — numărul de acțiuni a urcat cu 17,9% în 4 ani (4,2%/an, sursa SEC EDGAR). Cauza e plata în acțiuni a angajaților, adică o politică permanentă de remunerare, nu o fază finanțată cu final anunțat.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Venituri +56% în FY2025, în accelerare; marjele urcă.</span>
+      <span class="t">Venituri în creștere 5 ani din 5, marjă brută în urcare, iar ritmul trimestrial accelerează: +27,2% (Q2 2024) → +84,7% (Q1 2026).</span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">P/S 56, P/E 137 — preț care presupune ani de execuție perfectă.</span>
+      <span class="t"><b>structural</b> — P/E 138 și 56× vânzările presupun ani de creștere fără greșeală; sub propria istorie, dar de zeci de ori peste orice competitor listat cu profit. Nu e o fază cu dată de expirare.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Banii instituționali intră clar; short interest puțin peste prag.</span>
+      <span class="t"><b>structural</b> — capital instituțional net intrat puternic, dar short interest de 3,7% din float, peste pragul de 3% pentru verde. Nu există pistă de cash sau prag cu dată de verificat aici, deci eticheta cade pe structural.</span>
     </div>
     <div class="row">
       <span class="k">Expunere la lume</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Evaluare sensibilă la dobânzi + cerere dependentă de decizii politice.</span>
+      <span class="t"><b>structural</b> — două steaguri pline: forward P/E de 59–77 (sensibilitate mare la dobânzi) și 74% din venituri dintr-o singură țară. Ambele sunt proprietăți ale afacerii, nu etape.</span>
     </div>
   </div>
 </section>
 
-<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
-<section>
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ══════════════════════════════════════════ -->
+<section id="s01">
   <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
 
   <figure class="viz">
@@ -306,6 +341,12 @@ footer b{color:var(--ink-2)}
       <div class="ends"><span>min 106,37</span><span>max 207,52</span></div>
     </div>
   </figure>
+
+  <p>Prețul stă la 16,5% din intervalul ultimelor 52 de săptămâni — adică mult mai aproape
+  de minim decât de maxim. De la vârful de 207,52 $ până la minimul de 106,37 $ sunt
+  −48,7%. Un investitor care a intrat la vârf are azi jumătate din bani; unul care a intrat
+  acum trei ani are de șase ori mai mulți. Aceeași companie, două experiențe complet
+  diferite — iar diferența e prețul plătit, nu calitatea afacerii.</p>
 
   <figure class="viz" data-viz="compare">
     <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
@@ -320,166 +361,291 @@ footer b{color:var(--ink-2)}
 
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
-    <p>Alternativa care nu cere nicio muncă e un ETF pe S&P 500. Cine a cumpărat PLTR
-    acum 3–5 ani a zdrobit indicele; cine a cumpărat în ultimul an a pierdut și față
-    de indice, și în absolut. Ambele sunt adevărate simultan — de aceea acțiunea
-    derutează: performanța depinde brutal de momentul intrării, adică de prețul plătit.</p>
+    <p>Etalonul (<em>benchmark</em>) nu e zero, e indicele. Pe 3 și 5 ani, PLTR a bătut
+    S&amp;P 500 cu 457, respectiv 396 de puncte procentuale — o diferență enormă în favoarea
+    acțiunii. Pe ultimele 12 luni și pe anul curent, raportul s-a inversat brutal: −22,3%
+    față de +18,2% pentru indice (1 an) și −30,8% față de +9,6% (YTD), adică peste 40 pp
+    sub indice în ambele cazuri.</p>
+    <p>Cine a cumpărat acum un an a pierdut bani în timp ce alternativa fără nicio muncă de
+    analiză — un ETF pe S&amp;P 500 — a câștigat. Asta e singura comparație care spune dacă
+    alegerea a meritat efortul, și e comparația care lipsește din aproape orice analiză
+    citită de un începător.</p>
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="l">Beta</div><div class="v">1,58</div><div class="s">amplifică piața de ~1,6×</div></div>
-    <div class="stat"><div class="l">Volatilitate</div><div class="v">4,6–5,0%</div><div class="s">pe zi (14–30 zile)</div></div>
-    <div class="stat"><div class="l">La 10.000 €</div><div class="v">−1.600 €</div><div class="s">la o corecție de piață de 10%</div></div>
+    <div class="stat"><div class="l">Beta</div><div class="v">1,58</div><div class="s">1,56 pe stockanalysis</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt.)</div><div class="v">4,70%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.580 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <!-- vremea pieței — toate valorile cu dată; constată, nu prognoza -->
+  <p>Beta 1,58 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de
+  15,8%. Dacă ai 10.000 $ aici, o corecție obișnuită de piață înseamnă circa −1.580 $ —
+  și asta fără ca la Palantir să se fi întâmplat ceva. Volatilitatea zilnică de 4,7%
+  spune același lucru altfel: o zi normală mișcă poziția cu aproape 5% în orice direcție.
+  Dacă cifra asta te-ar face să vinzi în panică, poziția e prea mare.</p>
+
   <div class="stats">
-    <div class="stat"><div class="l">S&P 500 față de max 52s</div><div class="v">−1,8%</div><div class="s">la 31 iul 2026</div></div>
-    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,69%</div><div class="s">31 iul 2026 · de la ~4,4% acum un an</div></div>
-    <div class="stat"><div class="l">Sector YTD vs. S&P 500</div><div class="v">+7,0 pp</div><div class="s">tehnologie +16,6% · indice +9,6%</div></div>
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,74%</div><div class="s">31 iul 2026 · de la ~4,22% acum un an</div></div>
+    <div class="stat"><div class="l">Tehnologie YTD vs. S&amp;P 500</div><div class="v">+7,1 pp</div><div class="s">sector +16,6% · indice +9,6%</div></div>
   </div>
 
-  <p><strong>Ce a mutat prețul:</strong> pe 31 iulie, un raport intern NHS (sistemul public
-  de sănătate britanic) care pune la îndoială eficacitatea software-ului Palantir a tăiat
-  ~8% într-o zi; parlamentari britanici cer din 3 iunie 2026 renunțarea la contract.
-  Raportarea din 3 august vine pe nervi întinși. <strong>Vremea, în schimb, e favorabilă:</strong>
-  piața e aproape de maxim, sectorul tehnologic urcă mai repede decât indicele — și PLTR
-  scade oricum cu 30% YTD. Asta nu e vremea, e prețul plătit pe acțiune care se dezumflă.
-  Lecția completă: secțiunea 11.</p>
+  <p><strong>Vremea nu explică scăderea asta.</strong> S&amp;P 500 e la 1,76% de maximul lui
+  pe 52 de săptămâni (31 iulie 2026), iar sectorul de tehnologie e pe +16,6% YTD, cu 7,1
+  puncte peste indice. PLTR e pe −30,8% YTD, adică sub propriul sector cu circa 47 de
+  puncte procentuale. Când o acțiune scade odată cu sectorul ei, e vremea; aici sectorul
+  urcă și acțiunea coboară, deci povestea e despre companie și despre prețul ei, nu despre
+  piață. Un vânt din față real există totuși: dobânda americană pe 10 ani era 4,74% pe
+  31 iulie 2026, cu circa 0,52 puncte peste nivelul de acum un an (~4,22%) — iar dobânda
+  în urcare apasă cel mai tare exact pe evaluările cocoțate cel mai sus (mecanismul e
+  explicat la secțiunea 11).</p>
+
+  <p><strong>Ce a mutat prețul recent.</strong> Ultima raportare, Q1 2026 (4 mai 2026), a
+  fost o depășire clară a așteptărilor: venituri de 1,633 mld $ față de circa 1,54 mld $
+  estimate, profit ajustat pe acțiune 0,33 $ față de 0,28 $ estimat, creștere de 84,7%
+  an/an — cel mai rapid ritm de la listare. Conducerea a ridicat atunci ghidajul pe tot
+  anul 2026 la 7,650–7,662 mld $ (circa +71%) și pe partea comercială din SUA la peste
+  3,224 mld $. Cu toate astea, acțiunea a coborât de la 207,52 $ (3 noiembrie 2025) la
+  106,37 $ (25 iunie 2026). Explicația din piață, în iulie 2026, e rotația din software-ul
+  de întreprindere după lansările de modele noi de la Anthropic și OpenAI, plus întrebarea
+  dacă stratul de aplicații își mai poate păstra puterea de preț — o teamă de sector care
+  a lovit și IBM, și ServiceNow. Titlurile din ultimele zece zile alternează violent:
+  „Palantir Stock Tumbles Ahead of Earnings" (22 iulie 2026, −6,1%), „Palantir Earnings Set
+  Up for a Major Beat" (27 iulie 2026, +7,0%), „Palantir Stock Slumps Ahead of Q2 Earnings"
+  (28 iulie 2026, −6,1%). Următoarea raportare, Q2 2026, e pe 3 august 2026, după închiderea
+  pieței americane, cu un ghidaj propriu de 1,797–1,801 mld $ venituri.</p>
+
+  <p>Pe partea politică și de reglementare, două lucruri datate ating direct compania:
+  contractele federale americane obținute în 2026 depășesc 900 mln $, inclusiv unul cu ICE;
+  iar în ianuarie 2026 statul Illinois și orașul Chicago au deschis un proces prin care
+  susțin că folosirea de către ICE a aplicației Mobile Fortify încalcă legi de
+  confidențialitate ale statului. Procesul e împotriva agenției, nu a companiei — dar
+  atinge o linie de venituri aflată în creștere. Detaliile, la secțiunea 11.</p>
 </section>
 
-<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 2. CE FACE COMPANIA ═══════════════════════════════════════════════ -->
+<section id="s02">
   <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
-  <p>Palantir construiește software care leagă bazele de date împrăștiate ale unei
-  organizații mari într-un singur loc utilizabil: <strong>Gotham</strong> pentru armată și
-  servicii de informații, <strong>Foundry</strong> pentru companii, <strong>AIP</strong> — stratul de
-  inteligență artificială peste ambele, <strong>Apollo</strong> — livrarea software-ului.
-  Clienții: ministere ale apărării, agenții guvernamentale, corporații industriale,
-  pe contracte multianuale. Fondată în 2003, condusă de cofondatorul Alex Karp,
-  ~4.400 de angajați.</p>
-  <p>Împărțirea veniturilor pe segmente (guvern vs. comercial) și pe geografii:
-  <strong>N/A (nu apare pe sursă)</strong> — e publicată în raportul anual (10-K) de pe SEC EDGAR.</p>
+  <p>Palantir vinde software care ia datele împrăștiate ale unei organizații mari — baze
+  de date vechi, senzori, sisteme care nu vorbesc între ele — și le pune într-un singur loc
+  în care oamenii pot pune întrebări și lua decizii. <strong>Gotham</strong> e varianta
+  pentru apărare și servicii de informații, <strong>Foundry</strong> e varianta pentru
+  companii, <strong>Apollo</strong> livrează software-ul în medii izolate (o navă, o rețea
+  clasificată), iar <strong>AIP</strong> e stratul care conectează modele mari de limbaj la
+  datele reale ale clientului. Clientul nu cumpără un program pe care îl instalează
+  singur — cumpără o platformă în care Palantir îi mută procesele.</p>
+
+  <p>Compania a fost fondată în 2003, e condusă de co-fondatorul Alexander Karp, are 4.429
+  de angajați și își încheie anul fiscal în decembrie — deci FY2025 înseamnă chiar anul
+  calendaristic 2025, fără decalajele care apar la alte companii de tehnologie.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Segment (FY2025)</th><th>Venituri</th><th>Pondere</th><th>Creștere an/an</th></tr></thead>
+    <tbody>
+      <tr><td>Guvern</td><td>2.402,3 mln $</td><td>53,7%</td><td class="up">+53,1%</td></tr>
+      <tr><td>Comercial</td><td>2.073,2 mln $</td><td>46,3%</td><td class="up">+60,0%</td></tr>
+      <tr><td>Total</td><td>4.475,4 mln $</td><td>100%</td><td class="up">+56,2%</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Geografie (FY2025)</th><th>Venituri</th><th>Pondere</th><th>Pondere FY2023</th></tr></thead>
+    <tbody>
+      <tr><td>Statele Unite</td><td>3.320,0 mln $</td><td>74%</td><td>62%</td></tr>
+      <tr><td>Marea Britanie</td><td>427,4 mln $</td><td>10%</td><td>11%</td></tr>
+      <tr><td>Restul lumii</td><td>728,0 mln $</td><td>16%</td><td>27%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Sursa celor două tabele e nota „Segment and Geographic Information" din raportul anual
+  10-K pentru FY2025, depus la SEC pe 17 februarie 2026. Merită citit al doilea tabel de
+  două ori: ponderea Statelor Unite a urcat de la 62% la 74% în doi ani, iar restul lumii a
+  coborât de la 27% la 16%. Compania crește repede, dar crește tot mai concentrat pe o
+  singură țară — un fapt care revine la secțiunea 11.</p>
 </section>
 
-<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 3. MOAT ═══════════════════════════════════════════════════════════ -->
+<section id="s03">
   <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții
-    acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența
-    macină prețurile până când profitul dispare. Dovada în cifre contează mai mult decât
-    povestea: marja brută și ROIC arată dacă moat-ul ține.</p>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat (avantaj competitiv
+    durabil) e motivul pentru care un concurent cu bani și oameni buni tot nu poate lua
+    clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența
+    macină prețurile până când profitul dispare. Companiile care rămân profitabile zeci de
+    ani sunt cele care au ceva ce nu se poate copia ușor.</p>
   </div>
   <div class="score">
     <div class="row"><span class="k">Costuri de schimbare</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">Odată devenit sistemul nervos al instituției — date migrate, personal instruit, integrări scrise — plecarea costă ani.</span></div>
-    <div class="row"><span class="k">Active intangibile</span>
-      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Prezent</span>
-      <span class="t">Acreditări de securitate și istoric cu servicii de informații — barieră reală la intrare în zona guvernamentală.</span></div>
+      <span class="t">Odată ce Foundry devine sistemul în care o armată sau o companie își ține procesele, mutarea înseamnă remigrarea datelor, rescrierea integrărilor și reinstruirea oamenilor. Obligațiile contractate rămase (RPO) erau 4,5 mld $ la 31 martie 2026 — clienți legați pe ani, nu pe luni.</span></div>
     <div class="row"><span class="k">Efect de rețea</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Produsul nu devine mai valoros pentru un client când se adaugă altul.</span></div>
+      <span class="t">Platforma nu devine mai valoroasă pentru un client pentru că s-a adăugat altul — instalările sunt izolate, adesea în rețele clasificate.</span></div>
     <div class="row"><span class="k">Avantaj de cost / scară</span>
       <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Nu e un business de cost.</span></div>
+      <span class="t">Nu e o afacere de volum ieftin; modelul cere echipe de implementare scumpe. Marja mare vine din preț, nu din cost.</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Acreditările de securitate și autorizările pentru medii clasificate sunt o barieră de ani, nu de bani. Un competitor cu buget infinit tot nu poate intra mâine în aceste contracte.</span></div>
     <div class="row"><span class="k">Brand</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Ambivalent</span>
-      <span class="t">Cunoscut, dar controversat politic — vinde și respinge simultan (vezi secțiunea 11).</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — brandul e real, dar polarizant: aceeași notorietate care deschide uși în apărare atrage campanii publice împotriva contractelor cu ICE. Brandul e oricum cel mai fragil tip de moat, iar aici e și cu două tăișuri.</span></div>
   </div>
-  <p><strong>Dovada în cifre:</strong> marja brută a urcat de la 78,0% la 82,4% între FY2021 și
-  FY2025 — poate cere prețul ei — iar ROIC e 26,3% (finviz), peste pragul de ~15% care
-  separă moat-urile reale de povești.</p>
+  <p><strong>Dovada în cifre.</strong> Orice companie susține în raportul anual că are
+  avantaje competitive; marja brută e testul. La Palantir a urcat din FY2021 până azi:
+  78,0% → 78,6% → 80,6% → 80,3% → 82,4% (FY2025), iar pe ultimele 12 luni 84,1%. O companie
+  care își poate ține și ridica prețurile în timp ce vinde de trei ori mai mult nu are
+  probleme de putere de negociere. ROIC-ul confirmă: 26,3% pe finviz. (stockanalysis
+  afișează 306,8% pentru același indicator — diferența vine din ce se numără drept capital
+  investit la o companie fără datorii și cu mult cash; ambele sunt mult peste pragul de
+  ~15% care indică un moat real.)</p>
+  <p><strong>Unde e slăbiciunea.</strong> Costurile de schimbare protejează clienții
+  existenți, nu prețul contractelor viitoare. Dacă modelele generale devin destul de bune
+  încât o parte din munca de integrare să se facă fără o platformă dedicată, moat-ul nu
+  dispare — dar rata la care se pot ridica prețurile la reînnoire scade. Marja brută e
+  locul în care s-ar vedea prima, cu ani înainte să apară în profit.</p>
 </section>
 
-<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 4. FREE CASH FLOW ═════════════════════════════════════════════════ -->
+<section id="s04">
   <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept"><div class="h">CE E FREE CASH FLOW</div>
-    <p>Banii care rămân efectiv în cont după toate cheltuielile <em>și</em> investițiile.
-    Profitul e o opinie contabilă — depinde de amortizări, provizioane, recunoașterea
-    veniturilor. Cash flow-ul e un fapt bancar. Verificarea de sanitate ține:
-    cash flow operațional (2.134 mil $) − capex (34 mil $) ≈ FCF raportat (2.101 mil $).</p>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile
+    <em>și</em> investițiile în echipamente sau servere. Profitul e o opinie contabilă —
+    depinde de cum amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul
+    e un fapt bancar. O companie poate raporta profit ani la rând și totuși să rămână fără
+    bani. Pe scurt: profitul e ce spune contabilul că ai câștigat, free cash flow-ul e ce
+    arată extrasul de cont.</p>
   </div>
   <figure class="viz" data-viz="bars">
-    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mil USD</span></figcaption>
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
     <script type="application/json">
     {"labels":["FY21","FY22","FY23","FY24","FY25"],
-     "series":[{"name":"FCF","values":[321,184,697,1141,2101]}],
-     "suffix":" mil"}
+     "series":[{"name":"FCF","values":[0.321,0.184,0.697,1.141,2.101]}],
+     "suffix":" mld"}
     </script>
   </figure>
-  <p>Pozitiv 5 din 5 ani, cu marjă FCF de ~47% în FY2025 — mult peste pragul de 10%.
-  <strong>Steluța mare:</strong> compensarea în acțiuni (stock-based compensation) a fost
-  684 mil $ în FY2025 — ~15% din venituri. Nu iese ca numerar, deci FCF-ul arată bine,
-  dar te costă prin diluție — vezi secțiunea 6, unde steluța devine semafor roșu.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">FCF FY2025</div><div class="v">2,10 mld $</div><div class="s">de la 0,32 mld în FY2021</div></div>
+    <div class="stat"><div class="l">Marjă FCF FY2025</div><div class="v">46,9%</div><div class="s">prag de verde: ~10%</div></div>
+    <div class="stat"><div class="l">FCF vs. profit net FY2025</div><div class="v">2,10 / 1,63</div><div class="s">cash-ul depășește profitul</div></div>
+    <div class="stat"><div class="l">SBC FY2025</div><div class="v">684 mln $</div><div class="s">15,3% din venituri</div></div>
+  </div>
+  <p><strong>Ce înseamnă.</strong> FCF pozitiv în toți ultimii cinci ani, în creștere în
+  patru din cinci, cu o marjă de 46,9% în FY2025 — adică din fiecare 100 $ de venit rămân
+  aproape 47 $ în bancă. Verificarea de consistență ține: cash flow-ul operațional de
+  2.134 mln $ minus capex-ul de 34 mln $ dă 2.100 mln $, practic identic cu cei 2.101 mln $
+  raportați ca FCF. Capex-ul e minuscul (0,8% din venituri) pentru că afacerea rulează pe
+  cloud-ul altcuiva; asta face FCF-ul aproape egal cu cash-ul operațional.</p>
+  <p><strong>Avertismentul care trebuie spus.</strong> Plata în acțiuni (stock-based
+  compensation, SBC) a fost 684 mln $ în FY2025 — 15,3% din venituri, cu mult peste pragul
+  de ~10% de la care merită menționat. Suma asta nu iese din cont, deci <em>nu</em> scade
+  FCF-ul raportat, dar te costă pe tine prin diluție. Cu alte cuvinte: FCF-ul de 2,10 mld $
+  e real ca numerar, dar o parte din salariile plătite ca să-l producă au fost decontate
+  din felia ta, nu din banii companiei. Secțiunea 6 măsoară exact cât.</p>
 </section>
 
-<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 5. CASH VS DATORII ════════════════════════════════════════════════ -->
+<section id="s05">
   <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept"><div class="h">DE CE CONTEAZĂ</div>
-    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o
-    scadență. O companie cu net cash traversează recesiuni și dobânzi mari fără să fie
-    forțată să ia decizii proaste la momentul cel mai prost.</p>
+    <p>Datoria netă (<em>net debt</em>) e datoria totală minus banii pe care compania îi are
+    deja. O companie cu datorie mică traversează o recesiune sau o creștere de dobânzi fără
+    să vândă active pe nimic și fără să emită acțiuni noi la preț prost. Una îndatorată e
+    forțată să ia decizii proaste exact la momentul cel mai prost. Cele mai multe falimente
+    nu vin din lipsă de profit, ci din lipsă de cash la o scadență.</p>
   </div>
   <figure class="viz">
     <figcaption><b>Poziția financiară netă</b><span class="unit">mld USD</span></figcaption>
     <div class="split">
-      <div class="r"><span class="k">Cash</span>
+      <div class="r"><span class="k">Cash și investiții</span>
         <span class="t"><span class="f" style="width:100%;background:var(--accent)"></span></span>
         <span class="v">8,03</span></div>
       <div class="r"><span class="k">Datorie totală</span>
-        <span class="t"><span class="f" style="width:2.6%;background:var(--crit)"></span></span>
+        <span class="t"><span class="f" style="width:2.64%;background:var(--crit)"></span></span>
         <span class="v">0,21</span></div>
     </div>
   </figure>
   <div class="stats">
-    <div class="stat"><div class="l">Poziție netă</div><div class="v up">+7,8 mld</div><div class="s">net cash</div></div>
-    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">n/a</div><div class="s">datoria e sub cash — raportul nu se aplică</div></div>
+    <div class="stat"><div class="l">Poziție netă</div><div class="v up">+7,81 mld $</div><div class="s">net cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">nu se aplică</div><div class="s">prag de risc: 3,0</div></div>
+    <div class="stat"><div class="l">Lichiditate curentă</div><div class="v">6,91</div><div class="s">active curente / datorii curente</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,03</div><div class="s">practic nesemnificativă</div></div>
   </div>
+  <p><strong>Ce înseamnă.</strong> Bilanțul e cel mai simplu capitol din tot raportul. La
+  8,03 mld $ cash și investiții pe termen scurt față de 0,21 mld $ datorie totală, compania
+  e în poziție de <em>net cash</em> de 7,81 mld $ — practic mai bogată decât îndatorată.
+  Raportul datorie netă/EBITDA nu se poate calcula pentru că datoria netă e negativă, și
+  nici nu are rost. Cash-ul acoperă de aproape 38 de ori datoria totală, iar lichiditatea
+  curentă de 6,91 înseamnă că activele care se transformă în bani într-un an sunt de aproape
+  șapte ori mai mari decât facturile de plătit în același an.</p>
+  <p>Practic: la acest pilon, o furtună de piață, o recesiune sau o dobândă mai mare nu
+  amenință supraviețuirea companiei. Ce amenință acțiunea e prețul ei, nu bilanțul — două
+  lucruri diferite pe care începătorii le confundă des.</p>
 </section>
 
-<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
-<section>
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═════════════════════════════════════ -->
+<section id="s06">
   <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
-    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Dacă deții 1%
-    și compania emite 10% acțiuni noi, ajungi la 0,91% fără să fi vândut nimic. Diluția
-    e cea mai discretă formă de pierdere — nu apare nicăieri în portofoliu.</p>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Când o companie
+    emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne
+    același: dacă deții 1% și compania emite cu 10% mai multe acțiuni, ajungi la 0,91% fără
+    să fi vândut nimic. Diluția (<em>dilution</em>) e cea mai discretă formă de pierdere
+    pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu.</p>
   </div>
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Acțiuni în circulație (serie derivată din valoarea contabilă pe acțiune)</b><span class="unit">mil</span></figcaption>
+    <figcaption><b>Acțiuni în circulație la 31 decembrie (sursa: SEC EDGAR)</b><span class="unit">miliarde</span></figcaption>
     <script type="application/json">
     {"labels":["FY21","FY22","FY23","FY24","FY25"],
-     "series":[{"name":"Acțiuni în circulație","values":[1924,2127,2302,2454,2570]}]}
+     "series":[{"name":"Acțiuni în circulație","values":[2.027,2.099,2.200,2.339,2.391]}]}
     </script>
   </figure>
-  <p>Nivelurile seriei sunt aproximative (derivate; numărul raportat curent e 2,40 mld pe
-  stockanalysis — sursele diferă cu ~7%), dar tendința e certă și confirmată de variația
-  anuală curentă: <strong>+3,24%/an</strong>. Compania a început răscumpărări în FY2024 (64 mil $)
-  și FY2025 (75 mil $) — dar la 684 mil $ plată în acțiuni pe an, e buyback-ul cosmetic
-  din manual: cheltuie zeci de milioane, felia ta tot se subțiază.</p>
   <div class="stats">
-    <div class="stat"><div class="l">Variație anuală acțiuni</div><div class="v down">+3,24%</div><div class="s">felia ta scade</div></div>
-    <div class="stat"><div class="l">Randament buyback</div><div class="v">~0,03%</div><div class="s">75 mil $ la 295 mld $ capitalizare</div></div>
-    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">nu plătește</div></div>
-    <div class="stat"><div class="l">Randament total</div><div class="v down">negativ</div><div class="s">diluția depășește tot</div></div>
+    <div class="stat"><div class="l">Variație 4 ani</div><div class="v down">+17,9%</div><div class="s">felia ta a scăzut</div></div>
+    <div class="stat"><div class="l">Diluție medie</div><div class="v down">4,2%/an</div><div class="s">prag de roșu: peste 2%/an</div></div>
+    <div class="stat"><div class="l">Randament buyback</div><div class="v">0%</div><div class="s">nicio răscumpărare</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">niciun dividend</div></div>
+  </div>
+  <p><strong>Ce înseamnă.</strong> Numărul de acțiuni a urcat de la 2,027 mld (31 decembrie
+  2021) la 2,391 mld (31 decembrie 2025) — +17,9% în patru ani, adică 4,2% pe an. Pe ultimul
+  an calendaristic ritmul a mai încetinit (+2,24% în 2025), dar cifra pe ultimele 12 luni
+  raportate e din nou +3,24%. Toate aceste valori sunt peste pragul de 2%/an de la care
+  grila dă roșu. Cifrele istorice vin din formularele 10-K depuse la SEC
+  (<span class="num">CommonStockSharesOutstanding</span>), nu dintr-o serie derivată din
+  valoarea contabilă pe acțiune.</p>
+  <p>Randamentul total pentru acționar (<em>total shareholder return</em>) — dividend plus
+  răscumpărări — e <strong>zero</strong>: compania nu plătește dividend și nu răscumpără.
+  Mai mult, în FY2025 emisiunea netă de acțiuni a adus companiei 54 mln $, deci fluxul merge
+  în direcția opusă. Un începător compară instinctiv dividendele și concluzionează că o
+  firmă fără dividend „nu-ți dă nimic"; aici concluzia e mai dură — nu doar că nu-ți dă
+  nimic, ci felia ta se micșorează cu ~3–4% pe an. E ca și cum ai pierde 4% din felia ta de
+  tort în fiecare an, fără să fi mâncat nimic.</p>
+  <div class="concept">
+    <div class="h">DE CE „STRUCTURAL" ȘI NU „DE FAZĂ"</div>
+    <p>Un roșu poate fi normal pentru stadiul companiei („de fază") sau permanent
+    („structural"). Eticheta „de fază" cere trei condiții, toate obligatorii. Aici pică toate
+    trei: <strong>(1)</strong> cauza nu e o investiție — capex-ul e 34 mln $ pe an, iar
+    diluția vine din plata angajaților în acțiuni (684 mln $ în FY2025), adică din operare;
+    <strong>(2)</strong> nu există o pistă de cash de calculat, pentru că nu se arde cash —
+    dar asta nu salvează eticheta, ci doar arată că mecanismul „de fază" nici nu se aplică;
+    <strong>(3)</strong> compania nu a publicat nicio țintă cu dată pentru oprirea sau
+    reducerea diluției. Concluzia: <strong>structural</strong>. Diluția asta e politica de
+    remunerare a companiei, nu o etapă cu final anunțat — iar eticheta nu înmoaie culoarea.</p>
   </div>
 </section>
 
-<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 7. CREȘTERE ȘI MARJE ══════════════════════════════════════════════ -->
+<section id="s07">
   <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
-    <p>Veniturile pot fi cumpărate cu discounturi. Profitul net poate fi ajustat contabil.
-    Marja brută arată direct dacă compania mai poate cere prețul ei. Iar când marja
-    operațională crește mai repede decât veniturile — operating leverage — costurile fixe
-    se împart la vânzări tot mai mari: mecanismul din spatele multor povești de succes.</p>
+    <p>Veniturile pot fi cumpărate cu discounturi sau cu achiziții. Profitul net poate fi
+    ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — o
+    firmă care nu-și mai poate ține prețurile o vede întâi aici, cu ani înainte să apară în
+    profit.</p>
   </div>
   <figure class="viz" data-viz="lines">
     <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
@@ -491,171 +657,345 @@ footer b{color:var(--ink-2)}
      "suffix":"%"}
     </script>
   </figure>
-  <p>Veniturile: 1.542 → 1.906 → 2.225 → 2.866 → <strong>4.475 mil $</strong> (FY2021–FY2025),
-  cu creșterea accelerând la +56,2% în FY2025 — rar la scara asta. Marja operațională a
-  urcat de la −27% la +32% în patru ani.</p>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["Q2 24","Q3 24","Q4 24","Q1 25","Q2 25","Q3 25","Q4 25","Q1 26"],
+     "series":[{"name":"Creștere an/an","values":[27.2,30.0,36.0,39.3,48.0,62.8,70.0,84.7]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+  <p><strong>Ritmul.</strong> De obicei secțiunea asta e locul în care se descoperă
+  decelerarea ascunsă de media anuală — la Palantir e exact invers. Creșterea trimestrială
+  a urcat continuu, de la +27,2% în Q2 2024 la +84,7% în Q1 2026, opt trimestre la rând fără
+  nicio pauză. Anul FY2025 a închis pe +56,2%, iar ultimele 12 luni sunt pe +67,7%. Piața
+  tranzacționează ritmul, nu media — iar aici ritmul accelerează, ceea ce face scăderea
+  prețului de 30,8% pe anul curent și mai instructivă: nu e o poveste despre afacere care
+  încetinește, e o poveste despre cât se plătea pentru ea.</p>
+  <p><strong>Marjele.</strong> Marja brută urcă de patru ani (78,0% → 82,4%, iar pe ultimele
+  12 luni 84,1%). Marja operațională a trecut de la −26,7% în FY2021 la +31,6% în FY2025 și
+  38,1% pe ultimele 12 luni. Asta e <em>operating leverage</em> (efect de scară pe costurile
+  fixe): veniturile s-au aproape triplat din FY2021, în timp ce costurile fixe s-au împărțit
+  la tot mai multe vânzări. E mecanismul din spatele multor povești de succes în bursă și e
+  vizibil aici în stare pură — marja operațională crește de trei ori mai repede decât
+  veniturile.</p>
+  <p><strong>Creștere organică sau cumpărată?</strong> Goodwill-ul de pe bilanț era 37,9
+  mln $ la 31 decembrie 2022 — o cifră neglijabilă la o companie de 295 mld $. Nu s-au
+  cumpărat venituri cu achiziții; creșterea e organică.</p>
+  <p><strong>Creșterea pe acțiune.</strong> Fiindcă numărul de acțiuni crește cu peste 2%
+  pe an, cifra onestă e cea pe acțiune. Veniturile pe acțiune au urcat de la 1,225 $
+  (FY2024) la 1,872 $ (FY2025) — +52,8%, față de +56,2% pe total. Diferența de 3,4 puncte
+  procentuale e exact felia luată de diluție. Rămâne o creștere excepțională; dar cifra pe
+  care o primești tu e a doua, nu prima.</p>
 </section>
 
-<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
-<section>
+<!-- ══ 8. EVALUARE ═══════════════════════════════════════════════════════ -->
+<section id="s08">
   <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
   <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>P/E</th><th>Fwd P/E</th><th>P/FCF</th><th>P/S</th><th>Marjă brută</th><th>Diluție/an</th></tr></thead>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>Marjă brută</th><th>Creștere venituri</th><th>Dat. netă/EBITDA</th></tr></thead>
     <tbody>
-      <tr class="me"><td>PLTR</td><td>137,4</td><td>76,8*</td><td>109,2</td><td>56,2</td><td>82,4%</td><td>+3,2%</td></tr>
-      <tr><td>Snowflake (SNOW)</td><td>n/a (pierdere)</td><td>141,0</td><td>86,9</td><td>20,2</td><td>67,2%</td><td>+2,5%</td></tr>
-      <tr><td>Booz Allen (BAH)</td><td>11,0</td><td>11,2</td><td>7,5</td><td>0,8</td><td>22,4%</td><td>−4,4%</td></tr>
-      <tr><td>C3.ai (AI)</td><td>n/a (pierdere)</td><td>n/a</td><td>n/a</td><td>5,7</td><td>30,9%</td><td>+8,9%</td></tr>
+      <tr class="me"><td>PLTR</td><td>138,3</td><td>109,7</td><td>84,1%</td><td>+67,7%</td><td>net cash</td></tr>
+      <tr><td>Snowflake (SNOW)</td><td>n/a (pierdere)</td><td>86,9</td><td>67,2%</td><td>+31,1%</td><td>net cash</td></tr>
+      <tr><td>Booz Allen (BAH)</td><td>11,0</td><td>7,5</td><td>22,4%</td><td>−7,3%</td><td>3,0×</td></tr>
+      <tr><td>C3.ai (AI)</td><td>n/a (pierdere)</td><td>n/a (FCF negativ)</td><td>30,9%</td><td>−35,7%</td><td>net cash</td></tr>
     </tbody>
   </table></div>
-  <p>*Sursele diferă vizibil la forward P/E: 76,8 (stockanalysis) vs. 59,2 (finviz) —
-  definiții diferite ale „anului următor". Ambele spun aceeași poveste, în grade diferite.</p>
-  <p>Despre vecinii de tabel: <strong>Snowflake</strong> e cea mai apropiată comparație
-  publică la scară similară, dar relația e pe jumătate parteneriat — multe instalări
-  Foundry rulează chiar peste Snowflake sau Databricks. <strong>Booz Allen</strong> acoperă
-  jumătatea guvernamentală a afacerii, unde PLTR concurează cu contractori de servicii:
-  marja brută de 22% nu se compară direct cu 82% — alt model de business — dar multiplii
-  de un singur digit arată cât plătește piața pentru creștere lentă la aceiași clienți.
-  <strong>C3.ai</strong>, „competitorul clasic" din enterprise AI, rămâne în tabel ca
-  poveste de avertisment, nu ca rival: veniturile FY2026 (an fiscal încheiat în aprilie
-  2026) au scăzut cu 36%, la 250 mil $ de la 389 mil $, iar compania a tăiat cam un sfert
-  din angajați — de aceea rândul ei e aproape gol. Cel mai serios competitor comercial
-  nici nu are rând: <strong>Databricks</strong> e companie privată, fără ticker, iar
-  hyperscalerii (Microsoft Fabric) apasă dinspre cealaltă parte. Un tabel de multipli
-  arată concurenții listați — nu toată concurența.</p>
+  <p><strong>De ce acești competitori.</strong> Palantir are două afaceri distincte, deci
+  fiecare are nevoie de propriul etalon. Pe partea comercială, <strong>Snowflake</strong> e
+  cel mai apropiat rival listat pentru platforma de date. Pe partea guvernamentală,
+  <strong>Booz Allen Hamilton</strong> e cel mai mare furnizor listat de analiză de date
+  pentru statul american. <strong>C3.ai</strong> îl păstrez deliberat, deși e o companie în
+  contracție (venituri −35,7%, marjă netă −188%, capitalizare 1,43 mld $ după o scădere de
+  56% într-un an): e poveste de avertisment, nu un etalon de evaluare. Acum cinci ani era
+  prezentat drept „celălalt Palantir". Cel mai serios competitor comercial —
+  <strong>Databricks</strong> — e privat, deci nu apare în tabel; lipsa lui din tabel nu-l
+  șterge din realitate, iar în licitațiile comerciale e adversarul pe care Palantir îl
+  întâlnește cel mai des. Pe partea guvernamentală mai apar Leidos, SAIC, CACI și,
+  pe partea de apărare, Anduril.</p>
+  <p><strong>Ce spune tabelul.</strong> PLTR are cea mai mare marjă brută și de departe cea
+  mai mare creștere din grup — dar și un P/E de zece ori mai mare decât singurul competitor
+  cu profit. Nu e „tot sectorul evaluat așa": Booz Allen se tranzacționează la 11 ori
+  profitul <em>și</em> are venituri în scădere; Snowflake, la o creștere de jumătate,
+  costă 86,9 ori cash-ul liber față de 109,7 la Palantir. Mediana competitorilor la P/E se
+  sprijină pe o singură cifră utilizabilă (11,0 la Booz Allen), pentru că celelalte două
+  companii sunt pe pierdere — spun asta explicit, ca să nu pară un calcul mai solid decât
+  e.</p>
   <div class="concept">
     <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
-    <p>P/E-ul curent ~137 care scade la ~60–77 prospectiv înseamnă că piața are deja în
-    preț aproape o dublare a profitului în anul următor. Dacă vine „doar" +40%, rezultatele
-    pot fi excelente și acțiunea să scadă oricum — exact ce s-a întâmplat în ultimul an:
-    −22% la venituri +56%. Nu s-a stricat afacerea; s-a dezumflat multiplul. Pe trei axe:
-    sub extremele propriei istorii recente (P/E anual 398 în FY2024, 282 în FY2025 —
-    stockanalysis/ratios), dar de departe cea mai scumpă din nișă pe fiecare dolar de
-    vânzări; PEG 0,99 (finviz) spune că prețul e „rezonabil" doar dacă +56% continuă ani
-    buni — legea numerelor mari spune că nu la nesfârșit.</p>
-  </div>
-</section>
-
-<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
-  <div class="stats">
-    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">46–58%</div><div class="s">sursele diferă: 45,7% MarketBeat · 56,8% finviz · 57,8% stockanalysis</div></div>
-    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+26,9 mld</div><div class="s">39,5 mld intrați / 12,6 mld ieșiți · 2.410 cumpărători / 1.518 vânzători</div></div>
-    <div class="stat"><div class="l">Short interest</div><div class="v">3,6–3,7%</div><div class="s">din float · 1,7–1,9 zile de acoperire</div></div>
+    <p>Un multiplu nu e o etichetă de „scump" sau „ieftin" — e o afirmație despre viitor pe
+    care piața a făcut-o deja, iar tu pariezi alături de ea sau împotriva ei. Diferența
+    dintre P/E-ul curent și cel prospectiv (<em>forward P/E</em>, calculat pe estimările
+    analiștilor) arată direct ce creștere de profit e deja inclusă în preț.</p>
+    <p>La PLTR, P/E-ul curent e 138,3 (stockanalysis) / 138,6 (finviz). Forward P/E-ul
+    diferă mult între surse: <strong>77,3 pe stockanalysis</strong> și
+    <strong>59,2 pe finviz</strong> — cele două folosesc orizonturi diferite (următorul an
+    fiscal vs. următoarele 12 luni calendaristice). Prima cifră spune că prețul de azi
+    încorporează o creștere a profitului de circa <strong>79%</strong> în perioada
+    următoare; a doua, de circa <strong>134%</strong>. Estimările de profit ajustat pe
+    acțiune arată aceeași direcție: 1,48 $ pentru 2026 (+96,8%) și 2,09 $ pentru 2027
+    (+41,9%).</p>
+    <p>Tradus: dacă profitul chiar se aproape dublează, prețul de azi are sens. Dacă crește
+    „doar" cu 40% — un rezultat excelent pentru orice altă companie — ai plătit prea mult
+    chiar dacă afacerea merge bine. Asta explică fenomenul care derutează cel mai tare un
+    începător: compania raportează rezultate excelente și acțiunea scade. Nu e irațional;
+    rezultatele au fost bune, dar mai slabe decât ce era deja în preț. E exact ce s-a
+    întâmplat aici: opt trimestre de accelerare și, în paralel, −48,7% de la vârf.</p>
   </div>
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC</div>
-    <p>Un short interest mare înseamnă că profesioniști pariază pe scădere — mai des un
-    avertisment decât o oportunitate de „short squeeze", care e un eveniment rar și
-    imprevizibil, nu o strategie. La PLTR e doar puțin peste pragul verde de 3%:
-    nedramatic, dar nu neglijabil.</p>
+    <div class="h">RANDAMENTUL PROFITULUI VS. DOBÂNDA FĂRĂ RISC</div>
+    <p>P/E-ul citit invers e randamentul profitului (<em>earnings yield</em>): cât „produce"
+    compania la prețul de azi. La P/E 138,3, profitul îți dă <strong>0,72% pe an</strong>,
+    în timp ce obligațiunile americane pe 10 ani, fără practic niciun risc, dădeau
+    <strong>4,74%</strong> la 31 iulie 2026. Diferența de peste patru puncte procentuale e
+    exact ce plătești pentru creșterea viitoare. E o constatare din două fapte de azi, nu o
+    prognoză — dar arată cât de mult din prețul de azi e o presupunere despre profitul de
+    peste cinci sau zece ani.</p>
   </div>
-  <p><strong>Analiștii:</strong> țintă medie 189 $ (finviz; +54% peste preț), recomandare medie
-  „Buy" (1,94). Context obligatoriu: analiștii își revizuiesc țintele <em>după</em> mișcările
-  de preț, iar „Buy" e starea implicită a industriei, nu o distincție.</p>
+  <p><strong>Față de propria istorie, imaginea e mai nuanțată.</strong> P/E-ul companiei a
+  fost 190,8 (2023), 398,1 (2024) și 282,1 (2025) — media celor trei ani cu profit e 290,3.
+  Doar trei din cei cinci ani au un P/E, pentru că în FY2021 și FY2022 compania era pe
+  pierdere; spun asta ca să nu par că am o medie pe 5 ani pe care nu o am. Față de acea
+  medie, cei 138,3 de azi sunt cu peste 50% mai mici. Aceeași poveste la P/FCF: 109,7 azi
+  față de o medie proprie pe 5 ani de 120,0.</p>
+  <p><strong>Concluzia: roșu, dar cu explicație.</strong> Grila cere roșu când multiplii
+  presupun ani de creștere perfectă — 138 ori profitul și 56 ori vânzările fac exact asta —
+  sau când sunt semnificativ peste competitori, ceea ce e adevărat cu un ordin de mărime.
+  În același timp, e onest spus că acțiunea e semnificativ mai ieftină decât propria ei
+  istorie, iar creșterea a accelerat în tot acest timp. Eticheta e
+  <strong>structural</strong>, nu „de fază": nu există o investiție care se termină, o pistă
+  de cash de calculat sau o țintă publicată cu dată care să arate când se închide
+  discrepanța de evaluare. Un multiplu mare nu e o etapă cu final anunțat.</p>
+  <p><strong>Și un avertisment care se aplică în ambele direcții:</strong> evaluarea nu e un
+  semnal de timing. O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi
+  ieftină pentru un motiv întemeiat (<em>value trap</em>). Booz Allen, la 11 ori profitul și
+  cu venituri în scădere, e o ilustrare în celălalt tabel.</p>
 </section>
 
-<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
-<section>
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">45,7–57,9%</div><div class="s">MarketBeat / stockanalysis</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+26,8 mld $</div><div class="s">2.401 cumpărători / 1.513 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v">3,70%</div><div class="s">din float · 1,73 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">4,7×</div><div class="s">pe an · mai aproape de deținere decât de speculație</div></div>
+  </div>
+  <p><strong>Direcția banilor.</strong> În ultimele 12 luni au intrat 39,41 mld $ și au
+  ieșit 12,59 mld $ din partea investitorilor instituționali — un flux net pozitiv de circa
+  26,8 mld $, de la 2.401 cumpărători față de 1.513 vânzători. Nivelul deținerii (45,7% pe
+  MarketBeat, 56,8% pe finviz, 57,9% pe stockanalysis — numitorii diferă) e doar context;
+  direcția e semnalul, iar direcția e clar de cumpărare. Atenție însă: datele vin din
+  formularele 13F, cu întârziere de până la 45 de zile, și sunt agregări brute — se citesc
+  ca direcție, nu ca măsură exactă. Compania e în S&amp;P 500 (din 23 septembrie 2024) și în
+  Nasdaq-100 (din 23 decembrie 2024), ceea ce aduce o cerere constantă din partea fondurilor
+  pasive, independentă de rezultate.</p>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC</div>
+    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde
+    imediat și speră să le răscumpere mai ieftin. Un short interest mare înseamnă că mulți
+    profesioniști pariază pe scădere — e mult mai des un avertisment că cineva mai bine
+    informat vede o problemă decât o oportunitate de „short squeeze", care e un eveniment
+    rar și imprevizibil, nu o strategie. La PLTR cifra e 3,70% din float (3,55% pe finviz),
+    adică în zona de mijloc: peste pragul de 3% care ar fi dat verde, dar departe de 10%
+    care ar da roșu. <em>Days to cover</em> (short ratio) e 1,73–1,88 zile — sub pragul de 5
+    zile de la care apar mișcări violente doar din închiderea pozițiilor short. Cu alte
+    cuvinte: aici nu e combustibil de squeeze semnificativ, iar mișcările violente de preț
+    din ultimele luni vin din altceva.</p>
+  </div>
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><strong>Rotația float-ului</strong> (<em>float turnover</em>) se calculează ca volum
+    mediu zilnic × 250 de zile de tranzacționare ÷ float: 41,40 mln acțiuni × 250 ÷ 2,19 mld
+    acțiuni = <strong>4,7× pe an</strong>. Adică tot free float-ul își schimbă proprietarul
+    de aproape cinci ori într-un an. E cel mai ieftin indicator de speculație din raport,
+    pentru că măsoară direct raportul dintre cei care tranzacționează și cei care dețin. La
+    4,7× PLTR nu e un titlu de narativ pur — acelea se rotesc de zeci de ori pe an — dar nici
+    o acțiune de „sertar": e de câteva ori mai activă decât un titlu deținut de investitori
+    pe termen lung.</p>
+    <p><strong>Narativul, numit și datat.</strong> Povestea pe care o tranzacționează piața
+    la 31 iulie 2026 nu mai e „buildout de AI" în favoarea companiei, ci inversul ei:
+    rotația din software-ul de întreprindere, pe teama că modelele generale noi de la
+    Anthropic și OpenAI erodează puterea de preț a stratului de aplicații — aceeași teamă
+    care a lovit IBM și ServiceNow în iulie 2026. Titlul din 31 iulie 2026 în care Alexander
+    Karp răspunde marilor laboratoare de AI („ei vând tokenuri") e chiar disputa asta, pusă
+    în cuvinte. Nu aprob narativul și nu-l transform într-o cifră — îl constat, cu data lui.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de
+    bine poți vinde mâine, niciodată cât câștigă compania. De aceea sentimentul nu mută nicio
+    culoare din celelalte șapte rânduri.</p>
+  </div>
+  <p><strong>Consensul analiștilor, cu contextul lui.</strong> 32 de analiști dau o
+  recomandare medie de „cumpărare" (1,94 pe finviz, unde 1 e cel mai pozitiv), cu un
+  preț-țintă mediu de 182,2 $ și median de 200 $. Trei lucruri de spus o dată. Întâi,
+  analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul, nu înainte. Al doilea,
+  recomandările de vânzare sunt rare pentru că băncile care le emit vor să păstreze relația
+  cu compania — din 32 de analiști, 20 sunt pe cumpărare și doar 2 pe vânzare. Al treilea și
+  cel mai important: dispersia e uriașă — ținta cea mai mică e 70 $ (−43% față de preț), cea
+  mai mare 255 $ (+107%). Când intervalul merge de la „jumătate" la „dublu", media nu
+  înseamnă aproape nimic, și exact asta merită reținut.</p>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ════════════════════════════════════════ -->
+<section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
   <ul class="list">
-    <li><b>Alex Karp</b> — cofondator și CEO din 2003: decidentul e și autorul strategiei, de 23 de ani.</li>
-    <li><b>Insideri (12 luni):</b> 0 cumpărători, 7 vânzători, ~695 mil $ vândute (MarketBeat),
-      inclusiv CTO Shyam Sankar cu ~24 mil $ pe 2 iulie 2026. Vânzările directorilor plătiți
-      în acțiuni sunt zgomot programat; <b>absența totală a cumpărărilor din bani proprii</b>
-      e partea care spune ceva. (Tranzacțiile unor membri ai Congresului SUA din listă —
-      de ex. Ro Khanna — sunt dezvăluiri politice, nu „insideri" ai companiei.)</li>
-    <li><b>Structura de vot:</b> clase multiple (A/B plus clasa specială F a fondatorilor),
-      construite explicit ca fondatorii să păstreze controlul chiar cu participație mică.
-      Ca acționar minoritar, practic nu poți schimba deciziile managementului. Procentele
-      exacte de vot: de verificat în proxy statement pe SEC EDGAR — sursele gratuite nu le
-      expun de încredere.</li>
+    <li><b>Alexander Karp, CEO</b> — co-fondator, conduce compania din 2003. Insiderii dețin
+      între 7,4% (stockanalysis) și 9,5% (MarketBeat) din companie. E o pondere care
+      contează: un management care deține 7–10% mănâncă din aceeași oală cu acționarii, spre
+      deosebire de unul cu 0,1%, care e salariat, nu co-proprietar.</li>
+    <li><b>Insideri:</b> 0 cumpărători și 7 vânzători în ultimele 12 luni, cu vânzări de
+      695,1 mln $ — printre care Alexander Karp (397.744 acțiuni pe 20 mai 2026) și Shyam
+      Sankar (185.000 acțiuni pe 2 iulie 2026). <b>Nu e un semnal de alarmă în sine.</b>
+      Directorii companiilor de tehnologie sunt plătiți în mare parte în acțiuni și vând
+      programat; „0 cumpărători, 7 vânzători" e situația normală, nu excepția. Semnalul rar
+      și puternic ar fi invers — un director care cumpără din bani proprii, pentru că există
+      un singur motiv să faci asta. Notă de precizie: lista de pe MarketBeat amestecă și
+      tranzacțiile unor membri ai Congresului american (de exemplu Ro Khanna, Gilbert
+      Cisneros), raportate prin STOCK Act. Aceia nu sunt insideri ai companiei și nu sunt
+      numărați aici.</li>
+    <li><b>Structura de vot:</b> Palantir are <b>trei clase de acțiuni</b>, confirmate în
+      bilanțul din 10-K pentru FY2025: Class A (2.290,99 mln acțiuni), Class B (99,20 mln) și
+      Class F (1,005 mln, deținute de fondatori). Ce cumperi tu de pe bursă e Class A. E
+      structura clasică de <em>dual-class</em> dusă mai departe: fondatorii păstrează
+      controlul asupra voturilor chiar dacă dețin o fracțiune din capital. Nu e automat rău —
+      controlul fondatorului poate feri strategia de presiunea trimestrială a pieței — dar e
+      un lucru de știut înainte, nu după: dacă managementul ia decizii proaste, acționarii
+      minoritari nu au cum să le schimbe. Repartiția exactă a drepturilor de vot pe clasă
+      merită citită direct în 10-K sau în documentul de vot (<em>proxy statement</em>) de pe
+      SEC EDGAR; sursele gratuite nu o expun de încredere.</li>
   </ul>
 </section>
 
-<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════
-     Semaforul notează EXPUNEREA — proprietate stabilă a companiei — nu vremea.
-     Vremea de azi (dobânzi, sector, piață) apare în secțiunea 1, datată.
-     Steagurile și pragurile: references/scorecard.md §8.
-─────────────────────────────────────────────────────────────────────────── -->
-<section>
+<!-- ══ 11. EXPUNEREA LA LUME ═════════════════════════════════════════════ -->
+<section id="s11">
   <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
   <div class="concept">
     <div class="h">COMPRIMAREA MULTIPLILOR</div>
-    <p>La P/E 60+, cea mai mare parte a prețului e profitul anilor 5–15 de acum încolo,
-    adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin
-    în banii de azi — multiplul se comprimă. Compania poate livra exact ce a promis și
-    acțiunea tot să scadă. Nu s-a stricat afacerea; s-a scumpit banul. PLTR în ultimul an
-    e exemplul viu: venituri +56%, acțiunea −22%, cu dobânda pe 10 ani urcând de la ~4,4%
-    la 4,69% (31 iul 2026).</p>
+    <p>La un forward P/E între 59 și 77, cea mai mare parte din prețul de azi nu e profitul
+    de anul viitor — e profitul anilor 5–15 de acum încolo, adus în prezent. Dobânda fără
+    risc e gravitația tuturor evaluărilor: când urcă, viitorul îndepărtat valorează mai puțin
+    în banii de azi, și multiplul se comprimă. Compania poate livra exact ce a promis și
+    acțiunea tot să scadă serios. Nu s-a stricat afacerea; s-a scumpit banul. E jumătate din
+    răspunsul la nedumerirea „rezultate bune, de ce a scăzut?" — și e o descriere destul de
+    exactă a ce s-a întâmplat la PLTR între noiembrie 2025 și iunie 2026, cu dobânda pe 10
+    ani urcând de la ~4,22% la 4,74%.</p>
   </div>
   <div class="score">
     <div class="row"><span class="k">Dobânzi</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Forward P/E 59–77, mult peste pragul orientativ de ~35 — evaluarea depinde de profituri îndepărtate. Sensibilitatea e în preț, nu în afacere: bilanțul net cash e imun operațional.</span></div>
+      <span class="t"><b>structural</b> — forward P/E de 59,2 (finviz) până la 77,3 (stockanalysis), mult peste pragul orientativ de ~35. Sensibilitatea la dobânzi e o proprietate permanentă a unei evaluări construite pe profituri îndepărtate, nu o etapă.</span></div>
     <div class="row"><span class="k">Ciclu economic</span>
-      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Guverne și corporații mari, contracte multianuale, cerere greu de amânat; bugetele de apărare nu se comportă ca cheltuielile de consum.</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — steag parțial: 53,7% din venituri vin de la stat, pe contracte multianuale greu de anulat (4,5 mld $ obligații contractate la 31 martie 2026), dar restul de 46,3% e software comercial cumpărat din bugete de IT, printre primele tăiate într-o recesiune. Mixul e o trăsătură a modelului de business, nu o fază.</span></div>
     <div class="row"><span class="k">Geografie și politică</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Cererea e politică prin natură. UK: apel parlamentar să se renunțe la contractul NHS de £330 mil (3 iun 2026); raport NHS critic (31 iul 2026, −8% într-o zi). Pondere venituri guvernamentale: N/A (nu apare pe sursă).</span></div>
+      <span class="t"><b>structural</b> — 74% din veniturile FY2025 vin din Statele Unite (10-K FY2025), peste pragul de ~40%, iar ponderea urcă (62% în FY2023). Concentrarea crește, nu se atenuează.</span></div>
     <div class="row"><span class="k">Reglementare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Concret și numit: Office for Statistics Regulation (UK) a intervenit în iul 2026 pe comunicarea datelor NHS; presa ridică accesul SUA la date via CLOUD Act. Nicio acțiune antitrust în sursele citite.</span></div>
+      <span class="t"><b>structural</b> — steag parțial: procesul deschis de statul Illinois și orașul Chicago în ianuarie 2026 vizează folosirea de către ICE a aplicației Mobile Fortify, nu compania. Nu am găsit nicio acțiune antitrust sau de reglementare deschisă împotriva Palantir însuși. Expunerea la politica publică vine din natura clientului — permanentă, nu conjuncturală.</span></div>
   </div>
-  <p><strong>Două steaguri și jumătate → Risc.</strong> Și guardrail-ul care ține scorul onest:
-  expunere mare nu înseamnă companie proastă. PLTR are patru semafoare verzi pe calitatea
-  afacerii și roșu aici — o corabie excelentă pe o mare agitată. Lecția nu e „evit-o",
-  ci „dimensionează poziția ca să suporți valurile": la beta 1,58 și −8% pe un singur
-  titlu de presă, volatilitatea vine la pachet. Culoarea asta se schimbă pe orizonturi
-  de ani, nu cu știrile săptămânii.</p>
+  <p><strong>Cum se citește tabelul.</strong> Două steaguri pline (dobânzi, geografie) plus
+  două parțiale duc pilonul la roșu. Distincția care ține pilonul onest: aici se notează
+  <em>expunerea</em>, nu vremea. Unde e dobânda azi sau ce sector e la modă se schimbă
+  săptămânal; cât de sensibilă e compania la aceste mișcări e o proprietate a afacerii,
+  aproape la fel de stabilă ca moat-ul.</p>
+  <p><strong>Expunere mare nu înseamnă companie proastă.</strong> Palantir are verde la
+  moat, la cash flow, la bilanț și la creștere — o corabie excelentă pe o mare agitată.
+  Lecția nu e „evit-o", ci „dimensionează poziția ca să suporți valurile". Cu beta 1,58 și
+  o volatilitate zilnică de aproape 5%, o scădere de 30% într-un semestru e în intervalul
+  normal al acestei acțiuni, nu o anomalie — s-a și întâmplat, între noiembrie 2025 și iunie
+  2026. Volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului
+  e felul în care expunerea devine pierdere reală.</p>
+  <p>Riscurile specifice companiei — concentrarea pe clienți, disrupția tehnologică,
+  execuția — nu se dublează aici; stau la secțiunea 12.</p>
 </section>
 
-<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">12</span><h2>Riscuri</h2></div>
+<!-- ══ 12. CELE DOUĂ TEZE ════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <p>Teza taurului nu se compune, se citează: fiecare rând de mai jos e o cifră publicată de
+  companie, cu data ei. Nu sunt opinii și nu sunt extrapolări ale mele.</p>
   <ul class="list">
-    <li class="crit"><b>Prețul presupune execuție perfectă</b> — la P/S 56, o simplă încetinire
-      de la +56% la +30% e suficientă ca acțiunea să scadă sever fără nicio veste „proastă".
-      Capcana clasică: companie bună ≠ investiție bună — Microsoft în 2000 a avut nevoie de
-      16 ani să revină la vârf.</li>
-    <li class="crit"><b>Diluția continuă</b> — la +3,2%/an, în 10 ani felia ta scade cu ~27%
-      dacă ritmul se menține.</li>
-    <li><b>Dependența de decizii politice</b> — un contract pierdut zgomotos (NHS e testul live)
-      lovește și veniturile viitoare, și narativul.</li>
-    <li><b>Concentrarea pe valul AI</b> — o parte din cerere vine din valul de investiții în AI;
-      capex-ul tematic se poate normaliza.</li>
+    <li><b>Venituri de 7,650–7,662 mld $ în 2026 (circa +71% an/an)</b> — ghidajul pe tot
+      anul, ridicat de conducere la raportarea Q1 2026, publicată pe <b>4 mai 2026</b>
+      (nivelul anterior era 7,19 mld $).</li>
+    <li><b>Venituri comerciale din SUA de peste 3,224 mld $ în 2026 (cel puțin +120%)</b> —
+      ghidaj separat, ridicat tot pe <b>4 mai 2026</b>. E linia care trebuie să demonstreze
+      că afacerea nu depinde doar de contracte guvernamentale.</li>
+    <li><b>Obligații contractate rămase (RPO) de 4,5 mld $ la 31 martie 2026</b> — cifră din
+      raportul trimestrial 10-Q depus la SEC, în creștere de la 4,1 mld $ la 31 decembrie
+      2025 (10-K depus pe <b>17 februarie 2026</b>). Din cei 4,1 mld $ de la finalul lui
+      2025, compania declară că 38% se recunosc ca venit în 12 luni de la 1 ianuarie 2026 și
+      36% în următoarele 13–36 de luni. Sunt contracte semnate, nu estimări.</li>
+    <li><b>Venituri de 1,797–1,801 mld $ în Q2 2026</b> — ghidajul trimestrial publicat pe
+      <b>4 mai 2026</b>, verificabil la raportarea din <b>3 august 2026</b>.</li>
+  </ul>
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Concentrarea, pe trei axe simultan</b> — 53,7% din veniturile FY2025
+      vin de la stat, 74% vin din Statele Unite, iar un singur client reprezenta 25% din
+      creanțele comerciale la 31 decembrie 2025 (26% la finalul lui 2024, conform notei din
+      10-K). O schimbare de administrație, o reducere de buget federal sau pierderea unui
+      singur contract mare nu se compensează din altă parte.</li>
+    <li class="crit"><b>Comoditizarea stratului de aplicații</b> — valoarea Palantir stă în
+      a orchestra date și modele deasupra sistemelor clientului. Dacă modelele generale
+      (OpenAI, Anthropic) preiau tot mai mult din munca de integrare, moat-ul nu dispare
+      brusc, dar puterea de preț la reînnoire scade. E riscul pe care piața l-a tranzacționat
+      în iulie 2026 și e vizibil în avans într-un singur loc: marja brută. Câtă vreme urcă
+      (84,1% pe ultimele 12 luni), teza asta nu se confirmă în cifre.</li>
+    <li><b>Diluția ca politică permanentă</b> — 684 mln $ plată în acțiuni în FY2025 (15,3%
+      din venituri) și +4,2% acțiuni pe an în ultimii patru ani. Talentul care produce
+      creșterea e plătit din felia acționarilor, iar compania nu a publicat nicio țintă cu
+      dată pentru a opri asta. Nu e un risc de faliment, e o taxă anuală pe randamentul tău.</li>
+    <li><b>Dependența de o singură persoană</b> — Alexander Karp e co-fondator, CEO din 2003,
+      figura publică a companiei și, prin acțiunile Class F, o parte din structura de
+      control. Vânzările lui recente (397.744 acțiuni pe 20 mai 2026) sunt probabil zgomot
+      programat, dar concentrarea de rol nu e.</li>
   </ul>
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>De notat dinainte, nu improvizat când cade prețul: creșterea veniturilor sub ~25%
-    două trimestre la rând; marja brută sub 78%; pierderea efectivă a contractului NHS sau
-    a unuia american de calibru; diluție peste 4%/an.</p>
+    <div class="h">ARBITRUL</div>
+    <p>Trei verificări observabile, cu datele lor. <strong>(1) 3 august 2026:</strong> vin
+    veniturile Q2 2026 în intervalul ghidat de 1,797–1,801 mld $, și depășește creșterea
+    an/an vârful anterior de 84,7% din Q1 2026 — sau se rupe seria de opt trimestre de
+    accelerare? <strong>(2) Tot atunci:</strong> se ridică ghidajul pe 2026 peste 7,662 mld $
+    sau rămâne pe loc? Un ghidaj menținut după două trimestre de depășiri e informația, nu
+    cifra trimestrului. <strong>(3) La următoarele două raportări:</strong> trece RPO-ul de
+    4,5 mld $ (nivelul de la 31 martie 2026) și rămâne marja brută peste 84%? Backlogul arată
+    dacă vânzările sunt reale; marja brută arată dacă prețul se mai poate ține.</p>
+    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii
+    mult mai bune decât unul care improvizează când prețul cade.</p>
   </div>
 </section>
 
-<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">13</span><h2>Întrebări pentru următoarea companie</h2></div>
-  <p>Concepte întâlnite aici, de păstrat: <strong>comprimarea multiplilor</strong> (poți avea
-  dreptate despre companie și să pierzi bani pe multiplu), <strong>buyback-ul cosmetic</strong>
-  (uită-te la numărul de acțiuni, nu la suma anunțată), <strong>expunerea vs. vremea</strong>
-  (expunerea se notează, vremea doar se constată, datată).</p>
+<!-- ══ 13. CE AI ÎNVĂȚAT ═════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici</h2></div>
+  <p>Trei concepte pe care raportul ăsta le-a folosit și care se aplică la orice altă
+  companie. <strong>Comprimarea multiplilor:</strong> o acțiune poate scădea 30% în timp ce
+  afacerea accelerează, pentru că s-a schimbat cât plătește piața pentru un dolar de profit,
+  nu cât profit face compania. <strong>Diluția prin plata în acțiuni:</strong> o companie
+  fără datorii și cu cash flow excelent te poate totuși costa 4% pe an din felia ta, iar
+  asta nu apare niciodată în portofoliul tău. <strong>Așteptarea implicită:</strong>
+  diferența dintre P/E-ul curent și cel prospectiv nu e trivia — e contractul pe care îl
+  semnezi când cumperi, scris în cifre.</p>
+  <div class="sec"><span class="n">ÎNTREBĂRI</span><h2>Pentru următoarea companie</h2></div>
   <ul class="list qa">
-    <li>Numărul de acțiuni a scăzut sau a crescut în ultimii 3 ani?</li>
-    <li>Marja brută urcă sau coboară?</li>
-    <li>Cât din preț e profit din anii îndepărtați — și ce fac dobânzile?</li>
-    <li>A bătut acțiunea indicele pe 3–5 ani, sau doar a plutit cu sectorul?</li>
-    <li>Cine sunt clienții — și pot pleca la o schimbare de guvern?</li>
+    <li>Numărul de acțiuni a scăzut sau a crescut în ultimii 3 ani — și cu cât pe an?</li>
+    <li>Marja brută urcă sau coboară în ultimele patru exerciții?</li>
+    <li>A bătut indicele S&amp;P 500 pe 1, 3 și 5 ani, sau doar pe unul dintre orizonturi?</li>
+    <li>Cât din venituri vine dintr-o singură țară, de la un singur segment sau de la un
+      singur client?</li>
+    <li>Ce creștere e deja inclusă în preț — adică unde e forward P/E-ul față de P/E-ul
+      curent?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com · date la 31 iulie 2026.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (10-K FY2025 depus
+  la 17 februarie 2026, 10-Q Q1 2026, companyfacts XBRL) · date la 1 august 2026.
   Raportările au întârziere de până la un trimestru; short interest până la două
-  săptămâni; dețineri instituționale până la 45 de zile. Unde sursele diferă cu peste 5%
-  (forward P/E, deținere instituțională, număr de acțiuni), raportul arată ambele valori.<br>
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
   <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
   momentul potrivit de cumpărare, și nu ține cont de situația financiară,
   orizontul de timp sau toleranța la risc a nimănui.
