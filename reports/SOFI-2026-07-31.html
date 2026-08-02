@@ -1,0 +1,803 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOFI — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer,nav.toc{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>SOFI</h1>
+    <span class="co">SoFi Technologies, Inc.</span>
+  </div>
+  <div class="px">
+    <div class="v">16,31 $</div>
+    <div class="d down">−0,97% în ziua de 31 iul. 2026</div>
+  </div>
+  <div class="chips">
+    <span class="chip">Financials · <b>Credit Services</b></span>
+    <span class="chip">Indici: <b>niciunul afișat pe sursă</b></span>
+    <span class="chip">Capitalizare <b>21,04 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>decembrie</b></span>
+    <span class="chip">Ultima raportare <b>29 iul. 2026</b></span>
+  </div>
+</header>
+
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
+  <p style="margin-bottom:14px"><b>Atenție la citire: SoFi e o bancă.</b> Trei rânduri din tabelul de mai jos se judecă după alte reguli decât la o companie obișnuită — datoria e materie primă, nu risc; free cash flow-ul e aproape lipsit de sens; iar măsura rentabilității e ROE, nu marja. Fiecare rând spune unde s-a aplicat excepția.</p>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — licența bancară proprie și 45,5 mld $ depozite sunt un avantaj real de cost al finanțării față de creditorii nebancari, iar contul de salariu e greu de mutat. Dar dovada în cifre lipsește: ROE 7,09%, sub cel al ambelor bănci comparabile din tabelul de la secțiunea 8. Rândul e mereu structural.</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — <i>excepția băncilor.</i> Cash flow-ul operațional e −6,08 mld $ pe 12 luni, dar asta nu e ardere: la un creditor, banii dați cu împrumut se scad din fluxul operațional. Rândul se judecă pe profit și ROE: profit net 636,3 mln $ pe 12 luni, în creștere, dar ROE de doar 7,09%. Structural prin definiție — la o bancă în creștere rândul acesta nu are cum să devină verde.</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t"><i>Excepția băncilor:</i> nu se aplică datorie netă/EBITDA. Măsura e capitalul — 11,08 mld $ capitaluri proprii la 60,95 mld $ active, adică 18,2%, mult peste ce ține o bancă obișnuită. Împrumuturile propriu-zise sunt 3,30 mld $, iar finanțarea vine din depozite (45,5 mld $), cea mai ieftină și mai stabilă sursă.</span>
+    </div>
+    <div class="row">
+      <span class="k">Buyback vs. diluție</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — +14,5% acțiuni în 12 luni, de șapte ori pragul roșu, față de răscumpărări de doar 65 mln $. Nu e „de fază”: banii nu finanțează un capex cu dată de pornire, ci capitalul de reglementare de care are nevoie ca să țină creditele pe bilanțul propriu — o cerință permanentă a modelului, nu o etapă. Argumentul complet la secțiunea 6.</span>
+    </div>
+    <div class="row">
+      <span class="k">Creștere și marje</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — veniturile cresc în toți cei 5 ani și accelerează (+42,6% în T2 2026), ceea ce e material de verde. Ce ține rândul la galben: marja netă a coborât de la 18,9% (2024) la 13,4% (2025), iar divizia Technology Platform a scăzut cu 27,4% an/an în T1 2026. Creșterea e reală, dar consumă tot mai mult capital pe unitate.</span>
+    </div>
+    <div class="row">
+      <span class="k">Evaluare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — sub propria istorie (P/S 4,93 față de o medie pe 5 ani de 7,32; P/B 1,90 față de 2,29), dar peste ambele bănci comparabile: plătește 1,90× valoarea contabilă pentru un ROE de 7,09%, când Ally plătește 0,98× pentru 9,68%. Mixt, deci galben. Rândul e mereu structural.</span>
+    </div>
+    <div class="row">
+      <span class="k">Sentiment de piață</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — 14,6% din float vândut în lipsă, peste pragul de 10%, deși banii instituționali au intrat net cu 1,62 mld $ în 12 luni. Nu apare în niciun indice major pe sursele citite, deci nu are cererea automată a fondurilor pasive. Rândul e mereu structural.</span>
+    </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — un steag întreg (creditarea de consum e printre cele mai ciclice afaceri care există) plus unul parțial pe dobânzi, care la o bancă lovesc prin marja de dobândă, nu prin comprimarea multiplilor. Fără steag de reglementare numit și fără expunere la tarife. Rândul e mereu structural.</span>
+    </div>
+  </div>
+  <p style="margin-top:14px">Șapte rânduri din opt sunt colorate, toate „structural”. Niciun rând nu primește „de fază” — și e util să vezi de ce: eticheta cere ca o investiție finanțată să fie cauza culorii, cu o pistă de cash calculată și o țintă cu dată. La o bancă profitabilă nu există nicio ardere pe care să împarți cash-ul, iar nevoia de capital nou nu se termină la o dată anunțată; ea revine de fiecare dată când bilanțul crește. „Structural” aici nu înseamnă „mai rău” — înseamnă „așa arată modelul, permanent”.</p>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:8.0%"></div>
+        <div class="now" style="left:8.0%">16,31</div>
+      </div>
+      <div class="ends"><span>min 14,88</span><span>max 32,73</span></div>
+    </div>
+  </figure>
+
+  <p>Acțiunea e la 8% din intervalul ultimului an — practic lipită de minim, la doar 9,6% deasupra lui și cu <b>50,2% sub maximul de 32,73 $</b>. Nu e o corecție într-un trend bun; e capătul de jos al unui an prost.</p>
+
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"a":"SOFI","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":-37.70,"b":9.55},
+             {"label":"1 an","a":-27.77,"b":18.19},
+             {"label":"3 ani","a":42.45,"b":63.18},
+             {"label":"5 ani","a":5.63,"b":70.36}]}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
+    <p>Aici comparația spune totul dintr-o privire: <b>SoFi e sub indice pe toate cele patru orizonturi.</b> Pe cinci ani a făcut +5,63%, iar un ETF pe S&amp;P 500 a făcut +70,36% — o diferență de aproape 65 de puncte procentuale, obținută fără nicio muncă de analiză și fără nopți pierdute. Chiar și pe trei ani, unde cifra absolută arată bine (+42,45%), indicele a făcut mai mult.</p>
+    <p>E exact tipul de constatare pe care 99% din analizele citite de un începător nu o conțin, și singura care răspunde la întrebarea corectă: nu „a crescut acțiunea mea?”, ci „a crescut mai mult decât alternativa leneșă?”. Aici, de cinci ani, răspunsul e nu.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">2,18</div><div class="s">amplifică piața de ~2,2×</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt.)</div><div class="v">5,5%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−2.180 $</div><div class="s">la o corecție de piață de 10%</div></div>
+  </div>
+
+  <p>Beta 2,18 înseamnă că, istoric, la o scădere de 10% a pieței, acțiunea a scăzut în jur de 22%. La 10.000 $ investiți, o corecție obișnuită de piață costă în jur de 2.180 $. E un nivel de zgomot pe care trebuie să-l poți duce <i>înainte</i> să-l întâlnești, nu după.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">la 31 iul. 2026 · de la ~4,23% pe 1 aug. 2025</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v down">−2,3 pp</div><div class="s">Financial +7,23% · indice +9,55%</div></div>
+  </div>
+
+  <p><b>Vremea pieței, la 31 iul. 2026.</b> Indicele e practic la maxim, iar sectorul financiar e cu 2,3 puncte procentuale în urma lui de la începutul anului — o rămânere în urmă modestă. SoFi e însă pe <b>−37,70%</b> în același interval, adică vreo 45 de puncte procentuale sub propriul sector. Concluzia e limpede și merită spusă direct: <b>asta nu e vremea, e ceva despre această companie.</b> Al treilea reper datat: dobânda americană pe 10 ani e 4,75%, în urcare de la ~4,23% acum un an — la o bancă, asta e o veste cu două tăișuri, explicată la secțiunea 11.</p>
+
+  <p><b>Ce a mutat prețul recent.</b> Pe <b>29 iulie 2026</b>, înainte de deschiderea pieței, SoFi a raportat trimestrul II: venituri record de ~1,2 mld $, <b>+42,6% an/an</b>, 1,1 milioane de membri noi într-un singur trimestru (15,8 milioane în total, +35%), originări record de credite de 14,8 mld $ și EBITDA ajustat de 358 mln $ (+44%). Compania a ridicat prognoza de venituri pentru 2026 la 4,75–4,85 mld $. Acțiunea a avut cea mai bună zi din 2026 — și, în zilele următoare, a atins un nou minim.</p>
+  <p>Motivul e instructiv și e chiar tema secțiunii 8: rezultatele au fost excelente, dar ghidajul de profit a rămas neschimbat (~1,6 mld $ EBITDA ajustat, ~0,60 $ pe acțiune), iar mai multe bănci și-au tăiat prețurile-țintă pe 30 iulie invocând faptul că <b>creșterea devine tot mai consumatoare de capital</b> și că volumele platformei de creditare pentru terți sunt slabe. O companie poate raporta cifre record și acțiunea să scadă: prețul de dinainte încorpora deja acele cifre, plus altele care nu au venit. Data următoarei raportări nu e publicată încă pe sursele citite.</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <p>SoFi e o bancă digitală americană, fără sucursale, construită în jurul aplicației de pe telefon. A pornit în 2011 din refinanțarea creditelor pentru studenți și a devenit, în 2022, o bancă cu licență proprie — un detaliu care schimbă totul, pentru că îi permite să-și finanțeze creditele din depozitele clienților în loc să împrumute bani scumpi de pe piață. Are 6.100 de angajați, 15,8 milioane de membri și e condusă de Anthony Noto din 2018.</p>
+  <p>Câștigă bani din trei locuri, iar diferența dintre ele contează:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Segment (venit net, T1 2026)</th><th>Venit</th><th>Pondere</th><th>Față de T1 2025</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>Lending (creditare)</td><td>642,4 mln $</td><td>56,1%</td><td class="up">+55,4%</td></tr>
+      <tr><td>Financial Services</td><td>428,5 mln $</td><td>37,4%</td><td class="up">+41,4%</td></tr>
+      <tr><td>Technology Platform</td><td>75,1 mln $</td><td>6,6%</td><td class="down">−27,4%</td></tr>
+      <tr class="me"><td>Total segmente</td><td>1.146,0 mln $</td><td>100%</td><td class="up">+39,8%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Cifrele sunt din nota de segmente a raportului trimestrial depus la SEC pe 7 mai 2026. <b>Lending</b> — credite personale, de studii și ipotecare — e motorul: ia bani ieftin din depozite și îi dă mai scump cu împrumut, iar diferența e câștigul. <b>Financial Services</b> e restul aplicației: conturi curente și de economii, investiții, card de credit, asigurări — venituri din comisioane, mai puțin riscante și în creștere solidă. <b>Technology Platform</b> (Galileo) vinde infrastructura de plăți altor firme financiare; e singura divizie care <i>scade</i>, cu 27,4% an/an, și e cea despre care analiștii vorbesc cel mai critic.</p>
+  <p>Concentrarea într-o singură propoziție: peste 93% din venituri vin din Statele Unite, restul din America Latină, Canada și Hong Kong.</p>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel: motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. În servicii financiare, moat-ul are o formă particulară — nimeni nu are un produs pe care ceilalți să nu-l poată copia într-un an. Ce nu se copiază ușor sunt <i>licența</i>, <i>costul banilor</i> și <i>obiceiul clientului</i>.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Plauzibil</span>
+      <span class="t">E diferența dintre a schimba marca de cafea și a schimba banca la care ai salariul, creditul și toate plățile programate. Contul cu virarea salariului e printre cele mai lipicioase produse din lume. Dar mulți dintre cei 15,8 mln de membri au un singur produs, iar un singur produs se mută ușor.</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Contul tău nu devine mai valoros pentru că își deschide și vecinul unul. Efectul real e de scară, nu de rețea, și stă la rândul următor.</span></div>
+    <div class="row"><span class="k">Avantaj de cost / scară</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Real</span>
+      <span class="t">Cel mai solid punct. Depozitele au urcat de la 26,0 mld $ (finalul lui 2024) la 45,5 mld $ (30 iun. 2026). Banii clienților sunt cea mai ieftină finanțare care există, iar un creditor fără licență bancară nu are acces la ea. Fără sucursale, costul de operare e și el structural mai mic decât la o bancă tradițională.</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, dar nu unic</span>
+      <span class="t">Licența bancară națională e o barieră autentică — se obține greu și se pierde ușor. Nu e însă exclusivă: Happen (fostă LendingClub) are și ea una, iar cadrul federal pentru stablecoin a deschis ușa și altora.</span></div>
+    <div class="row"><span class="k">Brand</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>În construcție</span>
+      <span class="t">Numele stadionului din Los Angeles, parteneriate sportive (cel mai recent cu Notre Dame, 28 iul. 2026). Brandul e cel mai fragil tip de moat și nu convinge pe nimeni să plătească o dobândă mai mare la credit.</span></div>
+  </div>
+  <p><b>Verdictul: Atenție (galben), structural.</b> Există un avantaj real și măsurabil — costul finanțării prin depozite proprii — dar dovada finală a unui moat e rentabilitatea, iar aici cifra e slabă: <b>ROE 7,09%</b>. Pentru comparație, pragul la care o rentabilitate devine dovadă de moat e în jur de 15%, iar ambele bănci comparabile din secțiunea 8 fac mai mult decât SoFi (Happen 13,15%, Ally 9,68%). O bancă își poate crește bilanțul mult timp fără să demonstreze că are un avantaj; testul e dacă profitul crește mai repede decât capitalul pe care îl consumă.</p>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow — și de ce nu se aplică aici</h2></div>
+  <div class="concept">
+    <div class="h">DE CE FCF-UL NU FUNCȚIONEAZĂ LA O BANCĂ</div>
+    <p>La o companie obișnuită, free cash flow-ul e banii rămași după cheltuieli și investiții — un fapt bancar, mai greu de manipulat decât profitul contabil. La un creditor, definiția se rupe: <b>banii dați cu împrumut clienților se scad din fluxul operațional</b>. Așa se face că SoFi arată un cash flow operațional de −6,08 mld $ pe ultimele 12 luni, în timp ce raportează profit. Nu a pierdut 6 miliarde; a dat 6 miliarde cu împrumut, cu dobândă. Cu cât crește mai repede, cu atât cifra arată mai rău.</p>
+    <p>De aceea rândul se judecă pe altceva: <b>profitul net și rentabilitatea capitalului (ROE)</b>.</p>
+  </div>
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Profit net pe an fiscal</b><span class="unit">mln USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","ultimele 12 luni"],
+     "series":[{"name":"Profit net","values":[-483.9,-320.4,-300.7,498.7,481.3,636.3]}],
+     "suffix":" mln"}
+    </script>
+  </figure>
+  <p>Graficul arată o cotitură reală: trei ani de pierderi, apoi profit. E cea mai bună veste din raport. Cu două precizări oneste. Prima: cifra din 2024 (498,7 mln $) conține un câștig contabil mare, nerepetabil — 332,5 mln $ din cei 498,7 au apărut într-un singur trimestru, al patrulea. A doua: profitul din 2025 (481,3 mln $) e sub cel din 2024, deși veniturile au crescut cu 35,6%.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">Profit net (12 luni)</div><div class="v up">636,3 mln $</div><div class="s">+32% față de anul fiscal 2025</div></div>
+    <div class="stat"><div class="l">ROE</div><div class="v">7,09%</div><div class="s">rentabilitatea capitalului propriu</div></div>
+    <div class="stat"><div class="l">ROA</div><div class="v">1,25%</div><div class="s">rentabilitatea activelor</div></div>
+    <div class="stat"><div class="l">Plată în acțiuni</div><div class="v">270,3 mln $</div><div class="s">pe an · 6,3% din venitul net</div></div>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> ROE-ul de 7,09% e cifra care ține rândul la galben. Tradus: din fiecare 100 $ de capital al acționarilor, banca scoate 7 $ pe an. O bancă bine condusă scoate 12–15 $, iar o afacere care nu depășește costul propriu al capitalului distruge valoare chiar dacă raportează profit. ROA de 1,25% e, în schimb, respectabil pentru o bancă — diferența dintre cele două spune că SoFi are mult capital față de active, ceea ce e prudent (vezi secțiunea 5) dar diluează rentabilitatea. Eticheta e structurală pentru că nu descrie o etapă: la un creditor în creștere, rândul acesta nu are cum să devină verde.</p>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
+  <div class="concept">
+    <div class="h">LA BĂNCI, DATORIA E MATERIE PRIMĂ</div>
+    <p>La o companie obișnuită, datoria e risc: cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. La o bancă, „datoria” e chiar produsul — depozitele tale sunt, contabil, o datorie a băncii către tine. O bancă fără datorii ar fi o bancă fără clienți. De aceea raportul datorie netă/EBITDA nu se aplică, iar măsura corectă e <b>capitalul</b>: cât din active e finanțat din banii acționarilor și nu din banii altora. E perna care absoarbe creditele neîncasate.</p>
+  </div>
+  <figure class="viz">
+    <figcaption><b>Cum e finanțat bilanțul (30 iun. 2026)</b><span class="unit">mld USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Depozite</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--accent)"></span></span>
+        <span class="v">45,5</span></div>
+      <div class="r"><span class="k">Capitaluri proprii</span>
+        <span class="t"><span class="f" style="width:24.3%;background:#1baf7a"></span></span>
+        <span class="v">11,1</span></div>
+      <div class="r"><span class="k">Împrumuturi</span>
+        <span class="t"><span class="f" style="width:7.2%;background:var(--crit)"></span></span>
+        <span class="v">3,3</span></div>
+    </div>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Capitaluri / active</div><div class="v up">18,2%</div><div class="s">11,08 mld $ din 60,95 mld $</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,31</div><div class="s">împrumuturi, fără depozite</div></div>
+    <div class="stat"><div class="l">Valoare contabilă / acțiune</div><div class="v">8,25 $</div><div class="s">față de un preț de 16,31 $</div></div>
+  </div>
+  <p><b>Verdict: Solid (verde).</b> Un raport capitaluri/active de 18,2% e neobișnuit de conservator — băncile mari americane operează de regulă în jur de 8–10%. Practic, aproape o cincime din bilanț e finanțată din banii acționarilor, ceea ce înseamnă o pernă groasă în fața unei recesiuni. Împrumuturile propriu-zise, 3,3 mld $, sunt mici pe lângă cele 45,5 mld $ de depozite — iar depozitele au urcat de la 26,0 mld $ la finalul lui 2024, adică finanțarea a devenit an de an mai ieftină și mai stabilă.</p>
+  <p>Verdele acesta are însă o legătură directă cu roșul de la secțiunea următoare, iar cele două trebuie citite împreună: <b>perna e groasă și pentru că a fost umplută cu acțiuni noi.</b> Un bilanț solid obținut prin emisiune de acțiuni e solid pentru bancă și scump pentru acționarul existent.</p>
+</section>
+
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Dacă deții 1% dintr-o companie și ea emite cu 10% mai multe acțiuni, ajungi la 0,91% fără să fi vândut nimic. E ca și cum ai pierde o felie din tort în fiecare an, fără să fi mâncat. Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare nicăieri în portofoliu — vezi doar că prețul nu mai urcă la fel de repede ca afacerea.</p>
+  </div>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație (cifre depuse la SEC)</b><span class="unit">milioane</span></figcaption>
+    <script type="application/json">
+    {"labels":["feb 23","feb 24","ian 25","ian 26","apr 26"],
+     "series":[{"name":"Acțiuni în circulație","values":[934.6,976.7,1096.5,1275.3,1282.7]}]}
+    </script>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+14,5%</div><div class="s">prag de risc: +2%/an</div></div>
+    <div class="stat"><div class="l">Ultimul trimestru</div><div class="v">+0,6%</div><div class="s">ian. → apr. 2026 · ritm mult mai mic</div></div>
+    <div class="stat"><div class="l">Răscumpărări (12 luni)</div><div class="v">65 mln $</div><div class="s">0,3% din capitalizare</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">niciun dividend</div></div>
+  </div>
+  <p><b>Verdict: Risc (roșu), structural.</b> Pragul de roșu e +2% pe an; SoFi e la +14,5% pe ultimele 12 luni. Cifrele din grafic sunt luate de pe coperta formularelor depuse la SEC: 934,6 mln acțiuni în februarie 2023, 1.282,7 mln la 30 aprilie 2026. Cine deținea 1% acum trei ani și n-a cumpărat nimic în plus deține azi 0,73%. În aceeași perioadă compania a răscumpărat acțiuni de 65 mln $ — sub o treime de procent din capitalizare, adică practic nimic.</p>
+  <p><b>O nuanță importantă, în favoarea companiei.</b> Diluția nu e uniformă: aproape toată s-a produs în 2025 (de la 1.096,5 la 1.275,3 mln acțiuni), pe fondul unei emisiuni de 3,22 mld $. În ultimul trimestru raportat, ianuarie–aprilie 2026, numărul de acțiuni a crescut cu doar 0,6% — un ritm anualizat de ~2,4%, adică la limita pragului. Roșul descrie corect ultimele douăsprezece luni; ultimul trimestru arată vizibil altfel, iar asta e o cifră de urmărit în raportările următoare.</p>
+  <div class="concept">
+    <div class="h">DE CE „STRUCTURAL” ȘI NU „DE FAZĂ” — CAZUL CEL MAI DISCUTABIL DIN RAPORT</div>
+    <p>Diluția e unul dintre cele patru rânduri care pot primi eticheta „de fază”, iar argumentul în favoarea ei există: banii nu au acoperit pierderi — compania e profitabilă — ci au finanțat creșterea creditării. O bancă are nevoie de capital de reglementare pentru fiecare credit pe care îl ține pe bilanțul propriu, iar SoFi ține din ce în ce mai multe (originări record de 14,8 mld $ în T2 2026). Asta seamănă cu o investiție, nu cu o gaură.</p>
+    <p><b>Și totuși eticheta e „structural”, din două motive.</b> Primul e mecanic: regula cere ca arderea să vină din capex, cu o pistă de cash calculată pe cel puțin patru trimestre. La o bancă profitabilă nu există nicio ardere pe care să împarți cash-ul — testul nu se poate aplica, iar o condiție care nu poate fi verificată nu poate fi bifată. Al doilea e economic și mai important: <b>o fabrică se termină, capitalul de reglementare nu.</b> Fiecare dolar de credit nou cere capital nou, la nesfârșit. Nu există o dată la care „faza” se încheie și felia acționarului încetează să se micșoreze — există doar momentul în care rentabilitatea devine suficient de mare încât creșterea să se autofinanțeze din profit. La un ROE de 7,09%, acel moment nu a venit.</p>
+    <p>Asta e exact distincția pe care o serveşte eticheta: nu „e rău”, ci „nu aștepta să se termine de la sine”.</p>
+  </div>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
+  <div class="concept">
+    <div class="h">O NOTĂ DE SURSĂ, ÎNAINTE DE CIFRE</div>
+    <p>Cele două surse principale dau venituri diferite pentru SoFi: 4,27 mld $ pe 12 luni (stockanalysis) și 5,58 mld $ (finviz). Diferența e de peste 5%, deci merită spusă. Nu e o eroare: prima folosește <i>venitul net</i> — după dobânzile plătite deponenților, adică indicatorul pe care îl raportează compania însăși — iar a doua venitul brut. În tot raportul folosesc venitul net, pentru că e cifra pe care o compari cu ghidajul companiei.</p>
+  </div>
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Venit net pe trimestru</b><span class="unit">mln USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["T3 24","T4 24","T1 25","T2 25","T3 25","T4 25","T1 26","T2 26"],
+     "series":[{"name":"Venit net","values":[691.1,727.3,766.1,844.9,952.4,1020.0,1091.0,1205.0]}],
+     "suffix":" mln"}
+    </script>
+  </figure>
+  <p><b>Ritmul e bun și se întărește.</b> Creșterea an/an pe ultimele opt trimestre: +34,1%, +20,5%, +20,1%, +43,9%, +37,8%, +40,2%, +42,5%, <b>+42,6%</b>. Piața tranzacționează ritmul, nu media — iar aici ritmul accelerează, ceea ce face scăderea de 37,7% a acțiunii din acest an cu atât mai instructivă. Pe ani, veniturile au crescut în toți cei cinci: 977 mln $ (2021), 1.519, 2.068, 2.643, 3.583 mln $ (2025), 4.268 mln $ pe ultimele 12 luni.</p>
+  <p><b>De ce nu e verde, atunci.</b> Pragul de verde cere creștere în 4 din 5 ani <i>și</i> marje stabile sau în urcare. Prima condiție e îndeplinită cu vârf și îndesat; a doua nu: marja netă a coborât de la 18,9% (2024) la 13,4% (2025), iar cea din 2024 era oricum umflată de un câștig contabil nerepetabil. Se adaugă două lucruri concrete:</p>
+  <ul class="list">
+    <li><b>Technology Platform scade cu 27,4% an/an</b> (75,1 mln $ în T1 2026, față de 103,4 mln $). E divizia cu cea mai bună economie — venituri din software, fără risc de credit — și e singura care se contractă. Restul companiei crește în jurul ei.</li>
+    <li><b>Creșterea consumă tot mai mult capital.</b> Compania ține din ce în ce mai multe credite pe bilanțul propriu în loc să le vândă mai departe. Asta îmbunătățește veniturile din dobânzi, dar cere capital și aduce riscul de credit acasă. E chiar motivul invocat de bănci când au tăiat prețurile-țintă pe 30 iul. 2026.</li>
+    <li><b>Judecă și pe acțiune.</b> La o diluție de +14,5%, veniturile totale au crescut cu 40,9%, iar veniturile <i>pe acțiune</i> — partea ta — cu aproximativ 23%. Ambele cifre sunt bune. Doar a doua e a ta.</li>
+  </ul>
+  <p><b>Verdict: Atenție (galben), structural.</b> Un galben aproape de verde, și merită spus ca atare: dacă marja netă se stabilizează și Technology Platform se oprește din scădere, rândul are unde să urce. Eticheta e structurală pentru că ambele cauze — economia unei creșteri finanțate cu capital și o divizie care pierde teren — nu sunt o etapă cu dată de încheiere.</p>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/E prospectiv</th><th>P/B</th><th>ROE</th><th>Venituri (12 luni)</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>SOFI</td><td>34,14</td><td>22,23</td><td>1,90</td><td>7,09%</td><td>4,27 mld $</td></tr>
+      <tr><td>Happen / fostă LendingClub (HAPN)</td><td>11,49</td><td>9,90</td><td>1,41</td><td>13,15%</td><td>1,39 mld $</td></tr>
+      <tr><td>Ally Financial (ALLY)</td><td>10,21</td><td>7,26</td><td>0,98</td><td>9,68%</td><td>7,90 mld $</td></tr>
+      <tr><td>Robinhood (HOOD)</td><td>38,34</td><td>36,63</td><td>8,21</td><td>23,62%</td><td>4,93 mld $</td></tr>
+    </tbody>
+  </table></div>
+  <p>Trei competitori reali, aleși pentru cele două jumătăți ale afacerii. <b>Happen</b> — banca digitală fostă LendingClub, care și-a schimbat numele și tickerul pe 22 iun. 2026 — e cel mai apropiat analog: bancă cu licență proprie, construită pe creditare de consum. <b>Ally</b> e versiunea matură a aceleiași idei: bancă fără sucursale, mare și profitabilă. <b>Robinhood</b> acoperă cealaltă jumătate, aplicația de investiții și comisioanele.</p>
+  <div class="concept">
+    <div class="h">LA BĂNCI, MULTIPLUL SE CITEȘTE ÎMPREUNĂ CU ROE</div>
+    <p>Raportul preț/valoare contabilă (P/B) spune cât plătești pentru fiecare leu de capital al băncii. Cifra nu înseamnă nimic singură — se citește lângă ROE, adică cât produce acel capital. O bancă ce scoate 20% pe an din capitalul ei merită mai mult de o valoare contabilă; una care scoate 5% merită mai puțin.</p>
+    <p>Pune tabelul în ordinea asta și apare imediat problema: <b>SoFi plătește 1,90× valoarea contabilă pentru un ROE de 7,09%. Ally plătește 0,98× pentru 9,68%. Happen, 1,41× pentru 13,15%. Robinhood, 8,21× pentru 23,62%.</b> Toate celelalte trei respectă relația — mai mult ROE, mai mult P/B. SoFi e singura care iese din ea: cel mai scump preț pe capital dintre bănci, pentru cea mai slabă rentabilitate. Diferența e ceea ce plătește piața pentru creștere, nu pentru rentabilitatea de azi.</p>
+  </div>
+  <div class="concept">
+    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
+    <p>Diferența dintre P/E-ul curent și cel prospectiv arată direct ce creștere e deja inclusă în preț. La SoFi: <b>de la 34,14 la 22,23</b>, ceea ce înseamnă că piața se așteaptă ca profitul să crească cu vreo <b>54% în anul următor</b>. Dacă se întâmplă, prețul de azi e rezonabil. Dacă profitul crește doar 20%, ai plătit prea mult chiar dacă banca merge bine.</p>
+    <p>Scara completă, cu sursele ei, arată cât de mult depinde totul de anul viitor: profitul pe acțiune al ultimelor 12 luni e <b>0,48 $</b>; ghidajul companiei pentru 2026, comunicat pe <b>29 iul. 2026</b>, e de aproximativ <b>0,60 $</b>; estimarea analiștilor pentru anul fiscal următor, din care se calculează P/E-ul prospectiv, e <b>0,82 $</b>. Ultima cifră nu e a companiei, ci a analiștilor — iar exact acesta e spațiul în care se nasc dezamăgirile: prețul nu se sprijină pe ce a promis compania, ci pe ce speră cei care o urmăresc.</p>
+    <p>Asta e și explicația directă pentru ce s-a întâmplat pe 29–30 iulie: venituri record, ghidaj de profit neschimbat, prețuri-țintă tăiate. Rezultatele au fost bune; nu au fost mai bune decât ce era deja în preț.</p>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Trei axe, trei răspunsuri diferite, ceea ce e chiar definiția galbenului. <i>Față de propria istorie</i>: mai ieftină — P/S 4,93 față de o medie pe 5 ani de 7,32, P/B 1,90 față de 2,29. <i>Față de competitori</i>: mai scumpă decât ambele bănci, mai ieftină decât Robinhood. <i>Față de propria creștere</i>: cu venituri în urcare cu 40,9% și un raport preț/creștere sub 1, nu e scumpă. Rândul e, ca întotdeauna, structural: prețul de azi e un fapt despre azi, nu o etapă.</p>
+  <div class="concept">
+    <div class="h">EVALUAREA NU E UN SEMNAL DE MOMENT</div>
+    <p>O acțiune ieftină poate rămâne ieftină ani la rând, pentru că afacerea chiar se deteriorează — se numește <i>value trap</i>, capcana valorii. „A fost 32 $, acum e 16 $, deci e la jumătate de preț” nu e o teză: prețul anterior nu e o măsură a valorii, iar compania de azi are alt bilanț și cu 14,5% mai multe acțiuni decât cea de acum un an. Ce spune secțiunea asta e doar pe ce pariezi dacă plătești 16,31 $: pe un profit care crește cu peste 50% în anul următor.</p>
+  </div>
+</section>
+
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">38–57%</div><div class="s">38,4% MarketBeat · 56,1% stockanalysis · 56,7% finviz</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+1,62 mld $</div><div class="s">675 cumpărători / 304 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v down">14,6%</div><div class="s">din float · 2,1 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">15,8×</div><div class="s">pe an · mult tranzacționată</div></div>
+  </div>
+  <p>E pilonul cu cea mai slabă valoare predictivă din toate. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum. Cele trei surse dau procente de deținere instituțională diferite pentru că folosesc numitori diferiți; niciuna nu e greșită, dar tocmai de aceea procentul brut e mai puțin util decât direcția banilor.</p>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. La SoFi, <b>186,0 milioane de acțiuni — 14,6% din float</b> — sunt în această situație, peste pragul de 10% de la care grila dă roșu. Înseamnă că mulți profesioniști pariază pe scădere, iar în ultimul an au avut dreptate.</p>
+    <p>Un începător aude „short squeeze” și îl citește ca pe o oportunitate. E mult mai des un avertisment că cineva mai bine informat vede o problemă. <i>Days to cover</i> e doar 2,1 — la volumul normal, toți cei pe short ar putea ieși în două zile de tranzacționare. Sub pragul de 5 zile, deci presiunea de răscumpărare e mică: aici short interest-ul e un semnal de opinie, nu un butoi de pulbere.</p>
+  </div>
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 79,6 mln acțiuni × 250 de zile ÷ un float de 1,26 mld acțiuni = <b>~15,8×</b> pe an. Tot free float-ul își schimbă proprietarul de aproape șaisprezece ori într-un an. E mult — o companie deținută preponderent de investitori pe termen lung se rotește de câteva ori pe an — dar e departe de cele 40× ale titlurilor pur speculative. SoFi e o acțiune tranzacționată activ de retail, nu una deținută liniștit.</p>
+    <p><b>Combustibilul.</b> Cu 14,6% din float pe short, o veste bună mișcă prețul mai mult decât ar justifica conținutul ei, pentru că adaugă la cumpărători și pe cei care ies din pariul opus — s-a văzut pe 29 iul. 2026, cea mai bună zi a acțiunii din 2026, pe un raport care nu a schimbat ghidajul de profit. Efectul e simetric și în jos. Nu e o teză, e mecanica.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la 31 iul. 2026: <i>fintech-ul care devine bancă adevărată</i> — o aplicație cu 15,8 milioane de membri, licență bancară proprie și, din mai 2026, primul stablecoin lansat de o bancă cu licență națională direct în aplicația de consum. E o poveste bună. Nu e o prognoză de venituri, iar cel mai scump moment al unei acțiuni e de obicei acela în care narativul e cel mai limpede.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de bine poți vinde mâine, niciodată cât câștigă compania. De aceea sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
+  </div>
+  <p><b>Banii instituționali spun invers decât shorturile.</b> În 12 luni au intrat 3,43 mld $ și au ieșit 1,81 mld $, de la 675 de cumpărători față de 304 vânzători — un flux net pozitiv de 1,62 mld $. Direcția banilor e mai informativă decât procentul de deținere. Deci tabloul e contradictoriu, iar acțiunea a scăzut oricum 37,7% de la începutul anului: instituțiile care au cumpărat au cumpărat în cădere.</p>
+  <p><b>Un detaliu care contează:</b> pe sursele citite, SoFi <b>nu apare în niciun indice major</b>. Fondurile pasive care replică S&amp;P 500 sau Nasdaq-100 nu sunt obligate să o cumpere, deci îi lipsește acel val constant de cerere automată care nu ține de rezultate — iar la o capitalizare de 21 mld $ asta e o absență notabilă.</p>
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR, CU AVERTISMENTELE LUI</div>
+    <p>Prețul-țintă mediu e 19,58 $ față de 16,31 $ pe piață, cu o recomandare medie de 2,77 pe o scală unde 1 e cea mai favorabilă — adică, în termeni simpli, „păstrează”, ceea ce la Wall Street e deja o notă slabă. Trei lucruri de știut: analiștii își revizuiesc țintele <i>după</i> ce se mișcă prețul, nu înainte — se vede perfect aici, unde șirul de tăieri a venit pe 30 iul. 2026, după ce acțiunea căzuse deja 37% în acest an. Recomandările de vânzare sunt rare, pentru că băncile care le emit vor să păstreze relația cu compania; o medie de „păstrează” e, în acest context, un semnal mai negativ decât pare. Iar dispersia e mare: pe același trimestru, o bancă a coborât ținta la 15 $ cu recomandare de subponderare, alta a coborât-o la 24 $ păstrând „cumpărare”. Când intervalul e de la 15 la 24, media de 19,58 $ nu înseamnă aproape nimic.</p>
+  </div>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
+<section id="s10">
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+  <ul class="list">
+    <li><b>Anthony Noto</b> — director general din 2018. Înainte a fost director financiar la Twitter și director operațional acolo, iar înainte bancher la Goldman Sachs. Compania a fost fondată în 2011 și listată pe 30 nov. 2020, printr-o fuziune cu o companie de achiziții cu scop special.</li>
+    <li><b>Cât dețin cei care conduc:</b> între 1,49% și 2,50%, în funcție de sursă. E puțin — un management cu 10–20% mănâncă din aceeași oală cu acționarii, unul sub 3% e mai aproape de salariat decât de coproprietar. Nu e un semafor, dar schimbă felul în care citești vânzările de mai jos.</li>
+    <li><b>Insideri, 12 luni: 3 cumpărători și 5 vânzători.</b> Cifrele brute arată dezechilibrat — 27,1 milioane de acțiuni vândute, în valoare de ~437,5 mln $, față de 85.045 de acțiuni cumpărate, cu 1,45 mln $ — dar aici contează cine și cum. Vânzările sunt în cea mai mare parte programate, ale unor directori plătiți parțial în acțiuni; e zgomot.</li>
+    <li><b>Semnalul rar merită însă spus:</b> directorul general a <i>cumpărat</i> din bani proprii de două ori în 2026 — 28.900 de acțiuni pe 17 mar. 2026 (500.548 $) și 15.545 de acțiuni pe 11 mai 2026 (248.720 $). Cumpărările insiderilor sunt semnalul rar și puternic, pentru că există un singur motiv pentru care cineva din interior cumpără cu banii lui. Sumele sunt modeste raportat la un salariu de director general, dar direcția e clară și e opusă prețului.</li>
+    <li><b>Structura de vot:</b> sursele gratuite nu arată clase multiple de acțiuni ordinare cu drepturi de vot diferite. Merită verificat în raportul anual (10-K) sau în documentul de vot (proxy statement) de pe SEC EDGAR înainte de orice concluzie — sursele gratuite nu expun asta de încredere.</li>
+  </ul>
+</section>
+
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <b>expunerea</b> — o proprietate stabilă a afacerii — nu vremea de azi, care stă datată în secțiunea 1.</p>
+  <div class="concept">
+    <div class="h">LA O BANCĂ, DOBÂNZILE LOVESC ALTFEL</div>
+    <p>La o companie de creștere fără profit, dobânzile lovesc prin <i>comprimarea multiplilor</i>: când banul se scumpește, profiturile din anii îndepărtați valorează mai puțin azi, multiplul coboară și acțiunea scade deși compania livrează. La o bancă, mecanismul principal e altul și e mai direct: dobânzile îi schimbă <b>chiar veniturile</b>, prin marja de dobândă — diferența dintre cât încasează pe credite și cât plătește pe depozite.</p>
+    <p>Efectul e cu două tăișuri, și de aceea steagul e doar parțial. Dobânzi mai mari înseamnă marjă mai bună pe depozitele ieftine, dar și cerere mai mică de credite și mai mulți clienți care nu-și mai plătesc ratele. Dobânzi mai mici înseamnă exact invers. O bancă nu are o direcție „bună” a dobânzilor — are un interval în care se simte confortabil.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>Steag parțial.</b> P/E-ul prospectiv de 22,23 e departe de pragul de ~35 la care evaluarea depinde de anii îndepărtați, iar free cash flow-ul negativ e un artefact al creditării, nu o ardere. Dar sensibilitatea reală există și e directă: dobânda pe 10 ani a urcat de la ~4,23% la 4,75% într-un an, iar la un creditor asta se vede în venituri, nu doar în multiplu.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag ridicat.</b> Creditarea de consum negarantată e printre cele mai ciclice afaceri care există. Într-o recesiune se întâmplă trei lucruri deodată, toate rele: oamenii cer mai puține credite, cei care le au le plătesc mai prost, iar banca trebuie să pună deoparte bani pentru pierderi. Cu creditele ținute tot mai mult pe bilanțul propriu, riscul e acum acasă, nu la cumpărătorul creditelor.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Fără steag. Peste 93% din venituri vin din Statele Unite — o concentrare mare, dar pe <i>piața proprie</i>: nu există tarife, licențe de export sau risc de curs valutar. Concentrarea într-o țară străină e un risc politic; concentrarea acasă e doar absența diversificării.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Nicio acțiune concretă, numită, în curs împotriva companiei pe sursele citite. Suprafața de reglementare e însă permanentă și mare: licență bancară națională, supraveghere de către autoritatea de protecție a consumatorului, iar din 2026 și un stablecoin lansat sub cadrul federal nou. Supravegherea nu e un steag; o anchetă cu nume ar fi.</span></div>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Un steag întreg — ciclul — plus unul parțial pe dobânzi. Rândul e prin construcție structural: descrie proprietăți ale afacerii care supraviețuiesc oricărei etape.</p>
+  <p>Expunere mare nu înseamnă companie proastă. Înseamnă volatilitate pe care trebuie să o poți duce <i>dinainte</i> — iar beta de 2,18 confirmă în cifre ce spun steagurile. O corabie pe o mare agitată ajunge la destinație, dar nu ține pasagerii care sar peste bord la primul val; vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală. Ce e specific companiei — o divizie care scade, capitalul consumat de creștere — nu se dublează aici; stă la secțiunea 12.</p>
+</section>
+
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu compusă de mine.</p>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <ul class="list">
+    <li><b>Venituri ajustate de 4,75–4,85 mld $ în 2026</b> — ghidaj ridicat de companie pe <b>29 iul. 2026</b>, odată cu rezultatele trimestrului II. Reperul: ultimele 12 luni au adus 4,27 mld $.</li>
+    <li><b>EBITDA ajustat de ~1,6 mld $ și profit pe acțiune de ~0,60 $ în 2026</b> — același ghidaj, aceeași dată. E cifra care <i>nu</i> a fost ridicată odată cu veniturile, și exact de aceea e cea mai importantă din listă.</li>
+    <li><b>15,8 milioane de membri, +35% an/an, cu 1,1 milioane adăugați într-un singur trimestru</b> — raportat pe 29 iul. 2026. Baza de clienți e materia primă a tuturor celorlalte produse; fiecare membru care ia un al doilea produs costă mult mai puțin decât primul.</li>
+    <li><b>Originări record de credite de 14,8 mld $ în trimestrul II 2026</b> și EBITDA ajustat de 358 mln $, +44% an/an — tot din raportarea din 29 iul. 2026. Arată că cererea există; întrebarea de la teza ursului e cu ce capital e servită.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Creșterea consumă capital mai repede decât produce profit.</b> ROE 7,09% și o diluție de 14,5% în 12 luni descriu împreună un cerc care nu s-a închis încă: fiecare credit nou ținut pe bilanț cere capital nou, iar capitalul nou vine de la acționari. Cercul se închide doar când rentabilitatea urcă destul cât creșterea să se autofinanțeze. E chiar motivul invocat de bănci la tăierile de preț-țintă din 30 iul. 2026.</li>
+    <li class="crit"><b>Technology Platform se contractă cu 27,4% an/an</b> (75,1 mln $ în T1 2026, față de 103,4 mln $ cu un an înainte). E divizia cu cea mai bună economie și fără risc de credit — cea care ar fi trebuit să echilibreze partea ciclică. Dacă declinul continuă, compania rămâne mai mult bancă și mai puțin platformă, iar multiplul de tehnologie devine mai greu de susținut.</li>
+    <li><b>Riscul de credit se mută pe bilanțul propriu.</b> Modelul vechi vindea o parte din credite mai departe; cel nou le păstrează, ca să optimizeze veniturile din dobânzi. E o decizie rațională la dobânzile de azi și o expunere directă la prima recesiune. Perna de capital de 18,2% e groasă tocmai pentru că riscul e real.</li>
+    <li><b>Prețul se sprijină pe estimarea analiștilor, nu pe ghidajul companiei.</b> P/E-ul prospectiv folosește 0,82 $ pe acțiune; compania a ghidat ~0,60 $ pentru 2026. Distanța dintre cele două e spațiul în care se produc dezamăgirile — și s-a produs deja una, pe 29–30 iulie.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">ARBITRUL</div>
+    <p><b>Prima verificare, la raportarea trimestrului III</b> (data nu e publicată încă pe sursele citite; ultima a fost pe 29 iul. 2026): urcă ROE-ul peste 7,09%? E singura cifră care poate închide cercul din teza ursului, și singura care ar justifica un P/B de 1,90.</p>
+    <p><b>A doua, în aceeași raportare:</b> se oprește contracția diviziei Technology Platform, sau continuă sub cele 75,1 mln $ pe trimestru? Și rămâne numărul de acțiuni aproape de ritmul ultimului trimestru (+0,6%), sau revine la ritmul din 2025?</p>
+    <p><b>A treia, la finalul anului:</b> se confirmă ghidajul de ~0,60 $ profit pe acțiune pentru 2026, dat pe 29 iul. 2026? Dacă da, atunci diferența față de estimarea de 0,82 $ a analiștilor va trebui recuperată în 2027 — sau prețul o va recunoaște înainte. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
+  </div>
+</section>
+
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual.</b> Primul: <i>la o bancă, jumătate din grila obișnuită nu se aplică</i> — datoria e materie primă, free cash flow-ul e lipsit de sens, iar măsurile corecte sunt capitalul și ROE. Al doilea: <i>P/B se citește lângă ROE</i>, niciodată singur; tabelul din secțiunea 8 arată de ce, într-o singură privire. Al treilea: <i>rezultate record și acțiune în scădere nu e o contradicție</i> — prețul de ieri încorpora deja recordul, plus un ghidaj de profit care nu a venit.</p>
+  <ul class="list qa">
+    <li>Dacă e o bancă: cât e ROE-ul, și cât plătesc pe valoarea contabilă (P/B)? Cele două se citesc împreună.</li>
+    <li>Numărul de acțiuni a crescut sau a scăzut în ultimii 3 ani? Ia cifra din formularele depuse la SEC, nu una derivată — și uită-te separat la ultimul trimestru.</li>
+    <li>Creșterea consumă capital? Dacă veniturile cresc doar prin emisiune de acțiuni noi, câtă parte din creștere ajunge la mine?</li>
+    <li>Care segment scade? Media pe companie ascunde aproape întotdeauna o divizie care merge prost.</li>
+    <li>A bătut acțiunea indicele pe 3 și pe 5 ani, nu doar în ultimele luni?</li>
+    <li>Ghidajul companiei și estimarea analiștilor spun același lucru? Diferența dintre ele e riscul pe care îl cumperi.</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (formular 10-Q depus pe 7 mai 2026 pentru segmente; serie a numărului de acțiuni de pe coperta formularelor depuse) · date de piață la închiderea din <b>31 iulie 2026</b>; rezultatele trimestrului II 2026 raportate pe 29 iul. 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
