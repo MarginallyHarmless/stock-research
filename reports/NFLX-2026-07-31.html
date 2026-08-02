@@ -1,4 +1,6 @@
+<!doctype html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NFLX — analiză</title>
 <style>
 /* ─── tokens ─────────────────────────────────────────────────────────────── */
@@ -56,11 +58,20 @@ header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
   color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
 .themer:active{transform:scale(.94)}
 
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
 /* ─── section ────────────────────────────────────────────────────────────── */
-section{padding:30px 0;border-bottom:1px solid var(--rule)}
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -78,6 +89,9 @@ section{padding:30px 0;border-bottom:1px solid var(--rule)}
 .st[data-s=none]{color:var(--ink-3)}
 @media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
 :root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
 
 /* ─── concept callout ────────────────────────────────────────────────────── */
 .concept{border-left:2px solid var(--accent);background:var(--wash);
@@ -122,8 +136,6 @@ figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
 .bars{padding-top:16px}
 .xax{display:flex;gap:6px;margin-top:6px}
 .xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
-.grp{position:absolute;inset:0;display:flex;gap:2px}
-.grp .gc{flex:1;position:relative}
 
 /* lines */
 .lwrap{position:relative}
@@ -210,11 +222,14 @@ footer b{color:var(--ink-2)}
   .wrap{padding:0 14px 56px}
   .row{grid-template-columns:1fr auto;gap:6px 10px}
   .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
   .tick h1{font-size:24px} .px .v{font-size:21px}
   .split .r{grid-template-columns:70px 1fr 70px}
 }
 @media print{
-  .themer{display:none} body{background:#fff}
+  .themer,nav.toc{display:none} body{background:#fff}
   section{break-inside:avoid;border-bottom:1px solid #ddd}
 }
 </style>
@@ -229,741 +244,458 @@ footer b{color:var(--ink-2)}
 <header>
   <div class="tick">
     <h1>NFLX</h1>
-    <span class="co">Netflix, Inc. · NASDAQ</span>
+    <span class="co">Netflix, Inc.</span>
   </div>
   <div class="px">
-    <div class="v">71,46 $</div>
-    <div class="d down">−2,34% astăzi</div>
+    <div class="v">71,71 $</div>
+    <div class="d up">+2,31% în ultima săptămână</div>
   </div>
   <div class="chips">
     <span class="chip">Communication Services · <b>Entertainment</b></span>
-    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq</b></span>
-    <span class="chip">Capitalizare <b>297,5 mld $</b></span>
-    <span class="chip">An fiscal se încheie <b>31 decembrie</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq-100</b></span>
+    <span class="chip">Capitalizare <b>298,60 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>decembrie</b></span>
     <span class="chip">Ultima raportare <b>16 iul. 2026</b></span>
-    <span class="chip">Angajați <b>16.000</b></span>
-    <span class="chip">IPO <b>mai 2002</b></span>
   </div>
 </header>
 
-<!-- ══ NOTA SPLIT ══════════════════════════════════════════════════════════ -->
-<section>
-  <div class="concept">
-    <div class="h">DE CITIT ÎNAINTE DE ORICE CIFRĂ</div>
-    <p>Prețul de <strong>71 $</strong> nu înseamnă că acțiunea s-a prăbușit de la 1.200 $.
-    Netflix a făcut un <strong>split 10-pentru-1</strong> pe 17 noiembrie 2025: fiecare acțiune
-    a devenit zece, iar prețul s-a împărțit la zece. Valoarea deținerii nu s-a schimbat cu nimic.
-    Toate cifrele istorice din acest raport sunt ajustate pentru split.</p>
-    <p><strong>Lecția generală:</strong> prețul pe acțiune nu spune nimic despre cât e de scumpă
-    o companie. O acțiune de 20 $ nu e „ieftină" și una de 800 $ nu e „scumpă". Capitalizarea
-    și multiplii spun asta.</p>
-  </div>
-</section>
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
 
 <!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">SCORECARD</span><h2>Cei șapte piloni</h2></div>
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
   <div class="score">
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Avantaj de scară real, dovedit în marje — dar clientul poate pleca mâine</span>
+      <span class="t">Avantaj de scară dovedit în cifre, nu doar în poveste: marja brută a urcat de la 41,6% (2021) la 49,1% (ultimele 12 luni), marja operațională de la 20,9% la 29,7%, iar ROIC-ul e 32,4% — de două ori pragul la care rentabilitatea devine dovadă de moat.</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">11,2 mld $ TTM, în creștere de patru ani; marjă FCF 23%</span>
+      <span class="t">11,15 mld $ pe ultimele 12 luni, în creștere în fiecare an din 2022. Marja de free cash flow e 23,1%, de peste două ori pragul de verde. Din negativ în 2021 în cinci ani.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Datorie netă ~0,5× EBITDA — practic irelevantă</span>
+      <span class="t">Datorie netă de ~7,5 mld $ față de un EBITDA de ~14,7 mld $, adică 0,5× — de șase ori sub pragul de risc de 3×. Datoria a scăzut de la 15,4 mld $ (2021) la 14,3 mld $, în timp ce afacerea s-a dublat.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Acțiunile scad real, ~1,5%/an — dar au răscumpărat la maxime</span>
+      <span class="t">Numărul de acțiuni scade constant de trei ani, cu ~1,2–2,0% pe an (cifre depuse la SEC, ajustate pentru divizarea 10 la 1). Randament din răscumpărări ~3,3% pe an, fără dividend. Cu o rezervă la preț — vezi secțiunea 6.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
-      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Marjă brută 41,6% → 49,1% în cinci ani; creșterea însă încetinește</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — cifrele anuale sunt de verde curat: venituri în creștere în toți cei 5 ani și marje care urcă fără excepție. Ce coboară rândul la galben e ritmul trimestrial: creșterea an/an a scăzut de la 17,61% (T4 2025) la 13,36% (T2 2026), iar compania a ghidat 11,7% pentru T3 2026. Piața tranzacționează ritmul, nu media.</span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Multiplu înjumătățit într-un an, dar discountul are o cauză reală</span>
+      <span class="t"><b>structural</b> — P/E 22,59 față de o medie proprie pe 5 ani de 41,2: aproape înjumătățit. Nu e însă verde, pentru că pragul cere ca discountul să <i>nu</i> aibă o cauză reală în afacere — iar aici o are, chiar decelerarea de la rândul de mai sus. Rândul e mereu structural.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Short mic, indici mari — deși prețul a fost masacrat în 12 luni</span>
+      <span class="t">Short interest 2,41% din float, sub pragul de 3%; intrări instituționale nete masive în 12 luni; prezentă în S&amp;P 500 și Nasdaq-100, deci are cererea automată a fondurilor pasive. Pilonul descrie ce cred alții, nu calitatea afacerii — iar prețul a căzut 38% în ciuda lui.</span>
     </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — un singur steag, cel de geografie: 56,8% din venituri vin din afara Americii de Nord, în zeci de monede și sub reguli locale de conținut. Fără steag de dobânzi (P/E prospectiv ~19–21, free cash flow puternic pozitiv), fără steag de ciclu, fără amenințare de reglementare numită. Rândul e mereu structural.</span>
+    </div>
+  </div>
+  <p style="margin-top:14px">Cinci verzi și trei galbene — de departe cel mai bun scorecard dintre companiile analizate în acest folder, la o acțiune care a pierdut 38% într-un an. Niciun rând nu primește „de fază”: eticheta se acordă doar când o investiție finanțată cauzează culoarea, iar aici nu e cazul — compania generează 11,15 mld $ free cash flow. Toate cele trei galbene sunt structurale.</p>
+  <div class="concept" style="margin-top:16px">
+    <div class="h">O SCHIMBARE FAȚĂ DE VERSIUNEA ANTERIOARĂ A ACESTUI RAPORT</div>
+    <p>Rândul <b>„Creștere și marje” a coborât de la verde la galben</b>. Nu pentru că s-au schimbat datele — cifrele trimestriale erau aceleași și atunci — ci pentru că regula spune explicit că un verde pe cifre anuale coboară la galben când ultimele trei-patru trimestre arată o încetinire clară. Versiunea anterioară scria chiar în rezumatul rândului „creșterea însă încetinește”, dar păstra verdele. Aici e corectat. Menționez asta pentru că o culoare care se mută fără explicație e mai rea decât o culoare greșită.</p>
   </div>
 </section>
 
 <!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
-<section>
+<section id="s01">
   <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <div class="concept">
+    <div class="h">ÎNTÂI, DESPRE PREȚUL DE 71 $</div>
+    <p>Dacă ții minte Netflix la peste 1.000 $ pe acțiune, nu te-ai înșelat: compania a făcut o <b>divizare a acțiunilor de 10 la 1</b>. Numărul de acțiuni depus la SEC a trecut de la 423,7 milioane (30 sept. 2025) la 4.222,2 milioane (31 dec. 2025). O divizare nu schimbă absolut nimic din valoarea deținerii tale — zece acțiuni de 71 $ valorează cât una de 710 $ — schimbă doar cât de ușor e de cumpărat o singură acțiune. Toate cifrele istorice de mai jos sunt ajustate pentru divizare, altfel comparațiile ar fi fără sens.</p>
+  </div>
 
   <figure class="viz">
     <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
     <div class="range">
       <div class="tr">
-        <div class="mk" style="left:10.4%"></div>
-        <div class="now" style="left:10.4%">71,46</div>
+        <div class="mk" style="left:10.8%"></div>
+        <div class="now" style="left:10.8%">71,71</div>
       </div>
       <div class="ends"><span>min 65,08</span><span>max 126,71</span></div>
     </div>
   </figure>
 
-  <p style="margin-top:26px">Acțiunea e la <strong>10% deasupra minimului</strong> pe un an și cu
-  <strong>43,6% sub maxim</strong>. E jos, nu la mijloc.</p>
+  <p>Acțiunea e la 11% din intervalul ultimului an — cu 10,2% peste minim și cu <b>43,4% sub maximul de 126,71 $</b>. Într-un an, piața a șters aproape jumătate din prețul uneia dintre cele mai profitabile companii de media din lume.</p>
 
   <figure class="viz" data-viz="compare">
     <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
     <script type="application/json">
     {"a":"NFLX","b":"S&P 500","suffix":"%","deltaUnit":" pp",
-     "rows":[{"label":"YTD","a":-23.78,"b":9.27},
-             {"label":"1 an","a":-38.36,"b":17.89},
-             {"label":"3 ani","a":62.80,"b":62.77},
-             {"label":"5 ani","a":38.08,"b":69.93},
-             {"label":"10 ani","a":683.18,"b":243.20}]}
+     "rows":[{"label":"YTD","a":-23.52,"b":9.55},
+             {"label":"1 an","a":-38.15,"b":18.19},
+             {"label":"3 ani","a":63.36,"b":63.18},
+             {"label":"5 ani","a":38.55,"b":70.36}]}
     </script>
   </figure>
 
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
-    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă
-    puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". Fără această
-    comparație, un investitor poate pierde bani ani la rând fără să-și dea seama.</p>
-    <p><strong>Ce spune tabelul, direct:</strong> cine a cumpărat acum un an a pierdut 38% într-un
-    an în care indicele a făcut +18% — o diferență de 56 de puncte procentuale. Pe 3 ani e
-    <strong>exact la egalitate</strong> cu indicele. Pe 5 ani e <strong>în urma</strong> lui.
-    Doar pe 10 ani povestea e spectaculoasă. O companie poate fi excelentă și totuși să nu bată
-    indicele ani la rând, dacă ai intrat la un preț prea mare.</p>
+    <p>Graficul spune ceva ce nicio analiză despre „calitatea Netflix” nu spune: pe trei ani, acțiunea a făcut <b>+63,36%</b>, iar indicele <b>+63,18%</b> — o diferență de 0,18 puncte procentuale, adică absolut nimic. Toată munca de a analiza compania, de a-i urmări abonații și marjele, a produs exact rezultatul pe care îl obținea cineva care cumpăra un ETF pe S&amp;P 500 și nu se mai uita la el. Pe cinci ani, indicele a câștigat detașat: +70,36% față de +38,55%.</p>
+    <p>Nu înseamnă că e o companie proastă — vezi restul raportului, e o companie foarte bună. Înseamnă că <i>o companie bună și o investiție bună sunt lucruri diferite</i>, iar diferența e prețul plătit. E cea mai scumpă lecție din bursă și cel mai ieftin loc unde o poți învăța e un grafic ca acesta.</p>
   </div>
 
   <div class="stats">
     <div class="stat"><div class="l">Beta</div><div class="v">1,52</div><div class="s">amplifică piața de ~1,5×</div></div>
-    <div class="stat"><div class="l">Volatilitate zilnică</div><div class="v">~3,3%</div><div class="s">pe zi</div></div>
-    <div class="stat"><div class="l">La 10.000 €</div><div class="v down">−1.520 €</div><div class="s">la o corecție de piață de 10%</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt.)</div><div class="v">3,0%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.520 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <div class="concept">
-    <div class="h">LIMITA CONCEPTULUI DE BETA</div>
-    <p>Beta măsoară doar mișcarea <em>odată cu piața</em>, nu riscul specific companiei. În ultimul
-    an piața a urcat 18% și Netflix a scăzut 38% — beta nu prezicea asta. Riscul mare la o singură
-    acțiune nu e că piața cade, ci că <strong>acea companie</strong> dezamăgește.</p>
+  <p>Beta 1,52 înseamnă că, istoric, la o scădere de 10% a pieței, acțiunea a scăzut în jur de 15%. E cea mai blândă cifră dintre companiile din acest folder — dar atenție, beta măsoară mișcarea <i>odată cu piața</i>, nu riscul specific: căderea de 38% din ultimul an nu a venit de la piață, a venit de la o singură raportare.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">la 31 iul. 2026 · de la ~4,23% pe 1 aug. 2025</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v down">−10,5 pp</div><div class="s">Communication Services −0,91% · indice +9,55%</div></div>
   </div>
 
-  <h3 style="font-size:14px;margin:22px 0 10px">Ce a mutat prețul</h3>
-  <p>Pe <strong>16 iulie 2026</strong> Netflix a raportat Q2: venituri <strong>12,56 mld $</strong>
-  (+13% față de anul trecut, record trimestrial), profit net ~3,4 mld $ (+9%), EPS 0,80 $. Cifre
-  bune în valoare absolută. Acțiunea a căzut <strong>~9%</strong> în after-hours, atingând minimul
-  de 52 de săptămâni și cel mai jos nivel din septembrie 2024.</p>
-  <p>Cauza nu a fost trimestrul, ci <strong>estimările pentru trimestrul următor</strong>: guidance
-  Q3 de 12,86 mld $ față de consensul de ~13 mld $, EPS 0,82 $ față de 0,84 $ așteptat — plus
-  reducerea informațiilor publicate despre viewership. Netflix și-a îngustat estimarea pe tot 2026
-  la <strong>51,0–51,4 mld $</strong> (creștere 13–14%), menținând ținta de marjă operațională
-  de <strong>31,5%</strong>.</p>
+  <p><b>Vremea pieței, la 31 iul. 2026.</b> Aici vremea chiar contează, spre deosebire de alte rapoarte din folder. Indicele e practic la maxim (−1,76% față de vârf), dar sectorul din care face parte Netflix — Communication Services — e <b>singurul sector pe minus de la începutul anului</b>, cu −0,91% față de +9,55% al indicelui. O parte din scădere e deci rotația banilor dinspre media spre alte sectoare, nu un verdict despre companie. Restul e însă al companiei: Netflix e pe −23,52% YTD, adică încă 22,6 puncte procentuale sub propriul sector. Al treilea reper datat: dobânda pe 10 ani e 4,75%, în urcare de la ~4,23% acum un an — un vânt din față pentru toate evaluările, dar unul modest aici, unde profitul e prezent și mare.</p>
 
-  <div class="concept">
-    <div class="h">BEAT, MISS ȘI GUIDANCE — CAPCANA CARE DERUTEAZĂ CEL MAI TARE</div>
-    <p>Piața nu tranzacționează trecutul, ci <strong>diferența dintre ce era deja așteptat și ce
-    s-a întâmplat</strong>. Prețul de dinainte de raportare conținea deja așteptarea de creștere.
-    Când compania a spus „trimestrul viitor va fi puțin mai slab decât credeați", prețul s-a
-    ajustat la noua realitate. Rezultatele au fost bune — doar că nu suficient de bune față de ce
-    se plătise deja. Odată ce înțelegi asta, jumătate din mișcările „inexplicabile" de la bursă
-    capătă sens.</p>
-  </div>
-
-  <p>Ultimele mișcări de business: acord de licențiere pentru <em>The Walking Dead</em> (~500 mil $),
-  200 mil $ pentru drepturile Cupei Mondiale feminine în SUA, parteneriat cu Flipkart (Walmart) în
-  India. Baird a tăiat ținta de preț de la 120 $ la 90 $, păstrând „Outperform".</p>
+  <p><b>Ce a mutat prețul.</b> Pe <b>16 iulie 2026</b>, după închiderea pieței, Netflix a raportat trimestrul II: venituri de 12,56 mld $ (+13,4% an/an, record trimestrial), profit net 3,40 mld $, profit pe acțiune 0,80 $ față de 0,72 $ cu un an înainte. Cifre bune în valoare absolută. Acțiunea a căzut oricum, atingând minime de 52 de săptămâni.</p>
+  <p>Cauza nu a fost trimestrul raportat, ci <b>ghidajul pentru cel următor</b>: 12,86 mld $ venituri în trimestrul III, adică o creștere de 11,7%, sub consensul analiștilor de ~13 mld $. La asta s-a adăugat reducerea informațiilor publicate despre audiență, ceea ce piața citește ca pe o pierdere de transparență fix când ritmul încetinește. E manualul: <i>o companie poate raporta rezultate excelente și acțiunea să scadă</i>, pentru că prețul de dinainte încorpora deja acele rezultate plus altele care nu au venit. Ulterior, compania a continuat să cumpere conținut la scară mare — drepturi pentru Cupa Mondială feminină din SUA pentru ~200 mln $ (29 iul. 2026) și o extindere a licenței The Walking Dead cu AMC pentru ~500 mln $ (31 iul. 2026). Data următoarei raportări nu e publicată încă pe sursele citite.</p>
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">02</span><h2>Ce face compania, pe înțelesul oricui</h2></div>
-  <p>Netflix vinde <strong>un abonament lunar</strong> pentru acces la filme, seriale, documentare,
-  jocuri și, tot mai mult, evenimente live. Modelul e simplu și frumos: încasezi lunar, în avans,
-  de la peste 300 de milioane de gospodării, în circa 190 de țări. Banii vin din trei surse:</p>
-  <ul class="list">
-    <li><b>Abonamente</b> — partea covârșitoare a veniturilor.</li>
-    <li><b>Publicitate</b> — planul ieftin cu reclame, lansat în 2022. Crește cel mai repede și are
-      marje mai bune, pentru că vinzi același conținut de două ori: o dată abonatului, o dată
-      advertiserului.</li>
-    <li><b>Extra membri</b> — taxa pentru partajarea contului în afara gospodăriei.</li>
-  </ul>
-  <p style="margin-top:14px"><strong>Defalcarea pe regiuni (UCAN / EMEA / LATAM / APAC): N/A — nu
-  apare pe sursele gratuite folosite aici.</strong> O găsești în raportul anual 10-K de pe SEC
-  EDGAR. Merită căutată: spune de unde vine creșterea și cât e expunerea valutară.</p>
-
-  <div class="concept">
-    <div class="h">CUM SE CITEȘTE CORECT BILANȚUL LOR</div>
-    <p>La Netflix, „capex"-ul e minuscul (688 mil $ în 2025) pentru că serverele stau la Amazon.
-    <strong>Adevărata investiție e conținutul — circa 18 mld $/an — și ea trece prin cash flow-ul
-    operațional</strong>, nu prin capex. Asta face ca free cash flow-ul lor să fie o cifră
-    neobișnuit de onestă: banii pentru filme au ieșit deja din cont înainte să ajungem la FCF.</p>
-  </div>
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <p>Netflix vinde abonamente lunare la un catalog de filme, seriale, documentare, jocuri și, tot mai mult, evenimente în direct. Modelul e cât se poate de simplu de înțeles, ceea ce îl face un exemplu bun: încasează un abonament de la fiecare client în fiecare lună, cheltuie o sumă foarte mare pe conținut, iar diferența e profitul. Ce complică lucrurile e că <b>costul conținutului e aproape fix</b> — un serial costă la fel indiferent dacă îl văd zece milioane sau o sută de milioane de oameni. De aici vine tot avantajul companiei și tot riscul ei.</p>
+  <p>Din 2023 a adăugat un al doilea motor: un <b>abonament mai ieftin cu reclame</b>, care aduce venituri și din publicitate. Compania a declarat pe 16 iul. 2026 că această activitate rămâne pe traiectoria de a ajunge la aproximativ 3 mld $ venituri în 2026. Are 16.000 de angajați, e condusă de doi directori generali — Greg Peters și Ted Sarandos — a fost fondată în 1997 și e listată din 23 mai 2002.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Venituri T2 2026, pe regiuni</th><th>Venit</th><th>Pondere</th><th>Față de T2 2025</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>SUA și Canada</td><td>5,43 mld $</td><td>43,2%</td><td class="up">+10,2%</td></tr>
+      <tr><td>Europa, Orientul Mijlociu, Africa</td><td>4,03 mld $</td><td>32,1%</td><td class="up">+14,0%</td></tr>
+      <tr><td>America Latină</td><td>1,58 mld $</td><td>12,6%</td><td class="up">+21,2%</td></tr>
+      <tr><td>Asia-Pacific</td><td>1,51 mld $</td><td>12,0%</td><td class="up">+15,7%</td></tr>
+      <tr class="me"><td>Total</td><td>12,56 mld $</td><td>100%</td><td class="up">+13,4%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Cifrele sunt din raportul trimestrial depus la SEC pe 17 iul. 2026. Tabelul conține în el toată tema raportului: <b>piața cea mai mare crește cel mai încet.</b> America de Nord aduce 43,2% din bani și crește cu 10,2%, în timp ce America Latină crește de două ori mai repede — dar de la o bază de patru ori mai mică. Când regiunea dominantă se maturizează, media companiei coboară chiar dacă restul lumii merge bine, iar asta e aritmetică, nu management prost.</p>
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Vine de la șanțul cu apă din jurul unui castel. E motivul pentru care un concurent cu bani
-    și oameni buni tot nu-ți poate lua clienții. Fără moat, orice profit bun atrage concurență,
-    iar concurența macină prețurile până când profitul dispare — asta se întâmplă în majoritatea
-    industriilor.</p>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel: motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Orice companie <i>susține</i> că are avantaje competitive; dovada e în marjă.</p>
   </div>
   <div class="score">
     <div class="row"><span class="k">Costuri de schimbare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Absent</span>
-      <span class="t">Anulezi abonamentul în două clicuri, fără penalizare, fără date de migrat</span></div>
+      <span class="t">Cel mai slab punct, și merită spus direct: un abonament se anulează în două clicuri, fără penalizare, fără date de mutat, fără personal de reinstruit. E opusul contului la bancă. Netflix se reabonează pe merit în fiecare lună.</span></div>
     <div class="row"><span class="k">Efect de rețea</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Slab</span>
-      <span class="t">Un abonat nou nu face serviciul mai bun pentru tine. Există doar un flywheel de scară: mai mulți abonați → buget mai mare → conținut mai bun</span></div>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Slab</span>
+      <span class="t">Serialul nu devine mai bun pentru că îl vede și vecinul. Există doar un efect cultural indirect — un serial pe care îl comentează toată lumea atrage abonați — dar e temporar și nu se poate programa.</span></div>
     <div class="row"><span class="k">Avantaj de cost / scară</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">Cel mai mare buget de conținut din lume, împărțit la peste 300 mil de gospodării. Costul pe abonat e structural cel mai mic din industrie</span></div>
+      <span class="t">Aici e tot moat-ul. Conținutul costă la fel indiferent câți îl văd, iar Netflix împarte acest cost la mai mulți abonați plătitori decât oricine altcineva. Un rival cu jumătate din abonați are nevoie de aproape același buget ca să pară competitiv — și de aceea majoritatea rivalilor pierd bani pe streaming în timp ce Netflix scoate marjă operațională de ~30%.</span></div>
     <div class="row"><span class="k">Active intangibile</span>
-      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Real</span>
-      <span class="t">Biblioteca proprie de originale nu poate fi retrasă de un studio partener; plus algoritmul de recomandare alimentat de date unice</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, dar consumabil</span>
+      <span class="t">Catalogul propriu și relațiile cu creatorii sunt un activ real. Spre deosebire de un brevet, însă, se consumă: conținutul îmbătrânește, iar cel licențiat de la alții — ca extinderea The Walking Dead din 31 iul. 2026 — se poate pierde la reînnoire.</span></div>
     <div class="row"><span class="k">Brand</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Mediu</span>
-      <span class="t">„Netflix" a devenit verb — dar brandul e cel mai fragil tip de moat, și în streaming contează mai puțin decât „ce se dă diseară"</span></div>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Real</span>
+      <span class="t">„A da drumul la Netflix” a devenit verb în mai multe limbi. Brandul e cel mai fragil tip de moat, dar aici a permis ani la rând creșteri de preț fără pierderi mari de abonați — ceea ce e chiar testul practic al unui brand.</span></div>
   </div>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Dovada în cifre</h3>
-  <p>Poveștile despre moat le spune orice companie în raportul anual. <strong>Marja brută e
-  testul:</strong> dacă poate ține prețuri mari ani la rând fără să piardă clienți, moat-ul e real.</p>
-
+  <p><b>Verdictul: Solid (verde).</b> Nu din cauza brandului sau a poveștii, ci pentru că avantajul de scară se vede în cifre timp de cinci ani la rând — și asta e singura dovadă care contează:</p>
   <div class="stats">
-    <div class="stat"><div class="l">Marjă brută FY2021</div><div class="v">41,6%</div><div class="s">punctul de plecare</div></div>
-    <div class="stat"><div class="l">Marjă brută TTM</div><div class="v up">49,1%</div><div class="s">+7,5 pp în trei ani</div></div>
-    <div class="stat"><div class="l">ROIC</div><div class="v up">~31%</div><div class="s">prag pentru moat real: 15%</div></div>
+    <div class="stat"><div class="l">Marjă brută</div><div class="v up">49,1%</div><div class="s">de la 41,6% în 2021</div></div>
+    <div class="stat"><div class="l">Marjă operațională</div><div class="v up">29,7%</div><div class="s">de la 20,9% în 2021</div></div>
+    <div class="stat"><div class="l">ROIC</div><div class="v up">32,4%</div><div class="s">prag de dovadă: ~15%</div></div>
+    <div class="stat"><div class="l">ROE</div><div class="v up">49,5%</div><div class="s">rentabilitatea capitalului propriu</div></div>
   </div>
-
-  <p><strong>Verdict: moat solid — dar cu o slăbiciune pe care trebuie s-o știi.</strong> Netflix
-  are avantaj de scară și bibliotecă proprie, dovedite în marje. Totuși <strong>costurile de
-  schimbare sunt zero</strong>, ceea ce e neobișnuit pentru o companie cu semafor verde la moat.
-  Toată teza depinde de churn (rata de anulare) — și exact acolo compania a redus transparența.
-  Vezi secțiunea 11.</p>
+  <p>O companie care își crește marja brută cu 7,5 puncte procentuale în cinci ani ridică prețurile fără să piardă clienții — exact definiția practică a puterii de preț. ROIC-ul de 32,4% înseamnă că fiecare dolar reinvestit în afacere produce 32 de cenți pe an, de peste două ori pragul de la care rentabilitatea devine dovadă numerică de moat. Aici e diferența dintre o poveste bună și un moat: povestea o are oricine, cifrele astea nu.</p>
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept">
     <div class="h">CE E FREE CASH FLOW</div>
-    <p>Banii care rămân în cont după ce compania și-a plătit toate cheltuielile <em>și</em>
-    investițiile. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști
-    veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar.</p>
-    <p><strong>Analogia:</strong> profitul e ce spune contabilul că ai câștigat; free cash flow-ul
-    e ce arată extrasul de cont.</p>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <i>și</i> investițiile. Profitul e o opinie contabilă — depinde de cum amortizezi și când recunoști veniturile; cash flow-ul e un fapt bancar. La Netflix distincția a fost istoric uriașă: ani la rând compania raporta profit contabil în timp ce ardea bani, pentru că plătea conținutul acum și îl trecea pe cheltuieli pe parcursul mai multor ani. Graficul de mai jos arată momentul în care s-a inversat.</p>
   </div>
-
   <figure class="viz" data-viz="bars">
     <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+    {"labels":["FY21","FY22","FY23","FY24","FY25","ultimele 12 luni"],
      "series":[{"name":"FCF","values":[-0.13,1.62,6.93,6.92,9.46,11.15]}],
      "suffix":" mld"}
     </script>
   </figure>
-
-  <div class="tw"><table>
-    <thead><tr><th>mld $</th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>TTM</th></tr></thead>
-    <tbody>
-      <tr><td>Cash flow operațional</td><td>0,39</td><td>2,03</td><td>7,27</td><td>7,36</td><td>10,15</td><td>11,97</td></tr>
-      <tr><td>Capex</td><td>−0,52</td><td>−0,41</td><td>−0,35</td><td>−0,44</td><td>−0,69</td><td>−0,82</td></tr>
-      <tr class="me"><td>Free cash flow</td><td>−0,13</td><td>1,62</td><td>6,93</td><td>6,92</td><td>9,46</td><td>11,15</td></tr>
-    </tbody>
-  </table></div>
-  <p style="font-size:12px;color:var(--ink-3)">Verificare: 10.149 − 688 = 9.461 mil $ pentru FY2025.
-  Se potrivește exact cu FCF-ul raportat.</p>
-
-  <div class="stats">
-    <div class="stat"><div class="l">Marjă FCF</div><div class="v up">23,1%</div><div class="s">prag pentru verde: 10%</div></div>
-    <div class="stat"><div class="l">Ani pozitivi din 5</div><div class="v">4 / 5</div><div class="s">singurul negativ: FY2021</div></div>
-    <div class="stat"><div class="l">Creștere FCF TTM</div><div class="v up">+31,2%</div><div class="s">față de anul anterior</div></div>
-  </div>
-
-  <p><strong>Ce înseamnă:</strong> transformarea din 2021 e una dintre cele mai clare din bursă.
-  Netflix a ars cash timp de un deceniu ca să construiască biblioteca de conținut, finanțându-se
-  din datorie. Din 2022 a trecut pe pozitiv și a crescut FCF-ul de la −0,1 la 11,2 mld $ în cinci
-  ani. Modelul s-a maturizat: cheltuiala pe conținut s-a stabilizat, veniturile au continuat să
-  crească, iar diferența cade în cont.</p>
-  <p>O nuanță importantă: <strong>profitul net TTM (13,65 mld $) e mai mare decât FCF-ul
-  (11,15 mld $)</strong>, ceea ce e neobișnuit — de regulă e invers. Motivul e la secțiunea 8.
-  Când profitul și cash-ul spun lucruri diferite, crede cash-ul.</p>
+  <p><b>Verdict: Solid (verde), fără rezerve.</b> Pozitiv în ultimii cinci ani consecutivi, în creștere aproape neîntreruptă, de la −132 mln $ în 2021 la 11,15 mld $ pe ultimele 12 luni. Marja de free cash flow — banii rămași raportați la venituri — e <b>23,1%</b>, adică de peste două ori pragul de 10% pentru verde. Din fiecare 100 $ încasați de la abonați, 23 $ rămân efectiv disponibili pentru răscumpărări, achiziții sau rezistență la crize.</p>
+  <p>Două verificări de rigoare, ambele trecute. <b>Prima:</b> free cash flow-ul (11,15 mld $) e apropiat de profitul net (13,65 mld $), deci profitul contabil nu ascunde bani blocați undeva — raportul dintre cele două e sănătos. <b>A doua:</b> plata angajaților în acțiuni e 487 mln $ pe an, adică 1,0% din venituri — mult sub pragul de 10% de la care ar umfla artificial free cash flow-ul. E o cifră neobișnuit de mică pentru o companie de tehnologie și înseamnă că free cash flow-ul raportat e aproape în întregime real.</p>
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ</div>
-    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență.
-    O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic. Una îndatorată
-    e forțată să ia decizii proaste exact în momentul cel mai prost.</p>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică poate traversa o recesiune fără să vândă active pe nimic sau să emită acțiuni la preț prost; una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost. Măsura standard e <b>datoria netă împărțită la EBITDA</b>: câți ani i-ar lua să scape de datorii dacă ar folosi tot profitul operațional doar pentru ele.</p>
   </div>
-
   <figure class="viz">
-    <figcaption><b>Poziția financiară curentă</b><span class="unit">mld USD</span></figcaption>
+    <figcaption><b>Poziția financiară netă</b><span class="unit">mld USD</span></figcaption>
     <div class="split">
-      <div class="r"><span class="k">Cash total</span>
-        <span class="t"><span class="f" style="width:54.8%;background:var(--accent)"></span></span>
-        <span class="v">9,13</span></div>
       <div class="r"><span class="k">Datorie totală</span>
         <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
         <span class="v">16,65</span></div>
+      <div class="r"><span class="k">Cash și investiții</span>
+        <span class="t"><span class="f" style="width:54.8%;background:var(--accent)"></span></span>
+        <span class="v">9,13</span></div>
     </div>
   </figure>
-
   <div class="stats">
-    <div class="stat"><div class="l">Datorie netă</div><div class="v">−7,52 mld</div><div class="s">datorie &gt; cash</div></div>
-    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v up">~0,5×</div><div class="s">prag de risc: 3,0×</div></div>
-    <div class="stat"><div class="l">Debt / Equity</div><div class="v">0,55</div><div class="s">confortabil</div></div>
-    <div class="stat"><div class="l">Current ratio</div><div class="v">1,14</div><div class="s">scăzut, dar explicabil</div></div>
+    <div class="stat"><div class="l">Datorie netă</div><div class="v">7,52 mld $</div><div class="s">datorie minus cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v up">0,5×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,55</div><div class="s">structură conservatoare</div></div>
   </div>
-
-  <figure class="viz" data-viz="bars">
-    <figcaption><b>Datorie netă pe an fiscal — scade constant</b><span class="unit">mld USD</span></figcaption>
-    <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25"],
-     "series":[{"name":"Datorie netă","values":[-9.37,-8.30,-7.41,-6.00,-5.40]}],
-     "suffix":" mld"}
-    </script>
-  </figure>
-
-  <p><strong>Ce înseamnă:</strong> la 0,5× EBITDA, dacă Netflix ar folosi tot profitul operațional
-  exclusiv pentru datorii, ar scăpa de ele în <strong>șase luni</strong>. Pragul de risc e 3×.
-  Datoria aici e practic irelevantă — e menținută pentru că e ieftină și oferă flexibilitate, nu
-  pentru că e nevoie de ea. Datoria netă a scăzut an de an, de la 9,4 la 5,4 mld $, în timp ce
-  EBITDA aproape s-a triplat.</p>
-  <p>Singura cifră care nu strălucește e <strong>current ratio 1,14</strong> — activele curente
-  acoperă datoriile curente de doar 1,14 ori. E scăzut, dar normal pentru Netflix: are obligații
-  mari pe termen scurt legate de conținut, contrabalansate de un flux de încasări lunare foarte
-  previzibil de la 300 de milioane de abonați care plătesc în avans.</p>
+  <p><b>Verdict: Solid (verde).</b> Un raport datorie netă/EBITDA de 0,5× înseamnă că, dacă ar folosi tot profitul operațional exclusiv pentru datorii, Netflix ar scăpa de ele în șase luni. Pragul de risc din grilă e 3,0×, adică de șase ori mai sus. Detaliul care contează cel mai mult e însă traiectoria: datoria totală a scăzut de la 15,4 mld $ (2021) la 14,3 mld $ (30 iun. 2026) în timp ce veniturile au crescut de la 29,7 la 48,4 mld $. Aceeași datorie pe o afacere de o dată și jumătate mai mare e, practic, jumătate de datorie.</p>
+  <p>Notă de sursă: pagina de statistici arată 16,65 mld $ datorie totală, iar bilanțul 14,31 mld $ — o diferență de peste 5%, care vine cel mai probabil din tratarea leasingurilor. Am folosit cifra mai mare, cea prudentă; cu cea mică raportul ar fi 0,35× în loc de 0,5×, iar concluzia nu se schimbă. Pe 20 iul. 2026 compania s-a întors pe piața obligațiunilor după doi ani — o emisiune nouă la un bilanț ca acesta e o alegere de finanțare, nu un semn de presiune.</p>
 </section>
 
 <!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
-    <div class="h">CIFRA CARE CONTEAZĂ — ȘI CAPCANA</div>
-    <p>Nu suma cheltuită pe răscumpărări, ci <strong>evoluția numărului de acțiuni</strong>. Multe
-    companii anunță buyback-uri de miliarde, dar în același an emit acțiuni noi pentru angajați de
-    aproape aceeași valoare. Numărul total rămâne plat: au cheltuit miliarde și felia ta nu a
-    crescut cu nimic.</p>
-    <p><strong>Testul: numărul de acțiuni pe 3–5 ani, nu suma anunțată.</strong></p>
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Multe companii anunță răscumpărări de miliarde și, în același an, emit aproape tot atâtea acțiuni pentru angajați — cheltuie enorm, iar felia ta rămâne identică. Testul e numărul de acțiuni pe 3–5 ani, nu suma din comunicat. Netflix trece testul.</p>
   </div>
-
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Acțiuni în circulație (ajustat pentru split)</b><span class="unit">miliarde</span></figcaption>
+    <figcaption><b>Acțiuni în circulație (SEC, ajustat pentru divizarea 10:1)</b><span class="unit">milioane</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","Acum"],
-     "series":[{"name":"Acțiuni în circulație","values":[4.554,4.517,4.495,4.395,4.342,4.160]}]}
+    {"labels":["dec 23","dec 24","iun 25","dec 25","iun 26"],
+     "series":[{"name":"Acțiuni în circulație","values":[4327.6,4277.6,4249.3,4222.2,4163.9]}]}
     </script>
   </figure>
-  <p style="font-size:12px;color:var(--ink-3)">Valorile pe ani fiscali sunt calculate de mine din
-  capitaluri proprii ÷ valoare contabilă pe acțiune. Cifra „Acum" vine direct de pe pagina de
-  statistici (4,16 mld, variație anuală −1,48%).</p>
-
-  <p><strong>Netflix trece testul.</strong> Numărul de acțiuni scade real, în fiecare an, cu circa
-  1,5% pe an. Pe cinci ani, felia ta a crescut cu ~8–9% fără să faci nimic. Nu e buyback cosmetic.</p>
-
   <div class="stats">
-    <div class="stat"><div class="l">Cheltuit pe buyback (TTM)</div><div class="v">9,92 mld</div><div class="s">acoperit din FCF de 11,15 mld</div></div>
-    <div class="stat"><div class="l">Randament buyback</div><div class="v up">3,33%</div><div class="s">pe an</div></div>
-    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">nu plătește dividend</div></div>
-    <div class="stat"><div class="l">Randament total</div><div class="v up">3,33%</div><div class="s">buyback + dividend</div></div>
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v up">−2,0%</div><div class="s">felia ta a crescut</div></div>
+    <div class="stat"><div class="l">Răscumpărări (12 luni)</div><div class="v">9,92 mld $</div><div class="s">89% din free cash flow</div></div>
+    <div class="stat"><div class="l">Randament buyback</div><div class="v">3,3%</div><div class="s">pe an</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">niciun dividend</div></div>
   </div>
-
+  <p><b>Verdict: Solid (verde).</b> Numărul de acțiuni scade constant de trei ani, cu peste 1% pe an — pragul pentru verde. Cine deținea 1% din companie la finalul lui 2023 și nu a făcut nimic deține azi 1,04%. Cifrele sunt luate de pe coperta formularelor depuse la SEC și ajustate pentru divizarea de 10 la 1, nu derivate din alte mărimi.</p>
   <div class="concept">
-    <div class="h">NU CONFUNDA „FĂRĂ DIVIDEND" CU „NU-MI DĂ NIMIC"</div>
-    <p>Un începător compară instinctiv doar dividendele și concluzionează că o companie fără
-    dividend nu returnează nimic. Fals. Netflix îți returnează 3,3% pe an prin răscumpărări —
-    economic aproape identic cu un dividend de 3,3%. Diferența practică: dividendul se impozitează
-    în anul în care îl primești, răscumpărarea abia când vinzi.</p>
+    <div class="h">RANDAMENTUL TOTAL PENTRU ACȚIONAR</div>
+    <p>Netflix nu plătește dividend, iar un începător conchide deseori că „nu-i dă nimic”. E fals. Răscumpărările de 9,92 mld $ raportate la o capitalizare de 298,6 mld $ înseamnă un randament de <b>~3,3% pe an</b> — mai mult decât dividendul multor companii considerate „de dividend”. Cele două sunt economic aproape echivalente; diferența practică e că dividendul se impozitează în anul în care îl primești, iar răscumpărarea abia când vinzi.</p>
   </div>
-
-  <div class="concept" style="border-left-color:var(--crit);background:rgba(208,59,59,.06)">
-    <div class="h" style="color:var(--crit)">PARTEA NEPLĂCUTĂ</div>
-    <p>În FY2025 Netflix a cheltuit <strong>9,1 mld $</strong> răscumpărând acțiuni, într-un an în
-    care acțiunea a atins <strong>126,71 $</strong>. Azi e la <strong>71,46 $</strong>. Au cheltuit
-    banii acționarilor cumpărând la prețuri cu 40–70% peste cel de acum.</p>
-    <p>Nu e rea-credință — nimeni nu ghicește vârfurile. Dar e ilustrarea perfectă a principiului:
-    <strong>buyback-ul e bun doar dacă acțiunile sunt cumpărate la un preț rezonabil.</strong>
-    O companie care cumpără la maxime cheltuie prost banii acționarilor, exact ca oricine altcineva.</p>
-  </div>
+  <p><b>Rezerva, și e reală: a răscumpărat scump.</b> Grila cere verificarea prețului la care s-a cumpărat, iar aici răspunsul nu e măgulitor. Compania a cheltuit 6,26 mld $ în 2024 și 9,13 mld $ în 2025 — ani în care acțiunea era la sau aproape de maxime — iar acțiunea e azi cu 43,4% sub vârful ultimelor 52 de săptămâni. Cu aceiași bani ar fi cumpărat azi vizibil mai multe acțiuni. Nu schimbă culoarea rândului, pentru că numărul de acțiuni chiar a scăzut și felia ta chiar a crescut; dar e diferența dintre „compania îmi returnează bani” și „compania îmi returnează bani <i>bine</i>”, iar a doua e o întrebare pe care merită să ți-o pui la orice companie care răscumpără agresiv.</p>
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
-    <p>Veniturile pot fi cumpărate cu discounturi și achiziții. Profitul net poate fi ajustat
-    contabil. Marja brută arată direct dacă compania <strong>mai poate cere prețul ei</strong>.
-    E ca un magazin care trebuie să dea reduceri tot mai mari ca să vândă la fel: încă vinde, dar
-    puterea de negociere s-a dus.</p>
+    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei, și e indicatorul care semnalează cel mai devreme că un avantaj se erodează. La Netflix, graficul de mai jos e cel mai bun argument din tot raportul.</p>
   </div>
-
-  <figure class="viz" data-viz="bars">
-    <figcaption><b>Venituri pe an fiscal</b><span class="unit">mld USD</span></figcaption>
-    <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
-     "series":[{"name":"Venituri","values":[29.70,31.62,33.72,39.00,45.18,48.37]}],
-     "suffix":" mld"}
-    </script>
-  </figure>
-
   <figure class="viz" data-viz="lines">
     <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM"],
+    {"labels":["FY21","FY22","FY23","FY24","FY25","12 luni"],
      "series":[{"name":"Marjă brută","values":[41.64,39.37,41.54,46.06,48.49,49.12]},
                {"name":"Marjă operațională","values":[20.86,17.82,20.62,26.71,29.49,29.68]},
                {"name":"Marjă netă","values":[17.23,14.21,16.04,22.34,24.30,28.22]}],
      "suffix":"%"}
     </script>
   </figure>
+  <p>Trei linii care urcă împreună, patru ani la rând. Când marja operațională crește mai repede decât veniturile — de la 20,9% la 29,7% în timp ce veniturile au crescut cu 63% — asta se numește <i>operating leverage</i>: costurile fixe se împart la tot mai multe vânzări. E mecanismul din spatele multor povești de succes în bursă și e cel mai puternic argument că moat-ul lui Netflix e real.</p>
 
-  <div class="tw"><table>
-    <thead><tr><th></th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>TTM</th></tr></thead>
-    <tbody>
-      <tr><td>Venituri (mld $)</td><td>29,70</td><td>31,62</td><td>33,72</td><td>39,00</td><td>45,18</td><td>48,37</td></tr>
-      <tr><td>Creștere</td><td>+18,8%</td><td>+6,5%</td><td>+6,7%</td><td>+15,7%</td><td>+15,9%</td><td>+16,0%</td></tr>
-      <tr class="me"><td>Marjă brută</td><td>41,64%</td><td>39,37%</td><td>41,54%</td><td>46,06%</td><td>48,49%</td><td>49,12%</td></tr>
-      <tr><td>Marjă operațională</td><td>20,86%</td><td>17,82%</td><td>20,62%</td><td>26,71%</td><td>29,49%</td><td>29,68%</td></tr>
-      <tr><td>Marjă netă</td><td>17,23%</td><td>14,21%</td><td>16,04%</td><td>22,34%</td><td>24,30%</td><td>28,22%</td></tr>
-      <tr><td>EPS (ajustat split)</td><td>1,12 $</td><td>0,99 $</td><td>1,20 $</td><td>1,98 $</td><td>2,53 $</td><td>3,18 $</td></tr>
-    </tbody>
-  </table></div>
-
-  <p><strong>Ce se vede:</strong> venituri în creștere <strong>cinci ani din cinci</strong>. Marja
-  brută în urcare de patru ani. Marja operațională a urcat de la 17,8% (2022) la 29,7% — aproape
-  s-a dublat.</p>
-
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["T3 24","T4 24","T1 25","T2 25","T3 25","T4 25","T1 26","T2 26"],
+     "series":[{"name":"Creștere an/an","values":[15.02,16.00,12.51,15.90,17.16,17.61,16.19,13.36]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+  <p><b>Și acum, motivul galbenului.</b> Al doilea grafic e cel care mută rândul. Creșterea an/an a urcat până la <b>17,61% în T4 2025</b> și de atunci coboară: 16,19% în T1 2026, <b>13,36% în T2 2026</b>. Iar compania a ghidat pentru T3 2026 venituri de 12,86 mld $, adică o creștere de <b>11,7%</b> — a patra scădere consecutivă a ritmului, anunțată chiar de companie pe 16 iul. 2026.</p>
   <div class="concept">
-    <div class="h">OPERATING LEVERAGE — MECANISMUL DIN SPATELE MULTOR POVEȘTI DE SUCCES</div>
-    <p>Când marja operațională crește mai repede decât veniturile, e semn că <strong>costurile fixe
-    se împart la tot mai multe vânzări</strong>. La Netflix, bugetul de conținut nu crește
-    proporțional cu abonații: același sezon din <em>Stranger Things</em> costă la fel dacă îl văd
-    100 sau 300 de milioane de oameni. Fiecare abonat nou aduce venit aproape integral la linia de
-    profit. De asta veniturile au crescut 16% și profitul operațional a crescut 28%.</p>
+    <div class="h">DECELERAREA — DE CE CONTEAZĂ MAI MULT DECÂT NIVELUL</div>
+    <p>Compania încă crește, și crește bine. Dar tot mai încet. Pentru piață, decelerarea e o veste proastă chiar dacă cifrele rămân impresionante, <b>pentru că prețul plătit ieri presupunea ritmul de ieri</b>. E cealaltă jumătate a răspunsului la nedumerirea „rezultate bune, acțiunea scade”: prima jumătate e că rezultatele au fost sub așteptări, a doua e că ritmul a încetinit. De aceea cifrele trimestriale contează mai mult decât cele anuale — anul ascunde ce s-a întâmplat în ultimele trimestre. Cifra anuală a Netflix pe 2025, +15,85%, nu spune nimic despre faptul că ultimul trimestru a fost 13,36% și următorul e ghidat la 11,7%.</p>
+    <p>Cauza e vizibilă în tabelul din secțiunea 2: America de Nord, 43,2% din venituri, crește cu doar 10,2%. Când regiunea cea mai mare se maturizează, media coboară — aritmetic, nu din vina nimănui.</p>
   </div>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Nuanțele care nu strălucesc</h3>
-  <ul class="list">
-    <li>Anii <b>2022–2023 au fost slabi</b> (+6,5%, +6,7%) — creșterea de acum vine de la o bază de
-      comparație joasă și din măsuri punctuale: interzicerea partajării parolelor, planul cu
-      reclame, majorări de preț.</li>
-    <li><b>Guidance-ul propriu pentru 2026 e 13–14%</b>, sub cei 16% de acum. Deci încetinire, chiar
-      dacă rămâne creștere solidă.</li>
-    <li><b>Creșterea de EPS estimată pentru anul următor e de doar ~6%</b> — semnificativ sub
-      creșterea veniturilor. Semnal că marjele nu mai pot urca la fel de repede.</li>
-  </ul>
+  <p><b>Verdict: Atenție (galben), structural.</b> Pe cifre anuale ar fi verde curat: venituri în creștere în toți cei cinci ani, marje în urcare fără excepție. Regula spune însă explicit că un verde anual coboară la galben când ultimele trei-patru trimestre arată o încetinire clară, iar de la 17,61% la un ghidaj de 11,7% în patru trimestre e o încetinire clară. Eticheta e structurală: maturizarea pieței principale nu e o etapă care se închide, e o proprietate a locului unde a ajuns compania.</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
-
-  <div class="stats">
-    <div class="stat"><div class="l">P/E (TTM)</div><div class="v">23,1</div><div class="s">22,5 pe finviz</div></div>
-    <div class="stat"><div class="l">Forward P/E</div><div class="v">21,1</div><div class="s">18,7 pe finviz — surse diferite</div></div>
-    <div class="stat"><div class="l">P/FCF</div><div class="v">27,3</div><div class="s">cifra de ancorat</div></div>
-    <div class="stat"><div class="l">EV/EBITDA</div><div class="v">21,2</div><div class="s"></div></div>
-    <div class="stat"><div class="l">P/S</div><div class="v">6,30</div><div class="s"></div></div>
-    <div class="stat"><div class="l">PEG</div><div class="v">0,86</div><div class="s"></div></div>
-  </div>
-
-  <div class="concept" style="border-left-color:var(--crit);background:rgba(208,59,59,.06)">
-    <div class="h" style="color:var(--crit)">UN AVERTISMENT DESPRE P/E-UL DE 23</div>
-    <p>Compară două cifre TTM: <strong>profit operațional 14,36 mld $</strong> și <strong>profit
-    net 13,65 mld $</strong>. Diferența e de doar 705 mil $ — dar acolo ar trebui să încapă
-    <em>și</em> dobânzile la 16,65 mld $ datorie, <em>și</em> impozitul pe profit. Rata de
-    impozitare implicită iese sub 5%, ceea ce nu e sustenabil.</p>
-    <p>Concluzia: <strong>profitul net TTM conține aproape sigur un element nerecurent</strong>
-    (cel mai probabil un beneficiu fiscal punctual). Asta face P/E-ul de 23 să pară mai ieftin
-    decât e.</p>
-    <p><strong>Verificare independentă:</strong> pe EPS-ul anului fiscal complet 2025 (2,53 $),
-    P/E-ul e <strong>28,2</strong>, nu 23. Iar cu guidance-ul propriu pe 2026 (51,2 mld $ venituri
-    × 31,5% marjă operațională ≈ 16,1 mld $ profit operațional, minus dobânzi și impozit normal),
-    profitul net normalizat iese pe la ~12 mld $ — adică un P/E în jur de <strong>25</strong>.</p>
-  </div>
-
-  <div class="concept">
-    <div class="h">FOLOSEȘTE P/FCF CÂND P/E-UL E SUSPECT</div>
-    <p>Profitul contabil se poate ajusta; cash-ul nu. <strong>P/FCF-ul de 27,3 e cifra pe care aș
-    ancora-o</strong>, nu P/E-ul de 23.</p>
-  </div>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Cât s-a comprimat multiplul</h3>
-  <p>Acum un an acțiunea era pe la <strong>116 $</strong> (calculat din −38,36% pe 12 luni).
-  Împărțit la EPS-ul FY2025 de 2,53 $, asta înseamnă un P/E de <strong>~46</strong>. Azi, pe
-  același EPS, e <strong>~28</strong>.</p>
-  <p><strong>Nu profitul a scăzut — profitul a crescut. Multiplul s-a înjumătățit.</strong> Piața a
-  decis să plătească mult mai puțin pentru fiecare dolar de profit al Netflix, pentru că nu mai
-  crede în ritmul de creștere de acum un an. Asta e povestea întregului an.</p>
-
-  <h3 style="font-size:14px;margin:22px 0 10px">Față de concurenți</h3>
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
   <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>Marjă brută</th><th>Creștere venituri</th><th>Dat. netă/EBITDA</th></tr></thead>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>EV/EBITDA</th><th>Marjă operațională</th><th>Venituri (12 luni)</th><th>ROIC</th></tr></thead>
     <tbody>
-      <tr class="me"><td>Netflix (NFLX)</td><td>23,1</td><td>27,3</td><td>49,1%</td><td>13–14%</td><td>~0,5×</td></tr>
-      <tr><td>Disney (DIS)</td><td>15,4</td><td>23,5</td><td>37,2%</td><td>~5,4%</td><td>~2,3×</td></tr>
-      <tr><td>Spotify (SPOT)</td><td>35,2</td><td>29,5</td><td>32,3%</td><td>~13,7%</td><td>net cash</td></tr>
+      <tr class="me"><td>NFLX</td><td>22,59</td><td>26,78</td><td>20,79</td><td>29,7%</td><td>48,4 mld $</td><td>32,4%</td></tr>
+      <tr><td>Disney (DIS)</td><td>15,37</td><td>23,49</td><td>11,25</td><td>14,7%</td><td>97,3 mld $</td><td>9,2%</td></tr>
+      <tr><td>Warner Bros. Discovery (WBD)</td><td>n/a</td><td>28,54</td><td>25,92</td><td>6,0%</td><td>37,2 mld $</td><td>3,4%</td></tr>
+      <tr><td>Spotify (SPOT)</td><td>33,65</td><td>28,11</td><td>33,25</td><td>13,7%</td><td>20,2 mld $</td><td>96,5%</td></tr>
     </tbody>
   </table></div>
-  <p style="font-size:12px;color:var(--ink-3)">Bazele de creștere nu sunt identice — la Netflix e
-  guidance-ul propriu pe 2026, la ceilalți estimarea pe 3 ani a sursei. Citește coloana ca ordin
-  de mărime.</p>
-  <p>Netflix e la mijloc: mai scumpă decât Disney, mai ieftină decât Spotify — dar cu
-  <strong>marja brută cea mai mare din grup cu 12 puncte procentuale</strong> și cu bilanțul cel
-  mai curat după Spotify. Prima față de Disney e justificată de calitatea afacerii; întrebarea
-  deschisă e cât de mare ar trebui să fie prima.</p>
-
+  <p>Trei competitori reali, citiți de pe aceleași pagini. Disney și Warner Bros. Discovery sunt rivalii direcți pe streaming; Spotify e comparabilul de model — abonament lunar, conținut licențiat, scară globală. Warner Bros. Discovery n-are P/E pentru că a pierdut 1,74 mld $ pe ultimele 12 luni, ceea ce e în sine informativ: e greu să găsești un rival care câștigă bani din streaming. Coloana marjei operaționale spune povestea într-o privire — 29,7% la Netflix, 14,7% la Disney, 6,0% la Warner.</p>
+  <p><b>Concluzia comparației e mai puțin evidentă decât pare.</b> Pe P/E, Netflix e mai scumpă decât Disney și mai ieftină decât Spotify. Pe P/FCF — indicatorul mai onest, pentru că se raportează la cash, nu la profit contabil — e la 26,78, adică <i>sub</i> mediana celor trei (28,11). Pe EV/EBITDA, 20,79 față de o mediană de 25,92, tot sub. Cu alte cuvinte, cea mai profitabilă companie din grup, cu o marjă de două ori mai mare decât a următoarei, nu e cea mai scump evaluată.</p>
+  <div class="concept">
+    <div class="h">O NOTĂ DE METODĂ — EV/EBITDA LA O COMPANIE DE CONȚINUT</div>
+    <p>Cele două surse dau cifre foarte diferite pentru EV/EBITDA la Netflix: 20,79 și 9,44. Diferența nu e o eroare, e o alegere: cifra mică adaugă înapoi la profit <b>amortizarea conținutului</b>, care e de ordinul a 16 mld $ pe an. La o fabrică, adăugarea amortizării înapoi are sens — utilajul e deja plătit. La Netflix nu are: conținutul trebuie cumpărat din nou în fiecare an, altfel afacerea se oprește. Am folosit cifra mare (20,79), cea care tratează conținutul drept ce este — un cost real, recurent. Când vezi un multiplu suspect de mic la o companie de media, asta e de obicei explicația.</p>
+  </div>
   <div class="concept">
     <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
-    <p>La P/FCF 27,3, plătești 27 de ani de cash flow la nivelul de azi. Ca să iasă bine, ai nevoie
-    ca FCF-ul să crească semnificativ de aici. Piața pare să presupună creștere continuă de 10–15%
-    pe an în venituri și marje care se stabilizează la ~31%.</p>
-    <p><strong>Dacă Netflix livrează exact ce a promis, prețul de azi e rezonabil. Dacă creșterea
-    coboară spre o singură cifră, multiplul mai are loc să scadă.</strong></p>
+    <p>Diferența dintre P/E-ul curent și cel prospectiv arată ce creștere e deja inclusă în preț. La Netflix: de la <b>22,59</b> la un P/E prospectiv între <b>18,79 și 20,70</b>, în funcție de sursă — ceea ce implică o creștere a profitului între ~9% și ~20% în anul următor. E o așteptare modestă după standardele companiei, care a crescut profitul cu 42% în ultimul an, și e chiar sensul căderii de 38%: <b>piața a scos din preț ipoteza creșterii rapide.</b></p>
+    <p>Al doilea reper, mai simplu și mai util: <i>randamentul profitului</i>, adică P/E-ul citit invers. La P/E 22,59, compania „produce” 4,4% pe an la prețul de azi. Obligațiunile americane pe 10 ani, fără practic niciun risc, dau 4,75% (31 iul. 2026). Deci Netflix produce azi <i>mai puțin</i> decât alternativa fără risc — iar diferența e ce plătești pentru creșterea viitoare. Acum un an, la un P/E de 41, compania producea 2,4% față de 4,23% la obligațiuni; distanța s-a înjumătățit. E o constatare din două fapte de azi, nu o prognoză.</p>
   </div>
-
-  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
-    <div class="h" style="color:#8a6100">EVALUAREA NU E UN SEMNAL DE TIMING</div>
-    <p>O acțiune ieftină poate rămâne ieftină ani buni, dacă afacerea chiar se deteriorează —
-    asta se numește <em>value trap</em>. Iar „a fost 126 $, acum e 71 $, deci e la jumătate de
-    preț" e cea mai comună capcană a începătorului: <strong>prețul anterior nu e o măsură a
-    valorii.</strong></p>
-    <p><strong>Verdict: galben.</strong> Netflix e clar mai ieftină decât propria istorie recentă,
-    dar nu suficient de ieftină cât să fie o evidență — mai ales că discountul are o cauză reală:
-    creșterea încetinește. Nu e nici capcană de valoare, nici chilipir.</p>
+  <p><b>Verdict: Atenție (galben), structural.</b> Cele trei axe dau: <i>față de propria istorie</i> — mult mai ieftină, P/E 22,59 față de o medie pe 5 ani de 41,2, P/FCF 26,78 față de ~52, EV/EBITDA 20,79 față de ~32; <i>față de competitori</i> — la mijloc sau sub mediană, în funcție de indicator; <i>față de propria creștere</i> — un raport preț/creștere de 0,86, care nu e scump.</p>
+  <p>Două din trei axe ar susține verdele. Ce îl blochează e clauza a treia din prag: verdele cere ca discountul să <b>nu</b> aibă o cauză reală în afacere. Aici o are, și e chiar cea din secțiunea 7 — creșterea a încetinit de la 17,6% la un ghidaj de 11,7%. Multiplul nu a scăzut din capriciu; a scăzut pentru că ritmul a scăzut. Rândul e, ca întotdeauna, structural: prețul de azi e un fapt despre azi, nu o etapă.</p>
+  <div class="concept">
+    <div class="h">EVALUAREA NU E UN SEMNAL DE MOMENT</div>
+    <p>„A fost 126 $, acum e 71 $, deci e ieftină la jumătate” nu e o teză de investiție — e ancorare de prețul istoric, una dintre cele mai costisitoare capcane pentru un începător. Prețul anterior nu e o măsură a valorii, iar compania de azi crește cu 13%, nu cu 18%. O acțiune ieftină poate rămâne ieftină ani la rând dacă motivul discountului persistă. Ce spune secțiunea asta e doar pe ce pariezi la 71,71 $: pe un profit care crește cu ~9–20% în anul următor, la o companie care își apără marjele foarte bine.</p>
   </div>
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
-  <p><strong>Acesta e pilonul cu cea mai slabă valoare predictivă din tot raportul.</strong> Spune
-  ce cred alții acum, nu cât de bună e afacerea.</p>
-
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
   <div class="stats">
-    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">83–84%</div><div class="s">normal pentru mărimea ei</div></div>
-    <div class="stat"><div class="l">Variație instituțională</div><div class="v">+0,05%</div><div class="s">practic plat</div></div>
-    <div class="stat"><div class="l">Short interest</div><div class="v up">2,41%</div><div class="s">din float · 2,0–2,3 zile de acoperire</div></div>
-    <div class="stat"><div class="l">Consens analiști</div><div class="v">1,69</div><div class="s">„Buy" · 51 analiști</div></div>
-    <div class="stat"><div class="l">Preț-țintă mediu</div><div class="v">94,4 $</div><div class="s">+32% față de prețul actual</div></div>
-    <div class="stat"><div class="l">Indici</div><div class="v" style="font-size:14px">S&amp;P 500</div><div class="s">+ Nasdaq</div></div>
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">81–84%</div><div class="s">80,9% MarketBeat · 84,2% stockanalysis</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+189 mld $</div><div class="s">3.469 cumpărători / 1.297 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v up">2,41%</div><div class="s">din float · 2,0 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">2,6×</div><div class="s">pe an · se deține, nu se tranzacționează</div></div>
   </div>
-
+  <p><b>Verdict: Solid (verde).</b> E pilonul cu cea mai slabă valoare predictivă din toate și merită spus limpede: nu zice nimic despre calitatea afacerii, doar despre ce cred alții acum. Iar aici avem un paradox util — toate semnalele de sentiment sunt bune, și acțiunea a căzut oricum 38% într-un an. Dacă sentimentul ar prezice prețul, asta nu s-ar fi putut întâmpla.</p>
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
-    <p>Cine vinde în lipsă împrumută acțiuni, le vinde, și speră să le răscumpere mai ieftin. Un
-    short interest mare înseamnă că mulți profesioniști pariază pe scădere. Un începător aude
-    „short squeeze" și îl citește ca pe o ocazie — în realitate e mult mai des un avertisment că
-    cineva mai bine informat vede o problemă.</p>
-    <p><strong>La Netflix nu e cazul:</strong> 2,41% din float e sub pragul de 3%, iar 2 zile de
-    acoperire e foarte puțin. Practic nimeni nu pariază agresiv pe prăbușire.</p>
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. La Netflix doar <b>2,41% din float</b> e în această situație, sub pragul de 3% de la care grila dă verde — foarte puțini profesioniști pariază pe scădere. Comparat cu o companie speculativă, unde procentul poate trece de 40%, aici pur și simplu nu există combustibil pentru mișcări violente în niciuna dintre direcții: <i>days to cover</i> e 2,0, iar căderea de 38% s-a produs fără niciun ajutor din partea celor pe short. Când o acțiune scade cu short interest mic, scăderea e opinia deținătorilor, nu presiunea adversarilor.</p>
   </div>
-
-  <p><strong>Includerea în S&amp;P 500 și Nasdaq</strong> înseamnă cumpărare automată și constantă
-  din partea fondurilor pasive care replică indicii — o cerere care nu depinde de rezultatele
-  companiei.</p>
-
-  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
-    <div class="h" style="color:#8a6100">DESPRE FLUXURILE INSTITUȚIONALE — SUNT SINCER CU TINE</div>
-    <p>MarketBeat raportează 3.487 cumpărători vs. 1.323 vânzători, cu „intrări" de 196,8 mld $ și
-    „ieșiri" de 7,43 mld $. Cifra de 196,8 mld $ ar reprezenta două treimi din întreaga
-    capitalizare într-un an — <strong>nu e credibilă ca flux net</strong>. MarketBeat agregă
-    valoarea totală a pozițiilor raportate, nu tranzacțiile nete.</p>
-    <p>Folosește raportul cumpărători/vânzători (≈2,6:1, favorabil) și ignoră sumele. Semnalul mai
-    curat e „Inst Trans" de pe finviz: <strong>+0,05%, adică plat</strong>.</p>
-  </div>
-
   <div class="concept">
-    <div class="h">DESPRE PREȚUL-ȚINTĂ AL ANALIȘTILOR, TREI LUCRURI DEODATĂ</div>
-    <p><strong>1.</strong> Analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul. Baird
-    tocmai a tăiat de la 120 $ la 90 $ — după ce acțiunea căzuse deja. Ținta descrie prezentul, nu
-    viitorul.</p>
-    <p><strong>2.</strong> Recomandările de vânzare sunt foarte rare, pentru că băncile vor să
-    păstreze relația cu compania. Un consens de „Buy" e starea implicită, nu o distincție.</p>
-    <p><strong>3.</strong> O țintă de 94 $ cu prețul la 71 $ înseamnă +32%. Tratează-l ca pe o
-    medie de păreri, nu ca pe o predicție.</p>
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 43,8 mln acțiuni × 250 de zile ÷ un float de 4,14 mld acțiuni = <b>~2,6×</b> pe an. Tot free float-ul își schimbă proprietarul de două ori și jumătate într-un an. E cifra unei companii <i>deținute</i>, nu tranzacționate — pentru comparație, un titlu speculativ se rotește de zeci de ori. Aici nu găsești speculație de retail; găsești fonduri mari care își ajustează pozițiile.</p>
+    <p><b>Includerea în indici</b> e cealaltă sursă de cerere: Netflix e în S&amp;P 500 și în Nasdaq-100, deci fondurile pasive care replică acești indici o cumpără automat, indiferent de rezultate. E o cerere constantă care nu ține de companie — și care, evident, nu a împiedicat scăderea.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la 31 iul. 2026: <i>trecerea de la creșterea prin abonați la creșterea prin preț, reclame și sport în direct</i> — cu drepturile pentru Cupa Mondială feminină din SUA (~200 mln $, 29 iul. 2026) și extinderea licenței The Walking Dead (~500 mln $, 31 iul. 2026) ca dovezi recente. E o poveste plauzibilă și scumpă. Nu e o prognoză de venituri.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Aici s-a manifestat în sens invers: pesimismul a mutat prețul cu 38%, în timp ce marjele companiei au continuat să urce. Sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
   </div>
-
-  <p><strong>Verdict: verde pe criterii</strong> (deținere instituțională mare, short mic, indici
-  mari), <strong>dar cu asterisc</strong>: fluxurile instituționale sunt plate, nu în creștere, iar
-  prețul a scăzut 38% într-un an. Sentimentul „oficial" e pozitiv; comportamentul real al pieței,
-  nu.</p>
+  <p><b>Banii instituționali.</b> În 12 luni au intrat 196,8 mld $ și au ieșit 7,3 mld $, de la 3.469 de cumpărători față de 1.297 vânzători. Direcția e clar pozitivă. Nivelul de peste 80% deținere instituțională e normalul oricărei companii americane mari — nu spune nimic; direcția banilor spune.</p>
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR, CU AVERTISMENTELE LUI</div>
+    <p>Prețul-țintă mediu e 94,49 $ față de 71,71 $ pe piață — cu 32% peste — iar recomandarea medie e 1,69, adică între „cumpărare puternică” și „cumpărare”. Trei lucruri de știut înainte ca asta să însemne ceva. Analiștii își revizuiesc țintele <i>după</i> ce se mișcă prețul, nu înainte: ținta de azi descrie mai mult cât de mult a căzut acțiunea decât unde ajunge. Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania — o medie de „cumpărare” e starea implicită, nu o distincție. Iar ținta e o medie a unor păreri împrăștiate; finviz publică doar media, intervalul complet e pe pagina de prognoze a companiei.</p>
+  </div>
 </section>
 
 <!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
-<section>
+<section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
   <ul class="list">
-    <li><b>Co-CEO: Ted Sarandos și Greg Peters</b> — model neobișnuit de conducere bicefală,
-      funcțional la Netflix de câțiva ani.</li>
-    <li><b>Reed Hastings</b> — cofondator (1997), acum în consiliul de administrație, nu la
-      conducerea operațională.</li>
-    <li><b>CFO: Spencer Neumann.</b></li>
+    <li><b>Doi directori generali:</b> Greg Peters și Ted Sarandos, model neobișnuit dar stabil aici; director financiar Spencer Neumann. Fondatorul Reed Hastings a rămas în consiliul de administrație. Compania a fost fondată în 1997, listată din 23 mai 2002.</li>
+    <li><b>Cât dețin cei care conduc:</b> între 0,58% și 1,24%, în funcție de sursă. E puțin în procente, dar la o capitalizare de 298 mld $ înseamnă miliarde în valoare absolută — deci alinierea cu acționarii există, chiar dacă procentul pare mic.</li>
+    <li class="crit"><b>Insideri, 12 luni: 8 vânzători, 0 cumpărători, ~483 mln $ vânduți.</b> Cea mai mare parte vine de la fondatorul Reed Hastings (~278 mln $ între septembrie 2025 și iunie 2026, la prețuri între 85,97 și 120,77 $), plus vânzări ale directorului general și ale directorului financiar. Vânzările insiderilor sunt de obicei zgomot — sunt plătiți parțial în acțiuni și vând programat. Ce merită totuși notat, ca fapt: <b>nicio cumpărare din bani proprii în 12 luni</b>, iar vânzările s-au făcut în cea mai mare parte la prețuri cu 20–70% peste cel de azi.</li>
+    <li><b>Structura de vot:</b> sursele gratuite nu arată clase multiple de acțiuni ordinare cu drepturi de vot diferite. Netflix e, după cât se poate verifica din surse publice gratuite, o companie cu o singură clasă — ceea ce înseamnă că un vot pe acțiune contează efectiv. Merită confirmat în raportul anual (10-K) sau în documentul de vot (proxy statement) de pe SEC EDGAR.</li>
+  </ul>
+</section>
+
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <b>expunerea</b> — o proprietate stabilă a afacerii — nu vremea de azi, care stă datată în secțiunea 1.</p>
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR</div>
+    <p>La un P/E mare, cea mai mare parte a prețului e profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi, multiplul se comprimă și acțiunea scade <i>deși compania livrează exact ce a promis</i>. Nu s-a stricat afacerea; s-a scumpit banul.</p>
+    <p>Netflix e un exemplu de manual pentru mecanismul ăsta — dar în sens invers, ca lecție de <i>ieșire</i> din el. Acum un an, la un P/E de 41, compania era foarte expusă. Azi, la 22,59 și cu 11,15 mld $ free cash flow generat în prezent, o mare parte din preț e susținută de bani care intră acum, nu de promisiuni. Cea mai mare parte a comprimării s-a produs deja — de aceea rândul de mai jos nu are steag, deși acum un an l-ar fi avut.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Fără steag. P/E-ul prospectiv e ~19–21, mult sub pragul de ~35 la care evaluarea depinde de anii îndepărtați, iar free cash flow-ul e puternic pozitiv azi (11,15 mld $). Datoria netă de 0,5× EBITDA nu creează nici presiune de refinanțare — acela ar fi oricum pilonul 3, nu acesta.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Fără steag. Un abonament de câțiva dolari pe lună e printre ultimele lucruri tăiate dintr-un buget familial — divertisment ieftin pe oră, iar istoric cererea a rezistat în recesiuni. Singura felie cu adevărat ciclică e publicitatea, în jur de 3 mld $ vizate pentru 2026, adică sub 7% din venituri; suficient cât să merite menționat, prea puțin cât să ridice steagul.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>Steag.</b> Nu din cauza concentrării — nicio regiune nu domină periculos — ci din contră: <b>56,8% din venituri vin din afara Americii de Nord</b>, încasate în zeci de monede, sub regimuri locale care impun cote de conținut european, taxe pe servicii digitale și reguli de licențiere diferite în fiecare țară. Nu sunt tarife și nu sunt licențe de export, dar cursul valutar și regulile locale intră direct în veniturile raportate.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Nicio acțiune concretă, numită, în curs împotriva companiei pe sursele citite — nici antitrust, nici o autorizație în pericol. Cotele de conținut și taxele digitale sunt un cadru permanent, costisitor dar previzibil, nu o amenințare activă.</span></div>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Un singur steag, cel de geografie. E, de departe, cea mai mică expunere la lume dintre companiile din acest folder: fără dependență de dobânzi, fără ciclicitate serioasă, fără tarife, fără o amenințare de reglementare numită. Rândul e prin construcție structural — descrie unde își face banii compania, o proprietate care supraviețuiește oricărei etape.</p>
+  <p>Expunere mică nu înseamnă acțiune sigură, și Netflix e dovada perfectă: scorecard aproape curat, expunere minimă la lume, și totuși −38% într-un an. Riscul aici nu vine din afară, ci din interior — din ritmul propriu de creștere și din prețul plătit pentru el. Ce e specific companiei stă la secțiunea 12.</p>
+</section>
+
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu compusă de mine.</p>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <ul class="list">
+    <li><b>Venituri de 12,86 mld $ în trimestrul III 2026</b>, adică o creștere de 11,7% — ghidaj publicat de companie pe <b>16 iul. 2026</b>. E cea mai apropiată verificare și, pentru că a fost sub așteptările pieței, ștacheta e deja coborâtă.</li>
+    <li><b>Publicitate de aproximativ 3 mld $ venituri în 2026</b> — reafirmat de companie pe <b>16 iul. 2026</b>. E al doilea motor, cel care ar trebui să preia creșterea când abonamentele se maturizează, și singura linie care poate schimba traiectoria din secțiunea 7.</li>
+    <li><b>Planul financiar pe 2026 menținut integral</b> — declarat tot pe 16 iul. 2026, sprijinit pe creșterea abonaților, majorările de preț și extinderea conținutului. Compania nu a retras nimic din obiectivele anuale, doar a ghidat un trimestru sub consens.</li>
+    <li><b>Marja operațională la 29,7% pe ultimele 12 luni, în urcare de la 26,7% în 2024</b> — din situațiile financiare. Teza taurului nu are nevoie de o promisiune aici: expansiunea marjei se întâmplă deja, iar la o creștere a veniturilor de 13% și o marjă în urcare, profitul crește mai repede decât veniturile.</li>
   </ul>
 
-  <h3 style="font-size:14px;margin:22px 0 10px">Tranzacțiile insiderilor (ultimele 12 luni)</h3>
-  <div class="tw"><table>
-    <thead><tr><th>Data</th><th>Persoană</th><th>Funcție</th><th>Acțiune</th><th>Valoare</th></tr></thead>
-    <tbody>
-      <tr><td>17 iun. 2026</td><td>Bradford L. Smith</td><td>Director</td><td>Vânzare</td><td>2,79 mil $</td></tr>
-      <tr class="me"><td>1 iun. 2026</td><td>Reed Hastings</td><td>Director (cofondator)</td><td>Vânzare</td><td>33,24 mil $</td></tr>
-      <tr><td>7 mai 2026</td><td>Greg Peters</td><td>CEO</td><td>Vânzare</td><td>2,42 mil $</td></tr>
-      <tr><td>7 mai 2026</td><td>Spencer Neumann</td><td>CFO</td><td>Vânzare</td><td>0,82 mil $</td></tr>
-      <tr><td>5 mai 2026</td><td>Ted Sarandos</td><td>CEO</td><td>Vânzare</td><td>2,40 mil $</td></tr>
-      <tr class="me"><td>1 mai 2026</td><td>Reed Hastings</td><td>Director (cofondator)</td><td>Vânzare</td><td>37,96 mil $</td></tr>
-    </tbody>
-  </table></div>
-  <p><strong>Bilanț: 0 cumpărări, 8 vânzări, ~512 mil $ în 12 luni.</strong> „Insider Trans" pe
-  finviz: −7,89%.</p>
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Decelerarea continuă, iar piața principală e cauza.</b> De la 17,61% (T4 2025) la 13,36% (T2 2026) și un ghidaj de 11,7% pentru T3. America de Nord, 43,2% din venituri, crește cu doar 10,2%. Dacă ritmul coboară sub 10%, Netflix devine o companie de creștere moderată, iar un multiplu de 22 se compară cu al lui Disney (15), nu cu al unei companii de tehnologie.</li>
+    <li class="crit"><b>Cursa costurilor de conținut nu are frână.</b> În două săptămâni: ~200 mln $ pentru drepturi sportive (29 iul. 2026) și ~500 mln $ pentru o licență de serial (31 iul. 2026). Conținutul e singurul lucru care aduce abonați, iar concurenții cu buzunare mai adânci — companii pentru care streamingul e o linie secundară, nu afacerea — pot licita fără să le pese de rentabilitate. Marja de 29,7% e cea mai bună apărare, dar și lucrul cel mai ușor de erodat.</li>
+    <li><b>Mai puțină transparență fix când ritmul scade.</b> Reducerea informațiilor publicate despre audiență, semnalată la raportarea din 16–17 iul. 2026, e o problemă specifică: un investitor care nu mai poate verifica dacă produsul e urmărit rămâne cu prețul abonamentului ca singur indicator, iar creșterea prin preț are o limită naturală.</li>
+    <li><b>Zero costuri de schimbare.</b> Spre deosebire de aproape orice altă companie cu un moat verde, aici clientul poate pleca în două clicuri, fără nimic de pierdut. Moat-ul e la nivelul companiei (scara), nu la nivelul clientului — iar asta înseamnă că o serie de ani slabi în conținut se vede în abonați mult mai repede decât la o afacere cu contracte.</li>
+  </ul>
 
   <div class="concept">
-    <div class="h">CUM SE CITESC CORECT TRANZACȚIILE INSIDERILOR</div>
-    <p><strong>Vânzările spun puțin.</strong> Directorii sunt plătiți în mare parte în acțiuni și
-    vând programat, prin planuri stabilite cu luni înainte, ca să-și diversifice averea și să-și
-    plătească impozitele. Un CEO care vinde 2,4 mil $ dintr-un pachet de zeci de milioane nu spune
-    nimic.</p>
-    <p><strong>Cumpărările din bani proprii spun mult mai mult</strong>, pentru că există un singur
-    motiv pentru care cineva din interior cumpără cu banii lui.</p>
-    <p><strong>Ce e totuși de notat:</strong> zero cumpărări într-un an în care acțiunea a scăzut
-    38% și a atins minime de doi ani. Nu e un semnal de alarmă — e absența unui semnal pozitiv care
-    ar fi fost puternic dacă exista. Iar vânzările lui Hastings (71 mil $ în două luni) sunt mari
-    chiar și pentru un cofondator.</p>
-  </div>
-
-  <div class="concept" style="border-left-color:var(--warn);background:rgba(250,178,25,.08)">
-    <div class="h" style="color:#8a6100">DOUĂ AVERTISMENTE DESPRE DATE</div>
-    <p><strong>1.</strong> Lista de pe MarketBeat include tranzacții ale congresmanului
-    <strong>Ro Khanna</strong> (House, D-CA). Acela <strong>nu e insider al companiei</strong> — e
-    un politician american ale cărui tranzacții sunt publice prin lege. MarketBeat le amestecă în
-    aceeași tabelă. Nu le lua în calcul ca semnal de management.</p>
-    <p><strong>2.</strong> Deținerea insiderilor apare <strong>0,58%</strong> (stockanalysis) și
-    <strong>1,24%</strong> (marketbeat) — o diferență de peste 2×. Ambele sunt mici; ordinul de
-    mărime e „sub 1,5%", adică managementul nu deține practic nimic ca proporție.</p>
-  </div>
-
-  <div class="concept">
-    <div class="h">STRUCTURA DE VOT — DE VERIFICAT</div>
-    <p>Sursele gratuite folosite aici nu confirmă existența unor clase multiple de acțiuni. Nu am
-    indicii de structură duală la Netflix, dar <strong>verifică în 10-K sau în proxy statement pe
-    SEC EDGAR</strong> înainte să te bazezi pe asta.</p>
-    <p><strong>De ce contează:</strong> multe companii au clase de acțiuni cu drepturi de vot
-    diferite — publicul primește un vot pe acțiune, fondatorii dețin o clasă cu zece. Poți deține
-    5% din capital și să nu ai practic niciun cuvânt de spus. Nu e automat rău — controlul
-    fondatorului poate proteja strategia de presiunea trimestrială — dar dacă managementul
-    greșește, minoritarii nu au cum să-l schimbe.</p>
+    <div class="h">ARBITRUL</div>
+    <p><b>Prima verificare, la raportarea trimestrului III 2026</b> (data nu e publicată încă pe sursele citite; cea anterioară a fost pe 16 iul. 2026): ating veniturile cele 12,86 mld $ ghidate, sau ratează și ele? Și, mai important, ce ritm ghidează compania pentru trimestrul IV — sub sau peste cele 11,7%?</p>
+    <p><b>A doua, la finalul anului:</b> ajunge publicitatea la aproximativ 3 mld $, cifra reafirmată pe 16 iul. 2026? E singura linie care poate compensa maturizarea abonamentelor, și prima care se vede dacă nu merge.</p>
+    <p><b>A treia, în următoarele două-trei raportări:</b> se menține marja operațională în jur de 30% în timp ce cheltuielile cu conținutul cresc? Dacă marja începe să coboară în timp ce creșterea încetinește, cele două galbene din scorecard se apropie de roșu împreună. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
   </div>
 </section>
 
-<!-- ══ 11. RISCURI ═════════════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">11</span><h2>Riscuri — ce ar strica teza</h2></div>
-  <p>Nu enumăr „concurența" și „reglementarea" — se aplică la orice companie. Iată riscurile
-  specifice acestei afaceri:</p>
-  <ul class="list">
-    <li class="crit"><b>Nu mai poți vedea indicatorul care contează.</b> Netflix a încetat să
-      raporteze numărul de abonați, iar la Q2 2026 a redus și informațiile despre viewership.
-      Într-o afacere unde <b>costul de schimbare pentru client e zero</b>, rata de anulare (churn)
-      e singura măsură reală de sănătate. Acum e ascunsă. Investitorii au reacționat corect:
-      transparența redusă a fost un factor major al căderii de 9% după raportare.
-      <b>Când o companie încetează să publice o cifră, presupune că nu e o veste bună.</b></li>
-    <li class="crit"><b>Creșterea vine tot mai mult din preț, nu din clienți noi.</b> Piețele mature
-      (SUA, Canada, Europa de Vest) sunt aproape de saturație. Abonații noi vin din regiuni cu venit
-      mediu pe utilizator mult mai mic. Motoarele recente de creștere — interzicerea partajării
-      parolelor, planul cu reclame, majorările de preț — sunt măsuri <b>cu utilizare unică</b>. Nu
-      poți interzice partajarea de două ori. Guidance-ul de 13–14% pentru 2026, sub cei 16%
-      actuali, reflectă exact asta.</li>
-    <li><b>Pariul pe sport și live e o schimbare de model, nu o extensie.</b> 200 mil $ pentru Cupa
-      Mondială feminină, 500 mil $ pentru <i>The Walking Dead</i>. Problema cu sportul: drepturile
-      se relicitează la fiecare ciclu, prețul crește de fiecare dată, iar conținutul <b>nu are
-      valoare de bibliotecă</b> — nimeni nu se uită la un meci de anul trecut. E exact mecanismul
-      care a distrus economia televiziunii tradiționale.</li>
-    <li><b>Concurenți cu buzunare mai adânci — și unul cu costuri aproape zero.</b> Amazon și Apple
-      pot subvenționa streamingul la nesfârșit din alte afaceri. Dar cel mai serios rival e
-      <b>YouTube</b>: are deja cea mai mare cotă din timpul de vizionare pe televizor în SUA și un
-      cost de conținut aproape nul, pentru că îl produc utilizatorii. Netflix concurează pentru
-      timp, nu doar pentru abonamente.</li>
-    <li><b>Expunere globală necuantificată aici.</b> Netflix încasează în zeci de valute și
-      cheltuie mult în dolari. Defalcarea pe regiuni nu apare pe sursele gratuite folosite
-      (<b>N/A</b>) — caut-o în 10-K. Fără ea nu poți estima nici riscul valutar, nici concentrarea
-      geografică.</li>
-    <li><b>Riscul de a plăti prea mult pentru propriile acțiuni.</b> Compania a demonstrat deja că
-      răscumpără agresiv la maxime (9,1 mld $ în 2025, cu acțiunea la 126 $). Dacă continuă
-      modelul, o parte din cei 3,3% randament anual se evaporă.</li>
-  </ul>
-
-  <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p><strong>1. Marja brută scade sub ~46% două trimestre consecutive.</strong> Ar însemna că
-    puterea de preț se erodează — exact opusul a ce a demonstrat compania în ultimii trei ani.
-    E primul loc unde se vede că moat-ul crapă.</p>
-    <p><strong>2. Creșterea veniturilor coboară sub 10% pe an</strong> în timp ce marja operațională
-    nu mai urcă. Ar transforma Netflix dintr-o companie de creștere într-una matură, iar un P/FCF
-    de 27 nu se justifică pentru o companie matură.</p>
-    <p><strong>3. FCF-ul stagnează sub ~10 mld $ în timp ce cheltuiala pe conținut și drepturi
-    sportive crește.</strong> Ar însemna că pariul pe live consumă exact motorul care a făcut
-    compania investibilă din 2022 încoace. Semnal complementar: dacă reduc buyback-ul ca să
-    finanțeze conținut.</p>
-    <p style="margin-bottom:0">Un investitor care își notează dinainte ce l-ar face să se
-    răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
-  </div>
-</section>
-
-<!-- ══ 12. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
-<section>
-  <div class="sec"><span class="n">12</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
-
-  <h3 style="font-size:14px;margin:0 0 12px">Trei concepte pe care le poți aplica la orice companie</h3>
-  <ul class="list">
-    <li><b>Splitul nu schimbă absolut nimic.</b> Netflix la 71 $ după un split 10:1 e exact aceeași
-      companie ca Netflix la 710 $ înainte. Dacă vezi o acțiune „ieftină" la 20 $ și una „scumpă"
-      la 800 $, prețul pe acțiune nu-ți spune nimic despre valoare — capitalizarea și multiplii, da.</li>
-    <li><b>Rezultate bune + acțiune în scădere = așteptările erau deja în preț.</b> Netflix a
-      raportat venituri record în iulie și a căzut 9%. Nu e iraționalitate. Piața tranzacționează
-      diferența dintre ce era așteptat și ce s-a întâmplat, nu cifra în sine.</li>
-    <li><b>Când profitul și cash-ul spun lucruri diferite, crede cash-ul.</b> P/E-ul de 23 al
-      Netflix arăta ieftin până când am observat că rata implicită de impozitare e sub 5% —
-      imposibil de susținut. P/FCF-ul de 27, calculat pe bani reali, e cifra onestă. Contabilitatea
-      se poate ajusta; extrasul de cont, nu.</li>
-    <li><b>Bonus — comparația cu indicele.</b> Netflix e o companie excelentă care, pe cinci ani, a
-      rămas în urma unui ETF pe S&amp;P 500 pe care îl poți cumpăra fără nicio muncă.
-      <b>Companie bună ≠ investiție bună.</b> Diferența e prețul plătit.</li>
-  </ul>
-
-  <h3 style="font-size:14px;margin:24px 0 12px">Patru întrebări de pus la următoarea companie</h3>
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual.</b> Primul: <i>decelerarea</i> — o companie poate crește frumos și acțiunea să se înjumătățească, pentru că piața tranzacționează ritmul, nu nivelul; graficul trimestrial din secțiunea 7 e toată explicația celor −38%. Al doilea: <i>compania bună nu e totuna cu investiția bună</i> — Netflix are cel mai curat scorecard din acest folder și a egalat exact indicele pe trei ani, pentru că prețul de atunci încorpora deja calitatea. Al treilea: <i>operating leverage</i> — când marja operațională urcă mai repede decât veniturile, costurile fixe se împart la tot mai multe vânzări, iar profitul crește mai repede decât afacerea.</p>
   <ul class="list qa">
-    <li>Numărul de acțiuni a scăzut în ultimii 3–5 ani? (Nu cât s-a anunțat pe buyback — numărul efectiv.)</li>
-    <li>Marja brută urcă sau coboară? E cel mai timpuriu semnal că moat-ul se întărește sau crapă, cu ani înaintea profitului.</li>
-    <li>A bătut S&amp;P 500 pe 3 și pe 5 ani? Dacă nu, ce s-a schimbat de atunci ca să bată de acum înainte?</li>
-    <li>Ce cifră a încetat compania să mai publice? Când transparența scade, aproape întotdeauna e pentru că cifra a devenit neplăcută.</li>
+    <li>Ultimele patru trimestre arată accelerare sau încetinire? Cifra anuală ascunde aproape întotdeauna răspunsul.</li>
+    <li>A bătut acțiunea indicele pe 3 și pe 5 ani? Dacă nu, munca de analiză nu a produs nimic peste un ETF.</li>
+    <li>Marja brută urcă sau coboară? E cel mai devreme semnal că un moat se erodează.</li>
+    <li>Numărul de acțiuni a scăzut în ultimii 3 ani — și la ce preț a răscumpărat compania?</li>
+    <li>Cât de ușor pleacă un client? Un abonament anulabil în două clicuri și un contract pe cinci ani nu sunt același tip de afacere.</li>
+    <li>Când un multiplu pare suspect de mic, ce s-a adăugat înapoi la profit ca să iasă așa?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com · date la 31 iulie 2026.
-  Raportările au întârziere de până la un trimestru; short interest până la două săptămâni;
-  dețineri instituționale până la 45 de zile. Numărul de acțiuni pe ani fiscali e derivat de mine
-  din capitaluri proprii ÷ valoare contabilă pe acțiune. Toate cifrele istorice sunt ajustate
-  pentru splitul 10-pentru-1 din noiembrie 2025.<br>
-  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit
-  de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a
-  nimănui.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (formular 10-Q depus pe 17 iul. 2026 pentru veniturile pe regiuni; serie a numărului de acțiuni de pe coperta formularelor depuse, ajustată pentru divizarea 10:1) · date de piață la închiderea din <b>31 iulie 2026</b>; rezultatele trimestrului II 2026 raportate pe 16 iul. 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
 </footer>
 </div>
 
@@ -1002,7 +734,6 @@ footer b{color:var(--ink-2)}
     var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
     var type=fig.dataset.viz,sfx=d.suffix||'';
 
-    /* ── compare ──────────────────────────────────────────────────────────── */
     if(type==='compare'){
       var rows=d.rows||[];if(!rows.length)return;
       var html=rows.map(function(r){
@@ -1028,7 +759,6 @@ footer b{color:var(--ink-2)}
     var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
     if(!all.length)return;
 
-    /* ── bars: ÎNTOTDEAUNA de la zero ─────────────────────────────────────── */
     if(type==='bars'){
       var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
       var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
@@ -1051,7 +781,6 @@ footer b{color:var(--ink-2)}
       return;
     }
 
-    /* ── lines ────────────────────────────────────────────────────────────── */
     if(type==='lines'){
       var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
       var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
