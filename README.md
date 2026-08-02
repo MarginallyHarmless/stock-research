@@ -20,11 +20,11 @@ Nu presupune că știi ce e un moat, un free cash flow sau un short interest —
 | 5 | Cash vs. datorii | Cât de solidă e la o criză sau la dobânzi mari |
 | 6 | Buyback, dividend, diluție | Partea ta din companie crește sau scade |
 | 7 | Creștere și marje | Afacerea se întărește sau se erodează — pe ani și pe trimestre |
-| 8 | Evaluare | Companie bună — dar la ce preț, și ce presupune prețul ăsta |
-| 9 | Sentiment de piață | Instituționali, short interest, indici, analiști |
+| 8 | Evaluare | Companie bună — dar la ce preț, ce creștere e deja în preț, ce venit încorporează |
+| 9 | Sentiment de piață | Instituționali, short interest, indici, analiști, de unde vine cererea |
 | 10 | Management și insideri | Cine conduce, cumpără cu banii lor, structura de vot |
 | 11 | Expunerea la lume | Cât o clatină dobânzile, ciclul, geopolitica — expunerea se notează, vremea nu |
-| 12 | Riscuri | Ce ar invalida teza |
+| 12 | Cele două teze | Ce trebuie să fie adevărat ca prețul să aibă sens, și ce ar strica |
 | 13 | Ce ai învățat | Concepte noi și întrebări pentru următoarea companie |
 
 Fișierul HTML e de sine stătător, cu grafice, cuprins, temă deschisă/întunecată; se deschide offline și se printează curat.
@@ -57,6 +57,8 @@ Ultima formă livrează doar secțiunea cerută, nu tot raportul.
 **Vede ritmul, nu doar media.** Creșterea se judecă și pe ultimele ~8 trimestre, nu doar pe ani — +56% anual poate ascunde trimestre care decelerează, iar decelerarea e de obicei răspunsul real la „de ce a scăzut", chiar când rezultatele bat așteptările.
 
 **Cifrele critice vin din rapoartele SEC.** Numărul de acțiuni, segmentele și geografia veniturilor, goodwill-ul — se citesc din EDGAR (XBRL și notele din 10-K) când sursele web nu le au sau se contrazic. Sursa primară, nu un agregator.
+
+**Explică de ce e roșu fiecare roșu.** O companie care construiește și una care pierde bani arată identic în tabel: free cash flow negativ, diluție, evaluare peste medie. Fiecare semafor galben sau roșu primește al doilea cuvânt — *de fază* sau *structural* — după o regulă cu trei condiții verificabile, nu după impresie. Iar acolo unde piața plătește un preț pe care cifrele de azi nu-l justifică, raportul spune ce venit încorporează prețul și în câți ani de creștere se traduce. Fără preț-țintă și fără recomandare: pragurile rămân la fel de dure, doar explicația e completă.
 
 **Se uită la numărul de acțiuni, nu la suma cheltuită pe buyback.** Multe companii răscumpără doar cât să compenseze acțiunile date angajaților: cheltuie miliarde, iar felia ta rămâne la fel.
 

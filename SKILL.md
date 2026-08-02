@@ -80,6 +80,8 @@ Datele de pe web sunt uneori inconsistente. Câteva verificări care prind major
 - **Datorie netă = datorie totală − cash și echivalente.** Calculeaz-o tu; puține surse o afișează direct.
 - **Anul fiscal ≠ anul calendaristic** pentru multe companii. La NVIDIA, „FY2026" se încheie în ianuarie 2026, deci acoperă aproape tot 2025. Menționează asta când e cazul, altfel cifrele par decalate cu un an.
 - **Dacă două surse diferă cu peste 5%** la aceeași valoare, arată ambele și spune care e mai recentă.
+- **Pista de cash se calculează, nu se estimează.** O etichetă „de fază" fără cash runway calculat din bilanț și cash flow e o judecată deghizată în regulă. Dacă cifrele nu ajung pentru calcul, eticheta e „structural".
+- **Ambele ancore ale așteptării implicite vin din pagini citite** — media proprie pe 5 ani din `/financials/ratios/` și mediana competitorilor din valul doi. Un multiplu „tipic pentru sector" luat din memorie e o cifră inventată cu extra pași.
 
 ## Faza 4 — Construiește raportul
 
@@ -129,7 +131,7 @@ Structura raportului HTML e mai jos. Adaptează lungimea la companie — o firm�
 ## 9. Sentiment de piață — instituționali, short interest, analiști
 ## 10. Management, insideri și structura de vot
 ## 11. Expunerea la lume — vânt din față sau din spate?
-## 12. Riscuri — ce ar strica teza
+## 12. Cele două teze — ce trebuie să fie adevărat și ce ar strica
 ## 13. Ce ai învățat aici + întrebări pentru data viitoare
 ```
 
@@ -143,7 +145,15 @@ Structura raportului HTML e mai jos. Adaptează lungimea la companie — o firm�
 
 Secțiunea asta **nu primește semafor**. Performanța trecută a prețului nu spune nimic despre calitatea afacerii, iar un verde acolo ar sugera exact confuzia pe care skill-ul încearcă s-o prevină.
 
-**Secțiunea 11 pune compania în contextul pe care nu-l controlează.** Patru expuneri, judecate pe rând ca la moat: sensibilitatea evaluării la dobânzi (rândul „Dobânzi") (câtă parte din preț e profit din anii îndepărtați — aici predai *comprimarea multiplilor*, cu forward P/E-ul companiei ca exemplu), ciclicitatea cererii („Ciclu economic"), geografia veniturilor („Geografie și politică") (tarife, licențe de export, concentrare pe o țară) și suprafața de reglementare („Reglementare") (doar acțiuni concrete, numite). Steagurile și pragurile sunt în `references/scorecard.md`; formulările conceptelor, în glosar. Semaforul notează expunerea — o proprietate stabilă a afacerii — nu vremea de azi; expunere mare nu înseamnă companie proastă, ci volatilitate pe care cititorul trebuie să știe dinainte că o poate duce. Ce e specific companiei rămâne la Riscuri (secțiunea 12); aici stă doar ce e sistematic.
+**Secțiunea 11 pune compania în contextul pe care nu-l controlează.** Patru expuneri, judecate pe rând ca la moat: sensibilitatea evaluării la dobânzi (rândul „Dobânzi") (câtă parte din preț e profit din anii îndepărtați — aici predai *comprimarea multiplilor*, cu forward P/E-ul companiei ca exemplu), ciclicitatea cererii („Ciclu economic"), geografia veniturilor („Geografie și politică") (tarife, licențe de export, concentrare pe o țară) și suprafața de reglementare („Reglementare") (doar acțiuni concrete, numite). Steagurile și pragurile sunt în `references/scorecard.md`; formulările conceptelor, în glosar. Semaforul notează expunerea — o proprietate stabilă a afacerii — nu vremea de azi; expunere mare nu înseamnă companie proastă, ci volatilitate pe care cititorul trebuie să știe dinainte că o poate duce. Ce e specific companiei rămâne la cele două teze (secțiunea 12); aici stă doar ce e sistematic.
+
+**Fiecare semafor galben sau roșu primește un al doilea cuvânt: *de fază* sau *structural*.** Un buildout finanțat și o afacere care pierde bani arată identic în tabel, dar lecția e opusă. Regula are trei condiții, toate obligatorii: cauza e investiția și nu operarea, finanțarea se vede în cifre (pista de cash de cel puțin patru trimestre, calculată), și există o țintă publicată cu dată care arată dacă faza funcționează. Pică una → structural. Condițiile complete sunt în `references/scorecard.md`. Eticheta nu înmoaie culoarea și nu se adună într-un scor: opt „de fază" e tot un raport cu opt semafoare proaste.
+
+**Secțiunea 8 trebuie să spună ce presupune prețul, nu doar cât e.** La o companie pe profit, diferența dintre P/E-ul curent și cel prospectiv arată creșterea deja inclusă în preț. La una pe pierdere — exact cazul în care întrebarea „de ce o iubește piața?" e cea mai ascuțită — ruta e pe venituri: EV/Vânzări de azi față de o ancoră (cea mai mică dintre media proprie pe 5 ani și mediana competitorilor), venitul care ar duce multiplul înapoi la ancoră, și câți ani de creștere la ritmul actual înseamnă asta. Ambele ancore vin din pagini citite; dacă una lipsește, rezultatul e `N/A (nu apare pe sursă)`, nu o estimare. Iar rezultatul nu se convertește niciodată într-un preț sau într-un interval de preț.
+
+**Secțiunea 9 explică și mecanica cererii, nu doar nivelul ei.** Trei mărimi din fetch-urile existente arată cine cumpără și de ce: rotația float-ului (`Avg Volume × 250 ÷ Shs Float`, de pe finviz) ca măsură a speculației față de deținere; short interest-ul mare ca amplificator al oricărei știri bune, nu doar ca avertisment; și narativul pieței, numit și datat, luat din titluri și din căutarea din valul doi — niciodată aprobat, niciodată transformat în cifră. Fraza care leagă pilonul: hype-ul e o forță reală asupra prețului și zero forță asupra afacerii.
+
+**Secțiunea 12 e simetrică.** Teza taurului — trei-patru lucruri care trebuie să devină adevărate, fiecare cu o cifră și o dată deja publicate de companie — stă lângă teza ursului, riscurile specifice. Teza taurului se citează, nu se compune: dacă nimic nu poate fi sursat, scrie că teza pieței nu e articulată public. La final, arbitrul: două-trei verificări observabile în trimestrele următoare, cu datele lor.
 
 Ce trebuie să conțină fiecare secțiune, ce praguri decid culoarea semaforului și explicațiile educaționale gata scrise:
 
@@ -214,6 +224,9 @@ Fiecare eroare de mai jos a apărut sau poate apărea într-un raport real. Trec
 - [ ] Fiecare cifră importantă are **anul fiscal** ei; fiecare afirmație macro are **data** ei.
 - [ ] Valorile lipsă apar exact ca `N/A (nu apare pe sursă)` — nu aproximate, nu „derivate".
 - [ ] **Cifrele competitorilor** există în paginile citite în valul doi, nu din memorie.
+- [ ] Fiecare **etichetă „de fază"** are toate trei condițiile îndeplinite și verificabile în text; altfel scrie „structural".
+- [ ] **Așteptarea implicită nu apare convertită în preț** — nici țintă, nici interval, nici „ar valora".
+- [ ] Fiecare afirmație din **teza taurului** are sursă și dată; niciuna nu e o extrapolare proprie.
 - [ ] Graficele respectă regulile: `bars` o singură serie, de la zero; variațiile mici pe `lines`; randament vs. indice pe `compare`.
 - [ ] **Fără emoji** în HTML; fiecare semafor are icon SVG + etichetă text.
 - [ ] Numele fișierului: `{TICKER}-{AAAA-LL-ZZ}.html` (comparație: `{T1}-vs-{T2}-{AAAA-LL-ZZ}.html`), salvat în directorul de lucru, trimis cu SendUserFile.

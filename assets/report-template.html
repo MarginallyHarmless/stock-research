@@ -71,6 +71,7 @@ section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12p
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -276,7 +277,7 @@ footer b{color:var(--ink-2)}
   <a href="#s09"><span class="tn">09</span>Sentiment</a>
   <a href="#s10"><span class="tn">10</span>Management</a>
   <a href="#s11"><span class="tn">11</span>Expunere</a>
-  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
   <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
 </nav>
 
@@ -284,6 +285,8 @@ footer b{color:var(--ink-2)}
      data-s = good | warn | crit | none   (none = nu se aplică / date lipsă)
      Culoarea NU transmite singură sensul: fiecare stare are icon + etichetă.
      Nu pune semafor pe „Unde se află acțiunea" — nu e un indicator de calitate.
+     Fiecare stare warn/crit deschide .t cu al doilea cuvânt, în <b>: de fază sau
+     structural. Regula (trei condiții) e în references/scorecard.md §9.
 ─────────────────────────────────────────────────────────────────────────── -->
 <section id="scorecard">
   <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
@@ -296,12 +299,12 @@ footer b{color:var(--ink-2)}
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">{{…}}</span>
+      <span class="t"><b>de fază</b> — {{…}}</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">{{…}}</span>
+      <span class="t"><b>structural</b> — {{…}}</span>
     </div>
     <!-- restul: Buyback / diluție · Creștere și marje · Evaluare · Sentiment · Expunere la lume -->
   </div>
@@ -520,6 +523,19 @@ footer b{color:var(--ink-2)}
     chiar dacă compania merge bine. De asta o companie poate raporta rezultate
     excelente și acțiunea să scadă.}}</p>
   </div>
+  <!-- Ruta pe venituri: numai când compania e pe pierdere sau P/E-ul n-are sens.
+       Ancora = cea mai mică dintre media proprie pe 5 ani și mediana peers.
+       Șterge blocul la companiile pe profit. -->
+  <div class="concept">
+    <div class="h">CE VENIT ÎNCORPOREAZĂ PREȚUL</div>
+    <p>{{La EV/Vânzări 19,7 față de o ancoră de 8,3 (media proprie pe 5 ani, sub
+    mediana peers), prețul de azi încorporează un venit anual de 1,4 mld $ — de 2,4
+    ori cel de acum. La ritmul ultimelor patru trimestre, sunt vreo patru ani de
+    creștere fără nicio încetinire.}}</p>
+    <p>{{Calculul presupune că multiplul revine la ancoră. Poate să nu revină, în nicio
+    direcție — piața a plătit ani la rând multipli peste medie pentru companii care au
+    livrat. Nu e un preț-țintă și nu se traduce într-unul.}}</p>
+  </div>
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
@@ -529,6 +545,7 @@ footer b{color:var(--ink-2)}
     <div class="stat"><div class="l">Deținere instituțională</div><div class="v">{{69,5%}}</div><div class="s">{{normal pentru mărimea ei}}</div></div>
     <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">{{+185 mld}}</div><div class="s">{{4.398 cumpărători / 3.530 vânzători}}</div></div>
     <div class="stat"><div class="l">Short interest</div><div class="v">{{1,39%}}</div><div class="s">din float · {{2,1}} zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">{{31×}}</div><div class="s">pe an · {{se tranzacționează, nu se deține}}</div></div>
   </div>
   <div class="concept">
     <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC</div>
@@ -536,6 +553,17 @@ footer b{color:var(--ink-2)}
     mai des un avertisment că cineva mai informat vede o problemă decât o
     oportunitate de „short squeeze" — care e un eveniment rar și imprevizibil,
     nu o strategie.}}</p>
+  </div>
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p>{{Rotația float-ului de 31× pe an înseamnă că tot free float-ul își schimbă
+    proprietarul de 31 de ori într-un an — se tranzacționează, nu se deține. Cu 30% din
+    float vândut în lipsă, un anunț de contract nu mișcă prețul cu cât valorează
+    contractul, ci cu cât costă ieșirea celor prinși pe partea greșită: +19,6% într-o
+    zi, pe 20 iulie 2026. Narativul tranzacționat acum, la 1 august 2026: buildout de
+    centre de date pentru AI.}}</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă
+    cât de bine poți vinde mâine, niciodată cât câștigă compania.</p>
   </div>
 </section>
 
@@ -585,19 +613,30 @@ footer b{color:var(--ink-2)}
   Corabie excelentă, mare agitată.}}</p>
 </section>
 
-<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
+<!-- ══ 12. CELE DOUĂ TEZE ═══════════════════════════════════════════════════
+     Teza taurului se citează, nu se compune: fiecare rând are cifră și dată
+     publicate de companie. Dacă nimic nu e sursabil, scrie asta explicit.
+─────────────────────────────────────────────────────────────────────────── -->
 <section id="s12">
-  <div class="sec"><span class="n">12</span><h2>Riscuri</h2></div>
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <ul class="list">
+    <li><b>{{Ținta de ARR de peste 4 mld $ la finalul lui 2026}}</b> — {{anunțată de companie pe 20 iulie 2026}}</li>
+    <li><b>{{Conversia backlogului de 2,8 mld $ în venit raportat}}</b> — {{contracte semnate, nu estimări}}</li>
+    <li><b>{{Marja operațională pozitivă la scara nouă}}</b> — {{ținta din guidance-ul pe FY2027, publicată la {{data}}}}</li>
+  </ul>
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
   <!-- clasa "crit" pe riscurile majore -->
   <ul class="list">
     <li class="crit"><b>{{Concentrarea veniturilor}}</b> — {{specific, nu generic}}</li>
     <li><b>{{Un produs nelansat / o integrare după achiziție}}</b> — {{…}}</li>
   </ul>
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>{{Două-trei evenimente observabile. Un investitor care își notează dinainte
-    ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care
-    improvizează când prețul cade.}}</p>
+    <div class="h">ARBITRUL</div>
+    <p>{{Două-trei verificări observabile, cu data lor: apare ținta în raportarea din
+    27 august, trece venitul trimestrial de vârful de 240,3 mln $ din septembrie 2025.
+    Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii
+    mult mai bune decât unul care improvizează când prețul cade.}}</p>
   </div>
 </section>
 

@@ -113,6 +113,18 @@ Nu e automat rău — controlul fondatorului poate feri strategia de presiunea r
 ### Stock-based compensation (SBC)
 Plata angajaților în acțiuni în loc de bani. Nu iese numerar din companie, deci nu afectează FCF-ul — dar te costă pe tine, prin diluție. La multe companii de tehnologie e echivalentul a 5–20% din venituri.
 
+### Așteptare implicită (implied expectations)
+Ce trebuie să se întâmple ca prețul de azi să fie corect. Un multiplu nu e o etichetă de „scump" — e o afirmație despre viitor pe care piața a făcut-o deja. Dacă acțiunea se tranzacționează la de șase ori venitul pe care l-ar justifica multiplul ei normal, prețul spune că veniturile se fac de șase ori. Poate se întâmplă. Dar acum știi pe ce pariezi, în loc să te întrebi dacă e „scumpă".
+
+### Rotația float-ului (float turnover)
+De câte ori pe an își schimbă proprietarul tot free float-ul: volumul mediu zilnic înmulțit cu ~250 de zile de tranzacționare, împărțit la float. O companie deținută de investitori pe termen lung se rotește de câteva ori pe an; una tranzacționată pe narativ, de zeci de ori. Cifra separă deținerea de speculație mai bine decât orice altceva gratuit.
+
+### Pistă de cash (cash runway)
+Câte trimestre mai poate funcționa o companie care arde bani, cu banii pe care îi are: cash și echivalente plus facilități disponibile, împărțite la arderea trimestrială. E întrebarea care decide dacă un free cash flow negativ e o etapă sau un sfârșit. Sub patru trimestre, diluția sau împrumutul devin aproape sigure — și amândouă te costă.
+
+### Narativ de piață (market narrative)
+Povestea care explică de ce cumpără lumea acum: „buildout de AI", „fintech care devine bancă", „renașterea apărării europene". Narativele mișcă prețuri real și rapid, pentru că sunt mai ușor de cumpărat decât un bilanț. Nu sunt însă o prognoză de venituri, iar cel mai scump moment al unei acțiuni e de obicei acela în care narativul e cel mai limpede.
+
 ---
 
 ## 2. Capcanele clasice în care cad începătorii
@@ -147,6 +159,11 @@ O companie poate „crește" 20% pe an ani la rând cumpărând alte companii �
 
 ### Confuzia dintre valul sectorului și calitatea companiei
 Într-un sector la modă, aproape totul crește — și companiile bune, și cele mediocre. Randamentul acțiunii nu-ți spune dacă ai ales bine până nu-l compari cu sectorul ei: +40% când sectorul a făcut +60% înseamnă că ai ales unul dintre înotătorii slabi ai valului. Comparația cu S&P 500 nu prinde asta — compar-o și cu sectorul (un ETF de sector e etalonul comod). Iar când valul se retrage, diferența dintre înotători devine singurul lucru care contează.
+
+### Roșul de fază citit ca roșu structural — și invers
+Un buildout finanțat și o afacere care pur și simplu pierde bani arată identic în tabel: free cash flow negativ, diluție, evaluare peste medie. Diferența nu e culoarea, e ce o cauzează — investiția sau operarea — plus câte trimestre de bani mai există și ce prag numit arată dacă planul merge.
+
+Ambele confuzii costă. Citit ca structural, un roșu de fază te face să ratezi o companie normală pentru stadiul ei. Citit ca de fază, un roșu structural te face să ții una care nu are cum să ajungă la mal — „mai are nevoie doar de un an" e ce își spune cineva doi ani la rând. Testul e mecanic: pista de cash și pragul cu dată. Dacă lipsesc, e structural.
 
 ---
 

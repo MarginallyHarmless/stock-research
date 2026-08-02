@@ -14,7 +14,7 @@ Pragurile nu sunt legi. Când o companie e clar la limită, spune asta în text 
 7. [Sentiment de piață](#7-sentiment-de-piață)
 8. [Expunerea la lume](#8-expunerea-la-lume)
 9. [Excepții pe tip de companie](#9-excepții-pe-tip-de-companie)
-10. [Secțiunile fără semafor](#10-secțiunile-fără-semafor) — management, structura de vot, riscuri
+10. [Secțiunile fără semafor](#10-secțiunile-fără-semafor) — management, structura de vot, cele două teze
 
 ---
 
@@ -112,7 +112,7 @@ Nu există un P/E „corect" universal. Compară întotdeauna pe trei axe și sp
 
 - 🟢 — sub media proprie pe 5 ani **și** sub competitorii direcți din tabel, fără o deteriorare a afacerii care să justifice discountul.
 - 🟡 — în linie cu istoricul propriu și cu competitorii.
-- 🔴 — semnificativ peste ambele (orientativ, cu peste ~30%), sau multipli care presupun ani de creștere perfectă.
+- 🔴 — semnificativ peste ambele (orientativ, cu peste ~30%), sau multipli care presupun ani de creștere perfectă. Când peers-ii sunt aproape fără venituri sau fără profit, multiplii lor sunt aritmetic uriași și comparația nu spune nimic — atunci „peste ambele" nu se poate aplica, iar culoarea se decide pe istoricul propriu și pe a doua clauză. Spune limpede că acțiunea e sub mediana peers, dacă e, ca cititorul să nu creadă că ai ascuns-o.
 - ⚪ *nu se aplică* — dacă există o ofertă fermă de preluare, prețul e ancorat de termenii tranzacției, nu de afacere; multiplii vs. istoric nu mai spun nimic. Spune asta în loc să forțezi o culoare (vezi [excepțiile](#9-excepții-pe-tip-de-companie)).
 
 **Preferă P/FCF în locul P/E** când cele două diferă mult: profitul e mai ușor de ajustat contabil decât cash-ul. Pentru companii cu datorie mare, EV/EBITDA e mai onest decât P/E, pentru că include și datoria în preț — cine cumpără compania preia și datoriile.
@@ -128,6 +128,22 @@ Partea care transformă evaluarea din cifră în înțelegere. Un multiplu nu e 
 Diferența dintre P/E-ul curent și cel prospectiv (forward) arată direct ce creștere e deja inclusă în preț. Traduce-o: „la un P/E de 30 care scade la 19 prospectiv, piața se așteaptă ca profitul să crească vreo 55% în anul următor. Dacă se întâmplă, prețul de azi e rezonabil. Dacă profitul crește doar 20%, ai plătit prea mult chiar dacă compania merge bine."
 
 Asta e ideea cea mai importantă din secțiune, pentru că explică fenomenul care derutează cel mai tare un începător: o companie raportează rezultate excelente și acțiunea scade. Nu e irațional — rezultatele au fost bune, dar mai slabe decât ce era deja în preț.
+
+**Când compania e pe pierdere, ruta de mai sus nu funcționează** — un P/E negativ sau absurd nu se compară cu nimic. Atunci calculul se mută pe venituri, în patru pași mecanici:
+
+1. **Multiplul** — EV/Vânzări, nu P/S. La o companie cu datorie netă mare, P/S ascunde exact partea care contează: cine cumpără compania preia și datoriile. Folosește P/S doar dacă EV/Vânzări lipsește de pe sursă, și spune că ai făcut-o.
+2. **Ancora** — valoarea mai mică dintre media proprie pe 5 ani a multiplului (pagina `/financials/ratios/`) și mediana competitorilor din tabel. Amândouă sunt cifre citite, iar „mai mică" e o regulă tocmai ca să nu alegi tu. Dacă istoricul are sub cinci ani (companie listată recent), folosește anii care există și scrie câți sunt — „media pe 4 ani, că atâta istoric public are". Dacă peers-ii sunt și ei aproape fără venituri, mediana lor e o cifră fără conținut: spune-o și lasă ancora pe istoricul propriu.
+3. **Venitul implicit** — la valoarea de întreprindere de azi, ce venit anual ar duce multiplul înapoi la ancoră.
+4. **Anii impliciți** — la ritmul de creștere al ultimelor patru trimestre, în cât timp se ajunge acolo.
+
+Rezultatul se scrie ca o constatare: „prețul de azi încorporează un venit de 3,4 mld $ — de șase ori cel de acum — adică vreo cinci ani de creștere la ritmul actual, fără nicio încetinire." Cifra asta e podul dintre un scorecard roșu și o acțiune care urcă: nu spune că prețul e greșit, spune ce trebuie să se întâmple ca să fie corect.
+
+Două lucruri obligatorii lângă rezultat:
+
+- **Dacă lipsește oricare dintre cele două ancore**, scrie `N/A (nu apare pe sursă)` și oprește-te. Un venit implicit calculat cu un multiplu luat din memorie e mai rău decât niciunul, pentru că arată riguros.
+- **Fraza-pereche:** calculul presupune că multiplul revine la ancoră. Poate să nu revină, în nicio direcție — piața a plătit ani la rând multipli peste medie pentru companii care au livrat.
+
+**Rezultatul nu se convertește niciodată într-un preț.** Nici țintă, nici interval, nici „ar valora". Aceeași regulă ca peste tot: descrii ce presupune prețul, nu unde ajunge.
 
 ### Comparația cu competitorii
 
@@ -157,6 +173,18 @@ Raportul intrări/ieșiri de pe MarketBeat e mai informativ decât procentul de 
 - Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania. O medie de „cumpărare" e starea implicită, nu o distincție.
 - Ținta e o medie a unor păreri foarte împrăștiate. finviz dă doar media; intervalul (low / median / high) e pe `stockanalysis.com/stocks/{t}/forecast/`. Când dispersia e mare — de la −43% la +107% față de preț se întâmplă — media nu înseamnă aproape nimic, și exact asta merită spus.
 
+### Mecanica cererii — de ce urcă o acțiune indiferent de bilanț
+
+Pilonii de până aici explică afacerea. Nu explică de ce o companie cu opt semafoare galbene și roșii poate urca 20% într-o zi. Trei mărimi, toate din paginile deja citite, arată cine cumpără și de ce.
+
+**Rotația float-ului** — `Avg Volume × 250 ÷ Shs Float`, ambele de pe finviz. Spune de câte ori pe an își schimbă proprietarul tot free float-ul. O companie mare, deținută de investitori pe termen lung, se rotește de câteva ori pe an; un titlu tranzacționat pe narativ, de zeci de ori. E cel mai ieftin indicator de speculație din raport, pentru că măsoară direct raportul dintre cei care tranzacționează și cei care dețin.
+
+**Combustibilul de squeeze.** Short interest-ul mare și entuziasmul sunt aceeași monedă cu două fețe. Într-un titlu cu 30% din float vândut în lipsă, un anunț de contract nu mișcă prețul cu cât valorează contractul — îl mișcă cu cât costă ieșirea celor prinși pe partea greșită. Spune-o când cifrele o arată: aceeași știre, într-o companie fără shorturi, ar fi produs o fracțiune din mișcare. Nu contrazice avertismentul de mai sus — squeeze-ul rămâne imprevizibil și nu e o teză; e doar explicația mecanică a unei mișcări care altfel pare irațională.
+
+**Narativul, numit și datat.** Ce poveste tranzacționează piața acum: buildout de centre de date pentru AI, fintech care devine bancă, software de apărare. Numește-o și pune-i data, din titlurile finviz și din căutarea din valul doi. Nu o aproba și nu o transforma în cifră — un narativ nu e o prognoză de venituri.
+
+**Fraza care leagă tot pilonul:** hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de bine poți vinde mâine, niciodată cât câștigă compania. De aceea sentimentul nu mută nicio culoare din celelalte șapte rânduri.
+
 ---
 
 ## 8. Expunerea la lume
@@ -185,7 +213,7 @@ Pe rândurile din raportul HTML, starea urmează steagul: fără steag → Solid
 
 **Expunere mare nu înseamnă companie proastă.** O companie poate avea 🔴 aici și verde la toate celelalte — o corabie excelentă pe o mare agitată. Lecția pentru cititor nu e „evit-o", ci „dimensionează poziția ca să suporți valurile": volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală.
 
-**Nu dubla riscurile.** Ce e sistematic (dobânzi, ciclu, geopolitică) stă aici; ce e specific companiei (concentrarea pe trei clienți, un produs nelansat) stă la Riscuri. Pentru companiile ciclice, citește întâi [excepțiile](#9-excepții-pe-tip-de-companie) — la ele ciclul e regula jocului, nu un steag surprinzător.
+**Nu dubla riscurile.** Ce e sistematic (dobânzi, ciclu, geopolitică) stă aici; ce e specific companiei (concentrarea pe trei clienți, un produs nelansat) stă la cele două teze (secțiunea 12). Pentru companiile ciclice, citește întâi [excepțiile](#9-excepții-pe-tip-de-companie) — la ele ciclul e regula jocului, nu un steag surprinzător.
 
 ---
 
@@ -203,6 +231,28 @@ Aplicarea mecanică a grilei dă rezultate greșite pe anumite modele de busines
 | **IPO recent / istoric scurt** (sub ~3 ani de date publice) | Grila cere tendințe pe 5 ani care nu există încă. Judecă pe ce este, scrie explicit „istoric scurt (listată în {an})" și nu da 🟢 pe pilonii de tendință (FCF, creștere) din doar două puncte de date. |
 | **Companie sub ofertă de preluare** | Prețul e ancorat de termenii tranzacției, nu de afacere. Evaluarea devine ⚪ „nu se aplică"; spune în secțiunea 1 că soarta acțiunii depinde de închiderea tranzacției, nu de trimestrele următoare. |
 | **Distress / restructurare** (avertisment *going concern*, scadențe neacoperite) | Grila de calitate devine secundară — totul atârnă de refinanțare. Spune direct că e o situație specială, nu o companie „ieftină". |
+
+### De fază sau structural — al doilea cuvânt de lângă culoare
+
+Tabelul de mai sus rezolvă cazurile în care modelul de business schimbă *ce* măsori. Rămâne o a doua problemă, mai frecventă: o companie normală pentru stadiul ei arată identic în tabel cu una care pur și simplu pierde bani. Un operator care construiește centre de date și un biotech fără venituri primesc amândouă 🔴 pe free cash flow, dar lecția e opusă.
+
+De aceea **fiecare rând 🔴 sau 🟡 primește un al doilea cuvânt**: *de fază* sau *structural*. Culoarea nu se schimbă — se schimbă doar explicația de lângă ea.
+
+„De fază" se acordă numai dacă **toate trei** condițiile sunt îndeplinite:
+
+1. **Cauza e investiția, nu operarea.** FCF-ul e negativ din capex, nu din pierdere operațională: cash flow-ul operațional e pozitiv sau zero, **sau** capex-ul e mai mare decât FCF-ul negativ luat în valoare absolută (adică arderea vine din investiție, nu din operare). Alternativ, compania intră într-una din categoriile din tabelul de mai sus care prevede explicit situația.
+2. **Finanțarea se vede în cifre.** Cash-ul și echivalentele plus facilitățile disponibile acoperă arderea pe cel puțin patru trimestre — *pista de cash* (cash runway), calculată din bilanț și cash flow, nu estimată din ochi.
+3. **Există un prag numit, cu dată.** O țintă publicată de companie — ARR, backlog contractat, guidance — care arată dacă faza funcționează sau nu.
+
+Pică oricare condiție → **structural**. Fără variante intermediare: rostul etichetei e ca doi oameni diferiți să pună același cuvânt.
+
+**Ce cifră de cash intră în pistă.** Numărătorul e **cea mai recentă cifră depusă la SEC** — 10-K, 10-Q sau un 8-K — și raportul spune din ce document și de la ce dată. O companie care ridică bani o face între bilanțuri, iar dacă ignori runda pentru că n-a ajuns încă într-un bilanț trimestrial, descrii o finanțare care nu mai există. Ce **nu** contează: cifre dintr-o prezentare pentru investitori, dintr-un comunicat nedepus sau de pe un site de agregare. Dacă singura sursă pentru cifra nouă e nedepusă, folosește ultimul bilanț și spune de ce.
+
+Scade **cash-ul restricționat** — nu poate plăti facturi. Numitorul e arderea medie pe ultimele patru trimestre. Când arderea accelerează prin plan — o companie care își multiplică capacitatea — media trailing subestimează, deci pista reală e mai scurtă decât cifra: spune asta în text, nu ajusta cifra. Iar când calculul iese aproape de pragul de patru trimestre, arată ambele variante (media pe patru trimestre și ultimul trimestru) și lasă cititorul să vadă cât de subțire e marja — o etichetă care atârnă de a doua zecimală trebuie să arate că atârnă.
+
+**Care rânduri pot primi „de fază".** Doar cele patru pe care le cauzează mecanic un buildout finanțat: free cash flow, cash vs. datorii, buyback/diluție, creștere și marje. Celelalte patru — moat, evaluare, sentiment, expunere — sunt **întotdeauna „structural"**, pentru că descriu lucruri care supraviețuiesc fazei. Evaluarea în special: prețul de azi e un fapt despre azi, nu o etapă, iar „evaluare de fază" s-ar citi ca o scuză pentru preț. Și în cele patru rânduri eligibile, eticheta se acordă doar dacă investiția e cauza dominantă a culorii *acelui rând*: dacă diluția vine în bună parte din plata în acțiuni a angajaților, nu din finanțarea construcției, rândul e structural chiar dacă restul companiei e într-o fază.
+
+**Eticheta nu compensează culoarea și nu se adună într-un scor.** Un raport cu opt „de fază" e tot un raport cu opt semafoare proaste. „De fază" înseamnă „normal pentru stadiul ăsta, uite cum verifici dacă merge", nu „nu-ți face griji".
 
 ---
 
@@ -222,14 +272,20 @@ Nu e automat un lucru rău — controlul fondatorului poate proteja strategia pe
 
 Semnale că există structură duală: compania are mai multe tickere listate (de exemplu o variantă cu vot și una fără), sau raportul anual menționează „Class A / Class B common stock". Sursele gratuite nu expun asta de încredere — dacă ai indicii dar nu certitudine, spune că merită verificat în raportul anual (10-K) sau în documentul de vot (proxy statement) de pe SEC EDGAR, în loc să afirmi ceva nesigur.
 
-### Riscuri
+### Cele două teze
 
-Nu enumera riscuri generice („concurența", „reglementarea") — se aplică la orice companie și nu ajută pe nimeni. Caută riscurile specifice acestei afaceri, în ordinea asta:
+Secțiunea 12 pune față în față ce trebuie să fie adevărat ca prețul de azi să aibă sens și ce ar strica povestea. Simetria nu e o politețe: un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran, iar unul care listează doar promisiuni e o broșură.
+
+**Teza taurului se citează, nu se compune.** Trei-patru lucruri care trebuie să devină adevărate, fiecare cu o cifră și o dată deja publicate: guidance, backlog contractat, o țintă de ARR, un contract anunțat. Nu opinii, nu extrapolări, nu „piața crede că". Dacă nimic nu poate fi sursat, scrie că teza pieței nu e articulată public — e o constatare validă și adesea cea mai utilă din raport.
+
+**Teza ursului** rămâne riscurile specifice acestei afaceri, în ordinea asta:
 
 1. **Concentrarea veniturilor** — cât din vânzări vine de la cei mai mari câțiva clienți sau de la un singur produs? O companie unde trei clienți fac 40% din venituri e o companie fragilă, indiferent cât de bune arată cifrele. Datele apar în segmentele de pe pagina `/company/` și, complet, în secțiunea *Risk Factors* din 10-K.
 2. **Riscul de disrupție** — există o tehnologie sau un model de business care poate face produsul irelevant în 5 ani?
 3. **Riscul de execuție** — compania depinde de o singură persoană, de o integrare dificilă după o achiziție, sau de un produs care încă nu s-a lansat?
 
-Ciclul, geografia, politica și reglementarea nu se enumeră aici — se judecă la [Expunerea la lume](#8-expunerea-la-lume). La Riscuri stă doar ce e specific acestei companii.
+Nu enumera riscuri generice („concurența", „reglementarea") — se aplică la orice companie și nu ajută pe nimeni.
 
-Închide secțiunea cu **„ce ar invalida teza"**: două-trei evenimente observabile care ar însemna că povestea nu mai ține — o marjă brută sub un anumit prag, pierderea unui client mare, un al doilea trimestru consecutiv de venituri în scădere. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.
+**Arbitrul** închide secțiunea: două-trei puncte de verificare observabile în trimestrele următoare, cu data lor — apare ținta în raportarea din {data}, trece venitul trimestrial de vârful anterior, se convertește backlogul în venit. Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.
+
+Ciclul, geografia, politica și reglementarea nu se enumeră aici — se judecă la [Expunerea la lume](#8-expunerea-la-lume). Aici stă doar ce e specific acestei companii.
