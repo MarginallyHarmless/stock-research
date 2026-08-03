@@ -1,0 +1,863 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>META — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer,nav.toc{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>META</h1>
+    <span class="co">Meta Platforms, Inc.</span>
+  </div>
+  <div class="px">
+    <div class="v">556,71 $</div>
+    <div class="d up">+3,28% în ședința din 31 iul. 2026</div>
+  </div>
+  <div class="chips">
+    <span class="chip">Communication Services · <b>Internet Content &amp; Information</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq-100</b></span>
+    <span class="chip">Capitalizare <b>1.418,2 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>decembrie</b></span>
+    <span class="chip">Ultima raportare <b>29 iul. 2026</b></span>
+  </div>
+</header>
+
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Marjă brută de ~82% ținută cinci ani la rând (80,79% în 2021 → 81,75% pe ultimele 12 luni), ROE 29,85%, ROIC între 18,4% și 25,4% în funcție de sursă — ambele peste pragul de ~15% la care rentabilitatea devine dovadă. Efectul de rețea e dintre cele rare, autentice: valoarea fiecărei aplicații crește cu fiecare utilizator care se adaugă.</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>de fază</b> — 40,98 mld $ pe ultimele 12 luni și marjă de 17,9%, adică mult peste pragul de verde. Ce blochează verdele e tendința: 54,07 → 46,11 → 40,98 mld $, în scădere de doi ani, în timp ce în trimestrul II 2026 au rămas 1,75 mld $ dintr-un cash flow operațional de 31,86 mld $. Cauza e integral investiția — vezi secțiunea 4 pentru cele trei condiții ale etichetei.</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Datorie netă de 22,06 mld $ față de un EBITDA de ~109,7 mld $, adică <b>0,20×</b> — de cincisprezece ori sub pragul de risc. Verdele e însă cel mai puțin liniștit din raport: datoria totală a trecut de la 49,56 mld $ (30 iun. 2025) la 112,32 mld $ (30 iun. 2026), iar poziția de net cash a dispărut.</span>
+    </div>
+    <div class="row">
+      <span class="k">Buyback vs. diluție</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — numărul de acțiuni a <i>crescut</i> cu 1,41% în 12 luni, pe cifre de pe coperta formularelor depuse la SEC. Cauza dominantă e plata în acțiuni a angajaților: 25,14 mld $ pe an, 11,0% din venituri. Dovada că e structural, nu de fază: în semestrul I 2025 compania a cheltuit 22,92 mld $ pe răscumpărări și numărul de acțiuni tot n-a scăzut decât 0,85%.</span>
+    </div>
+    <div class="row">
+      <span class="k">Creștere și marje</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Venituri în creștere în 4 din 5 ani, marjă brută stabilă la ~82%, iar trimestrele <i>accelerează</i> în loc să încetinească: de la 16,07% (T1 2025) la 27,96% (T2 2026). Marja operațională a căzut de la 48,29% la 30,88% în șase trimestre — dar are o explicație cifrată (amortizarea investiției), deci nu declanșează clauza de galben.</span>
+    </div>
+    <div class="row">
+      <span class="k">Evaluare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — verdictul e mixt pe toate cele trei axe, ceea ce e chiar definiția galbenului. P/E 20,98 față de o medie proprie pe 5 ani de 22,98 (sub), dar P/FCF 34,61 față de o medie proprie de 24,84 (cu 39% peste). Față de competitori: sub mediana pe P/E și EV/EBITDA, mult peste pe P/FCF. Rândul e mereu structural.</span>
+    </div>
+    <div class="row">
+      <span class="k">Sentiment de piață</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Short interest 1,72% din float, sub pragul de 3%; capital instituțional net intrat de +123,85 mld $ în 12 luni; prezentă în S&amp;P 500 și Nasdaq-100. Pilonul spune ce cred alții acum, nu cât valorează afacerea — și n-a împiedicat o scădere de 28% într-un an.</span>
+    </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — steagul de reglementare duce singur la roșu, iar aici e numit și datat: amenda de 200 mln € din aprilie 2025 pe Digital Markets Act, cu modelul publicitar revizuit din ianuarie 2026 aflat sub monitorizarea Comisiei Europene. Al doilea steag e ciclul: <b>97,63% din venituri sunt reclame</b>, linia de buget tăiată prima în orice recesiune.</span>
+    </div>
+  </div>
+  <p style="margin-top:14px">Patru verzi, trei galbene, un roșu. Un singur rând primește „de fază” — free cash flow-ul — și e singurul din tot folderul de rapoarte care îndeplinește toate cele trei condiții. Celelalte două galbene sunt structurale: diluția vine din felul în care sunt plătiți angajații, nu din finanțarea construcției, iar evaluarea e prin construcție un fapt despre azi, nu o etapă.</p>
+  <div class="concept" style="margin-top:16px">
+    <div class="h">CE S-A SCHIMBAT FAȚĂ DE VERSIUNEA ANTERIOARĂ A ACESTUI RAPORT</div>
+    <p><b>Nicio culoare nu s-a mutat</b> — toate opt sunt identice cu versiunea precedentă, ceea ce e exact cum ar trebui să fie, pentru că niciun prag nu s-a schimbat. Ce s-a schimbat sunt faptele din spatele a două rânduri, iar amândouă sunt aflate direct din raportul trimestrial depus la SEC pe 30 iul. 2026:</p>
+    <p><b>Răscumpărările s-au oprit complet.</b> În semestrul I 2026 compania a răscumpărat acțiuni de <b>0 $</b>, față de 22,92 mld $ în aceeași perioadă a anului trecut. Confirmarea nu vine dintr-o estimare: suma rămasă din programul de răscumpărare aprobat era 25.030 mln $ atât la 31 dec. 2025 cât și la 30 iun. 2026 — cifră neatinsă, deci nicio acțiune cumpărată. Rândul rămâne galben, dar din motivul opus celui de anul trecut: nu mai e „răscumpără mult și doar compensează”, ci „nu mai răscumpără deloc, iar numărul de acțiuni urcă”.</p>
+    <p><b>Poziția de net cash a dispărut.</b> Acum un an compania avea mai mult cash decât datorii. La 30 iun. 2026 are o datorie netă de 22,06 mld $, după ce a emis 24,91 mld $ de obligațiuni noi într-un singur semestru. Rândul rămâne verde — 0,20× EBITDA e foarte departe de orice prag — dar direcția e nouă și merită văzută.</p>
+  </div>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:13.2%"></div>
+        <div class="now" style="left:13.2%">556,71</div>
+      </div>
+      <div class="ends"><span>min 520,26</span><span>max 796,25</span></div>
+    </div>
+  </figure>
+
+  <p>Acțiunea e la <b>13,2%</b> din intervalul ultimului an — cu 7,01% peste minim și cu <b>30,08% sub maximul de 796,25 $</b>. Într-un an, piața a șters aproape o treime din prețul celei mai profitabile companii de publicitate din lume, într-un moment în care veniturile ei cresc cu 28% pe an.</p>
+
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"a":"META","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":-15.66,"b":9.55},
+             {"label":"1 an","a":-28.02,"b":18.19},
+             {"label":"3 ani","a":74.74,"b":63.18},
+             {"label":"5 ani","a":56.25,"b":70.36}]}
+    </script>
+    </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
+    <p>Graficul spune ceva ce niciun articol despre Meta nu spune: pe cinci ani, acțiunea a făcut <b>+56,25%</b>, iar indicele <b>+70,36%</b>. Cine a cumpărat Meta acum cinci ani și a trăit toate știrile, toate raportările și toate răsturnările de narativ a rămas cu 14 puncte procentuale <i>sub</i> cineva care a cumpărat un ETF pe S&amp;P 500 și nu s-a mai uitat la el. Pe trei ani situația se inversează — +74,74% față de +63,18% — și exact asta e lecția: fereastra de timp aleasă schimbă complet concluzia, motiv pentru care un singur interval nu spune niciodată destul.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">1,25</div><div class="s">amplifică piața de ~1,25×</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt. / lună)</div><div class="v">2,96% / 3,59%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.250 $</div><div class="s">la o corecție de piață de 10%</div></div>
+  </div>
+
+  <p>Beta 1,25 înseamnă că, istoric, la o scădere de 10% a pieței, acțiunea a scăzut în jur de 12,5%. E o cifră modestă pentru o companie de tehnologie — dar beta măsoară mișcarea <i>odată cu piața</i>, nu riscul propriu. Iar riscul propriu e vizibil în altă cifră: pe 30 iul. 2026, a doua zi după raportare, acțiunea a scăzut <b>7,95% într-o singură ședință</b>, pe un volum de 42,2 milioane de acțiuni, adică de peste două ori normalul.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">la 31 iul. 2026 · de la ~4,23% cu un an înainte</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v down">−10,5 pp</div><div class="s">Communication Services −0,91% · indice +9,55%</div></div>
+  </div>
+
+  <p><b>Vremea pieței, la 31 iul. 2026.</b> Indicele e practic la maxim, cu doar 1,76% sub vârf — deci nu asistăm la o piață în cădere care trage totul după ea. Sectorul din care face parte Meta, Communication Services, e însă <b>singurul sector pe minus de la începutul anului</b>: −0,91% față de +9,55% al indicelui, adică 10,5 puncte procentuale în urmă. O parte din scădere e deci rotația banilor dinspre acest sector, nu un verdict despre companie. Restul e al companiei: Meta e pe −15,66% YTD, încă 14,8 puncte procentuale sub propriul sector. Al treilea reper datat: dobânda pe 10 ani e 4,75%, în urcare de la ~4,23% cu un an înainte. Vremea se notează, dar nu mută nicio culoare — asta e regula pilonului 8.</p>
+
+  <p><b>Ce a mutat prețul.</b> Pe <b>29 iulie 2026</b>, după închiderea pieței, Meta a raportat trimestrul II: venituri de <b>60,80 mld $, în creștere cu 27,96%</b> față de anul trecut — o accelerare, nu o încetinire. Și totuși profitul net a scăzut, de la 18,34 la 15,85 mld $, iar profitul pe acțiune de la 7,14 la 6,18 $, adică <b>−13,44%</b>. A doua zi acțiunea a pierdut 7,95%.</p>
+  <p>Nu e o contradicție, e aritmetică: între venituri și profit s-au așezat cheltuielile construcției. Cercetarea-dezvoltarea a urcat de la 12,94 la 21,66 mld $ într-un singur trimestru, amortizarea de la 8,24 la 12,36 mld $ pe semestru, iar cheltuielile administrative de la 2,66 la 5,61 mld $ — între care 1,18 mld $ compensații de plecare pentru <b>8.000 de posturi desființate</b> în trimestru. Iar cash flow-ul liber al trimestrului a rămas <b>1,75 mld $</b> dintr-un cash flow operațional de 31,86 mld $, pentru că 30,12 mld $ s-au dus în achiziții de echipamente și clădiri. Pe 31 iulie acțiunea a recuperat 3,28%, la 556,71 $.</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <p>Meta vinde reclame. E util să pornim de acolo, pentru că mai toate discuțiile despre companie sunt despre altceva — despre aplicații, despre inteligență artificială, despre ochelari — în timp ce <b>97,63% din veniturile trimestrului II 2026 sunt publicitate</b>. Facebook, Instagram, WhatsApp și Messenger nu îți iau bani ție; îți iau atenția și o vând unui agent de publicitate. Ai 3,4 miliarde de oameni care intră zilnic în cel puțin una dintre aplicații, iar produsul vândut e posibilitatea de a ajunge exact la cine trebuie dintre ei.</p>
+  <p>Compania are 78.865 de angajați, e condusă de fondatorul Mark Zuckerberg, a fost fondată în 2004 și raportează pe două segmente. Structura lor e cea mai clară imagine a companiei:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Segment, T2 2026</th><th>Venit</th><th>Pondere</th><th>Rezultat din exploatare</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>Family of Apps (Facebook, Instagram, WhatsApp, Messenger)</td><td>60,37 mld $</td><td>99,3%</td><td class="up">+23,39 mld $</td></tr>
+      <tr><td>Reality Labs (ochelari, realitate virtuală)</td><td>0,43 mld $</td><td>0,7%</td><td class="down">−4,62 mld $</td></tr>
+      <tr class="me"><td>Total companie</td><td>60,80 mld $</td><td>100%</td><td class="up">+18,78 mld $</td></tr>
+    </tbody>
+  </table></div>
+  <p>Tabelul merită citit de două ori. Aplicațiile clasice produc 23,39 mld $ profit operațional într-un trimestru, adică o marjă de 38,7%. Reality Labs, divizia despre care s-a scris cel mai mult în ultimii ani, aduce 0,7% din venituri și pierde 4,62 mld $ în același trimestru — 8,65 mld $ pe primul semestru. Cu alte cuvinte, <b>o cincime din profitul afacerii reale se duce în finanțarea unui pariu care încă nu are clienți.</b> Nu e neapărat greșit; e o alegere, iar tabelul îți arată cât costă.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Venituri T2 2026, pe regiuni</th><th>Venit</th><th>Pondere</th><th>Față de T2 2025</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>SUA și Canada</td><td>23,86 mld $</td><td>39,3%</td><td class="up">+29,3%</td></tr>
+      <tr><td>Asia-Pacific</td><td>16,07 mld $</td><td>26,4%</td><td class="up">+25,0%</td></tr>
+      <tr><td>Europa</td><td>14,01 mld $</td><td>23,0%</td><td class="up">+25,9%</td></tr>
+      <tr><td>Restul lumii</td><td>6,86 mld $</td><td>11,3%</td><td class="up">+35,1%</td></tr>
+      <tr class="me"><td>Total</td><td>60,80 mld $</td><td>100%</td><td class="up">+28,0%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Cifrele sunt din raportul trimestrial depus la SEC pe 30 iul. 2026. Spre deosebire de multe companii americane, Meta nu depinde de o singură piață: cea mai mare regiune aduce 39,3%, adică <i>chiar sub</i> pragul de 40% de la care pilonul 8 ridică steagul de geografie. Și, tot spre deosebire de alte cazuri, toate cele patru regiuni cresc cu 25–35%. Nu există o piață matură care trage media în jos.</p>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel: motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Orice companie <i>susține</i> că are avantaje competitive; dovada e în marjă.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Asimetric</span>
+      <span class="t">Pentru tine, utilizatorul, sunt aproape zero: ștergi aplicația și ai plecat. Pentru clientul care plătește — agentul de publicitate — sunt reale: are istoricul campaniilor, publicurile construite în ani, codul de urmărire instalat pe site și echipe instruite pe uneltele Meta. Contează varianta a doua, pentru că aceea aduce banii.</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Aici e miezul moat-ului, și e dintre cele rare, autentice. WhatsApp e util pentru că îl are toată lumea; Instagram e util pentru că acolo sunt oamenii pe care vrei să-i urmărești. Un rival poate copia funcțiile într-un an, dar nu poate copia faptul că prietenii tăi sunt deja înăuntru. Asta e diferența dintre un produs bun și o rețea.</span></div>
+    <div class="row"><span class="k">Avantaj de cost / scară</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Infrastructura care alege ce reclamă îți apare costă la fel indiferent dacă servește un milion sau trei miliarde de oameni. Meta împarte acest cost la 228 mld $ de venituri anuale — și își permite un buget de investiții de 89 mld $ pe an, sumă pe care în lume o pot pune pe masă cel mult cinci companii.</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, dar atacat</span>
+      <span class="t">Datele de comportament și modelele antrenate pe ele sunt un activ greu de reprodus. Spre deosebire de un brevet, însă, nu sunt protejate de lege — sunt <i>ținta</i> legii. Exact acest activ e obiectul acțiunii europene din secțiunea 11, ceea ce îl face un moat cu termen de valabilitate incert.</span></div>
+    <div class="row"><span class="k">Brand</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Slab</span>
+      <span class="t">Testul brandului e dacă oamenii plătesc mai mult pentru aceeași marfă din cauza siglei. Aici utilizatorii nu plătesc nimic, iar agenții de publicitate cumpără rezultate măsurate, nu simpatie. Brandul Meta e, dacă ceva, o povară de imagine — nu o sursă de putere de preț.</span></div>
+  </div>
+  <p><b>Verdictul: Solid (verde).</b> Nu din cauza mărimii, ci pentru că avantajul se vede în cifre timp de cinci ani la rând — singura dovadă care contează:</p>
+  <div class="stats">
+    <div class="stat"><div class="l">Marjă brută</div><div class="v up">81,75%</div><div class="s">de la 80,79% în 2021</div></div>
+    <div class="stat"><div class="l">Marjă operațională</div><div class="v">38,08%</div><div class="s">de la 39,65% în 2021</div></div>
+    <div class="stat"><div class="l">ROIC</div><div class="v up">18,4–25,4%</div><div class="s">prag de dovadă: ~15%</div></div>
+    <div class="stat"><div class="l">ROE</div><div class="v up">29,85%</div><div class="s">rentabilitatea capitalului propriu</div></div>
+  </div>
+  <p>Marja brută e testul, și ea nu s-a clintit: 80,79% în 2021, 78,35% în 2022, 80,76%, 81,67%, 82,00% și 81,75% pe ultimele 12 luni. O companie care ține 82% marjă brută cinci ani la rând, printr-o recesiune a publicității și printr-un an în care veniturile chiar au scăzut, își poate cere prețul. Cele două surse dau ROIC diferit — 18,35% pe finviz, 25,40% pe stockanalysis, diferența venind din ce se numără drept capital investit — dar amândouă sunt peste pragul de 15%, deci concluzia nu depinde de care o alegi. Am dat ambele în loc să aleg una, ca să nu pară mai precisă decât e.</p>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
+  <div class="concept">
+    <div class="h">CE E FREE CASH FLOW</div>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <i>și</i> investițiile. Profitul e o opinie contabilă — depinde de cum amortizezi și când recunoști veniturile; cash flow-ul e un fapt bancar. La Meta, în acest moment, distincția e cea mai importantă cifră din tot raportul, pentru că investiția a ajuns aproape cât operarea.</p>
+  </div>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Cash flow operațional, investiții și ce rămâne</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","ultimele 12 luni"],
+     "series":[{"name":"Cash flow operațional","values":[57.68,50.48,71.11,91.33,115.80,130.30]},
+               {"name":"Investiții (capex)","values":[18.69,31.19,27.05,37.26,69.69,89.33]},
+               {"name":"Free cash flow","values":[38.99,19.29,44.07,54.07,46.11,40.98]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+  <p>Cele trei linii spun toată povestea. Linia de sus, banii produși de afacere, urcă fără oprire: de la 57,68 la 130,30 mld $ în cinci ani. Linia din mijloc, investițiile, urcă mult mai repede — de aproape cinci ori în același interval. Iar linia de jos, ce rămâne, a început să coboare din 2024: <b>54,07 → 46,11 → 40,98 mld $</b>.</p>
+  <p><b>Verdict: Atenție (galben), de fază.</b> Pragul de verde cere „pozitiv în cel puțin 4 din ultimii 5 ani <i>și</i> cu tendință de creștere”. Prima condiție e trecută lejer — pozitiv în toți cinci —, iar marja de free cash flow e 17,9%, de aproape două ori pragul. A doua condiție pică: tendința e de scădere de doi ani la rând. De aici galbenul, nu din vreo slăbiciune a afacerii.</p>
+
+  <div class="concept">
+    <div class="h">DE CE „DE FAZĂ” ȘI NU „STRUCTURAL” — CELE TREI CONDIȚII, PE RÂND</div>
+    <p><b>1. Cauza e investiția, nu operarea.</b> Cash flow-ul operațional e +130,30 mld $ pe ultimele 12 luni, în creștere cu 24,65% față de anul trecut — afacerea produce mai mulți bani ca oricând. Scăderea vine din capex: 89,33 mld $ pe 12 luni, față de 37,26 mld $ în 2024. Condiție îndeplinită fără urmă de dubiu.</p>
+    <p><b>2. Finanțarea se vede în cifre.</b> Regula cere o pistă de cash care să acopere arderea cel puțin patru trimestre. <b>Aici nu există ardere de acoperit</b> — free cash flow-ul rămâne pozitiv, +40,98 mld $ pe 12 luni —, deci testul e trecut trivial, iar a-l prezenta ca pe un calcul de trimestre ar fi teatru. Cifrele care contează, din bilanțul depus la 30 iun. 2026: 15,46 mld $ numerar plus 74,80 mld $ investiții pe termen scurt, adică 90,26 mld $ disponibili, la care se adaugă 24,91 mld $ de obligațiuni emise doar în primul semestru 2026. O notă de precizie, pentru că regula o cere explicit: cash-ul restricționat de 13,81 mld $ raportat la aceeași dată <b>nu</b> e inclus în cele 90,26 mld $ — banii aceia nu pot plăti facturi.</p>
+    <p><b>3. Există un prag numit, cu dată.</b> Pe <b>29 iul. 2026</b> compania a îngustat ghidajul de investiții pentru 2026 la <b>130–145 mld $</b>, de la un interval anterior de 125–145 mld $. E o țintă publicată, verificabilă la finalul anului, care spune dacă faza merge conform planului sau derapează. Tot din faza asta face parte parteneriatul cu BlackRock pentru un centru de date de 1 gigawatt în Texas, de circa 14 mld $.</p>
+    <p>Toate trei sunt îndeplinite, deci eticheta e „de fază”. Ce <b>nu</b> înseamnă asta: că e în regulă. Eticheta spune „normal pentru stadiul ăsta, uite cum verifici dacă merge”, nu „nu-ți face griji”. Un raport cu opt „de fază” ar fi tot un raport cu opt semafoare proaste.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">DE CE VEZI DOUĂ CIFRE DIFERITE PENTRU ACELAȘI TRIMESTRU</div>
+    <p>Pentru trimestrul II 2026 vei găsi <b>1,75 mld $</b> pe site-urile de date și <b>784 mln $</b> în comunicatul companiei. Nu e o eroare a niciuneia. Prima cifră e definiția simplă: cash flow operațional (31,86 mld $) minus achiziții de echipamente (30,12 mld $). A doua e definiția companiei, care scade în plus 962 mln $ plăți de principal pentru echipamente luate în leasing financiar — adică tot bani cheltuiți pe infrastructură, doar plătiți în rate.</p>
+    <p>Merită reținut, pentru că e un tipar general: <i>free cash flow nu e un termen definit prin lege</i>, spre deosebire de profitul net. Fiecare sursă îl calculează puțin altfel, iar când o companie își publică propria definiție e bine să te uiți ce a scăzut în plus sau ce a adăugat înapoi. Aici compania a folosit definiția mai severă, ceea ce e în favoarea ei ca semnal de onestitate. Oricare din cele două cifre alegi, concluzia e aceeași: dintr-un trimestru care a produs 31,86 mld $ a rămas sub 2 mld $.</p>
+  </div>
+  <p>O ultimă verificare cerută de grilă, și e una care nu trece. <b>Plata angajaților în acțiuni e 25,14 mld $ pe ultimele 12 luni, adică 11,0% din venituri</b> — peste pragul de 10% de la care umflă artificial free cash flow-ul. Suma nu iese din cont, deci nu apare ca minus în cash flow, dar te costă prin diluție: e chiar cauza rândului galben din secțiunea 6. Un free cash flow de 40,98 mld $ dintr-o companie care plătește 25,14 mld $ în acțiuni nu e același lucru cu 40,98 mld $ dintr-una care plătește în bani.</p>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ</div>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică poate traversa o recesiune fără să vândă active pe nimic sau să emită acțiuni la preț prost; una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost. Măsura standard e <b>datoria netă împărțită la EBITDA</b>: câți ani i-ar lua să scape de datorii dacă ar folosi tot profitul operațional doar pentru ele.</p>
+  </div>
+  <figure class="viz">
+    <figcaption><b>Poziția financiară netă la 30 iun. 2026</b><span class="unit">mld USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
+        <span class="v">112,32</span></div>
+      <div class="r"><span class="k">Cash și investiții</span>
+        <span class="t"><span class="f" style="width:80.4%;background:var(--accent)"></span></span>
+        <span class="v">90,26</span></div>
+    </div>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Datorie netă</div><div class="v">22,06 mld $</div><div class="s">datorie minus cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v up">0,20×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,43</div><div class="s">capitaluri proprii 261,22 mld $</div></div>
+  </div>
+  <p><b>Verdict: Solid (verde).</b> Un raport de 0,20× înseamnă că, dacă ar folosi tot profitul operațional exclusiv pentru datorii, Meta ar scăpa de ele în vreo zece săptămâni. Pragul de risc din grilă e 3,0×, adică de cincisprezece ori mai sus. Nu există aici nicio problemă de solvabilitate și nici măcar una de confort.</p>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Datoria totală, trimestru cu trimestru</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["mar 25","iun 25","sep 25","dec 25","mar 26","iun 26"],
+     "series":[{"name":"Datorie totală","values":[49.52,49.56,51.06,83.90,86.77,112.32]},
+               {"name":"Cash și investiții pe termen scurt","values":[70.23,47.07,44.45,81.59,81.18,90.26]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+  <p><b>Ce merită totuși văzut e viteza.</b> În martie 2025 Meta avea o poziție de <i>net cash</i> de 20,71 mld $ — mai mulți bani decât datorii. La 30 iun. 2026 are o datorie netă de 22,06 mld $. Datoria totală s-a mai mult decât dublat în douăsprezece luni, de la 49,56 la 112,32 mld $, iar din raportul trimestrial se vede exact de unde: <b>24,91 mld $ obligațiuni noi emise doar în semestrul I 2026</b>, față de zero în aceeași perioadă a anului trecut. Pentru comparație, în 2021 datoria totală era 13,87 mld $.</p>
+  <p>Așa arată finanțarea unei faze când devine vizibilă în bilanț. Nu schimbă culoarea, pentru că raportul e în continuare de cincisprezece ori sub prag și pentru că banii se duc în active reale, nu în acoperirea pierderilor. Dar schimbă natura companiei: Meta a fost ani la rând o afacere fără datorii, care se autofinanța din propriul cash. Nu mai e. Sensibilitatea la dobânzi a acestui bilanț e treaba acestui pilon, nu a celui de expunere — sunt lucruri diferite și nu se dublează.</p>
+</section>
+
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Multe companii anunță răscumpărări de miliarde și, în același an, emit aproape tot atâtea acțiuni pentru angajați — cheltuie enorm, iar felia ta rămâne identică. Meta e exemplul de manual pentru acest tipar, iar graficul de mai jos e dovada.</p>
+  </div>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație, clasa A plus clasa B (coperta formularelor depuse la SEC)</b><span class="unit">milioane</span></figcaption>
+    <script type="application/json">
+    {"labels":["ian 25","iul 25","ian 26","apr 26","iul 26"],
+     "series":[{"name":"Acțiuni în circulație","values":[2533.7,2512.1,2529.6,2538.4,2547.5]}]}
+    </script>
+  </figure>
+  <div class="stats">
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+1,41%</div><div class="s">felia ta a scăzut</div></div>
+    <div class="stat"><div class="l">Răscumpărări (12 luni)</div><div class="v">3,33 mld $</div><div class="s">de la 33,09 mld $ în anul anterior</div></div>
+    <div class="stat"><div class="l">Răscumpărări în S1 2026</div><div class="v down">0 $</div><div class="s">față de 22,92 mld $ în S1 2025</div></div>
+    <div class="stat"><div class="l">Plata în acțiuni (12 luni)</div><div class="v">25,14 mld $</div><div class="s">11,0% din venituri</div></div>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Numărul de acțiuni a crescut cu 1,41% în ultimele 12 luni — peste banda de ±1% care definește „aproximativ plat”, dar sub pragul de ~2% de la care rândul ar deveni roșu. Cifrele sunt de pe coperta formularelor depuse la SEC, nu derivate din alte mărimi, și adună ambele clase de acțiuni: 2.512,1 milioane la 25 iul. 2025, 2.547,5 milioane la 24 iul. 2026.</p>
+  <div class="concept">
+    <div class="h">CE S-A ÎNTÂMPLAT CU RĂSCUMPĂRĂRILE — ȘI DE CE RÂNDUL RĂMÂNE STRUCTURAL</div>
+    <p><b>Faptul, mai întâi.</b> În primul semestru din 2026 Meta a răscumpărat acțiuni de <b>0 $</b>. Nu e o cifră lipsă de pe o sursă de date: raportul trimestrial arată suma rămasă din programul de răscumpărare aprobat la <b>25.030 mln $ atât la 31 dec. 2025, cât și la 30 iun. 2026</b> — neatinsă. În primul semestru din 2025 aceeași companie cheltuise 22,92 mld $. Oprirea coincide exact cu momentul în care investițiile au explodat.</p>
+    <p><b>Și totuși eticheta e „structural”, nu „de fază”.</b> Regula e explicită: eticheta se acordă doar dacă investiția e cauza <i>dominantă</i> a culorii acelui rând, iar dacă diluția vine în bună parte din plata în acțiuni a angajaților, rândul e structural chiar dacă restul companiei e într-o fază. Testul decisiv e ce s-a întâmplat <i>înainte</i> de oprire: în semestrul I 2025, cu 22,92 mld $ cheltuiți pe răscumpărări, numărul de acțiuni a scăzut doar cu 0,85% în 12 luni. Adică rândul ar fi fost galben și fără nicio construcție de centre de date. Cauza dominantă e plata în acțiuni de 25,14 mld $ pe an, o politică permanentă de remunerare, nu o etapă care se închide.</p>
+    <p>Compania nu emite acțiuni ca să-și finanțeze construcția — pentru asta emite obligațiuni, 24,91 mld $ în același semestru. Sunt două mecanisme diferite și e important să nu fie confundate.</p>
+  </div>
+  <div class="concept">
+    <div class="h">RANDAMENTUL TOTAL PENTRU ACȚIONAR</div>
+    <p>Ca să compari corect cu o companie „de dividend”, aduni cele două canale. Meta a plătit dividende de 5,37 mld $ pe ultimele 12 luni, adică un randament de <b>0,38%</b> la capitalizarea de azi, și a răscumpărat de 3,33 mld $, adică încă <b>0,23%</b>. Total: <b>~0,6% pe an</b>. Ca reper: doar răscumpărările din semestrul I 2025, 22,92 mld $, au fost de peste două ori și jumătate mai mari decât tot ce a returnat compania prin ambele canale în ultimele 12 luni (8,69 mld $). Cele două canale sunt economic aproape echivalente — diferența practică e că dividendul se impozitează în anul în care îl primești, iar răscumpărarea abia când vinzi — dar acum amândouă sunt mici. Banii merg în altă parte, și se vede unde.</p>
+  </div>
+  <p>O notă de nuanță în favoarea companiei: o parte din acțiunile date angajaților sunt reținute la sursă pentru impozite — 8,70 mld $ în semestrul I 2026 — ceea ce reduce diluția netă. Fără acest mecanism, creșterea numărului de acțiuni ar fi fost vizibil mai mare. Iar autorizarea de 25,03 mld $ rămâne pe masă, gata de folosit, ceea ce înseamnă că oprirea e o alegere reversibilă, nu o imposibilitate.</p>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
+    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei, și e indicatorul care semnalează cel mai devreme că un avantaj se erodează.</p>
+  </div>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25","12 luni"],
+     "series":[{"name":"Marjă brută","values":[80.79,78.35,80.76,81.67,82.00,81.75]},
+               {"name":"Marjă operațională","values":[39.65,24.82,34.66,42.18,41.44,38.08]},
+               {"name":"Marjă netă","values":[33.38,19.90,28.98,37.91,30.08,29.84]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+  <p>Linia de sus e argumentul: marja brută stă între 78% și 82% de cinci ani, inclusiv prin 2022, singurul an în care veniturile au scăzut (−1,12%). Liniile de dedesubt se mișcă mult mai mult, și tocmai diferența dintre ele e informativă — ce fluctuează nu e capacitatea de a cere prețul, ci cât cheltuie compania sub acel preț.</p>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["T3 24","T4 24","T1 25","T2 25","T3 25","T4 25","T1 26","T2 26"],
+     "series":[{"name":"Creștere an/an","values":[18.87,20.63,16.07,21.61,26.25,23.78,33.08,27.96]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+  <p><b>Verdict: Solid (verde).</b> Pragul cere venituri în creștere în 4 din 5 ani — sunt, singura excepție fiind 2022 — și marjă brută stabilă sau în urcare, ceea ce e cazul. Iar clauza care de obicei coboară un verde anual la galben cere o încetinire clară în ultimele trei-patru trimestre; aici se întâmplă exact invers. Ritmul a urcat de la 16,07% (T1 2025) la 33,08% (T1 2026) și 27,96% (T2 2026). Meta e, dintre companiile din acest folder, singura care <i>accelerează</i>.</p>
+
+  <div class="concept">
+    <div class="h">ATUNCI DE CE A CĂZUT ACȚIUNEA — MARJA OPERAȚIONALĂ, TRIMESTRU CU TRIMESTRU</div>
+    <p>Pentru că sub venituri se întâmplă altceva. Marja operațională trimestrială a coborât de la <b>48,29% în T4 2024 la 30,88% în T2 2026</b> — 17,4 puncte procentuale în șase trimestre. Doar față de anul trecut, în același trimestru: 43,02% → 30,88%. Rezultatul e că profitul operațional a <i>scăzut</i> în cifre absolute, de la 20,44 la 18,78 mld $, în timp ce veniturile creșteau cu 28%.</p>
+    <p>Grila coboară un rând la galben când marjele fluctuează cu peste 3 puncte procentuale <i>fără explicație</i>. Aici explicația e cifrată și verificabilă în raportul depus la SEC: amortizarea a urcat de la 8,24 la 12,36 mld $ pe semestru (+50%), cercetarea-dezvoltarea de la 12,94 la 21,66 mld $ pe trimestru (+67%), iar administrativul de la 2,66 la 5,61 mld $, incluzând 1,18 mld $ compensații pentru 8.000 de posturi desființate în trimestru. Cheltuielile astea nu sunt un accident: sunt <b>chiar investiția din secțiunea 4, trecută prin contul de profit și pierdere</b>.</p>
+    <p>Aici e conceptul care merită reținut din tot raportul. Când o companie cheltuie 89 mld $ pe echipamente și clădiri, banii ies din cont o singură dată — dar cheltuiala apare în profit împrăștiată pe mulți ani, ca amortizare. Adică <i>investiția de azi e marja de mâine</i>. Meta a intrat în anii în care plătește amortizarea a ceea ce a cumpărat, și va continua să o plătească indiferent ce se întâmplă cu veniturile. Dacă veniturile cresc mai repede decât amortizarea, marja se reface; dacă nu, nu. Asta e întrebarea, și de aceea nu se poate răspunde la ea cu o cifră de azi.</p>
+  </div>
+  <p>Un ultim reper, pentru că numărul de acțiuni crește: la o diluție de 1,41% pe an, creșterea pe acțiune e cu circa un punct procentual sub cea totală. E o diferență mică la un ritm de 28%, dar e a ta și merită știută — partea ta din companie e cea de-a doua cifră, nu prima.</p>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>EV/EBITDA</th><th>Marjă brută</th><th>Marjă operațională</th><th>Venituri (12 luni)</th><th>ROIC</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>META</td><td>20,98</td><td>34,61</td><td>13,13</td><td>81,75%</td><td>38,08%</td><td>228,25 mld $</td><td>18,4–25,4%</td></tr>
+      <tr><td>Alphabet (GOOGL)</td><td>17,87</td><td>81,76</td><td>24,45</td><td>60,90%</td><td>33,11%</td><td>445,87 mld $</td><td>24,93%</td></tr>
+      <tr><td>Pinterest (PINS)</td><td>48,46</td><td>11,14</td><td>44,05</td><td>79,86%</td><td>7,36%</td><td>4,37 mld $</td><td>10,53%</td></tr>
+      <tr><td>Snap (SNAP)</td><td>n/a</td><td>12,96</td><td>n/a</td><td>55,79%</td><td>−6,77%</td><td>6,10 mld $</td><td>−4,03%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Trei competitori reali, citiți de pe aceleași pagini. Alphabet e singurul comparabil ca scară și e prins în aceeași fază de investiții — de altfel exact de asta are un P/FCF de 81,76, o cifră care spune mai mult despre capexul lui decât despre evaluare. Pinterest și Snap sunt rivalii direcți pe publicitatea din feed, la o scară de cincizeci de ori mai mică; Snap n-are P/E pentru că pierde bani. Coloana marjei operaționale așază lucrurile într-o privire: 38,08% la Meta, 33,11% la Alphabet, 7,36% la Pinterest, negativă la Snap.</p>
+  <p><b>Concluzia comparației e mixtă, și tocmai asta decide culoarea.</b> Pe P/E, Meta la 20,98 e sub mediana celor doi competitori cu profit (33,17) dar peste Alphabet. Pe EV/EBITDA, 13,13 față de o mediană de 34,25 — clar sub. Pe P/FCF însă, 34,61 față de o mediană de 12,96 — de peste două ori peste, pentru că free cash flow-ul e comprimat de investiții exact cum arată secțiunea 4. Aceeași companie iese ieftină pe două rânduri și scumpă pe al treilea, în funcție de ce numeri.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">P/E vs. media proprie 5 ani</div><div class="v up">20,98 vs. 22,98</div><div class="s">cu 8,7% sub</div></div>
+    <div class="stat"><div class="l">P/FCF vs. media proprie 5 ani</div><div class="v down">34,61 vs. 24,84</div><div class="s">cu 39,3% peste</div></div>
+    <div class="stat"><div class="l">EV/EBITDA vs. media proprie</div><div class="v up">13,13 vs. 14,58</div><div class="s">cu 9,9% sub</div></div>
+  </div>
+  <p>Față de propria istorie, aceeași imagine împărțită. Multiplii pe profit și pe EBITDA sunt sub media proprie pe cinci ani (P/E: 24,43 / 14,01 / 23,80 / 24,54 / 28,10; EV/EBITDA: 16,22 / 7,98 / 15,16 / 17,14 / 16,41). Multiplul pe cash e cu aproape 40% peste media proprie (P/FCF: 23,64 / 16,31 / 20,57 / 27,44 / 36,22). Nu e o contradicție — e aceeași realitate văzută din două unghiuri: profitul contabil nu a scăzut încă pe cât a scăzut cash-ul, pentru că investiția se contabilizează pe ani, dar se plătește acum.</p>
+
+  <div class="concept">
+    <div class="h">O PRECIZARE DESPRE P/E-UL DE 20,98</div>
+    <p>Profitul pe ultimele 12 luni conține un element care nu se repetă. În semestrul I 2026 Meta a înregistrat un <b>beneficiu net de impozit de 2,11 mld $</b> — adică impozitul a adăugat la profit în loc să scadă din el — față de o cheltuială de 3,94 mld $ în aceeași perioadă a anului trecut. Diferența e de 6,05 mld $, adică vreo 2,37 $ pe acțiune. La un impozit de mărimea celui de anul trecut, profitul pe acțiune ar fi ~24,18 $ în loc de 26,55 $, iar P/E-ul ar fi în jur de <b>23</b> în loc de 21.</p>
+    <p>Nu schimbă culoarea rândului, dar schimbă cum îl citești: cea mai ieftină cifră din tabel e și cea mai fragilă. E și motivul pentru care grila spune să preferi P/FCF când cele două diferă mult — cash-ul e mai greu de ajustat contabil decât profitul.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
+    <p>Diferența dintre P/E-ul curent și cel prospectiv arată ce creștere e deja inclusă în preț. La Meta: de la <b>20,98</b> la un P/E prospectiv între <b>16,2 și 17,3</b>, în funcție de sursă — ceea ce implică o creștere a profitului între ~21% și ~29% în anul următor. Nu e o așteptare extravagantă pentru o companie ale cărei venituri cresc cu 28%; devine însă una pretențioasă dacă marja operațională continuă să coboare așa cum a făcut-o în ultimele șase trimestre. Prețul de azi presupune, practic, că amortizarea încetează să câștige cursa cu veniturile.</p>
+    <p>Al doilea reper, mai simplu: <i>randamentul profitului</i>, adică P/E-ul citit invers. La P/E 20,98, compania „produce” <b>4,77%</b> pe an la prețul de azi. Obligațiunile americane pe 10 ani, fără practic niciun risc, dau <b>4,75%</b> (31 iul. 2026). Sunt practic egale — un lucru rar și foarte grăitor la o companie de tehnologie care crește cu 28%: piața nu mai cere o primă pentru creșterea ei. Cu ajustarea de impozit de mai sus, la un P/E de ~23, randamentul ar fi 4,34%, adică sub alternativa fără risc. E o constatare din trei fapte de azi, nu o prognoză.</p>
+  </div>
+  <p><b>Verdict: Atenție (galben), structural.</b> Cele trei axe dau: <i>față de propria istorie</i> — sub media proprie pe P/E și EV/EBITDA, cu 39% peste pe P/FCF; <i>față de competitori</i> — sub mediana pe P/E și EV/EBITDA, mult peste pe P/FCF; <i>față de propria creștere</i> — un P/E de 21 la venituri care cresc cu 28% nu e scump, dar profitul scade cu 13%, iar raportul care contează depinde de care dintre cele două ține. Pragul de verde cere „sub media proprie <b>și</b> sub competitori”, iar aici nu e sub pe toate rândurile; pragul de roșu cere „semnificativ peste ambele”, ceea ce iarăși nu e cazul. Rămâne galbenul, care înseamnă exact ce arată tabelul: în linie, nu evident ieftin, nu evident scump. Rândul e mereu structural — prețul de azi e un fapt despre azi, nu o etapă.</p>
+  <div class="concept">
+    <div class="h">EVALUAREA NU E UN SEMNAL DE MOMENT</div>
+    <p>„A fost 796 $, acum e 557 $, deci e ieftină cu 30%” nu e o teză de investiție — e ancorare de prețul istoric, una dintre cele mai costisitoare capcane pentru un începător. Prețul anterior nu e o măsură a valorii. O acțiune ieftină poate rămâne ieftină ani buni dacă motivul discountului persistă, iar motivul e vizibil aici: compania a intrat într-o fază în care cheltuie mai mult decât produce în plus. Ce spune secțiunea asta e doar pe ce pariezi la 556,71 $ — pe un profit care crește cu ~21–29% în anul următor, într-un an în care amortizarea crește și ea.</p>
+  </div>
+</section>
+
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">67–80%</div><div class="s">67,3% MarketBeat · 79,9% stockanalysis</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+123,85 mld $</div><div class="s">4.075 cumpărători / 2.722 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v up">1,72%</div><div class="s">din float · ~2,1 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">2,1×</div><div class="s">pe an · se deține, nu se tranzacționează</div></div>
+  </div>
+  <p><b>Verdict: Solid (verde).</b> E pilonul cu cea mai slabă valoare predictivă din toate și merită spus limpede: nu zice nimic despre calitatea afacerii, doar despre ce cred alții acum. Iar aici avem exact demonstrația: toate semnalele de sentiment sunt bune, și acțiunea a pierdut 28% într-un an. Dacă sentimentul ar prezice prețul, asta nu s-ar fi putut întâmpla.</p>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. La Meta doar <b>1,72% din float</b> e în această situație, mult sub pragul de 3% de la care grila dă verde. Un începător aude „short squeeze” și îl citește ca pe o oportunitate; în realitate un short interest mare e mult mai des un avertisment că cineva mai bine informat vede o problemă. Aici pur și simplu <b>nu există combustibil de squeeze</b>: cu 1,72% din float vândut în lipsă și 2,1 zile de acoperire, nicio știre nu poate produce o mișcare amplificată de cei prinși pe partea greșită. Scăderea de 7,95% din 30 iul. 2026 a fost opinia deținătorilor, nu presiunea adversarilor — ceea ce, paradoxal, o face mai serioasă.</p>
+  </div>
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 18,08 mln acțiuni × 250 de zile ÷ un float de 2,19 mld acțiuni = <b>~2,1×</b> pe an. Tot free float-ul își schimbă proprietarul de două ori într-un an. E cifra unei companii <i>deținute</i>, nu tranzacționate — pentru comparație, un titlu speculativ se rotește de zeci de ori. Aici nu găsești speculație de retail; găsești fonduri mari care își ajustează pozițiile, plus cererea automată a fondurilor pasive, pentru că Meta e în S&amp;P 500 și în Nasdaq-100.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la 31 iul. 2026: <i>dacă buildout-ul de infrastructură pentru inteligență artificială se transformă în venituri sau doar în amortizare</i>. Reperele datate ale poveștii sunt ghidajul de investiții îngustat la 130–145 mld $ pentru 2026 (29 iul. 2026) și parteneriatul cu BlackRock pentru un centru de date de 1 gigawatt în Texas, de circa 14 mld $. E o poveste plauzibilă și foarte scumpă. Nu e o prognoză de venituri și nu o transform în cifră.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Aici s-a manifestat în sens invers: scepticismul a mutat prețul cu 28% într-un an, în timp ce veniturile companiei accelerau. Sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
+  </div>
+  <p><b>Banii instituționali.</b> În 12 luni au intrat 204,87 mld $ și au ieșit 81,02 mld $, de la 4.075 de cumpărători față de 2.722 de vânzători — un plus net de 123,85 mld $. Direcția e clar pozitivă. Nivelul de deținere în sine, între 67% și 80% în funcție de sursă, e normalul oricărei companii americane mari și nu spune nimic; direcția banilor spune.</p>
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR, CU AVERTISMENTELE LUI</div>
+    <p>Cei 62 de analiști urmăriți au un consens de „cumpărare puternică” (nota medie 1,28 pe finviz) și un preț-țintă mediu de <b>762 $</b> față de 556,71 $ pe piață — cu 37% peste. Trei lucruri de știut înainte ca asta să însemne ceva. Analiștii își revizuiesc țintele <i>după</i> ce se mișcă prețul, nu înainte: o țintă cu 37% peste piață descrie mai mult cât de mult a căzut acțiunea decât unde ajunge. Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania — o medie de „cumpărare puternică” e starea implicită, nu o distincție.</p>
+    <p>Iar al treilea, cel mai util: ținta e o medie a unor păreri foarte împrăștiate. Cea mai mică e <b>580 $</b> (cu 4,2% peste prețul de azi), cea mai mare <b>1.000 $</b> (cu 79,6% peste). Când distanța dintre cel mai pesimist și cel mai optimist analist e de aproape două ori, media nu înseamnă aproape nimic — și exact asta merită spus în loc să repeți cifra din mijloc.</p>
+  </div>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
+<section id="s10">
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+  <ul class="list">
+    <li><b>Fondatorul conduce compania:</b> Mark Zuckerberg e președinte al consiliului și director general de la înființare, în 2004; director financiar e Susan Li, director de tehnologie Andrew Bosworth, director de operațiuni Javier Olivan. E o continuitate rară la o companie de această mărime.</li>
+    <li><b>Cât dețin cei care conduc:</b> între 13,44% și 13,69%, în funcție de sursă — de zece ori mai mult decât la o companie americană mare tipică. La o capitalizare de 1.418 mld $ înseamnă că cei care iau deciziile mănâncă din aceeași oală cu acționarii, în valoare absolută foarte mare.</li>
+    <li class="crit"><b>Structura de vot — partea pe care mulți începători n-o verifică niciodată.</b> Meta are două clase de acțiuni ordinare. La 24 iul. 2026, din formularul depus la SEC: <b>2.205.128.509 acțiuni clasa A</b>, cu un vot fiecare, și <b>342.377.716 acțiuni clasa B</b>, cu <b>zece voturi fiecare</b> (drepturile de vot sunt descrise în raportul anual depus pe 29 ian. 2026). Aritmetica: clasa B reprezintă 13,4% din acțiuni și <b>60,8% din voturi</b>. Raportul anual spune direct că fondatorul controlează, prin clasa B, majoritatea puterii de vot și poate decide singur rezultatul oricărui punct supus votului acționarilor. Ce cumperi la bursă e clasa A. Nu e automat un lucru rău — controlul fondatorului poate proteja o strategie pe termen lung de presiunea trimestrială —, dar e un lucru de știut înainte, nu după: dacă pariul de 130–145 mld $ pe an se dovedește greșit, acționarii minoritari nu au niciun mecanism prin care să-l oprească.</li>
+    <li class="crit"><b>Insideri, 12 luni: 9 vânzători, 0 cumpărători, ~308,71 mln $ vânduți.</b> Cele mai multe tranzacții vin de la Javier Olivan (director de operațiuni), la prețuri între 600 și 715 $; Susan Li (director financiar) a vândut două pachete în februarie 2026, de 36,47 și 35,29 mln $; Andrew Bosworth (director de tehnologie) circa 9,88 mln $. Vânzările insiderilor sunt de obicei zgomot — sunt plătiți parțial în acțiuni și vând programat. Ce merită notat, ca fapt: <b>nicio cumpărare din bani proprii în 12 luni</b>, iar vânzările s-au făcut în bună parte la prețuri cu 8–28% peste cel de azi.</li>
+  </ul>
+</section>
+
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <b>expunerea</b> — o proprietate stabilă a afacerii — nu vremea de azi, care stă datată în secțiunea 1.</p>
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR</div>
+    <p>La un P/E mare, cea mai mare parte a prețului e profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi, multiplul se comprimă și acțiunea scade <i>deși compania livrează exact ce a promis</i>. Nu s-a stricat afacerea; s-a scumpit banul.</p>
+    <p>Meta e, în această privință, o companie surprinzător de puțin expusă. La un P/E prospectiv de 16–17 și cu 40,98 mld $ de free cash flow generate în prezent, prețul de azi se sprijină pe bani care intră acum, nu pe promisiuni din 2035. Comparat cu o companie de creștere la P/E 60, sensibilitatea la dobânzi e de câteva ori mai mică.</p>
+  </div>
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Fără steag. P/E-ul prospectiv e 16,2–17,3, mult sub pragul orientativ de ~35 la care evaluarea depinde de anii îndepărtați, iar free cash flow-ul e pozitiv azi (+40,98 mld $). Sensibilitatea bilanțului la refinanțarea celor 112,32 mld $ de datorie e o chestiune reală, dar e treaba pilonului 5, nu a acestui steag — riscurile nu se dublează.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag.</b> <b>97,63% din venituri sunt reclame</b> (raport depus la SEC, 30 iul. 2026). Bugetul de publicitate e prima linie tăiată când o firmă intră în dificultate, pentru că efectul se vede peste luni, nu a doua zi. Nu e o ipoteză: în 2022, singurul an de recesiune publicitară din serie, veniturile Meta au scăzut cu 1,12%, marja operațională s-a prăbușit de la 39,65% la 24,82%, iar acțiunea a pierdut peste două treimi. Compania nu are o a doua sursă de venit care să compenseze — Reality Labs aduce 0,7%.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">Steag parțial, nu întreg. Pe venituri compania trece testul: cea mai mare regiune, SUA și Canada, aduce 39,3% — sub pragul de ~40%. Partea care rămâne e la celălalt capăt al afacerii: un program de investiții de 130–145 mld $ pe an depinde de semiconductoare produse în câteva locuri din lume și supuse tarifelor și licențelor de export. E o dependență de intrări, nu de piețe de desfacere, și de aceea rândul e „Atenție”, nu „Risc”.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag.</b> Acțiune concretă, numită și în curs: Comisia Europeană a amendat Meta cu <b>200 mln €</b> în aprilie 2025, sub Digital Markets Act, pentru modelul „consimțământ sau plată” din publicitate. Compania a convenit un model publicitar revizuit, implementat în ianuarie 2026 și aflat <b>sub monitorizarea Comisiei</b>. Dacă modelul e găsit neconform, sancțiunile pot merge până la 5% din cifra de afaceri zilnică medie la nivel mondial, aplicate periodic — o expunere materială raportată la 228 mld $ venituri anuale.</span></div>
+  </div>
+  <p><b>Verdict: Risc (roșu), structural.</b> Regula e fără echivoc: steagul de reglementare nu stă la galben, iar dacă e bifat duce singur la roșu. Aici e bifat cu nume, dată și cifră, și mai e și un al doilea steag întreg — ciclul. Rândul e prin construcție structural: dependența de un singur tip de venit și de un cadru de reglementare sunt proprietăți ale afacerii, nu etape care se închid.</p>
+  <p><b>Expunere mare nu înseamnă companie proastă</b>, iar Meta e ilustrația: patru piloni verzi, cea mai mare marjă operațională din tabelul de competitori, un moat autentic — și un roșu aici. E o corabie bună pe o mare agitată. Lecția pentru cititor nu e „evit-o”, ci „dimensionează poziția ca să suporți valurile”: volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală. Ce e specific companiei — și nu se numără de două ori — stă la secțiunea 12.</p>
+</section>
+
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu compusă de mine.</p>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <ul class="list">
+    <li><b>Veniturile accelerează, nu încetinesc: 60,80 mld $ în trimestrul II 2026, cu 27,96% peste anul trecut</b> — raport depus la SEC pe <b>30 iul. 2026</b>. Ritmul a urcat de la 16,07% (T1 2025) la 33,08% (T1 2026). E singurul lucru din tot raportul care nu are nevoie de nicio ipoteză: se întâmplă deja, și toate cele patru regiuni cresc cu 25–35%.</li>
+    <li><b>Afacerea de bază produce 23,39 mld $ profit operațional pe trimestru, la o marjă de 38,7%</b> — segmentul Family of Apps, din același raport. Pierderea de 4,62 mld $ a Reality Labs e o alegere de alocare a capitalului, nu o deteriorare a afacerii care aduce banii. Cine crede în teza asta cumpără primul rând al tabelului din secțiunea 2 și tratează al doilea ca pe o opțiune care poate fi închisă.</li>
+    <li><b>Investiții de 130–145 mld $ în 2026, cu prag numit și dată</b> — ghidaj îngustat de companie pe <b>29 iul. 2026</b>, de la 125–145 mld $. Îngustarea în sus e, în limbajul companiei, o afirmație de încredere. Alături, parteneriatul cu BlackRock pentru un centru de date de 1 gigawatt în Texas, de circa 14 mld $, aduce capital din afară pentru aceeași construcție.</li>
+    <li><b>25,03 mld $ de autorizare de răscumpărare rămân neatinse</b> — cifră din raportul depus la 30 iun. 2026, identică cu cea de la 31 dec. 2025. Oprirea răscumpărărilor e o alegere reversibilă, nu o constrângere: banii și aprobarea există.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Un singur robinet de venituri: 97,63% publicitate.</b> Nu există al doilea motor. Toate celelalte linii adunate — inclusiv abonamentele, mesageria pentru firme și tot Reality Labs — fac 2,37% din venituri. O companie cu o asemenea concentrare e fragilă indiferent cât de bune arată cifrele, pentru că orice lucru care schimbă felul în care se cumpără reclame online lovește o sută la sută din afacere.</li>
+    <li class="crit"><b>Amortizarea investiției mănâncă deja profitul, iar partea grea abia începe.</b> Profitul operațional a scăzut în cifre absolute — 20,44 → 18,78 mld $ — în timp ce veniturile creșteau cu 28%. Cele 225,72 mld $ de echipamente și clădiri din bilanț (față de 176,40 mld $ acum șase luni) se vor amortiza ani la rând, indiferent ce fac veniturile. Dacă investiția nu produce venituri noi mai repede decât produce amortizare, marja continuă să coboare mecanic.</li>
+    <li><b>Reality Labs: 8,65 mld $ pierdere într-un semestru, la 833 mln $ venituri.</b> Un raport de zece la unu între ce se pierde și ce se încasează, an după an. Riscul de execuție e concret: nu e o linie care „încă nu s-a lansat”, e una lansată de mult care nu găsește cerere.</li>
+    <li><b>Nimeni nu poate schimba direcția.</b> Fondatorul controlează 60,8% din voturi cu 13,4% din acțiuni (secțiunea 10). Dacă pariul pe infrastructură se dovedește greșit, nu există mecanism prin care acționarii minoritari să forțeze o corecție de curs — nici vot, nici presiune de la un investitor activist. E riscul de execuție cel mai puțin discutat și cel mai structural.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">ARBITRUL</div>
+    <p><b>Prima verificare, la raportarea trimestrului III 2026</b> (data nu e publicată încă pe sursele citite; cea anterioară a fost pe 29 iul. 2026): se oprește căderea marjei operaționale? Reperele sunt 30,88% în T2 2026, față de 43,02% în T2 2025 și 48,29% în T4 2024. Dacă marja se stabilizează în timp ce veniturile cresc cu peste 20%, teza taurului se confirmă în cifra care contează. Dacă mai coboară cinci puncte, rândul „Creștere și marje” își pierde verdele.</p>
+    <p><b>A doua, la finalul anului:</b> se încadrează investițiile în intervalul de 130–145 mld $ anunțat pe 29 iul. 2026, și ce interval e numit pentru 2027? Prima cifră spune dacă faza e sub control; a doua spune cât mai ține.</p>
+    <p><b>A treia, în oricare dintre următoarele două raportări:</b> repornesc răscumpărările din cele 25,03 mld $ autorizate, sau numărul de acțiuni continuă să urce cu ~0,35% pe trimestru? E cel mai ieftin indicator din tot raportul pentru cum vede conducerea propriul preț — o companie care crede că acțiunea ei e ieftină și are aprobarea pe masă are un motiv în plus să cumpere.</p>
+    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
+  </div>
+</section>
+
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual.</b> Primul: <i>investiția de azi e marja de mâine</i> — 89 mld $ cheltuiți pe echipamente ies din cont o dată, dar apar în profit împrăștiați pe ani, ca amortizare; de aceea o companie poate crește veniturile cu 28% și raporta un profit mai mic. Al doilea: <i>diluția din plata în acțiuni</i> — Meta a cheltuit 22,92 mld $ pe răscumpărări într-un semestru și numărul de acțiuni tot n-a scăzut nici un procent, ceea ce arată de ce cifra care contează e numărul de acțiuni, nu suma din comunicat. Al treilea: <i>un multiplu depinde de ce numeri</i> — aceeași companie iese sub media proprie pe P/E și cu 39% peste ea pe P/FCF, în aceeași zi, la același preț.</p>
+  <ul class="list qa">
+    <li>Câte robinete de venituri are compania? Dacă unul singur aduce peste 90%, tot restul analizei atârnă de el.</li>
+    <li>Cash flow-ul operațional crește, dar ce rămâne după investiții? Cele două linii pot merge în direcții opuse ani la rând.</li>
+    <li>Numărul de acțiuni a scăzut sau a crescut în ultimele 12 luni — pe cifre de pe coperta formularelor depuse, nu din comunicate?</li>
+    <li>Câte clase de acțiuni există și cine controlează majoritatea voturilor? Se verifică în raportul anual, în două minute.</li>
+    <li>Profitul din ultimele 12 luni conține ceva care nu se repetă — o vânzare de active, un beneficiu fiscal, o reevaluare?</li>
+    <li>Când citești un preț-țintă mediu, care e distanța dintre cel mai mic și cel mai mare? Dacă e de două ori, media nu spune nimic.</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (formular 10-Q depus pe 30 iul. 2026 pentru venituri pe regiuni și segmente, contul de profit, bilanțul, situația fluxurilor de trezorerie și programul de răscumpărare; formular 10-K depus pe 29 ian. 2026 pentru drepturile de vot; serie a numărului de acțiuni de pe coperta formularelor depuse) · date de piață la închiderea din <b>31 iulie 2026</b>; rezultatele trimestrului II 2026 raportate pe 29 iul. 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
