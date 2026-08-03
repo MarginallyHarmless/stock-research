@@ -71,6 +71,7 @@ section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12p
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -243,18 +244,19 @@ footer b{color:var(--ink-2)}
 <header>
   <div class="tick">
     <h1>ORCL</h1>
-    <span class="co">Oracle Corporation · NYSE</span>
+    <span class="co">Oracle Corporation</span>
   </div>
   <div class="px">
     <div class="v">129,87 $</div>
-    <div class="d up">+1,81% (31 iul 2026)</div>
+    <div class="d up">+1,81% în ședința din 31 iul. 2026</div>
   </div>
   <div class="chips">
-    <span class="chip">Tehnologie · <b>Software — infrastructură</b></span>
-    <span class="chip">Indici: <b>S&amp;P 500, S&amp;P 100</b></span>
-    <span class="chip">Capitalizare <b>374,1 mld $</b></span>
+    <span class="chip">Technology · <b>Software — Infrastructure</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500</b></span>
+    <span class="chip">Capitalizare <b>374,0 mld $</b></span>
     <span class="chip">An fiscal se încheie <b>31 mai</b></span>
-    <span class="chip">Următoarea raportare <b>8 sep 2026</b></span>
+    <span class="chip">Ultima raportare <b>10 iun. 2026</b></span>
+    <span class="chip">Următoarea raportare <b>8 sep. 2026</b></span>
   </div>
 </header>
 
@@ -271,7 +273,7 @@ footer b{color:var(--ink-2)}
   <a href="#s09"><span class="tn">09</span>Sentiment</a>
   <a href="#s10"><span class="tn">10</span>Management</a>
   <a href="#s11"><span class="tn">11</span>Expunere</a>
-  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
   <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
 </nav>
 
@@ -282,43 +284,51 @@ footer b{color:var(--ink-2)}
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Costuri de schimbare foarte mari pe baza veche; motorul nou de creștere e închiriere de servere, unde moat-ul e subțire.</span>
+      <span class="t"><b>structural</b> — costurile de schimbare pe baza veche sunt reale și mari: 19,80 mld $ de abonamente de suport pe an, plătite de decenii. Dar dovada în cifre lipsește pe ambele criterii de verde: ROIC 8,60% (finviz) / 11,48% (stockanalysis), sub pragul de ~15%, iar marja brută scade patru ani la rând. Rândul e la un pas de roșu; ce îl ține la galben e că marja nu cade din reduceri forțate, ci din schimbarea deliberată a mixului.</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">−23,7 mld $ în FY2026, al doilea an negativ; capex 55,7 mld $ finanțat cu datorie.</span>
+      <span class="t"><b>de fază</b> — <b>−23,69 mld $</b> în FY2026, al doilea an negativ la rând. Singurul rând din raport care îndeplinește toate cele trei condiții: cash-ul operațional e record (+31,98 mld $) și arderea vine din capex (55,66 mld $), pista de cash calculată e de <b>5,4 trimestre</b> (7,1 cu linia de credit neatinsă de 10 mld $), iar ținta e numită și datată — capex FY2027 de ~70 mld $ și venituri de 90 mld $, anunțate pe 10 iun. 2026. Eticheta nu înmoaie culoarea; verificarea e în secțiunea 4.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Datorie netă 124–136 mld $, adică ~4,2–4,5× EBITDA — mult peste pragul de 3×.</span>
+      <span class="t"><b>structural</b> — datorie netă 124,30 mld $ la un EBITDA de 29,90 mld $, adică <b>4,16×</b>, peste pragul de risc de 3×. Nu e o consecință a construcției: raportul a fost 3,84× · 4,18× · 3,84× · 3,90× · 4,16× în ultimii cinci ani, deci Oracle era peste prag și înainte să existe primul centru de date pentru inteligență artificială. Îndatorarea e o alegere veche de politică financiară.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Acțiunile au urcat de la 2,665 la 2,880 mld în 4 ani; răscumpărările s-au oprit practic.</span>
+      <span class="t"><b>structural</b> — numărul de acțiuni a urcat de la 2.664,9 la 2.880,5 mln în patru ani (<b>+8,09%</b>), iar în ultimul an cu <b>+2,55%</b>, peste pragul de 2%. Cifrele sunt de pe coperțile formularelor depuse la SEC. Diluția vine din plata în acțiuni a angajaților (4,81 mld $ pe an), nu din finanțarea construcției — care se face cu datorie —, deci rândul e structural, nu de fază.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Veniturile accelerează puternic, dar marja brută a scăzut 4 ani la rând, de la 79,1% la 65,8%.</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — veniturile accelerează frumos (+17,35% în FY2026, trimestre de la +6,86% la +20,63%), dar pragul de roșu din grilă e pe marja brută: „în scădere 3 ani la rând". Aici scade <b>patru</b>: 79,08% → 72,85% → 71,41% → 70,51% → <b>65,82%</b>. Scăderea a început în FY2023, cu doi ani înainte de buildout, deci nu e cauzată dominant de faza actuală. <i>Culoarea s-a mutat față de versiunea publicată — vezi nota de mai jos.</i></span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">P/E 22,3 față de media proprie de 34,6 pe 5 ani — dar discountul are motive reale în bilanț.</span>
+      <span class="t"><b>structural</b> — P/E 22,28 față de o medie proprie pe 5 ani de 34,56 arată ieftin, dar profitul din FY2026 conține <b>2,81 mld $</b> de câștiguri din investiții, sub linia operațională. Curățat, P/E-ul e în jur de <b>26</b> — încă sub propria istorie, dar peste toți cei trei competitori listați. Verdele cere „sub istoric <i>și</i> sub competitori, fără deteriorare a afacerii"; niciuna din cele trei condiții nu se susține curat. Rândul e mereu structural.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Short interest mic și intrări instituționale nete pozitive, dar 0 cumpărători insideri și 10 vânzători.</span>
+      <span class="t"><b>structural</b> — short interest 2,92% din float, sub pragul de 3%, și prezență în S&amp;P 500: două criterii de verde. Dar banii instituționali sunt aproape la egalitate — 40,48 mld $ intrați față de 37,49 mld $ ieșiți în 12 luni, un net de +2,99 mld $ pe o capitalizare de 374 mld $, adică 0,8% —, ceea ce e definiția galbenului. Pilonul descrie ce cred alții acum, nu calitatea afacerii.</span>
     </div>
     <div class="row">
       <span class="k">Expunere la lume</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">FCF negativ azi plus 130 mld $ de împrumuturi într-o lume cu dobânda de 4,75%.</span>
+      <span class="t"><b>structural</b> — un steag întreg și trei parțiale. Dobânzi: free cash flow negativ azi <i>și</i> 130,11 mld $ de principal de refinanțat sau extins, într-o lume cu dobânda pe 10 ani la 4,75% (31 iul. 2026) — steagul e bifat pe ambele criterii. Ciclu, geografie (Americile 66,0% din venituri) și reglementare (audiere în Congres pe 15 sep. 2026 pe tema societății mixte TikTok USDS) sunt parțiale.</span>
     </div>
+  </div>
+  <p style="margin-top:14px"><b>Niciun verde. Patru roșii și patru galbene</b> — cel mai încărcat scorecard din acest folder. Un singur rând primește „de fază", cel de free cash flow; celelalte șapte sunt structurale. Merită spus limpede de ce contează distincția: dacă toate cele patru roșii ar fi fost „de fază", raportul ar fi descris o companie normală pentru stadiul ei. Nu e cazul. Îndatorarea, diluția și erodarea marjei sunt mai vechi decât construcția pe care o finanțează azi.</p>
+  <div class="concept" style="margin-top:16px">
+    <div class="h">CE S-A SCHIMBAT FAȚĂ DE VERSIUNEA ANTERIOARĂ A ACESTUI RAPORT</div>
+    <p><b>O culoare s-a mutat: „Creștere și marje", din galben în roșu.</b> Nu din date noi — cifrele sunt aceleași, din raportarea de 10 iun. 2026. E o corectură de aplicare a regulii. Pragul de roșu din grilă e „marjă brută în scădere 3 ani la rând"; la Oracle scade patru, cu 13,26 puncte procentuale cumulat. Versiunea publicată scria chiar în rândul respectiv „marja brută a scăzut 4 ani la rând" și păstra galbenul — adică enunța faptul care declanșează pragul și nu trăgea concluzia. Culoarea corectă e roșie. Celelalte șapte rânduri rămân exact cum erau.</p>
+    <p><b>Un fapt nou, găsit la regenerare, care schimbă felul în care se citește secțiunea 8.</b> Profitul net din FY2026 a crescut cu 36,49%, mult mai repede decât cel operațional (+16,56%). Diferența e o linie de sub linia operațională: <b>câștiguri din investiții de 2.811 mln $</b> (10-K FY2026, depus 22 iun. 2026), față de aproape zero în anii anteriori, dintre care 2.668 mln $ într-un singur trimestru. Nu sunt bani intrați în cont și nu se repetă predictibil. Curățat de ele, profitul crește cu ~16,7% — exact cât cel operațional —, iar P/E-ul de 22,28 devine ~26. Versiunea publicată nu conținea această verificare.</p>
+    <p><b>Două date externe corectate.</b> Ancheta senatorului Ed Markey privind societatea mixtă TikTok USDS a fost adresată formal în <b>mai 2026</b>, nu în ianuarie 2026 cum scria versiunea anterioară; ianuarie 2026 e data la care s-a închis tranzacția. Iar audierea din Congres pe acest subiect e programată pe <b>15 sep. 2026</b> — un termen care nu exista în raportul vechi. Diluția din ultimul an e +2,55%, nu +2,60%: seria exactă de pe coperțile SEC dă 2.808,833 → 2.880,471 mln acțiuni.</p>
+    <p>În plus, structura raportului a primit stratul care lipsea: fiecare rând colorat are al doilea cuvânt (<i>de fază</i> sau <i>structural</i>), secțiunea 9 are mecanica cererii, iar secțiunea 12 are teza taurului lângă cea a ursului.</p>
   </div>
 </section>
 
@@ -339,7 +349,17 @@ footer b{color:var(--ink-2)}
 
   <p>Acțiunea e la <strong>6,6% din intervalul ultimului an</strong> — practic lipită de minim și cu
   <strong>62,4% sub maximul de 345,72 $</strong>. Cine a cumpărat la vârf are astăzi 37,6 cenți din
-  fiecare dolar investit. Nu e o corecție; e o reevaluare completă a poveștii.</p>
+  fiecare dolar investit. Nu e o corecție de câteva săptămâni; e o reevaluare completă a poveștii.</p>
+
+  <div class="concept">
+    <div class="h">O PRECIZARE DE CALENDAR, VALABILĂ PENTRU TOT RAPORTUL</div>
+    <p><b>Anul fiscal al Oracle se încheie pe 31 mai.</b> „FY2026" înseamnă iunie 2025 – mai 2026, iar
+    ultima raportare e din <b>10 iunie 2026</b>, cu 10-K-ul depus pe 22 iunie 2026. Nu există încă niciun
+    trimestru din FY2027. Prin urmare, cifrele fundamentale din acest raport sunt cu aproape două luni
+    mai vechi decât prețul, care e închiderea de vineri, <b>31 iulie 2026</b>. E singura companie din
+    acest folder cu un asemenea decalaj, și el contează: o companie care cheltuie 55 mld $ pe an poate
+    schimba mult într-un trimestru. Următoarea raportare, 8 septembrie 2026, va fi prima cifră nouă.</p>
+  </div>
 
   <figure class="viz" data-viz="compare">
     <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
@@ -354,159 +374,177 @@ footer b{color:var(--ink-2)}
 
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
-    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă puneam
-    banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". Aici răspunsul e nu, pe
-    <strong>toate cele patru orizonturi</strong>. Chiar și pe 5 ani, unde Oracle e pe verde cu +49%,
-    indicele a făcut +70,4% — deci +49% nu e o victorie, e o rămânere în urmă de 21 de puncte
-    procentuale, cu mult mai multă bătaie de cap și volatilitate.</p>
-    <p>Pe 1 an diferența e de <strong>67 de puncte procentuale</strong>. Ăsta e genul de decalaj care
-    face diferența dintre a fi investitor și a fi jucător.</p>
+    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă puneam banii
+    într-un fond pe S&amp;P 500, fără nicio muncă de analiză?". Aici răspunsul e <b>nu, pe toate cele
+    patru orizonturi</b>. Chiar și pe 5 ani, unde Oracle arată un +49%, indicele a făcut +70,4%: nu e o
+    victorie, e o rămânere în urmă de 21 de puncte procentuale, cu mult mai multă volatilitate pe drum.</p>
+    <p>Pe un an diferența e de <b>67 de puncte procentuale</b>. Ăsta e genul de decalaj care merită
+    reținut înainte de a citi orice altceva din raport.</p>
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="l">Beta (5 ani)</div><div class="v">1,72</div><div class="s">amplifică piața de ~1,7×</div></div>
-    <div class="stat"><div class="l">Volatilitate zilnică</div><div class="v">5,42%</div><div class="s">pe săptămână / 5,04% pe lună</div></div>
-    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.720 $</div><div class="s">la o corecție de piață de 10%</div></div>
+    <div class="stat"><div class="l">Beta (5 ani)</div><div class="v">1,71</div><div class="s">amplifică piața de ~1,7×</div></div>
+    <div class="stat"><div class="l">Volatilitate zilnică</div><div class="v">5,42%</div><div class="s">pe săptămână · 5,04% pe lună</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.710 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <p>Beta de 1,72 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 17%.
-  Dar beta e o medie pe cinci ani și subestimează grosolan ce s-a întâmplat aici: piața a urcat
-  18% în ultimul an, iar ORCL a scăzut 49%. O volatilitate zilnică de 5,4% înseamnă că o mișcare
-  de ±5% într-o zi obișnuită e normalul, nu excepția. <strong>Dacă suma pe care o ai aici te-ar
-  face să verifici prețul zilnic, poziția e prea mare.</strong></p>
+  <p>Beta de 1,71 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 17%. Dacă ai
+  10.000 $ aici, o corecție obișnuită de piață înseamnă −1.710 $. Dar beta e o medie pe cinci ani și
+  subestimează grosolan ce s-a întâmplat recent: piața a urcat 18% în ultimul an, iar ORCL a scăzut 49%.
+  O volatilitate de 5,4% pe zi într-o săptămână obișnuită înseamnă că o mișcare de ±5% <i>este</i>
+  normalul aici. <b>Dacă suma pe care ai avea-o aici te-ar face să verifici prețul zilnic, poziția e prea
+  mare</b> — asta e singura recomandare pe care o dă raportul, și e despre mărimea poziției, nu despre
+  acțiune.</p>
 
-  <!-- vremea pieței -->
-  <div class="stats">
-    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul 2026</div></div>
-    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">de la ~4,38% în iul 2025</div></div>
-    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v up">+7,1 pp</div><div class="s">tehnologie +16,6% · indice +9,6%</div></div>
+  <div class="concept">
+    <div class="h">VREMEA PIEȚEI, LA 31 IUL. 2026</div>
+    <div class="stats" style="margin:10px 0 0">
+      <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">practic la maxim</div></div>
+      <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">de la ~4,38% în iul. 2025</div></div>
+      <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v up">+7,1 pp</div><div class="s">tehnologie +16,6% · indice +9,5%</div></div>
+    </div>
+    <p style="margin-top:12px">Asta nu e vremea, e înotătorul. Indicele e la 1,8% sub maximul lui pe 52
+    de săptămâni, iar sectorul tehnologic e cu 7 puncte procentuale <i>peste</i> indice în acest an.
+    Într-un context în care aproape tot ce e tehnologie a urcat, Oracle a pierdut o treime din valoare de
+    la începutul anului. Când sectorul merge bine și acțiunea cade, explicația nu se mai poate căuta în
+    context — e despre companie.</p>
   </div>
 
-  <p><strong>Asta nu e vremea, e înotătorul.</strong> Indicele e la 1,8% sub maximul lui pe 52 de
-  săptămâni; sectorul tehnologic e cu 7 puncte procentuale <em>peste</em> indice în acest an. Într-un
-  context în care aproape tot ce e tehnologie a urcat, Oracle a pierdut o treime din valoare de la
-  începutul anului. Când sectorul merge bine și acțiunea cade, explicația nu se mai poate căuta în
-  context — e despre companie.</p>
+  <p><b>Ce a mutat prețul.</b> Punctul de rupere e datat: pe <b>17 decembrie 2025</b>, Financial Times a
+  relatat că Blue Owl Capital, principalul finanțator al celor mai mari proiecte de centre de date ale
+  Oracle din SUA, s-a retras din finanțarea unui centru de 10 mld $ destinat OpenAI. De acolo încolo,
+  piața n-a mai citit contractele semnate ca pe bani în bancă, ci ca pe o factură de construcție.
+  În raportarea din <b>10 iunie 2026</b>, Oracle a anunțat un portofoliu de contracte semnate dar
+  neexecutate (<i>remaining performance obligations</i>, RPO) de <b>638 mld $</b>, de la 137,8 mld $ cu
+  un an înainte — dar în același an a cheltuit 55,7 mld $ pe capex, a ars 23,7 mld $ de cash și și-a
+  urcat datoria de la 104 la 156 mld $.</p>
 
-  <p><strong>Ce s-a schimbat.</strong> În raportarea anului fiscal 2026 (încheiat 31 mai 2026, publicată
-  în 10-K pe 22 iunie 2026), Oracle a raportat un portofoliu de contracte semnate dar neexecutate
-  (<em>remaining performance obligations</em>, RPO) de <strong>638 mld $</strong> — o săritură de la
-  137,8 mld $ cu un an înainte. Un an în urmă, piața trata cifra asta ca pe bani în bancă. În 2026
-  a reevaluat-o: ca să livreze acele contracte, Oracle trebuie să construiască întâi centrele de
-  date. A cheltuit 55,7 mld $ pe capex în FY2026 (+162% față de anul anterior), a ars 23,7 mld $ de
-  cash și și-a urcat datoria de la 104 la 156 mld $. Presa financiară raportează că aproximativ
-  jumătate din backlog e legat de un singur client — OpenAI, printr-un contract de ~300 mld $ pe
-  cinci ani începând cu 2027 — o companie care încă nu e profitabilă. Compania nu confirmă în 10-K
-  identitatea clientului; cifra de 638 mld $ e din depunerea SEC, atribuirea către OpenAI e din presă.</p>
-
-  <p><strong>Context recent, datat:</strong> pe 24 iulie 2026, Oracle a anunțat un contract de
-  aproape 7 mld $ cu Departamentul apărării al SUA; pe 30 iulie 2026, o extindere a parteneriatului
-  cu Google Cloud pentru integrarea modelelor Gemini în Fusion și NetSuite. În aceeași perioadă, presa
-  a semnalat creșterea costului asigurării împotriva riscului de neplată (CDS) pentru Oracle și
-  ceilalți operatori mari de infrastructură AI. Următoarea raportare: <strong>8 septembrie 2026</strong>,
-  după închiderea pieței.</p>
+  <p><b>Ce s-a întâmplat în ultimele zile ale intervalului.</b> Pe 29 iulie acțiunea a închis la
+  117,74 $ (−1,85%); pe <b>30 iulie a urcat 8,34%</b>, la 127,56 $, după anunțul extinderii
+  parteneriatului cu Google Cloud pentru aducerea modelelor Gemini în Oracle Fusion Applications și
+  NetSuite; pe 31 iulie a mai adăugat 1,81%, închizând la <b>129,87 $</b> — prețul pe care e construit
+  tot acest raport. Titlurile sunt narativ, nu sursă de cifre: nicio cifră din raport nu vine din ele.</p>
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
 <section id="s02">
-  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+  <div class="sec"><span class="n">02</span><h2>Ce face compania, pe înțelesul oricui</h2></div>
 
-  <p>Oracle a fost timp de patru decenii firma care vinde <strong>baza de date</strong> pe care rulează
+  <p>Oracle a fost timp de patru decenii firma care vinde <b>baza de date</b> pe care rulează
   contabilitatea, salarizarea și stocurile marilor companii și instituții — plus programele care stau
-  deasupra ei (ERP, HR, lanț de aprovizionare). Modelul clasic: vinzi o licență scumpă o dată, apoi
-  încasezi un abonament anual de suport pe care clientul îl plătește ani la rând pentru că nu are
-  cum să se oprească. Fondată în 1977, listată din 1986, 141.000 de angajați, sediul în Austin, Texas.</p>
+  deasupra ei. Modelul clasic: vinzi o licență scumpă o dată, apoi încasezi un abonament anual de suport
+  pe care clientul îl plătește ani la rând pentru că nu are cum să se oprească. Fondată în 1977, listată
+  din 1986, 141.000 de angajați, sediul în Austin, Texas.</p>
 
-  <p>Din 2023 încoace, Oracle construiește o a doua afacere, complet diferită: <strong>închiriază
-  putere de calcul</strong> pentru antrenarea modelelor de inteligență artificială. Nu mai vinde
-  programe, ci ore de server. E o afacere care cere miliarde investite în clădiri, cabluri și
-  procesoare grafice <em>înainte</em> de a încasa primul dolar. Tabelul de mai jos arată exact
-  unde e ruptura.</p>
+  <p>Din 2023 încoace, Oracle construiește <b>o a doua afacere, complet diferită</b>: închiriază putere
+  de calcul pentru antrenarea modelelor de inteligență artificială. Nu mai vinde programe, ci ore de
+  server. E o afacere care cere miliarde investite în clădiri, cabluri și procesoare grafice înainte de a
+  încasa primul dolar. Tabelul de mai jos arată exact unde e ruptura.</p>
 
-  <div class="tw"><table>
-    <thead><tr><th>Linie de venit (FY2026)</th><th>Venituri</th><th>Pondere</th><th>Creștere an/an</th></tr></thead>
-    <tbody>
-      <tr class="me"><td>Cloud infrastructure (OCI)</td><td>18.101 M$</td><td>26,9%</td><td class="up">+76,9%</td></tr>
-      <tr><td>Suport software (abonamente)</td><td>19.804 M$</td><td>29,4%</td><td class="up">+1,4%</td></tr>
-      <tr><td>Cloud applications (SaaS)</td><td>15.888 M$</td><td>23,6%</td><td class="up">+11,3%</td></tr>
-      <tr><td>Servicii</td><td>5.743 M$</td><td>8,5%</td><td class="up">+9,7%</td></tr>
-      <tr><td>Licențe software</td><td>4.737 M$</td><td>7,0%</td><td class="down">−8,9%</td></tr>
-      <tr><td>Hardware</td><td>3.084 M$</td><td>4,6%</td><td class="up">+5,0%</td></tr>
-      <tr class="me"><td>Total</td><td>67.357 M$</td><td>100%</td><td class="up">+17,4%</td></tr>
-    </tbody>
-  </table></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Linie de venit (FY2026)</th><th>Venituri</th><th>Pondere</th><th>Creștere an/an</th></tr></thead>
+      <tbody>
+        <tr class="me"><td>Cloud infrastructure (OCI)</td><td>18.101 M$</td><td>26,9%</td><td>+76,9%</td></tr>
+        <tr><td>Suport software (abonamente)</td><td>19.804 M$</td><td>29,4%</td><td>+1,4%</td></tr>
+        <tr><td>Cloud applications (SaaS)</td><td>15.888 M$</td><td>23,6%</td><td>+11,3%</td></tr>
+        <tr><td>Hardware și servicii</td><td>8.827 M$</td><td>13,1%</td><td>+8,1%</td></tr>
+        <tr><td>Licențe software</td><td>4.737 M$</td><td>7,0%</td><td>−8,9%</td></tr>
+        <tr><td>Total</td><td>67.357 M$</td><td>100%</td><td>+17,4%</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <p>Citirea corectă: afacerea veche (suport + licențe, 36,4% din venituri) e <strong>plată sau în
-  scădere</strong>. Toată creșterea vine din OCI, care a trecut de la 6,8 mld $ în FY2024 la 18,1 mld $
-  în FY2026 — s-a triplat în doi ani și a devenit a doua cea mai mare linie a companiei. Practic,
-  cumpărând ORCL azi cumperi în principal un pariu pe centre de date, nu pe baze de date.</p>
+  <p><b>Citirea corectă:</b> afacerea veche — suport plus licențe, 36,4% din venituri — e plată sau în
+  scădere. Toată creșterea vine din OCI, care a trecut de la 6.840 M$ în FY2024 la 18.101 M$ în FY2026:
+  <b>s-a triplat în doi ani</b> și a devenit a doua cea mai mare linie a companiei. Practic, cumpărând
+  ORCL azi cumperi în principal un pariu pe centre de date, nu pe baze de date. Cifrele sunt din nota de
+  venituri a 10-K-ului FY2026, depus pe 22 iun. 2026; linia „hardware și servicii" e diferența până la
+  total, pentru că nota separă doar componentele de mai sus — la fel și creșterea ei, calculată din
+  aceeași diferență pentru FY2025 (8.169 M$).</p>
 
-  <p><strong>Pe geografii</strong> (FY2026): Americile 44.478 M$ (66,0%), EMEA 15.297 M$ (22,7%),
-  Asia-Pacific 7.582 M$ (11,3%). Sursa: nota de segmente din 10-K FY2026.</p>
+  <p><b>Pe geografii (FY2026):</b> Americile 44.478 M$ (66,0%), EMEA 15.297 M$ (22,7%), Asia-Pacific
+  7.582 M$ (11,3%). Aceeași sursă.</p>
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
 <section id="s03">
-  <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
+  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un <i>moat</i> e motivul pentru care un
     concurent cu bani și cu oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice
-    profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare.
-    Companiile care rămân profitabile zeci de ani sunt cele care au ceva ce nu se copiază ușor.</p>
+    profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Companiile
+    care rămân profitabile zeci de ani sunt cele care au ceva ce nu se copiază ușor.</p>
   </div>
 
   <div class="score">
-    <div class="row"><span class="k">Costuri de schimbare</span>
+    <div class="row">
+      <span class="k">Costuri de schimbare</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">19,8 mld $ de suport anual pe care clienții îl plătesc de decenii. A migra baza de date a unei bănci de pe Oracle e un proiect de ani, nu o decizie de buget.</span></div>
-    <div class="row"><span class="k">Efect de rețea</span>
-      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
-      <span class="t">Produsul nu devine mai bun pentru clientul A pentru că se adaugă clientul B.</span></div>
-    <div class="row"><span class="k">Avantaj de cost / scară</span>
+      <span class="t">19,80 mld $ de abonamente de suport pe an, plătite de decenii, cu o creștere de doar +1,4% — adică nici nu urcă, dar nici nu pleacă nimeni. A migra baza de date a unei bănci de pe Oracle e un proiect de ani, nu o decizie de buget.</span>
+    </div>
+    <div class="row">
+      <span class="k">Efect de rețea</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10"/></svg>Absent</span>
+      <span class="t">Produsul nu devine mai bun pentru clientul A pentru că se adaugă clientul B. Nu e un defect — pur și simplu nu e sursa de avantaj a acestei companii.</span>
+    </div>
+    <div class="row">
+      <span class="k">Avantaj de cost / scară</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Contestat</span>
-      <span class="t">În infrastructura cloud e al patrulea jucător, în spatele Amazon, Microsoft și Google — toate cu bilanțuri mult mai solide și cu FCF pozitiv.</span></div>
-    <div class="row"><span class="k">Active intangibile</span>
+      <span class="t">În infrastructura cloud e al patrulea jucător, în spatele Amazon, Microsoft și Google — toate cu bilanțuri mult mai solide și cu free cash flow pozitiv. Scara se cumpără cu capital, iar aici capitalul e mai scump pentru Oracle decât pentru ei.</span>
+    </div>
+    <div class="row">
+      <span class="k">Active intangibile</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
-      <span class="t">Proprietate intelectuală reală pe baza de date și pe Java, dar fără protecție de tip brevet care să blocheze concurența în cloud.</span></div>
-    <div class="row"><span class="k">Brand</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Slab ca moat</span>
-      <span class="t">Numele deschide uși în licitații corporate, dar nimeni nu plătește în plus pentru siglă la închirierea unui server.</span></div>
+      <span class="t">Proprietate intelectuală reală pe baza de date și pe Java, dar fără o protecție care să blocheze concurența în partea care crește, adică în închirierea de servere.</span>
+    </div>
+    <div class="row">
+      <span class="k">Brand</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10"/></svg>Slab ca moat</span>
+      <span class="t">Numele deschide uși în licitații corporate, dar nimeni nu plătește în plus pentru siglă la închirierea unui server. Brandul e oricum cel mai fragil tip de moat.</span>
+    </div>
   </div>
 
   <div class="concept">
     <div class="h">DOVADA ÎN CIFRE, NU POVESTEA</div>
-    <p>Orice companie susține în raportul anual că are avantaje competitive. <strong>Marja brută e
-    testul</strong>: dacă poate ține prețuri mari ani la rând fără să piardă clienți, moat-ul e real.</p>
-    <p>La Oracle marja brută a coborât de la <strong>79,1% (FY2022) la 65,8% (FY2026)</strong> — patru
-    ani consecutivi de scădere, 13,3 puncte procentuale pierdute. Iar ROIC-ul, cât profit produce
-    fiecare dolar investit în afacere, e la <strong>8,6% (finviz) / 11,5% (stockanalysis)</strong> —
-    sub pragul de ~15% care indică de obicei un moat solid.</p>
+    <p>Orice companie susține în raportul anual că are avantaje competitive. <b>Marja brută e testul</b>:
+    dacă poate ține prețuri mari ani la rând fără să piardă clienți, moat-ul e real. Al doilea test e
+    ROIC-ul — cât profit produce fiecare dolar investit în afacere.</p>
+    <p>La Oracle, marja brută a coborât de la 79,08% (FY2022) la <b>65,82%</b> (FY2026): patru ani
+    consecutivi de scădere, 13,26 puncte procentuale pierdute. ROIC-ul e la <b>8,60%</b> (finviz) sau
+    <b>11,48%</b> (stockanalysis) — sursele diferă cu mai mult de 5%, deci apar amândouă, dar concluzia
+    e aceeași: sub pragul de ~15% de la care rentabilitatea devine dovadă de moat. Pentru comparație,
+    Microsoft are 26,17%, SAP 18,20%, IBM 13,96% (stockanalysis, aceeași zi).</p>
   </div>
 
-  <p><strong>Nuanța care contează:</strong> marja nu scade pentru că Oracle e forțată să dea reduceri
-  pe baza de date. Scade pentru că <em>compoziția</em> afacerii se schimbă — un dolar de abonament de
-  suport vine cu marjă brută de peste 80%, un dolar de închiriere de servere vine cu marjă mult mai
-  mică, pentru că trebuie să amortizezi hardware-ul. Compania îți spune singură, prin cifre, că
-  își schimbă modelul de business dintr-unul cu moat mare într-unul cu moat mai mic — în schimbul
-  unei piețe mult mai mari. Ăsta e pariul, în esență.</p>
+  <p><b>Nuanța care decide culoarea.</b> Marja nu scade pentru că Oracle e forțată să dea reduceri pe
+  baza de date. Scade pentru că <i>se schimbă compoziția afacerii</i>: un dolar de abonament de suport
+  vine cu marjă brută de peste 80%, un dolar de închiriere de servere vine cu marjă mult mai mică,
+  pentru că trebuie amortizat hardware-ul. Compania îți spune singură, prin cifre, că își schimbă
+  modelul de business dintr-unul cu moat mare într-unul cu moat mai mic — în schimbul unei piețe mult
+  mai mari. Ăsta e pariul, în esență.</p>
 
-  <p>De aceea semaforul e galben, nu verde și nici roșu: <strong>castelul vechi are încă șanț, dar
-  clădirea nouă se ridică în câmp deschis.</strong></p>
+  <p><b>Verdict: Atenție (galben), structural — dar la limită.</b> Grila dă roșu la „marjă brută în
+  scădere", iar aici scade patru ani. Ce ține rândul la galben e că nu e o erodare a puterii de preț pe
+  produsul vechi, ci un mix nou cu economie diferită, iar costurile de schimbare pe baza veche rămân
+  intacte. Castelul vechi are încă șanț; clădirea nouă se ridică în câmp deschis. Cine citește rândul
+  ca pe un galben confortabil îl citește greșit.</p>
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
 <section id="s04">
-  <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
+  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+
   <div class="concept">
     <div class="h">CE E FREE CASH FLOW</div>
-    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <em>și</em>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <i>și</i>
     investițiile în echipamente, clădiri sau servere. Profitul e o opinie contabilă — depinde de cum
     amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar.</p>
-    <p>Ca analogie: <strong>profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce
-    arată extrasul de cont.</strong> Din FCF vin toate lucrurile bune pentru acționar — răscumpărări,
-    dividende, achiziții fără împrumut, rezistență la crize. Fără el, orice altceva e finanțat din
-    datorie sau din diluție.</p>
+    <p>Ca analogie: profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce arată extrasul
+    de cont. Din el vin toate lucrurile bune pentru acționar — răscumpărări, dividende, achiziții fără
+    împrumut, rezistență la crize. Fără el, orice altceva e finanțat din datorie sau din diluție.</p>
   </div>
 
   <figure class="viz" data-viz="bars">
@@ -534,147 +572,223 @@ footer b{color:var(--ink-2)}
     <div class="stat"><div class="l">Compensare în acțiuni</div><div class="v">4,81 mld</div><div class="s">7,1% din venituri</div></div>
   </div>
 
-  <p><strong>Ce arată cifrele.</strong> Afacerea de bază produce mai mulți bani ca oricând: cash-ul
-  din operațiuni a urcat de la 18,7 mld $ (FY2024) la <strong>32,0 mld $ (FY2026)</strong>. Problema
-  nu e în operațiuni. Problema e că investițiile au sărit de la 6,9 la 55,7 mld $ în doi ani — de
-  opt ori. Rezultatul: din <strong>+11,8 mld $ FCF în FY2024, Oracle a ajuns la −23,7 mld $ în FY2026</strong>.</p>
+  <p><b>Ce arată cifrele.</b> Afacerea de bază produce mai mulți bani ca oricând: cash-ul din operațiuni
+  a urcat de la 18,67 mld $ (FY2024) la <b>31,98 mld $</b> (FY2026). Problema nu e în operațiuni.
+  Problema e că investițiile au sărit de la 6,87 la 55,66 mld $ în doi ani — de opt ori. Rezultatul:
+  din +11,81 mld $ FCF în FY2024, Oracle a ajuns la <b>−23,69 mld $</b> în FY2026.</p>
 
-  <p>Verificarea aritmetică (o poți face oricând, la orice companie): 31.977 − 55.663 = −23.686 M$.
+  <p><b>Verificarea aritmetică</b>, pe care o poți face la orice companie: 31.977 − 55.663 = −23.686 M$.
   Se potrivește exact cu FCF-ul raportat, deci sursa folosește definiția standard.</p>
 
-  <p><strong>De unde vin banii, atunci?</strong> Asta e întrebarea corectă când o companie arde cash.
-  Trei răspunsuri posibile: din cash-ul existent (acceptabil), din datorie nouă (risc), sau din
-  emisiune de acțiuni noi (te diluează). La Oracle răspunsul e clar: datoria totală a crescut cu
-  <strong>52,1 mld $ într-un singur an fiscal</strong>, de la 104,1 la 156,2 mld $. Cash-ul a crescut și
-  el, de la 11,2 la 31,9 mld $ — dar nu pentru că afacerea l-a generat, ci pentru că a fost împrumutat
-  în avans, pregătit pentru cheltuielile care urmează. Secțiunea următoare se ocupă de asta.</p>
+  <p><b>De unde vin banii?</b> Trei răspunsuri posibile când o companie arde cash: din cash-ul existent
+  (acceptabil), din datorie nouă (risc), sau din emisiune de acțiuni noi (te diluează). La Oracle
+  răspunsul e clar: <b>datoria totală a crescut cu 52,09 mld $ într-un singur an fiscal</b>, de la
+  104,10 la 156,19 mld $, din care 43,0 mld $ de obligațiuni emise în FY2026 (10-K, nota de împrumuturi).
+  În plus, a emis pentru prima dată acțiuni preferențiale, de 4,95 mld $. Cash-ul a crescut și el, de la
+  11,20 la 31,89 mld $ — dar nu pentru că afacerea l-a generat, ci pentru că a fost împrumutat în avans.</p>
 
-  <p><strong>Un semafor roșu aici nu înseamnă „companie proastă".</strong> Înseamnă că teza de
-  investiție s-a mutat: nu mai cumperi o mașină de cash matură, ci un proiect de construcție de
-  câteva sute de miliarde care <em>promite</em> cash peste câțiva ani. Sunt două investiții complet
-  diferite, cu profiluri de risc complet diferite, sub același ticker.</p>
+  <div class="concept">
+    <div class="h">PISTA DE CASH — CALCULATĂ, NU ESTIMATĂ</div>
+    <p>Aici se decide dacă rândul primește eticheta „de fază". Regula cere trei condiții, toate
+    obligatorii, iar a doua e o cifră care trebuie calculată din bilanț și din fluxurile de trezorerie,
+    nu apreciată din ochi. Numărătorul e cea mai recentă cifră depusă la SEC; numitorul e arderea medie
+    pe ultimele patru trimestre.</p>
+    <p><b>Numărător:</b> 31.894 M$ (cash și investiții pe termen scurt la 31 mai 2026, bilanțul din 10-K
+    depus pe 22 iun. 2026). <b>Numitor:</b> cele patru trimestre ale FY2026 au ars −362, −9.967, −11.484
+    și −1.873 M$, în total 23.686 M$, adică o medie de <b>5.921 M$ pe trimestru</b>.</p>
+    <p style="font-family:var(--mono);font-size:13px">31.894 ÷ 5.921 = <b>5,4 trimestre</b></p>
+    <p>Cu linia de credit revolving de 10.000 M$, contractată pe 6 mar. 2026, scadentă în 6 mar. 2031 și
+    <b>netrasă integral</b> (10-K), pista urcă la <b>7,1 trimestre</b>. Pe ultimul trimestru luat
+    singur — cel mai bun al anului, cu 14.620 M$ de cash operațional — arderea a fost de doar 1.873 M$,
+    ceea ce ar da 17,0 trimestre. Pe cel mai prost trimestru, cel încheiat în februarie 2026, ar da 2,8.
+    Pragul regulii e de patru trimestre, iar cifra cerută — media pe patru trimestre — îl trece.</p>
+  </div>
+
+  <p><b>Dar arderea accelerează prin plan, și asta trebuie spus, nu ascuns în cifră.</b> Pe 10 iun. 2026
+  conducerea a ghidat un capex net de <b>~70 mld $ în FY2027</b> (în afara a 20–25 mld $ de plăți în
+  avans de la clienți). Raportat la cash-ul operațional al anului trecut, 31,98 mld $, asta ar însemna o
+  ardere de circa 9,5 mld $ pe trimestru în loc de 5,9 — și o pistă sub patru trimestre. Nu ajustez
+  cifra de mai sus cu această aritmetică, pentru că ar amesteca un ghidaj viitor cu un cash flow trecut;
+  o scriu ca să fie limpede că <b>pista reală e mai scurtă decât 5,4 trimestre</b>, nu mai lungă. Compania
+  a anunțat, tot pe 10 iun. 2026, că intenționează să atragă circa <b>40 mld $ în FY2027</b> din datorie
+  și capital, incluzând un program de emisiune de acțiuni la piață (<i>at-the-market</i>) de 20 mld $.</p>
+
+  <p><b>Cele trei condiții, una câte una.</b> (1) Cauza e investiția, nu operarea: cash-ul operațional e
+  pozitiv și record, iar capexul de 55,66 mld $ e mai mare decât arderea de 23,69 mld $ — bifat.
+  (2) Finanțarea se vede în cifre: 5,4 trimestre de pistă calculată, 7,1 cu linia de credit — bifat.
+  (3) Există un prag numit, cu dată: venituri de 90 mld $ în FY2027 și RPO de 638 mld $ la 31 mai 2026,
+  ambele publicate pe 10 iun. 2026 — bifat. <b>Deci: roșu, de fază.</b></p>
+
+  <p>Eticheta nu înmoaie culoarea. „De fază" înseamnă „normal pentru stadiul ăsta, uite cum verifici dacă
+  merge", nu „nu-ți face griji". Un semafor roșu aici înseamnă că teza de investiție s-a mutat: nu mai
+  cumperi o mașină de cash matură, ci un proiect de construcție de câteva sute de miliarde care promite
+  cash peste câțiva ani. Sunt două investiții complet diferite, cu profiluri de risc complet diferite,
+  sub același ticker.</p>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Free cash flow pe trimestre</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["T2 25","T3 25","T4 25","T1 26","T2 26","T3 26","T4 26"],
+     "series":[{"name":"FCF trimestrial","values":[-2.67,0.07,-2.92,-0.36,-9.97,-11.48,-1.87]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+
+  <p>Graficul pe trimestre e cel care explică de ce media anuală e o măsură slabă aici: arderea nu e
+  uniformă, ci concentrată în trimestrele doi și trei ale anului fiscal, când se plătesc echipamentele.
+  Un cititor care ar fi calculat pista doar pe ultimul trimestru ar fi obținut 17 trimestre și ar fi
+  crezut că nu e nicio problemă.</p>
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
 <section id="s05">
-  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ</div>
-    <p><strong>Datoria netă</strong> = datoria totală minus banii pe care compania îi are deja. Cifra
-    brută a datoriei singură nu spune nimic. Raportul standard de piață e <em>datorie netă / EBITDA</em>
-    — aproximativ câți ani i-ar lua companiei să scape de datorii dacă ar folosi tot profitul
-    operațional exclusiv pentru asta, fără să investească nimic în afacere.</p>
-    <p>Cele mai multe falimente nu vin din lipsă de profit, ci <strong>din lipsă de cash la o
-    scadență</strong>. O companie cu datorie mică traversează o recesiune fără să vândă active pe
-    nimic; una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost.</p>
+    <p><b>Datoria netă = datoria totală minus banii pe care compania îi are deja.</b> Cifra brută a
+    datoriei singură nu spune nimic. Raportul standard de piață e <b>datorie netă / EBITDA</b> —
+    aproximativ câți ani i-ar lua companiei să scape de datorii dacă ar folosi tot profitul operațional
+    exclusiv pentru asta, fără să investească nimic în afacere. Sub 1,5× e confortabil; peste 3× e
+    pragul de la care bilanțul începe să dicteze deciziile.</p>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci <b>din lipsă de cash la o scadență</b>. O
+    companie cu datorie mică traversează o recesiune fără să vândă active pe nimic; una îndatorată e
+    forțată să ia decizii proaste exact la momentul cel mai prost.</p>
   </div>
 
   <figure class="viz">
     <figcaption><b>Poziția financiară la 31 mai 2026</b><span class="unit">mld USD</span></figcaption>
     <div class="split">
-      <div class="r"><span class="k">Cash total</span>
-        <span class="t"><span class="f" style="width:20.4%;background:var(--accent)"></span></span>
-        <span class="v">31,9</span></div>
-      <div class="r"><span class="k">Datorie totală</span>
-        <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
-        <span class="v">156,2</span></div>
+      <div class="r"><span class="k">Cash total</span><span class="t"><span class="f" style="width:20.4%;background:var(--good)"></span></span><span class="v">31,9</span></div>
+      <div class="r"><span class="k">Datorie totală</span><span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span><span class="v">156,2</span></div>
     </div>
   </figure>
 
   <div class="stats">
-    <div class="stat"><div class="l">Datorie netă</div><div class="v down">−124,3 mld</div><div class="s">bilanț 10-K; 135,5 mld pe stockanalysis</div></div>
-    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v down">~4,2–4,5×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Datorie netă</div><div class="v down">−124,30 mld</div><div class="s">156,19 minus 31,89</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v down">4,16×</div><div class="s">prag de risc: 3,0×</div></div>
     <div class="stat"><div class="l">Acoperirea dobânzii</div><div class="v">4,48×</div><div class="s">prag de risc: 3,0×</div></div>
     <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">3,94</div><div class="s">lichiditate curentă 1,12</div></div>
   </div>
 
-  <p><strong>Notă de precizie, pentru că sursele diferă.</strong> Bilanțul din 10-K dă datorie totală
-  de 156,19 mld $; pagina de statistici de pe stockanalysis dă 167,43 mld $ — o diferență de 7,2%,
-  care vine aproape sigur din includerea sau nu a obligațiilor de leasing. Datoria netă rezultă
-  124,3 mld $ pe prima definiție și 135,5 mld $ pe a doua. Am folosit ambele. EBITDA-ul de ~30 mld $
-  e dedus din EV/Sales și EV/EBITDA raportate (7,57 × 67,4 mld $ = 510 mld $ valoare de întreprindere;
-  împărțit la 17,04). E o derivare, nu o cifră raportată direct — de aceea raportul apare ca interval.</p>
+  <p><b>Cum am obținut EBITDA, ca să poți verifica.</b> Profit operațional 20.606 M$ plus amortizare
+  9.294 M$ = <b>29.900 M$</b>, exact cifra publicată de sursă. Datoria netă de 124.295 M$ împărțită la
+  ea dă <b>4,16×</b>. Nu e o estimare și nu depinde de definiția vreunei surse.</p>
 
-  <p><strong>Ce e liniștitor.</strong> Scadențele apropiate nu sunt o problemă imediată: din 130,1 mld $
-  de împrumuturi cu principal programat, doar <strong>7,2 mld $ scad în FY2027</strong> și 10,1 mld $ în
-  FY2028 — acoperite confortabil de cei 31,9 mld $ de cash. Acoperirea dobânzii, la 4,48× (profit
-  operațional 20,6 mld $ împărțit la cheltuieli cu dobânzile de 4,6 mld $), e peste pragul de 3×.
-  Oracle nu e o companie în pericol imediat de neplată.</p>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Datorie netă / EBITDA, pe an fiscal</b><span class="unit">×</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY22","FY23","FY24","FY25","FY26"],
+     "series":[{"name":"Datorie netă / EBITDA","values":[3.84,4.18,3.84,3.90,4.16]}],
+     "suffix":"×"}
+    </script>
+  </figure>
 
-  <p><strong>Ce e îngrijorător.</strong> Traiectoria. Cheltuiala cu dobânzile a urcat de la 3,58 la
-  4,60 mld $ într-un an — și asta reflectă doar o parte din cei 52 mld $ de datorie nouă, care a fost
-  contractată pe parcursul anului. Acoperirea dobânzii a scăzut deja de la 4,94× (FY2025) la 4,48×.
-  Capitalurile proprii sunt de 43,1 mld $ față de 156,2 mld $ datorie: raport de aproape 4 la 1.
-  Lichiditatea curentă de 1,12 înseamnă că activele care se transformă în bani într-un an abia
-  acoperă datoriile scadente într-un an.</p>
+  <p><b>Graficul ăsta e motivul pentru care rândul e „structural" și nu „de fază".</b> Dacă îndatorarea
+  ar fi consecința construcției de centre de date, raportul ar fi fost mic înainte și ar fi sărit în
+  FY2026. Nu s-a întâmplat: Oracle e peste pragul de 3× de cel puțin cinci ani, cu un vârf de 4,18× în
+  FY2023 — an în care capexul era de 8,7 mld $, adică o șesime din cel de azi. Îndatorarea vine dintr-o
+  politică veche, în care compania s-a împrumutat ca să răscumpere masiv acțiuni și ca să cumpere Cerner.
+  Construcția de azi o adâncește, dar nu a creat-o. <b>Excepțiile din grilă nu se aplică</b>: Oracle nu e
+  bancă, nici utilitate, nici REIT.</p>
 
-  <p>Tradus în analogia clasică: <strong>la 4,2–4,5× EBITDA, dacă Oracle ar folosi tot profitul
-  operațional exclusiv pentru datorii, i-ar lua peste patru ani să scape de ele — timp în care nu ar
-  construi niciun centru de date.</strong> Iar planul companiei e exact invers: să construiască mai
-  mult, cu și mai multă datorie.</p>
+  <p><b>Ce e liniștitor.</b> Scadențele apropiate nu sunt o problemă imediată: din 130.105 M$ de
+  împrumuturi cu principal programat, doar <b>7.210 M$ scad în FY2027</b> și 10.145 M$ în FY2028 —
+  acoperite confortabil de cei 31,89 mld $ de cash (10-K, tabelul plăților viitoare de principal).
+  Acoperirea dobânzii, la 4,48× (profit operațional 20.606 M$ împărțit la cheltuieli cu dobânzile de
+  4.599 M$), e peste pragul de 3×. Există și o linie de credit netrasă de 10 mld $. Oracle nu e o
+  companie în pericol imediat de neplată, iar cine confundă „îndatorată" cu „în pragul falimentului"
+  citește greșit.</p>
+
+  <p><b>Ce e îngrijorător: traiectoria.</b> Cheltuiala cu dobânzile a urcat de la 3.578 la 4.599 M$
+  într-un an, iar asta reflectă doar o parte din cei 52 mld $ de datorie nouă, contractată pe parcursul
+  anului. Acoperirea dobânzii a scăzut deja de la 4,94× (FY2025) la 4,48×. Capitalurile proprii sunt de
+  43,06 mld $ față de 156,19 mld $ datorie — un raport de aproape 4 la 1. Lichiditatea curentă de 1,12
+  înseamnă că activele care se transformă în bani într-un an abia acoperă datoriile scadente într-un an.
+  Iar contractul de credit conține o clauză de menținere a raportului dintre EBITDA și cheltuiala netă cu
+  dobânzile <b>peste 3×</b> — un prag concret, scris, care devine constrângător dacă dobânda continuă să
+  crească mai repede decât profitul operațional.</p>
+
+  <p><b>Tradus în analogia clasică:</b> la 4,16× EBITDA, dacă Oracle ar folosi tot profitul operațional
+  exclusiv pentru datorii, i-ar lua peste patru ani să scape de ele — timp în care nu ar construi niciun
+  centru de date. Iar planul companiei e exact invers: să construiască mai mult, cu încă vreo 40 mld $
+  atrași în FY2027.</p>
 </section>
 
 <!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
 <section id="s06">
-  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
-    <p>Nu suma cheltuită pe răscumpărări, ci <strong>evoluția numărului de acțiuni</strong>. Multe
-    companii răscumpără doar cât să compenseze acțiunile date angajaților — cheltuie miliarde, iar
-    felia ta rămâne la fel. Testul: uită-te la numărul de acțiuni în circulație pe 3–5 ani.</p>
-    <p><strong>Diluția</strong> e cea mai discretă formă de pierdere pentru un investitor de retail,
-    pentru că nu apare nicăieri în portofoliu: numărul tău de acțiuni nu se schimbă, dar felia ta din
-    companie se micșorează. E ca și cum ai pierde un procent din tortul tău în fiecare an, fără să fi
-    mâncat nimic.</p>
+    <p>Nu suma cheltuită pe răscumpărări, ci <b>evoluția numărului de acțiuni</b>. Multe companii
+    răscumpără doar cât să compenseze acțiunile date angajaților — cheltuie miliarde, iar felia ta rămâne
+    la fel. Testul: uită-te la numărul de acțiuni în circulație pe 3–5 ani.</p>
+    <p>Diluția e cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare
+    nicăieri în portofoliu: numărul tău de acțiuni nu se schimbă, dar felia ta din companie se
+    micșorează. E ca și cum ai pierde un procent din tortul tău în fiecare an, fără să fi mâncat nimic.</p>
   </div>
 
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Acțiuni în circulație la sfârșit de an fiscal</b><span class="unit">miliarde</span></figcaption>
+    <figcaption><b>Acțiuni în circulație, de pe coperțile formularelor SEC</b><span class="unit">miliarde</span></figcaption>
     <script type="application/json">
     {"labels":["FY22","FY23","FY24","FY25","FY26"],
-     "series":[{"name":"Acțiuni în circulație","values":[2.665,2.713,2.755,2.807,2.880]}]}
+     "series":[{"name":"Acțiuni în circulație","values":[2.665,2.714,2.756,2.809,2.880]}]}
     </script>
   </figure>
 
   <div class="stats">
-    <div class="stat"><div class="l">Variație 4 ani</div><div class="v down">+8,1%</div><div class="s">felia ta s-a micșorat</div></div>
-    <div class="stat"><div class="l">Ultimul an fiscal</div><div class="v down">+2,60%</div><div class="s">prag de risc: +2%/an</div></div>
+    <div class="stat"><div class="l">Variație 4 ani</div><div class="v down">+8,09%</div><div class="s">felia ta s-a micșorat</div></div>
+    <div class="stat"><div class="l">Ultimul an fiscal</div><div class="v down">+2,55%</div><div class="s">prag de risc: +2%/an</div></div>
     <div class="stat"><div class="l">Randament buyback</div><div class="v">0,06%</div><div class="s">206 M$ în FY26</div></div>
-    <div class="stat"><div class="l">Randament dividend</div><div class="v">1,54%</div><div class="s">2,00 $/acțiune TTM</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">1,54%</div><div class="s">2,00 $/acțiune</div></div>
   </div>
 
-  <p>Cifrele de mai sus vin din SEC EDGAR (conceptul XBRL <span class="num">CommonStockSharesOutstanding</span>,
-  raportat în 10-K-uri), nu dintr-o serie derivată. Traiectoria e clară și merge în direcția greșită:
-  <strong>2.665 mld acțiuni la 31 mai 2022 → 2.880 mld la 31 mai 2026</strong>, adică +8,1% în patru
-  ani, cu accelerare în ultimul an (+2,60%).</p>
+  <p>Cifrele vin din SEC EDGAR — conceptul <i>EntityCommonStockSharesOutstanding</i> de pe coperțile
+  10-K-urilor, nu dintr-o serie derivată din altceva. Traiectoria e clară și merge în direcția greșită:
+  <b>2.664,9 mln acțiuni la 13 iun. 2022 → 2.880,5 mln la 12 iun. 2026</b>, adică +8,09% în patru ani,
+  cu accelerare în ultimul an (+2,55%).</p>
 
-  <p><strong>Contrastul cu trecutul e brutal.</strong> În FY2022, Oracle a cheltuit
-  <strong>17,3 mld $</strong> pe răscumpărări — era una dintre cele mai agresive companii din S&amp;P 500
-  la capitolul ăsta, și numărul de acțiuni chiar scădea. În FY2026 a cheltuit <strong>206 M$</strong>,
-  de 84 de ori mai puțin. Banii s-au mutat integral în centre de date. Între timp, compensarea în
-  acțiuni a angajaților a urcat la 4,81 mld $ pe an — și nimic nu o mai compensează.</p>
+  <p><b>Contrastul cu trecutul e brutal.</b> În FY2022, Oracle a cheltuit <b>17,34 mld $</b> pe
+  răscumpărări — era una dintre cele mai agresive companii din S&amp;P 500 la capitolul ăsta, iar
+  numărul de acțiuni chiar scădea. Apoi: 2,50 mld $ (FY23), 3,24 mld $ (FY24), 1,50 mld $ (FY25) și
+  <b>206 M$ în FY2026</b>, de 84 de ori mai puțin decât în FY2022. Banii s-au mutat integral în centre de
+  date. Între timp, compensarea în acțiuni a angajaților a urcat la 4,81 mld $ pe an — și nimic nu o mai
+  compensează.</p>
 
   <div class="concept">
     <div class="h">RANDAMENTUL TOTAL PENTRU ACȚIONAR</div>
     <p>Un începător compară instinctiv doar dividendele între companii. Cifra corectă e
-    <em>dividend + răscumpărări − diluție</em>. La Oracle: <strong>+1,54% dividend +0,06% răscumpărări
-    −2,60% diluție = aproximativ −1,0% pe an</strong>. Cu alte cuvinte, în FY2026 compania ți-a dat
+    <b>dividend + răscumpărări − diluție</b>. La Oracle: +1,54% dividend, +0,06% răscumpărări,
+    −2,55% diluție = aproximativ <b>−0,95% pe an</b>. Cu alte cuvinte, în FY2026 compania ți-a dat
     2,00 $ pe acțiune și ți-a luat înapoi, prin diluție, ceva mai mult decât atât.</p>
-    <p>Dividendul în sine e acoperit contabil (payout ratio 34,3% din profit) și a crescut ~14% pe an
-    în ultimii cinci ani. Dar <strong>nu e acoperit din free cash flow</strong>, pentru că FCF-ul e
-    negativ: cei 5,79 mld $ de dividende plătiți în FY2026 au ieșit, în practică, din banii împrumutați.</p>
   </div>
+
+  <p>Dividendul în sine e acoperit contabil — cei 5.787 M$ plătiți în FY2026 reprezintă 34,1% din
+  profitul net — și a crescut cu 11–12% pe an, neîntrerupt, de la 1,28 la 2,00 $ pe acțiune în patru ani.
+  Dar <b>nu e acoperit din free cash flow</b>, pentru că FCF-ul e negativ: în practică, dividendele au
+  ieșit din banii împrumutați. Asta nu îl face nesustenabil pe termen scurt; îl face o cheltuială
+  finanțată, care concurează cu construcția pentru aceiași bani.</p>
+
+  <p><b>De ce structural și nu de fază.</b> Regula spune că eticheta „de fază" se acordă numai dacă
+  investiția e cauza dominantă a culorii <i>acelui rând</i>. Aici nu e: Oracle nu emite acțiuni ca să
+  finanțeze centrele de date — le finanțează cu obligațiuni. Creșterea numărului de acțiuni vine din
+  felul în care sunt plătiți angajații, o politică permanentă. <b>Un avertisment pentru viitor, însă:</b>
+  programul de emisiune la piață de 20 mld $ anunțat pe 10 iun. 2026 e, spre deosebire de tot ce s-a
+  întâmplat până acum, diluție <i>pentru</i> construcție. Dacă e tras, cauza acestui rând se schimbă —
+  iar mărimea lui, ~5% din capitalizarea de azi, nu e neglijabilă.</p>
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
 <section id="s07">
-  <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
     <p>Veniturile pot fi cumpărate cu discounturi sau cu achiziții. Profitul net poate fi ajustat
-    contabil. <strong>Marja brută arată direct dacă compania mai poate cere prețul ei</strong> — și
-    e indicatorul care semnalează cel mai devreme că un moat se erodează, cu ani înainte să apară în
-    profit.</p>
+    contabil. <b>Marja brută arată direct dacă compania mai poate cere prețul ei</b> — și e indicatorul
+    care semnalează cel mai devreme că un moat se erodează, cu ani înainte să apară în profit. De aceea
+    grila pune pragul de roșu exact aici: marjă brută în scădere trei ani la rând.</p>
   </div>
 
   <figure class="viz" data-viz="lines">
@@ -688,287 +802,388 @@ footer b{color:var(--ink-2)}
     </script>
   </figure>
 
-  <p><strong>Graficul spune două povești opuse în același timp</strong>, și ambele sunt adevărate.
-  Marja brută cade constant — patru ani la rând, 13,3 puncte pierdute. Marja operațională și cea
-  netă, în schimb, <em>urcă</em>: netă de la 15,8% la 25,4%. Cum e posibil?</p>
+  <p><b>Graficul spune două povești opuse în același timp</b>, și ambele sunt adevărate. Marja brută cade
+  constant — patru ani la rând, 13,26 puncte pierdute. Marja operațională și cea netă, în schimb, urcă:
+  cea netă de la 15,83% la 25,37%. Cum e posibil?</p>
 
   <p>Pentru că sunt lucruri diferite. Marja brută măsoară cât rămâne după costul direct al livrării
-  serviciului — și acolo intră amortizarea serverelor, care explodează. Marja netă beneficiază de
-  <em>operating leverage</em>: cheltuielile fixe (cercetare, administrativ, vânzări — care au și
-  scăzut în valoare absolută, de la 8,65 la 8,33 mld $) se împart la venituri mult mai mari. Cu alte
-  cuvinte, Oracle vinde un mix cu marjă structural mai mică, dar îl vinde mult mai eficient. Pe termen
-  scurt profitul crește; pe termen lung, ce contează e unde se stabilizează marja brută.</p>
+  serviciului — și acolo intră amortizarea serverelor, care explodează. Marja operațională beneficiază de
+  <i>operating leverage</i>: cheltuielile fixe se împart la venituri mult mai mari. Iar marja netă, în
+  FY2026, beneficiază de ceva ce nu are legătură nici cu una, nici cu alta — vezi caseta de mai jos.
+  Pe scurt: Oracle vinde un mix cu marjă structural mai mică, dar îl vinde mai eficient.</p>
 
-  <figure class="viz" data-viz="lines">
+  <div class="concept">
+    <div class="h">ATENȚIE LA CE E SUB LINIA OPERAȚIONALĂ</div>
+    <p>Profitul net a crescut cu <b>36,49%</b> în FY2026. Profitul operațional a crescut cu
+    <b>16,56%</b>. Când cele două diferă atât de mult, diferența e aproape sigur o linie nerecurentă,
+    iar aici este: <b>2.811 M$ de câștiguri din investiții</b> (10-K FY2026, depus 22 iun. 2026), față
+    de o valoare neglijabilă în anii anteriori. Din ele, 2.668 M$ au apărut într-un singur trimestru,
+    cel încheiat în noiembrie 2025, care are o marjă netă de 38,21% față de ~22% în restul anului.</p>
+    <p>Nu sunt bani intrați în cont — sunt reevaluări ale unor participații. Curățat de ele, la aceeași
+    rată efectivă de impozitare de 12,6%, profitul net al FY2026 ar fi în jur de <b>14,53 mld $</b> în
+    loc de 16,98 mld $, adică o creștere de ~16,7% — practic identică cu cea operațională. Cifra a doua e
+    cea care descrie afacerea. Prima e cea care apare în P/E-ul de pe orice site de bursă.</p>
+  </div>
+
+  <figure class="viz" data-viz="bars">
     <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["Q1 25","Q2 25","Q3 25","Q4 25","Q1 26","Q2 26","Q3 26","Q4 26"],
+    {"labels":["T1 25","T2 25","T3 25","T4 25","T1 26","T2 26","T3 26","T4 26"],
      "series":[{"name":"Creștere an/an","values":[6.86,8.64,6.40,11.31,12.17,14.22,21.66,20.63]}],
      "suffix":"%"}
     </script>
   </figure>
 
-  <p><strong>Ritmul accelerează, nu încetinește</strong> — și ăsta e cel mai important lucru din toată
-  secțiunea. Piața tranzacționează ritmul, nu media anuală; de obicei, când o acțiune cade 49% într-un
-  an, cauza e decelerarea creșterii. Aici e invers: de la <strong>+6,86% în Q1 FY2025 la +20,63% în
-  Q4 FY2026</strong>, triplarea ritmului. Oracle nu e pedepsită pentru că nu crește. E pedepsită
-  pentru <em>cum</em> plătește creșterea.</p>
+  <p><b>Ritmul accelerează, nu încetinește</b> — și ăsta e cel mai important lucru din toată secțiunea.
+  Piața tranzacționează ritmul, nu media anuală; de obicei, când o acțiune cade 49% într-un an, cauza e
+  decelerarea. Aici e invers: de la +6,86% în T1 FY2025 la <b>+20,63%</b> în T4 FY2026, o triplare a
+  ritmului. Oracle nu e pedepsită pentru că nu crește. E pedepsită pentru <i>cum plătește</i> creșterea.</p>
+
+  <p><b>Marja brută trimestrială arată că erodarea e în curs, nu încheiată:</b> 70,65% → 70,94% → 70,31%
+  → 70,19% în FY2025, apoi 67,28% → 66,53% → 64,56% → <b>65,23%</b> în FY2026. Ultimul trimestru aduce o
+  ușoară revenire față de precedentul, dar rămâne cu peste 5 puncte sub anul trecut. Nu există încă
+  dovada unei stabilizări — și exact asta e cifra de urmărit pe 8 sep. 2026.</p>
 
   <div class="concept">
     <div class="h">CREȘTERE ORGANICĂ SAU CUMPĂRATĂ?</div>
-    <p>O companie poate „crește" ani la rând cumpărând alte companii, cu datorie sau cu acțiuni care
-    te diluează. Testul rapid e <strong>goodwill-ul de pe bilanț</strong>: dacă sare în sus exact în
-    anii cu creștere mare, creșterea e cumpărată.</p>
-    <p>La Oracle, goodwill-ul a sărit de la 43,8 la 62,3 mld $ în FY2023 (achiziția Cerner) și a rămas
-    <strong>plat de atunci</strong>: 62,26 → 62,23 → 62,21 → 62,26 mld $. Concluzia: creșterea din
-    FY2025–FY2026 e <strong>organică</strong>. E o veste bună, și e o verificare pe care merită să o
-    faci la orice companie care crește repede.</p>
+    <p>O companie poate „crește" ani la rând cumpărând alte companii, cu datorie sau cu acțiuni care te
+    diluează. Testul rapid e <b>goodwill-ul de pe bilanț</b>: dacă sare în sus exact în anii cu creștere
+    mare, creșterea e cumpărată. La Oracle, goodwill-ul a sărit de la 43,81 la 62,26 mld $ în FY2023
+    (achiziția Cerner) și <b>a rămas plat de atunci</b>: 62,26 → 62,23 → 62,21 → 62,26 mld $. Concluzia:
+    creșterea din FY2025–FY2026 e organică. E o veste bună și o verificare pe care merită să o faci la
+    orice companie care crește repede.</p>
   </div>
 
-  <p><strong>Un ajustaj onest:</strong> pentru că numărul de acțiuni crește cu ~2,6% pe an, creșterea
-  care ajunge la tine e mai mică decât cea raportată. Veniturile totale au urcat cu 17,4% în FY2026;
-  veniturile <em>pe acțiune</em> au urcat cu aproximativ 14,4%. Diferența e felia pe care ai
-  pierdut-o. Cifra a doua e cea onestă.</p>
+  <p><b>Un ajustaj onest.</b> Pentru că numărul de acțiuni crește cu 2,55% pe an, creșterea care ajunge
+  la tine e mai mică decât cea raportată. Veniturile totale au urcat cu 17,35% în FY2026; veniturile
+  <i>pe acțiune</i> au urcat cu <b>14,43%</b>. Diferența e felia pe care ai pierdut-o. Cifra a doua e cea
+  onestă.</p>
+
+  <p><b>Verdict: Risc (roșu), structural.</b> Pragul e mecanic și e atins: marjă brută în scădere patru
+  ani la rând. Nu îl anulează faptul că veniturile accelerează — grila are un rând separat pentru
+  creștere tocmai pentru că cele două lucruri se pot mișca în direcții opuse, exact ca aici. Eticheta e
+  structurală pentru că scăderea a început în FY2023, cu doi ani înainte de primul dolar de buildout, și
+  pentru că mixul nou are, prin construcție, o economie mai proastă decât cel vechi. Nu e o etapă din
+  care se iese; e afacerea pe care o cumperi.</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
 <section id="s08">
-  <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
+  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
 
   <p>Un multiplu izolat nu spune nimic. Se compară pe trei axe: față de propria istorie, față de
   competitorii direcți, și față de creșterea proprie.</p>
 
-  <div class="tw"><table>
-    <thead><tr><th>Față de propria istorie</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26</th><th>Acum</th></tr></thead>
-    <tbody>
-      <tr><td>P/E</td><td>29,84</td><td>34,51</td><td>31,59</td><td>38,14</td><td>38,73</td><td>22,28</td></tr>
-      <tr><td>EV/EBITDA</td><td>17,52</td><td>19,18</td><td>18,88</td><td>23,40</td><td>26,09</td><td>17,04</td></tr>
-      <tr><td>P/Vânzări</td><td>4,52</td><td>5,75</td><td>6,10</td><td>8,09</td><td>9,65</td><td>5,55</td></tr>
-      <tr><td>Capitalizare (mld $)</td><td>192</td><td>287</td><td>323</td><td>465</td><td>650</td><td>374</td></tr>
-    </tbody>
-  </table></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Față de propria istorie</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26</th><th>Acum</th></tr></thead>
+      <tbody>
+        <tr><td>P/E</td><td>29,84</td><td>34,51</td><td>31,59</td><td>38,14</td><td>38,73</td><td>22,28</td></tr>
+        <tr><td>EV/EBITDA</td><td>17,52</td><td>19,18</td><td>18,88</td><td>23,40</td><td>26,09</td><td>17,69</td></tr>
+        <tr><td>P/Vânzări</td><td>4,52</td><td>5,75</td><td>6,10</td><td>8,09</td><td>9,65</td><td>5,84</td></tr>
+        <tr><td>P/Cash operațional</td><td>20,09</td><td>16,74</td><td>17,29</td><td>22,32</td><td>20,33</td><td>12,30</td></tr>
+        <tr><td>Capitalizare (mld $)</td><td>192</td><td>287</td><td>323</td><td>465</td><td>650</td><td>374</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <p>Media proprie pe 5 ani: <strong>P/E 34,6</strong> și <strong>EV/EBITDA 21,0</strong>. Acum sunt
-  la 22,3 și 17,0 — cu 36%, respectiv 19%, sub propriul istoric. Pe hârtie, cel mai ieftin nivel din
-  ultimii cinci ani.</p>
+  <p><b>Media proprie pe 5 ani: P/E 34,56 și EV/EBITDA 21,01.</b> Acum sunt la 22,28 și 17,69 — cu 36%,
+  respectiv 16%, sub propriul istoric. Pe hârtie, cel mai ieftin nivel din ultimii cinci ani. Toate
+  cifrele din rândurile de mai sus vin de pe aceeași pagină și sunt calculate pe aceeași închidere, cea
+  de 31 iul. 2026, ca să fie comparabile între ele. Calculat separat, cu capitalizarea de 374,0 mld $
+  plus datoria netă de 124,3 mld $ împărțite la EBITDA de 29,90 mld $, EV/EBITDA-ul iese 16,7× — și mai
+  jos —, deci concluzia nu depinde de metodă.</p>
 
-  <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>P/E</th><th>P/E prosp.</th><th>P/FCF</th><th>EV/EBITDA</th><th>Marjă brută</th><th>Creștere</th><th>Datorie netă</th></tr></thead>
-    <tbody>
-      <tr class="me"><td>Oracle (ORCL)</td><td>22,28</td><td>16,13</td><td>n/a</td><td>17,04</td><td>65,8%</td><td>+17,4%</td><td>−124 mld $</td></tr>
-      <tr><td>Microsoft (MSFT)</td><td>25,89</td><td>23,71</td><td>51,51</td><td>18,08</td><td>67,9%</td><td>+18,2%</td><td>−52,2 mld $</td></tr>
-      <tr><td>SAP</td><td>23,51</td><td>20,43</td><td>20,79</td><td>15,42</td><td>73,7%</td><td>+11,1%</td><td>+1,9 mld $</td></tr>
-      <tr><td>IBM</td><td>19,89</td><td>17,48</td><td>15,28</td><td>15,24</td><td>58,1%</td><td>+4,5%</td><td>−57,1 mld $</td></tr>
-      <tr><td>CoreWeave (CRWV)</td><td>n/a</td><td>n/a</td><td>n/a</td><td>23,75</td><td>69,4%</td><td>+98,8%</td><td>−32,9 mld $</td></tr>
-    </tbody>
-  </table></div>
+  <div class="concept">
+    <div class="h">DAR P/E-UL DE 22,28 NU E CEL REAL</div>
+    <p>Secțiunea 7 a arătat că profitul net al FY2026 conține 2.811 M$ de câștiguri din investiții.
+    Curățat de ele, profitul pe acțiune al anului fiscal 2026 e în jur de <b>4,99 $</b> în loc de 5,83 $,
+    iar P/E-ul la 129,87 $ devine <b>~26,0</b>. Diferența nu e cosmetică: mută acțiunea din „vizibil sub
+    toți competitorii" în „peste toți trei". Un semnal rapid de reținut pentru orice companie: când
+    profitul net crește mult mai repede decât cel operațional, întreabă-te ce e sub linia operațională
+    înainte să te bucuri de un P/E mic.</p>
+  </div>
 
-  <p><span class="num">*</span> Coloana „Creștere" nu e pe aceeași bază pentru toate: la Oracle e
-  creșterea realizată în FY2026, la ceilalți e prognoza de creștere pe 3 ani de pe stockanalysis
-  (nu era disponibilă o prognoză echivalentă pentru Oracle pe aceeași pagină). Estimarea analiștilor
-  pentru Oracle în FY2027 e de 89,3 mld $ venituri, adică +32,6%. Datele competitorilor vin din
-  paginile lor de statistici, citite la 1 august 2026.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Companie</th><th>P/E</th><th>P/E prosp.</th><th>P/FCF</th><th>EV/EBITDA</th><th>Marjă brută</th><th>Creștere</th><th>Dat. netă/EBITDA</th></tr></thead>
+      <tbody>
+        <tr class="me"><td>Oracle (ORCL)</td><td>22,28</td><td>16,13</td><td>n/a</td><td>17,69</td><td>65,8%</td><td>+17,4%</td><td>4,16</td></tr>
+        <tr><td>Microsoft (MSFT)</td><td>25,89</td><td>23,62</td><td>51,51</td><td>18,08</td><td>67,9%</td><td>+19,0%</td><td>net cash</td></tr>
+        <tr><td>SAP</td><td>23,51</td><td>20,43</td><td>20,81</td><td>15,44</td><td>73,7%</td><td>+11,1%</td><td>net cash</td></tr>
+        <tr><td>IBM</td><td>19,89</td><td>17,48</td><td>15,50</td><td>15,42</td><td>58,1%</td><td>+4,5%</td><td>3,25</td></tr>
+        <tr><td>CoreWeave (CRWV)</td><td>n/a</td><td>n/a</td><td>n/a</td><td>23,75</td><td>69,4%</td><td>+98,8%</td><td>10,84</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <p><strong>Cum se citește tabelul.</strong> Oracle e mai ieftină decât Microsoft și SAP pe P/E și
-  are cea mai mare diferență între P/E curent și cel prospectiv — semn că piața se așteaptă la o
-  creștere mare a profitului. Dar coloana care spune cel mai mult e <strong>P/FCF: „n/a"</strong>.
-  Nu se poate calcula, pentru că free cash flow-ul e negativ. SAP produce cash și n-are datorii;
-  IBM produce cash la 15× prețul lui; Microsoft produce cash, deși scump. Oracle nu apare în
-  coloana asta deloc.</p>
+  <p style="font-size:12px;color:var(--ink-3)">Coloana „Creștere" nu e pe aceeași bază pentru toate: la
+  Oracle e creșterea realizată în FY2026, la ceilalți e prognoza de creștere pe 3 ani de pe aceeași
+  sursă, care nu era disponibilă pentru Oracle. Ghidajul propriu al Oracle pentru FY2027, publicat pe
+  10 iun. 2026, e de 90 mld $ venituri, adică +33,6%. Toate cifrele competitorilor sunt citite pe
+  3 aug. 2026 de pe paginile lor de statistici și sunt calculate pe închiderea de 31 iul. 2026, aceeași
+  zi cu prețul Oracle.</p>
 
-  <p>CoreWeave e în tabel deliberat, ca punct de calibrare: e companie de închiriat servere AI în
-  formă pură — creștere de aproape 100%, fără profit, cu 32,9 mld $ datorie netă pe o capitalizare
-  de 39 mld $. E, în mic, direcția în care se mișcă modelul de business al Oracle. Comparația cu
-  Microsoft și SAP descrie compania de ieri; comparația cu CoreWeave descrie compania de mâine.
-  <strong>Concurentul cel mai relevant nu e în tabel deloc:</strong> Amazon Web Services, care nu e
-  listată separat, e liderul pieței de infrastructură cloud.</p>
+  <p><b>Cum se citește tabelul.</b> Pe cifra afișată, Oracle e mai ieftină decât Microsoft și SAP și are
+  cea mai mare diferență între P/E curent și cel prospectiv. Pe cifra curățată, ~26,0, e mai scumpă decât
+  toate trei. Dar coloana care spune cel mai mult e <b>P/FCF: „n/a"</b>. Nu se poate calcula, pentru că
+  free cash flow-ul e negativ. SAP produce cash și are net cash pe bilanț; IBM produce cash la 15,5×
+  prețul lui; Microsoft produce cash, deși scump. Oracle nu apare în coloana asta deloc — iar grila spune
+  explicit să preferi P/FCF în locul P/E când cele două diferă mult.</p>
+
+  <p><b>CoreWeave e în tabel deliberat, ca punct de calibrare:</b> e companie de închiriat servere pentru
+  inteligență artificială în formă pură — creștere de aproape 100%, fără profit, cu datorie netă de
+  10,84× EBITDA. E, în mic, direcția în care se mișcă modelul de business al Oracle. Comparația cu
+  Microsoft și SAP descrie compania de ieri; comparația cu CoreWeave descrie compania de mâine. Iar
+  concurentul cel mai relevant nu e în tabel deloc: <b>Amazon Web Services</b>, care nu e listată separat,
+  e liderul pieței de infrastructură cloud.</p>
 
   <div class="concept">
     <div class="h">RANDAMENTUL PROFITULUI VS. DOBÂNDA FĂRĂ RISC</div>
     <p>Inversul P/E-ului arată cât „produce" compania la prețul de azi. La P/E 22,28, randamentul
-    profitului e <strong>4,49%</strong>. Obligațiunile americane pe 10 ani dădeau <strong>4,75%</strong>
-    la 31 iulie 2026, fără niciun risc.</p>
-    <p>Deci, la prețul de azi, Oracle produce contabil <em>ceva mai puțin</em> decât o obligațiune de
-    stat — și o face în timp ce arde 24 mld $ de cash pe an. Acum un an, la P/E 38,7, randamentul
-    profitului era 2,6%: prăpastia era mult mai mare. E o comparație între două fapte de azi, nu o
-    prognoză — dar explică de ce, când dobânzile sunt la 4,75%, piața cere mai mult de la o companie
-    ca să-i acorde un multiplu mare.</p>
+    profitului e <b>4,49%</b>; la P/E-ul curățat de ~26,0, e <b>3,85%</b>. Obligațiunile americane pe
+    10 ani dădeau <b>4,75%</b> la 31 iul. 2026, fără practic niciun risc.</p>
+    <p>Deci, la prețul de azi, Oracle produce contabil mai puțin decât o obligațiune de stat — și o face
+    în timp ce arde 24 mld $ de cash pe an. Acum un an, la P/E 38,73, randamentul profitului era 2,58%:
+    prăpastia era mult mai mare. E o comparație între două fapte de azi, nu o prognoză — dar explică de
+    ce, când dobânzile sunt la 4,75%, piața cere mai mult de la o companie ca să-i acorde un multiplu
+    mare.</p>
   </div>
 
   <div class="concept">
     <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
-    <p>P/E-ul curent de 22,28 scade la 16,13 prospectiv (stockanalysis, bazat pe estimarea de 8,05 $
-    EPS pentru FY2027). Asta înseamnă că piața are deja în preț o creștere a profitului de ~38% în
-    anul următor. finviz arată un P/E prospectiv de 11,89 — o diferență mare, care vine din faptul că
-    „anul următor" înseamnă lucruri diferite la surse diferite (an fiscal vs. 12 luni calendaristice,
-    GAAP vs. ajustat). Ambele cifre sunt în raport tocmai pentru că diferă.</p>
-    <p><strong>Concluzia care contează:</strong> chiar la prețul de azi, cumperi o companie pentru
-    care așteptările încorporate sunt semnificative. Dacă profitul crește doar 15% în loc de 38%, ai
-    plătit prea mult chiar dacă compania merge bine. Ăsta e mecanismul care derutează cel mai tare
-    un începător: o companie raportează rezultate excelente și acțiunea scade, pentru că rezultatele
-    au fost bune, dar mai slabe decât ce era deja în preț.</p>
+    <p>Diferența dintre P/E-ul curent și cel prospectiv arată direct ce creștere e deja inclusă în preț.
+    De la 22,28 la <b>16,13</b> prospectiv (bazat pe estimarea de 8,05 $ profit pe acțiune pentru
+    FY2027, care e chiar ghidajul companiei din 10 iun. 2026) înseamnă că piața are deja în preț o
+    creștere a profitului de circa <b>38%</b> în anul următor. Raportat la profitul curățat de 4,99 $,
+    aceeași țintă de 8,05 $ ar însemna +61%.</p>
+    <p>finviz arată un P/E prospectiv de 11,88 (rescalat la închiderea de 31 iul.) — o diferență mare,
+    care vine din faptul că „anul următor" înseamnă lucruri diferite la surse diferite: an fiscal față de
+    12 luni calendaristice, contabil față de ajustat. Ambele cifre sunt aici tocmai pentru că diferă.</p>
+    <p><b>Concluzia care contează:</b> chiar la prețul de azi, cumperi o companie pentru care așteptările
+    încorporate sunt semnificative. Dacă profitul crește 15% în loc de 38%, ai plătit prea mult chiar
+    dacă compania merge bine. Ăsta e mecanismul care derutează cel mai tare un începător: o companie
+    raportează rezultate excelente și acțiunea scade, pentru că rezultatele au fost bune, dar mai slabe
+    decât ce era deja în preț. Calculul de mai sus nu se convertește în niciun preț și în niciun interval
+    de preț — descrie doar ce presupune prețul de azi.</p>
   </div>
 
-  <p><strong>De ce galben și nu verde.</strong> Regula ar da verde: sub media proprie, sub sau în
-  linie cu competitorii. Dar condiția e „fără o deteriorare a afacerii care să justifice discountul",
-  iar aici deteriorarea e documentată în fiecare secțiune anterioară: FCF de la +11,8 la −23,7 mld $,
-  datorie +52 mld $ într-un an, marjă brută −13,3 puncte, diluție +2,6%/an. <strong>„Ieftin" nu e o
-  teză de investiție.</strong> Un multiplu scăzut la o companie care se deteriorează e definiția
-  manualului pentru <em>value trap</em>. Poate fi și o oportunitate reală — dar asta depinde exclusiv
-  de dacă cele 638 mld $ de contracte se transformă în cash, ceea ce nimeni nu poate ști azi.</p>
+  <p><b>Verdict: Atenție (galben), structural.</b> Cele trei axe: <i>față de propria istorie</i> — clar
+  sub, pe toate multiplele; <i>față de competitori</i> — sub pe cifra afișată, peste toți pe cea
+  curățată; <i>față de propria creștere</i> — venituri +17,4% și OCI +76,9% justifică un multiplu
+  ridicat, dar nu orice multiplu, iar creșterea e plătită cu datorie. Pragul de verde cere „sub media
+  proprie <b>și</b> sub competitori, <b>fără o deteriorare a afacerii care să justifice discountul</b>";
+  ultima condiție cade singură, pentru că deteriorarea e documentată în fiecare secțiune anterioară:
+  FCF de la +11,8 la −23,7 mld $, datorie +52 mld $ într-un an, marjă brută −13,26 puncte, diluție
+  +2,55% pe an. <b>„Ieftin" nu e o teză de investiție.</b> Un multiplu scăzut la o companie care se
+  deteriorează e definiția manualului pentru <i>value trap</i>. Poate fi și o oportunitate reală — dar
+  asta depinde exclusiv de dacă cele 638 mld $ de contracte se transformă în cash, ceea ce nimeni nu
+  poate ști azi. Rândul e mereu structural: prețul de azi e un fapt despre azi, nu o etapă.</p>
 
-  <p>Și un avertisment care nu se aplică doar aici: <strong>evaluarea nu e un semnal de timing.</strong>
-  O acțiune ieftină poate rămâne ieftină ani buni, iar una scumpă poate rămâne scumpă la fel de mult.</p>
+  <p><b>Și un avertisment care nu se aplică doar aici:</b> evaluarea nu e un semnal de moment. O acțiune
+  ieftină poate rămâne ieftină ani buni, iar una scumpă poate rămâne scumpă la fel de mult.</p>
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
 <section id="s09">
-  <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">43,7%</div><div class="s">mică din cauza insiderilor</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+2,99 mld $</div><div class="s">2.725 cumpărători / 2.182 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v up">2,92%</div><div class="s">din float · 1,62 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">4,5×</div><div class="s">pe an</div></div>
+  </div>
 
   <p>E pilonul cu cea mai slabă valoare predictivă din tot raportul. Nu spune nimic despre calitatea
   afacerii — doar despre ce cred alții acum.</p>
 
-  <div class="stats">
-    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">42–44%</div><div class="s">mai mică decât uzual, din cauza insiderilor</div></div>
-    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+3,0 mld</div><div class="s">2.739 cumpărători / 2.187 vânzători</div></div>
-    <div class="stat"><div class="l">Short interest</div><div class="v">2,92%</div><div class="s">din float · 1,4–1,6 zile de acoperire</div></div>
-    <div class="stat"><div class="l">Țintă medie analiști</div><div class="v">248,15 $</div><div class="s">44 analiști · interval 110–400 $</div></div>
+  <div class="concept">
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă (<i>short</i>) împrumută acțiuni pe care nu le are, le vinde imediat și speră
+    să le răscumpere mai ieftin. Un short interest mare înseamnă că mulți profesioniști pariază pe
+    scădere — și e mult mai des <b>un avertisment că cineva mai bine informat vede o problemă</b> decât o
+    oportunitate de <i>short squeeze</i>. Squeeze-ul e un eveniment rar și imprevizibil, nu o strategie.</p>
+    <p>La Oracle cifra e mică: <b>2,92% din float</b>, sub pragul de 3%, cu 1,62 zile de acoperire. Asta
+    e util de știut din două motive. Întâi, profesioniștii nu pariază masiv pe o scădere suplimentară.
+    Al doilea, și mai important: <b>prăbușirea de 49% într-un an nu a venit din atacuri de tip short</b>,
+    ci din vânzări ale deținătorilor obișnuiți. Pentru comparație, CoreWeave, companie din aceeași
+    poveste, are 18,96% din float vândut în lipsă.</p>
   </div>
-
-  <p><strong>Short interest-ul e mic</strong>, la 2,92% din float și 1,4–1,6 zile de acoperire. Asta
-  e util de știut: <em>profesioniștii nu pariază masiv pe o scădere suplimentară</em>. Prăbușirea de
-  49% nu a venit din atacuri de tip short, ci din vânzări ale deținătorilor obișnuiți.</p>
 
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
-    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde imediat, și
-    speră să le răscumpere mai ieftin. Un short interest mare înseamnă că mulți profesioniști pariază
-    pe scădere — și e mult mai des <strong>un avertisment că cineva mai bine informat vede o problemă</strong>
-    decât o oportunitate de <em>short squeeze</em>. Squeeze-ul e un eveniment rar și imprevizibil, nu
-    o strategie. La Oracle cifra e mică, deci nu e nici avertisment, nici combustibil.</p>
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 30,86 mln acțiuni × <b>250 de zile</b> ÷ un
+    <b>float de</b> 1,71 mld acțiuni = <b>~4,5×</b> pe an. Tot free float-ul își schimbă proprietarul de
+    patru ori și jumătate într-un an. E o cifră de mijloc: mai mare decât la o companie deținută liniștit
+    de fonduri de pensii, mult mai mică decât la un titlu speculativ care se rotește de zeci de ori.
+    Ceea ce o face interesantă e că float-ul e mic pentru mărimea companiei — 1,71 din 2,88 mld acțiuni —,
+    pentru că insiderii dețin 40,48%. Cu mai puține acțiuni disponibile, aceeași sumă de bani mișcă
+    prețul mai mult, în ambele direcții. De aici, în parte, volatilitatea de 5,4% pe zi.</p>
+    <p><b>Combustibilul de squeeze practic nu există</b> aici, la 2,92% short interest. Asta înseamnă că
+    saltul de 8,34% din 30 iulie a fost cumpărare reală, nu acoperire de poziții. Când o acțiune urcă
+    atât cu short interest aproape zero, mișcarea e opinia cumpărătorilor, nu panica adversarilor.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la <b>31 iul. 2026</b>:
+    <i>Oracle e al patrulea furnizor de infrastructură pentru inteligență artificială, cu un portofoliu
+    de contracte uriaș și un bilanț care trebuie să îl susțină</i>. Reperele datate ale poveștii: RPO de
+    638 mld $ la 31 mai 2026, anunțat pe 10 iun. 2026; retragerea Blue Owl din finanțarea unui centru de
+    date, relatată de presă pe 17 dec. 2025; extinderea parteneriatului cu Google Cloud pe modelele
+    Gemini, 30 iul. 2026. Nu aprob narativul și nu îl transform în cifră — un narativ nu e o prognoză de
+    venituri.</p>
+    <p><b>Includerea în indici</b> e a doua sursă de cerere: Oracle e în S&amp;P 500, deci fondurile
+    pasive o cumpără automat, indiferent de rezultate. Nu e în Nasdaq-100, pentru că acel indice e
+    rezervat companiilor listate la Nasdaq, iar Oracle e la NYSE.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. De aceea sentimentul nu
+    mută nicio culoare din celelalte șapte rânduri.</p>
   </div>
 
-  <p><strong>Instituționalii cumpără net, dar puțin.</strong> În ultimele 12 luni: 2.739 de investitori
-  instituționali au cumpărat, 2.187 au vândut; 40,5 mld $ intrați față de 37,5 mld $ ieșiți, deci
-  aproximativ <strong>+3,0 mld $ net</strong>. Pe o capitalizare de 374 mld $, e o intrare netă
-  modestă — nu o fugă, dar nici un vot de încredere răsunător. Finviz arată separat o tranzacție netă
-  instituțională de −1,76%. Cifrele astea vin din formularele 13F, cu întârziere de până la 45 de
-  zile, și sunt agregări brute: citește-le ca direcție, nu ca măsură exactă.</p>
+  <p><b>Banii instituționali.</b> În 12 luni au intrat 40,48 mld $ și au ieșit 37,49 mld $, de la 2.725
+  de cumpărători față de 2.182 de vânzători — un plus net de <b>+2,99 mld $</b>. Pe o capitalizare de
+  374 mld $ înseamnă 0,8%: nu o fugă, dar nici un vot de încredere. finviz arată separat o tranzacție
+  netă instituțională de −1,76%. Cifrele vin din formularele 13F, cu întârziere de până la 45 de zile, și
+  sunt agregări brute: citește-le ca direcție, nu ca măsură exactă. Nivelul de deținere în sine, 43,74%,
+  pare mic față de alte companii mari doar pentru că insiderii dețin 40,48% — pur și simplu a mai rămas
+  mai puțin de deținut.</p>
 
   <div class="concept">
-    <div class="h">CONSENSUL ANALIȘTILOR — CU TREI AVERTISMENTE</div>
-    <p>44 de analiști au o țintă medie de <strong>248,15 $</strong>, adică +91% față de prețul de azi,
-    și un consens de „cumpărare" (scor 1,54 pe finviz). Sună extraordinar. Trei lucruri de știut
-    înainte de a te baza pe cifră:</p>
-    <p><strong>1. Dispersia e enormă:</strong> intervalul merge de la <strong>110 $ (−15%) la 400 $
-    (+208%)</strong>. Când cea mai pesimistă și cea mai optimistă țintă diferă de aproape patru ori,
-    media nu înseamnă aproape nimic — înseamnă doar că nimeni nu știe.</p>
-    <p><strong>2. Analiștii revizuiesc ținta după ce se mișcă prețul</strong>, nu înainte. O țintă cu
-    91% peste piață descrie mai degrabă cât de sus era prețul recent decât viitorul.</p>
-    <p><strong>3. Recomandările de vânzare sunt rare</strong>, pentru că băncile care le emit vor să
-    păstreze relația cu compania. Un consens de „cumpărare" e starea implicită, nu o distincție.</p>
+    <div class="h">CONSENSUL ANALIȘTILOR, CU TREI AVERTISMENTE</div>
+    <p><b>44 de analiști</b>, țintă medie <b>248,15 $</b> (+91,1% față de 129,87 $), recomandare medie
+    „cumpărare" (1,56 pe finviz). Sună extraordinar. Trei lucruri de știut înainte de a pune vreo greutate
+    pe cifră.</p>
+    <p><b>1. Dispersia e enormă:</b> intervalul merge de la <b>110 $</b> (−15,3%) la <b>400 $</b>
+    (+208,0%). Când cea mai pesimistă și cea mai optimistă țintă diferă de aproape patru ori, media nu
+    înseamnă aproape nimic — înseamnă doar că nimeni nu știe.</p>
+    <p><b>2. Analiștii revizuiesc ținta după ce se mișcă prețul</b>, nu înainte. O țintă cu 91% peste
+    piață descrie mai degrabă cât de sus era prețul acum un an decât viitorul.</p>
+    <p><b>3. Recomandările de vânzare sunt rare</b>, pentru că băncile care le emit vor să păstreze
+    relația cu compania. Un consens de „cumpărare" e starea implicită, nu o distincție.</p>
   </div>
 
-  <p><strong>Un lucru bun structural:</strong> Oracle e în S&amp;P 500 și S&amp;P 100, ceea ce
-  înseamnă o cerere constantă din partea fondurilor pasive care replică indicii, indiferent de
-  rezultatele companiei. Nu e în Nasdaq-100 (indicele e rezervat companiilor listate la Nasdaq, iar
-  Oracle e la NYSE).</p>
+  <p><b>Verdict: Atenție (galben), structural.</b> Două criterii de verde sunt îndeplinite — short
+  interest sub 3% și prezența în S&amp;P 500 —, dar al treilea nu: fluxurile instituționale nu sunt
+  „semnificativ mai mari" la intrare decât la ieșire, ci aproximativ egale, ceea ce e chiar definiția
+  galbenului. Rândul e mereu structural.</p>
 </section>
 
 <!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
 <section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
-  <ul class="list">
-    <li><b>Conducere:</b> din 22 septembrie 2025, Oracle are <b>doi CEO</b> — Clay Magouyrk (venit din
-      Amazon Web Services în 2014, a condus construirea OCI) și Mike Sicilia (fost președinte al
-      diviziei Industrii). Safra Catz, CEO din 2014, a trecut ca vicepreședinte executiv al
-      consiliului. <b>Larry Ellison</b>, cofondator, rămâne președinte al consiliului și director
-      tehnic. Faptul că omul care a construit infrastructura cloud e acum CEO spune limpede unde e
-      prioritatea companiei — dar e și o schimbare de conducere în cel mai delicat moment posibil.</li>
-    <li><b>Cât dețin cei din interior:</b> aproximativ <b>40,5%</b> din companie, un procent
-      neobișnuit de mare pentru o firmă de această mărime — explicat aproape integral de participația
-      lui Larry Ellison. Un management care deține o asemenea felie mănâncă din aceeași oală cu
-      acționarii; asta e argumentul de aliniere. Reversul: îi dă control practic asupra deciziilor.
-      Procentul explică și de ce deținerea instituțională (42–44%) pare mică față de alte companii
-      mari — pur și simplu a mai rămas mai puțin de deținut.</li>
-    <li><b>Insideri, ultimele 12 luni:</b> <b>0 cumpărători, 10 vânzători</b>, în total <b>144,3 mil $</b>
-      vânduți. Cea mai mare tranzacție: Jeffrey Henley (vicepreședinte al
-      consiliului) a vândut 400.000 de acțiuni la 159,16 $ pe 24 iunie 2026 (63,7 mil $). Clay
-      Magouyrk (CEO) a vândut 10.000 de acțiuni la 155,23 $ pe 9 februarie 2026.</li>
-    <li><b>Cum se citește asta:</b> vânzările insiderilor sunt în mare parte <b>zgomot</b> — directorii
-      primesc o parte semnificativă din salariu în acțiuni și vând programat, ca să-și plătească
-      facturile și impozitele. „0 cumpărători, 10 vânzători" e situația normală la o companie mare de
-      tehnologie, nu un semnal de alarmă. <b>Absența oricărei cumpărături e totuși de notat</b>: când
-      acțiunea a scăzut 62% de la vârf, o cumpărare din bani proprii ar fi fost un semnal rar și
-      puternic. Nu a existat niciuna.</li>
-    <li><b>Atenție la o capcană de sursă:</b> MarketBeat include în tabelul de „insideri" și
-      tranzacțiile unor membri ai Congresului SUA (Ro Khanna, Michael McCaul, Gilbert Cisneros).
-      <b>Aceștia nu sunt insideri ai companiei</b> — sunt politicieni obligați prin lege să-și
-      declare tranzacțiile. I-am exclus din numărătoare.</li>
-    <li><b>Structura de vot:</b> Oracle are o singură clasă de acțiuni ordinare listate (ORCL), fiecare
-      cu un vot. Nu există structura dual-class care la alte companii de tehnologie lasă fondatorului
-      controlul cu zece voturi pe acțiune. Concentrarea de putere la Ellison vine din mărimea
-      participației, nu din drepturi speciale de vot. (Există și o serie de acțiuni preferențiale,
-      ORCL-PD, care nu schimbă tabloul pentru un acționar obișnuit.)</li>
-  </ul>
+
+  <p><b>Conducerea.</b> Din 22 septembrie 2025, Oracle are doi directori generali — <b>Clay Magouyrk</b>
+  (venit de la Amazon Web Services în 2014, a condus construirea OCI) și <b>Mike Sicilia</b> (fost
+  președinte al diviziei Industrii). Safra Catz, CEO din 2014, a trecut ca vicepreședinte executiv al
+  consiliului. <b>Larry Ellison</b>, cofondator, rămâne președinte al consiliului și director tehnic.
+  Faptul că omul care a construit infrastructura cloud e acum director general spune limpede unde e
+  prioritatea companiei — dar e și o schimbare de conducere în cel mai delicat moment posibil.</p>
+
+  <p><b>Cât dețin cei din interior:</b> aproximativ <b>40,48%</b> din companie, un procent neobișnuit de
+  mare pentru o firmă de această mărime, explicat aproape integral de participația lui Larry Ellison. Un
+  management care deține o asemenea felie mănâncă din aceeași oală cu acționarii; ăsta e argumentul de
+  aliniere. Reversul: îi dă control practic asupra deciziilor, inclusiv asupra unui plan de investiții de
+  câteva sute de miliarde.</p>
+
+  <p><b>Insideri, ultimele 12 luni: 0 cumpărători și 10 vânzători</b>, în total 144,26 mln $ vânduți. Cea
+  mai mare tranzacție: Jeffrey Henley (vicepreședinte al consiliului) a vândut 400.000 de acțiuni la
+  159,16 $ pe <b>24 iun. 2026</b> (63,66 mln $). Stuart Levey (EVP) a vândut 15.000 la 176,19 $ pe
+  16 apr. 2026; Clay Magouyrk a vândut 10.000 la 155,23 $ pe 9 feb. 2026. În tabelul mai lung apare și o
+  singură achiziție a unei membre a consiliului, de circa 112 mii $ — o rotunjire față de cele 144 mln $
+  vândute.</p>
+
+  <p><b>Cum se citește asta:</b> vânzările insiderilor sunt în mare parte zgomot — directorii primesc o
+  parte semnificativă din remunerație în acțiuni și vând programat, ca să-și plătească impozitele.
+  „0 cumpărători, 10 vânzători" e situația normală la o companie mare de tehnologie, nu un semnal de
+  alarmă. <b>Absența oricărei cumpărături semnificative e totuși de notat</b>: când acțiunea a scăzut 62%
+  de la vârf, o cumpărare consistentă din bani proprii ar fi fost un semnal rar și puternic. Nu a
+  existat.</p>
+
+  <p><b>O capcană de sursă, de știut.</b> MarketBeat include în tabelul de „insideri" și tranzacțiile
+  unor membri ai Congresului SUA. Aceștia nu sunt insideri ai companiei — sunt politicieni obligați prin
+  lege să-și declare tranzacțiile. I-am exclus din numărătoare.</p>
+
+  <p><b>Structura de vot.</b> Oracle are o singură clasă de acțiuni ordinare listate (ORCL), fiecare cu un
+  vot. Nu există structura cu două clase care la alte companii de tehnologie lasă fondatorului controlul
+  cu zece voturi pe acțiune. Concentrarea de putere la Ellison vine din mărimea participației, nu din
+  drepturi speciale de vot. Din FY2026 există însă și <b>acțiuni preferențiale</b>, emise pentru
+  4,95 mld $, care au consumat 103 mln $ din profitul FY2026 sub formă de dividende preferențiale —
+  o linie nouă în structura de capital, plătită înaintea acționarului obișnuit.</p>
 </section>
 
 <!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
 <section id="s11">
-  <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume — vânt din față sau din spate?</h2></div>
 
-  <p>Secțiunile 3–10 judecă corabia. Asta judecă cât de tare o clatină marea: cât de sensibilă e
-  compania la lucruri pe care nu le controlează. Semaforul notează <strong>expunerea</strong> — o
-  proprietate stabilă a afacerii — nu vremea de azi.</p>
+  <p>Secțiunile 3–10 judecă corabia. Asta judecă cât de tare o clatină marea: cât de sensibilă e compania
+  la lucruri pe care nu le controlează. <b>Semaforul notează expunerea</b> — o proprietate stabilă a
+  afacerii — <b>nu vremea de azi</b>.</p>
 
   <div class="concept">
     <div class="h">COMPRIMAREA MULTIPLILOR</div>
-    <p><strong>Dobânda fără risc e gravitația tuturor evaluărilor.</strong> Orice investiție riscantă
-    trebuie să promită mai mult decât ea, altfel nimeni n-ar avea motiv să-și asume riscul. Când
-    dobânda urcă, profitul din anii îndepărtați valorează mai puțin în banii de azi — iar prețul
-    scade cel mai tare acolo unde cea mai mare parte a valorii e în viitorul îndepărtat.</p>
+    <p>Dobânda fără risc e gravitația tuturor evaluărilor. Orice investiție riscantă trebuie să promită
+    mai mult decât ea, altfel nimeni n-ar avea motiv să-și asume riscul. Când dobânda urcă, profitul din
+    anii îndepărtați valorează mai puțin în banii de azi — iar prețul scade cel mai tare acolo unde cea
+    mai mare parte a valorii e în viitorul îndepărtat.</p>
     <p>Oracle e cazul extrem al acestui mecanism, dar pe un canal și mai direct decât de obicei:
-    <strong>cash-ul companiei e negativ azi și pozitiv, în teorie, abia peste câțiva ani.</strong>
-    Cu 130 mld $ de împrumuturi și un plan care cere altele noi, fiecare punct în plus la dobândă e
-    simultan o lovitură în evaluare <em>și</em> o factură mai mare. Poți vedea asta deja în cifre:
-    cheltuiala cu dobânzile a urcat de la 3,58 la 4,60 mld $ într-un singur an.</p>
-    <p>Lecția generală, valabilă la orice companie de creștere: <strong>compania poate livra exact ce
-    a promis și acțiunea tot să scadă serios.</strong> Nu s-a stricat afacerea; s-a scumpit banul.</p>
+    <b>cash-ul companiei e negativ azi</b> și pozitiv, în teorie, abia peste câțiva ani. Cu 130,11 mld $
+    de principal programat și un plan care cere încă vreo 40 mld $ în FY2027, fiecare punct în plus la
+    dobândă e simultan o lovitură în evaluare și o factură mai mare. Se vede deja în cifre: cheltuiala cu
+    dobânzile a urcat de la 3.578 la 4.599 M$ într-un singur an.</p>
+    <p>Lecția generală, valabilă la orice companie de creștere: <b>compania poate livra exact ce a promis
+    și acțiunea tot să scadă serios.</b> Nu s-a stricat afacerea; s-a scumpit banul.</p>
   </div>
 
   <div class="score">
-    <div class="row"><span class="k">Dobânzi</span>
+    <div class="row">
+      <span class="k">Dobânzi</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">FCF negativ azi (−23,7 mld $) și 130 mld $ de împrumuturi de refinanțat sau de extins. Steag bifat pe ambele criterii.</span></div>
-    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="t">Steag bifat pe ambele criterii: free cash flow negativ azi (−23,69 mld $) și 130,11 mld $ de principal de refinanțat sau extins, cu dobânda americană pe 10 ani la 4,75% (31 iul. 2026), în urcare de la ~4,38% cu un an înainte.</span>
+    </div>
+    <div class="row">
+      <span class="k">Ciclu economic</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Baza veche (36% din venituri) e greu de anulat într-o recesiune; noile 27% depind de bugetele de investiții în AI, care sunt exact ce se taie primul.</span></div>
-    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="t">Baza veche (36,4% din venituri, abonamente de suport și licențe) e foarte greu de anulat într-o recesiune — asta protejează. Dar cei 26,9% din OCI depind de bugetele de investiții în inteligență artificială, care sunt exact ce se taie primul când banii se scumpesc.</span>
+    </div>
+    <div class="row">
+      <span class="k">Geografie și politică</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Americile 66% din venituri — concentrare pe piața de acasă, cu risc politic mic; dar construcția de centre de date depinde de aprovizionarea cu procesoare, supusă controalelor de export.</span></div>
-    <div class="row"><span class="k">Reglementare</span>
+      <span class="t">Americile fac 66,0% din venituri, peste pragul de ~40%. E însă concentrare pe piața de acasă, cu risc politic mic — steagul e parțial. Ce rămâne real e dependența construcției de aprovizionarea cu procesoare, supusă controalelor de export.</span>
+    </div>
+    <div class="row">
+      <span class="k">Reglementare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Supraveghere parlamentară a rolului Oracle în noua entitate TikTok SUA (ian 2026), fără o acțiune cu impact material demonstrat asupra afacerii de bază.</span></div>
+      <span class="t">Supraveghere parlamentară a rolului Oracle în societatea mixtă TikTok USDS, cu audiere programată pe 15 sep. 2026 — dar fără o acțiune cu impact material demonstrat asupra celor 67 mld $ de venituri. Steag parțial, nu întreg.</span>
+    </div>
   </div>
 
-  <p><strong>Detaliul de reglementare, pe scurt.</strong> Pe 22 ianuarie 2026 s-a constituit
-  TikTok USDS Joint Venture LLC, în care Oracle deține aproximativ 15% alături de Silver Lake și MGX,
-  și în care răspunde de găzduirea datelor și de conformitate. Senatorul Ed Markey a criticat public
-  lipsa de transparență a acordului și a cerut o anchetă a Congresului. E o expunere reală și numită,
-  dar nu s-a demonstrat un impact material asupra celor 67 mld $ de venituri ale companiei — de aceea
-  galben, nu roșu. Merită urmărit, nu presupus.</p>
+  <div class="concept">
+    <div class="h">DETALIUL DE REGLEMENTARE, PE SCURT</div>
+    <p>Pe <b>22 ianuarie 2026</b> s-a închis tranzacția prin care s-a constituit TikTok USDS Joint
+    Venture LLC, în care Oracle deține circa 15% alături de Silver Lake și MGX și în care răspunde de
+    găzduirea datelor și de conformitate. Oracle a raportat, într-o depunere din martie 2026, că
+    participația valorează în jur de 2 mld $ — sub 0,6% din capitalizare. În <b>mai 2026</b>, senatorul
+    Ed Markey a cerut formal societății mixte și Oracle explicații privind protecția datelor
+    utilizatorilor americani, iar o audiere în Congres pe acest subiect e programată pe <b>15 septembrie
+    2026</b>. E o expunere reală, numită și datată, dar fără impact material demonstrat asupra afacerii
+    de bază — de aceea steagul e parțial, nu întreg. Merită urmărit, nu presupus.</p>
+  </div>
 
-  <p><strong>Sinteza: două steaguri și jumătate, deci roșu.</strong> Dar expunere mare nu înseamnă
-  companie proastă. Analogia potrivită e că Oracle e o corabie mare cu o încărcătură foarte grea, pe
-  o mare agitată — ajunge probabil la destinație, dar nu ține pasagerii care sar peste bord la primul
-  val. Lecția nu e „evit-o", ci <strong>dimensionează poziția astfel încât o scădere de încă 40% să
-  nu te forțeze să vinzi</strong>. Vânzarea în panică pe fundul valului e felul în care expunerea
-  devine pierdere reală.</p>
+  <p><b>Sinteza: un steag întreg și trei parțiale, deci roșu.</b> Dar expunere mare nu înseamnă companie
+  proastă. Analogia potrivită e că Oracle e o corabie mare cu o încărcătură foarte grea, pe o mare
+  agitată. Lecția nu e „evit-o", ci <b>dimensionează poziția astfel încât o scădere de încă 40% să nu te
+  forțeze să vinzi</b>. Vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere
+  reală. Rândul e mereu structural.</p>
+
+  <p style="font-size:12px;color:var(--ink-3)">Ce e sistematic stă aici; ce e specific companiei —
+  concentrarea portofoliului pe un client, procesul intentat de investitori, tranziția de conducere —
+  stă la secțiunea 12 și nu se numără de două ori.</p>
 </section>
 
-<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
 <section id="s12">
-  <div class="sec"><span class="n">12</span><h2>Riscuri</h2></div>
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul
+  care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu
+  compusă de mine.</p>
 
   <figure class="viz" data-viz="bars">
     <figcaption><b>Contracte semnate dar neexecutate (RPO), la sfârșit de an fiscal</b><span class="unit">mld USD</span></figcaption>
@@ -979,105 +1194,144 @@ footer b{color:var(--ink-2)}
     </script>
   </figure>
 
-  <p>Graficul de mai sus e, în același timp, cel mai bun argument pentru Oracle și cel mai mare risc
-  al ei. 638 mld $ de contracte semnate înseamnă aproape <strong>zece ani de venituri la nivelul
-  actual</strong>, deja pe hârtie. Cifra e din 10-K-ul FY2026, depus la SEC pe 22 iunie 2026 — nu e
-  o estimare de presă.</p>
+  <p>Graficul de mai sus e, în același timp, cel mai bun argument pentru Oracle și cel mai mare risc al
+  ei. <b>638 mld $ de contracte semnate înseamnă aproape zece ani de venituri la nivelul actual</b>, deja
+  pe hârtie. Cifra e din comunicatul de rezultate din 10 iun. 2026 și din 10-K-ul depus pe 22 iun. 2026 —
+  nu e o estimare de presă.</p>
 
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
   <ul class="list">
-    <li class="crit"><b>Concentrarea pe un singur client.</b> Presa financiară raportează că
-      aproximativ jumătate din cele 638 mld $ vine de la OpenAI, printr-un contract de ~300 mld $ pe
-      cinci ani începând cu 2027. Oracle nu confirmă identitatea în depunerile publice, deci cifra e
-      din presă, nu din 10-K — dar dacă e corectă, e riscul dominant al acestei investiții: un
-      furnizor care s-a îndatorat cu peste 50 mld $ pentru a servi un client care nu e încă profitabil
-      și a cărui listare la bursă a fost amânată. O companie unde un client face aproape jumătate din
-      portofoliu e fragilă indiferent cât de bune arată celelalte cifre.</li>
-    <li class="crit"><b>Riscul de execuție al construcției.</b> Backlog-ul nu e venit — e o promisiune
-      care cere ca Oracle să construiască întâi. 55,7 mld $ cheltuiți în FY2026, cu planuri de a
-      strânge alte zeci de miliarde. Fiecare întârziere de șantier, fiecare livrare amânată de
-      procesoare, fiecare depășire de buget mută în timp momentul în care investiția începe să
-      producă — în timp ce dobânda curge de la prima zi.</li>
-    <li class="crit"><b>Riscul de finanțare.</b> Compania depinde de accesul continuu la piața de
-      obligațiuni. Presa a semnalat în iulie 2026 creșterea costului asigurării împotriva riscului de
-      neplată (CDS) pentru Oracle. Dacă acest acces se scumpește substanțial, alternativele sunt să
-      încetinească construcția (și să rateze contracte) sau să emită acțiuni noi (și să dilueze mai
-      mult) — ambele proaste pentru acționarul de azi.</li>
+    <li><b>RPO de 638 mld $ la 31 mai 2026</b>, în creștere cu 363% față de anul anterior și cu 85 mld $
+    doar în ultimul trimestru — comunicat pe <b>10 iun. 2026</b>, confirmat în 10-K pe 22 iun. 2026. E
+    cea mai puternică linie din toată teza, pentru că nu e o proiecție: sunt contracte semnate, adică
+    cerere care există deja pe hârtie pentru capacitatea care se construiește.</li>
+    <li><b>75 mld $ din portofoliu sunt hardware plătit în avans sau furnizat direct de clienți</b> —
+    tot din comunicatul de pe <b>10 iun. 2026</b>. Contează mai mult decât pare: reduce exact partea din
+    factură care apasă pe bilanțul Oracle, adică procesoarele grafice. Ghidajul de capex pentru FY2027
+    exclude, separat, alte 20–25 mld $ de plăți în avans de la clienți.</li>
+    <li><b>Cloud infrastructure a crescut cu 76,9% în FY2026, la 18,10 mld $, iar în trimestrul patru cu
+    93%, la 5,8 mld $</b> — aceeași sursă. Teza taurului nu are nevoie de nicio ipoteză aici: se întâmplă
+    deja, și accelerează.</li>
+    <li><b>Ghidaj FY2027: venituri de 90 mld $ și profit ajustat pe acțiune de 8,05 $</b>, cu un
+    trimestru unu ghidat la +27–29% venituri și +57–63% la cloud în monedă constantă — publicat pe
+    <b>10 iun. 2026</b>. E o afirmație verificabilă, cu prima scadență pe 8 sep. 2026.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Concentrarea pe un singur client.</b> Presa financiară relatează că aproximativ
+    jumătate din cele 638 mld $ vine de la OpenAI, printr-un contract de circa 300 mld $ pe cinci ani
+    începând cu 2027. Oracle nu confirmă identitatea clientului în depunerile publice, deci cifra e din
+    presă, nu din 10-K — dar dacă e corectă, e riscul dominant al acestei investiții: un furnizor care
+    s-a îndatorat cu peste 50 mld $ într-un an pentru a servi un client care nu e încă profitabil. O
+    companie unde un client face aproape jumătate din portofoliu e fragilă indiferent cât de bune arată
+    celelalte cifre.</li>
+    <li class="crit"><b>Un proces al investitorilor, cu dată și instanță.</b> Un grup de acțiuni
+    colective pentru fraudă în materie de valori mobiliare, prima depusă la Tribunalul federal din
+    districtul Delaware, acuză compania că a prezentat trunchiat riscurile contractului cu OpenAI;
+    perioada vizată e <b>12 iun. 2025 – 16 dec. 2025</b>, iar termenul pentru desemnarea reclamantului
+    principal a fost 6 apr. 2026. Punctul de plecare e relatarea din <b>17 dec. 2025</b> privind
+    retragerea Blue Owl din finanțarea unui centru de date de 10 mld $. Nu e o judecată despre vinovăție
+    — e un fapt datat, în curs, care poate produce costuri și, mai important, care documentează exact
+    întrebarea pe care piața o pune contractelor.</li>
+    <li class="crit"><b>Finanțarea e planificată, dar nu garantată.</b> Compania a anunțat pe
+    10 iun. 2026 că vrea să atragă circa 40 mld $ în FY2027, din care 20 mld $ prin emisiune de acțiuni
+    la piață. Dacă accesul la piața de obligațiuni se scumpește, alternativele sunt să încetinească
+    construcția (și să rateze contracte) sau să emită mai multe acțiuni (și să dilueze mai mult) —
+    ambele proaste pentru acționarul de azi. Cei 20 mld $ de acțiuni reprezintă ~5% din capitalizarea de
+    astăzi.</li>
+    <li class="crit"><b>Calitatea profitului raportat.</b> 2.811 mln $ din profitul FY2026 sunt câștiguri
+    din investiții, nu bani produși de afacere. Riscul concret nu e contabil, e de percepție: un
+    investitor care cumpără uitându-se la un P/E de 22,28 crede că plătește cu ~15% mai puțin decât
+    plătește în realitate.</li>
     <li><b>Erodarea structurală a marjei.</b> Afacerea care crește are marjă brută mult mai mică decât
-      cea care e înlocuită. Chiar dacă totul merge conform planului, Oracle de peste cinci ani va fi o
-      companie cu venituri mult mai mari și cu o calitate a profitului mai slabă decât Oracle de acum
-      cinci ani. Nu e un accident — e designul.</li>
-    <li><b>Tranziția de conducere.</b> Doi CEO noi din septembrie 2025, într-o companie care execută
-      cel mai mare pariu de capital din istoria ei. Structura cu doi directori generali e rară și
-      istoric dificilă, iar Larry Ellison rămâne factorul decisiv de facto.</li>
+    cea pe care o înlocuiește. Chiar dacă totul merge conform planului, Oracle de peste cinci ani va fi o
+    companie cu venituri mult mai mari și cu o calitate a profitului mai slabă decât Oracle de acum cinci
+    ani. Nu e un accident — e designul.</li>
+    <li><b>Riscul de execuție și de conducere.</b> Backlog-ul nu e venit: cere ca Oracle să construiască
+    întâi. Fiecare întârziere de șantier, fiecare livrare amânată de procesoare, fiecare depășire de
+    buget mută în timp momentul în care investiția începe să producă — în timp ce dobânda curge de la
+    prima zi. Iar compania face asta cu doi directori generali numiți în septembrie 2025, o structură
+    rară și istoric dificilă.</li>
   </ul>
 
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai
-    bune decât unul care improvizează când prețul cade. Patru lucruri observabile, verificabile la
-    fiecare raportare trimestrială:</p>
-    <p><strong>1.</strong> RPO-ul scade, sau creșterea veniturilor OCI încetinește sub ~40% an/an —
-    semn că backlog-ul nu se convertește în ritmul promis. <strong>2.</strong> Marja brută coboară
-    sub ~62% și continuă să scadă — semn că economia noii afaceri e mai proastă decât se credea.
-    <strong>3.</strong> Acoperirea dobânzii scade sub 3× (azi 4,48×) — pragul de la care bilanțul
-    devine constrângător. <strong>4.</strong> Numărul de acțiuni continuă să crească peste 2,5% pe an
-    <em>și</em> apare o emisiune mare de acțiuni pentru finanțare — semn că datoria a atins limita.</p>
-    <p>Invers, semnalul că teza funcționează ar fi simplu și greu de falsificat: <strong>free cash
-    flow-ul revine pe pozitiv fără ca ritmul de creștere să se prăbușească.</strong></p>
+    <div class="h">ARBITRUL</div>
+    <p><b>Prima verificare, la raportarea din 8 sep. 2026</b> (trimestrul unu din FY2027): aterizează
+    veniturile în intervalul ghidat de +27–29%, și cloud-ul în +57–63% în monedă constantă? E cea mai
+    apropiată scadență a tezei taurului și prima cifră nouă de la 10 iun. 2026 încoace.</p>
+    <p><b>A doua, în aceeași raportare:</b> se oprește marja brută din scădere? Ultimul trimestru a fost
+    65,23%, față de 67,28% cu patru trimestre înainte. Dacă trece sub ~64% și continuă, economia noii
+    afaceri e mai proastă decât se credea; dacă se stabilizează două trimestre la rând, rândul roșu de la
+    secțiunea 7 devine discutabil.</p>
+    <p><b>A treia, pe parcursul FY2027:</b> se trage programul de emisiune de acțiuni de 20 mld $, și cu
+    ce viteză urcă numărul de acțiuni peste cei +2,55% pe an de acum? Și rămâne acoperirea dobânzii peste
+    3× — pragul scris chiar în contractul de credit al companiei —, de la 4,48× azi și 4,94× acum un an?</p>
+    <p><b>Reperul de calendar care nu depinde de companie</b> e audierea din Congres pe tema TikTok USDS,
+    programată pe <b>15 sep. 2026</b>.</p>
+    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune
+    decât unul care improvizează când prețul cade.</p>
   </div>
 </section>
 
 <!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
 <section id="s13">
-  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
 
-  <p><strong>Trei concepte pe care Oracle le ilustrează mai bine decât aproape orice altă companie:</strong></p>
+  <p>Trei concepte pe care Oracle le ilustrează mai bine decât aproape orice altă companie:</p>
 
-  <ul class="list">
-    <li><b>Free cash flow vs. profit.</b> Oracle a raportat profit record în FY2026 — 17,0 mld $, cel
-      mai mare din istoria companiei — și în același an a ars 23,7 mld $ de cash. Ambele sunt adevărate
-      simultan. Dacă te uitai doar la P/E și la creșterea profitului, vedeai cea mai bună companie din
-      sector. Cifra care spunea povestea reală era una singură, la două rânduri distanță în situația
-      de cash flow. <b>Extrasul de cont bate opinia contabilului.</b></li>
-    <li><b>Buyback-ul care dispare.</b> Nu te uita la ce anunță compania că răscumpără, ci la numărul
-      de acțiuni. Oracle a trecut de la 17,3 mld $ de răscumpărări (FY2022) la 206 mil $ (FY2026), iar
-      acțiunile au crescut cu 8% în patru ani. Un dividend de 1,54% pe an nu compensează o diluție de
-      2,6% pe an — randamentul tău real a fost negativ.</li>
-    <li><b>Decelerarea nu e singura explicație pentru o cădere.</b> De obicei, când o acțiune se
-      prăbușește, creșterea a încetinit. Aici creșterea a <em>accelerat</em> — de la 6,9% la 20,6% pe
-      trimestru — și acțiunea a scăzut totuși 49%. Motivul e că piața a reevaluat <em>calitatea și
-      costul</em> creșterii, nu ritmul ei. Creșterea plătită cu datorie nu valorează cât cea plătită
-      din cash generat.</li>
-  </ul>
+  <p><b>1. Free cash flow față de profit.</b> Oracle a raportat profit record în FY2026 — 16,98 mld $,
+  cel mai mare din istoria companiei — și în același an a ars 23,69 mld $ de cash. Ambele sunt adevărate
+  simultan. Dacă te uitai doar la P/E și la creșterea profitului, vedeai cea mai bună companie din
+  sector. Cifra care spunea povestea reală era una singură, la două rânduri distanță în situația de cash
+  flow. <b>Extrasul de cont bate opinia contabilului.</b></p>
 
-  <p style="margin-top:1.2em"><strong>Șase întrebări de pus la următoarea companie pe care o
-  analizezi</strong> — în ordinea asta, pentru că fiecare o filtrează pe următoarea:</p>
+  <p><b>2. Uită-te sub linia operațională.</b> Profitul net a crescut cu 36,5%, cel operațional cu
+  16,6%. Diferența era o singură linie: 2,81 mld $ de câștiguri din investiții, apărute aproape integral
+  într-un trimestru. Regula practică: <b>când profitul net crește vizibil mai repede decât cel
+  operațional, caută ce e sub linia operațională înainte să te bucuri de un P/E mic.</b> Un al doilea
+  semnal, la fel de ieftin: dacă P/E-ul prospectiv e <i>mai mare</i> decât cel curent, profitul de azi
+  conține aproape sigur ceva excepțional.</p>
+
+  <p><b>3. Marja brută e testul moat-ului, iar direcția ei contează mai mult decât nivelul.</b> 65,8% e
+  o marjă pe care majoritatea companiilor din lume ar semna-o oricând. Dar patru ani de scădere
+  consecutivă, cu 13 puncte pierdute, spun ceva ce nivelul nu spune: modelul de business se schimbă,
+  într-unul cu economie mai slabă. Când vezi asta, întrebarea corectă nu e „e marja mare?", ci „de ce
+  scade — din reduceri forțate sau din schimbare de mix?". Răspunsul schimbă complet interpretarea.</p>
+
+  <p><b>Șase întrebări de pus la următoarea companie pe care o analizezi</b>, în ordinea asta, pentru că
+  fiecare o filtrează pe următoarea:</p>
 
   <ul class="list qa">
-    <li>Free cash flow-ul e pozitiv, și a fost pozitiv în 4 din ultimii 5 ani? Dacă nu, <em>de unde
-      vin banii</em> — din cash existent, din datorie nouă, sau din acțiuni noi?</li>
+    <li>Free cash flow-ul e pozitiv, și a fost pozitiv în 4 din ultimii 5 ani? Dacă nu, de unde vin banii
+    — din cash existent, din datorie nouă, sau din acțiuni noi? Și cât ține pista de cash, calculată?</li>
+    <li>Profitul net crește la fel de repede ca cel operațional? Dacă nu, ce linie face diferența și se
+    repetă anul viitor?</li>
     <li>Numărul de acțiuni în circulație a scăzut sau a crescut în ultimii 3 ani? (Sursa autoritară e
-      SEC EDGAR, nu suma anunțată de companie pe răscumpărări.)</li>
-    <li>Marja brută urcă sau coboară? Dacă scade trei ani la rând, care e explicația — reduceri
-      forțate sau schimbare deliberată de mix?</li>
-    <li>A bătut S&amp;P 500 pe 1, 3 și 5 ani? Dacă nu, ce anume te face să crezi că următorii cinci
-      vor fi diferiți?</li>
-    <li>Cât din venituri sau din portofoliul de contracte vine de la cel mai mare client? Peste ~20%
-      e o companie fragilă, oricât de bune ar fi celelalte cifre.</li>
-    <li>Datoria netă împărțită la EBITDA — sub 1,5× e confortabil, peste 3× e o constrângere reală
-      asupra deciziilor companiei. Și cum a evoluat acest raport în ultimii doi ani?</li>
+    coperta formularelor de la SEC, nu suma anunțată de companie pe răscumpărări.)</li>
+    <li>Marja brută urcă sau coboară? Dacă scade trei ani la rând, care e explicația — reduceri forțate
+    sau schimbare deliberată de mix?</li>
+    <li>Datoria netă împărțită la EBITDA — și, mai important, cum arăta acest raport acum cinci ani? Un
+    raport mare care a fost mereu mare e o politică; unul care tocmai a sărit e un eveniment.</li>
+    <li>A bătut S&amp;P 500 pe 1, 3 și 5 ani? Dacă nu, ce anume te face să crezi că următorii cinci vor
+    fi diferiți?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (10-K FY2026, depus
-  22 iunie 2026; companyfacts XBRL), FRED / căutări web pentru dobânzi · date la <b>1 august 2026</b>,
-  preț de închidere din 31 iulie 2026. Raportările au întârziere de până la un trimestru; short
-  interest până la două săptămâni; deținerile instituționale până la 45 de zile. Anul fiscal al
-  Oracle se încheie pe 31 mai, deci „FY2026" acoperă iunie 2025 – mai 2026.<br>
-  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit
-  de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a
-  nimănui. Nu conține prognoze de preț, de piață sau de dobânzi.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (10-K pentru anul fiscal 2026,
+  depus pe 22 iun. 2026 — segmente, geografii, bilanț, împrumuturi și plăți viitoare de principal, linia
+  de credit revolving, câștiguri din investiții; seria numărului de acțiuni de pe coperțile formularelor
+  10-K), comunicatul de rezultate al Oracle din <b>10 iun. 2026</b> pentru RPO și pentru ghidajele
+  FY2027, presă financiară pentru narativ și pentru procesele în curs · <b>date de piață la închiderea
+  din 31 iulie 2026</b>, preț 129,87 $. Multiplii competitorilor sunt calculați la aceeași închidere.
+  Anul fiscal al Oracle se încheie pe 31 mai, deci „FY2026" acoperă iunie 2025 – mai 2026, iar
+  fundamentalele sunt cu aproape două luni mai vechi decât prețul.
+  Raportările au întârziere de până la un trimestru; short interest până la două săptămâni; dețineri
+  instituționale până la 45 de zile. Unde două surse au diferit cu peste 5%, ambele valori apar în text.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit de
+  cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a nimănui.
+  Nu conține prognoze de preț, de piață sau de dobânzi.
 </footer>
 </div>
 
@@ -1116,7 +1370,6 @@ footer b{color:var(--ink-2)}
     var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
     var type=fig.dataset.viz,sfx=d.suffix||'';
 
-    /* ── compare ─────────────────────────────────────────────────────────── */
     if(type==='compare'){
       var rows=d.rows||[];if(!rows.length)return;
       var html=rows.map(function(r){
@@ -1142,7 +1395,6 @@ footer b{color:var(--ink-2)}
     var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
     if(!all.length)return;
 
-    /* ── bars: ÎNTOTDEAUNA de la zero ────────────────────────────────────── */
     if(type==='bars'){
       var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
       var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
@@ -1165,7 +1417,6 @@ footer b{color:var(--ink-2)}
       return;
     }
 
-    /* ── lines ───────────────────────────────────────────────────────────── */
     if(type==='lines'){
       var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
       var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
