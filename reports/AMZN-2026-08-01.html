@@ -71,6 +71,7 @@ section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12p
 .sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
 .sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
 
 /* ─── scorecard ──────────────────────────────────────────────────────────── */
 .score{display:grid;gap:0}
@@ -243,22 +244,22 @@ footer b{color:var(--ink-2)}
 <header>
   <div class="tick">
     <h1>AMZN</h1>
-    <span class="co">Amazon.com, Inc. · NASDAQ</span>
+    <span class="co">Amazon.com, Inc.</span>
   </div>
   <div class="px">
     <div class="v">271,58 $</div>
     <div class="d up">+15,32% în ședința din 31 iul. 2026</div>
   </div>
   <div class="chips">
-    <span class="chip">Consumer Discretionary · <b>Internet Retail</b></span>
-    <span class="chip">Indici: <b>S&amp;P 500, Nasdaq-100, Dow Jones</b></span>
-    <span class="chip">Capitalizare <b>2,93 T$</b></span>
-    <span class="chip">An fiscal se încheie <b>31 decembrie</b></span>
-    <span class="chip">Următoarea raportare <b>~29 oct. 2026 (neconfirmat)</b></span>
+    <span class="chip">Consumer Cyclical · <b>Internet Retail</b></span>
+    <span class="chip">Indici: <b>Dow Jones, S&amp;P 500, Nasdaq-100</b></span>
+    <span class="chip">Capitalizare <b>2.929 mld $</b></span>
+    <span class="chip">An fiscal se încheie <b>decembrie</b></span>
+    <span class="chip">Ultima raportare <b>30 iul. 2026</b></span>
   </div>
 </header>
 
-<!-- ══ CUPRINS ═══════════════════════════════════════════════════════════════ -->
+<!-- ══ CUPRINS ═════════════════════════════════════════════════════════════ -->
 <nav class="toc" aria-label="Cuprins">
   <a href="#s01"><span class="tn">01</span>Poziția</a>
   <a href="#s02"><span class="tn">02</span>Compania</a>
@@ -271,7 +272,7 @@ footer b{color:var(--ink-2)}
   <a href="#s09"><span class="tn">09</span>Sentiment</a>
   <a href="#s10"><span class="tn">10</span>Management</a>
   <a href="#s11"><span class="tn">11</span>Expunere</a>
-  <a href="#s12"><span class="tn">12</span>Riscuri</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
   <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
 </nav>
 
@@ -282,43 +283,49 @@ footer b{color:var(--ink-2)}
     <div class="row">
       <span class="k">Moat</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Trei moaturi reale suprapuse; marja brută urcă de cinci ani la rând, de la 42,0% la 50,3%.</span>
+      <span class="t">Trei moaturi reale suprapuse — efect de rețea pe marketplace, costuri de schimbare la AWS, avantaj de scară în logistică. Dovada în cifre: marja brută urcă cinci ani la rând, de la 42,03% (2021) la 50,77%, iar ROIC-ul e 17,46%, peste pragul de ~15%.</span>
     </div>
     <div class="row">
       <span class="k">Free cash flow</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Cash operațional record (161 mld $ TTM), dar capex-ul l-a înghițit: FCF −11,6 mld $ pe ultimele 12 luni.</span>
+      <span class="t"><b>de fază</b> — cash operațional record, 161,40 mld $ pe 12 luni, complet înghițit de un capex de 173,03 mld $: free cash flow <b>−11,63 mld $</b>. Nu e roșu, pentru că pragul de roșu cere „negativ fără explicație" — aici explicația e cifrată și anunțată. Cele trei condiții ale etichetei sunt verificate una câte una în secțiunea 4.</span>
     </div>
     <div class="row">
       <span class="k">Cash vs. datorii</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Datorie netă 100 mld $, adică 0,59× EBITDA — foarte confortabil, deși datoria a urcat rapid.</span>
+      <span class="t">Datorie netă 100,24 mld $ la un EBITDA de ~169 mld $, adică <b>0,59×</b> — de cinci ori sub pragul de risc. Cifra e confortabilă, direcția mai puțin: datoria totală a urcat de la 133,94 mld $ (iun. 2025) la 223,23 mld $ (iun. 2026), din care 70 mld $ doar în ultimele șase luni.</span>
     </div>
     <div class="row">
       <span class="k">Buyback vs. diluție</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Zero dividend, zero răscumpărări din 2022; numărul de acțiuni crește cu ~1,3% pe an.</span>
+      <span class="t"><b>structural</b> — zero dividend, zero răscumpărări din 2022 încoace, iar numărul de acțiuni crește cu <b>1,14% pe an</b> (cifre de pe coperta formularelor depuse la SEC). Randamentul total pentru acționar e practic zero. Diluția vine din plata în acțiuni a angajaților — politică permanentă, nu finanțarea construcției, care se face pe datorie.</span>
     </div>
     <div class="row">
       <span class="k">Creștere și marje</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Creșterea accelerează, nu încetinește: de la +8,6% în Q1 2025 la +19,6% în Q2 2026.</span>
+      <span class="t">Venituri în creștere în toți cei 5 ani, marjă brută în urcare în fiecare an fără excepție, iar trimestrele <i>accelerează</i>: de la +8,62% (T1 2025) la <b>+19,62%</b> (T2 2026). Marja operațională urcă în paralel, de la 5,30% (2021) la 12,08%. E cel mai curat rând din raport.</span>
     </div>
     <div class="row">
       <span class="k">Evaluare</span>
       <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">P/E-ul afișat de 21,8 e fals-ieftin; curățat de câștigurile din Anthropic, e pe la 34.</span>
+      <span class="t"><b>structural</b> — P/E-ul afișat, 21,84, e fals-ieftin. Profitul pe 12 luni conține 69,38 mld $ de venituri nonoperaționale înregistrate doar în semestrul I 2026, în cea mai mare parte reevaluări în sus ale unor participații în companii private. Curățat de ele, P/E-ul e în jur de <b>36</b>. Rândul e mereu structural.</span>
     </div>
     <div class="row">
       <span class="k">Sentiment de piață</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
-      <span class="t">Short interest 1,09% din float, intrări instituționale nete de ~137 mld $ în 12 luni.</span>
+      <span class="t">Short interest 1,09% din float, mult sub pragul de 3%; capital instituțional net intrat de +136,6 mld $ în 12 luni; prezentă în Dow Jones, S&amp;P 500 și Nasdaq-100. Pilonul descrie ce cred alții acum, nu calitatea afacerii.</span>
     </div>
     <div class="row">
       <span class="k">Expunere la lume</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Proces antitrust FTC cu judecată în octombrie 2026, retail ciclic, dependență de SUA, FCF negativ azi.</span>
+      <span class="t"><b>structural</b> — patru steaguri, cel mai slab pilon din raport. Reglementare: procesul antitrust al FTC și 17 state, cu judecata programată acum pentru <b>29 martie 2027</b>. Ciclu: comerțul cu amănuntul e cerere discreționară. Geografie: 59,4% din venituri din America de Nord, plus marfă de import expusă la tarife. Dobânzi: free cash flow negativ azi.</span>
     </div>
+  </div>
+  <p style="margin-top:14px">Patru verzi, trei galbene, un roșu — aceleași opt culori ca în versiunea anterioară a raportului. Un singur rând primește „de fază”, cel de free cash flow, și e al doilea din tot folderul care îndeplinește toate cele trei condiții. Celelalte două galbene sunt structurale: diluția vine din felul în care sunt plătiți angajații, iar evaluarea e prin construcție un fapt despre azi.</p>
+  <div class="concept" style="margin-top:16px">
+    <div class="h">CE S-A SCHIMBAT FAȚĂ DE VERSIUNEA ANTERIOARĂ A ACESTUI RAPORT</div>
+    <p><b>Nicio culoare nu s-a mutat.</b> Ce lipsea din versiunea anterioară era stratul de explicație: niciunul dintre cele patru rânduri colorate nu avea al doilea cuvânt — <i>de fază</i> sau <i>structural</i> — iar secțiunea 12 avea doar riscuri, fără teza taurului alături. Ambele sunt aici acum.</p>
+    <p><b>O corectură de fapt, și e importantă.</b> Versiunea anterioară scria că procesul antitrust al FTC are „judecata programată pentru octombrie 2026, adică în aproximativ trei luni". <b>Nu mai e adevărat.</b> Termenul a fost amânat de două ori — întâi la 9 februarie 2027, apoi la <b>29 martie 2027</b>, în parte din cauza blocajului bugetar federal care a dat peste cap calendarele instanțelor. Steagul de reglementare rămâne ridicat și culoarea rândului rămâne roșie, pentru că procesul e în continuare activ și numit; se schimbă doar urgența — nu peste trei luni, ci peste douăzeci. O dată dintr-un raport publicat care se învechește în tăcere e exact genul de eroare pe care regenerarea trebuie să o prindă.</p>
   </div>
 </section>
 
@@ -330,14 +337,14 @@ footer b{color:var(--ink-2)}
     <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
     <div class="range">
       <div class="tr">
-        <div class="mk" style="left:91.6%"></div>
-        <div class="now" style="left:91.6%">271,58</div>
+        <div class="mk" style="left:91.5%"></div>
+        <div class="now" style="left:91.5%">271,58</div>
       </div>
       <div class="ends"><span>min 196,00</span><span>max 278,56</span></div>
     </div>
   </figure>
 
-  <p>Acțiunea e la <strong>91,6% din intervalul ultimului an</strong>, la un pas de maximul istoric — și a ajuns acolo într-o singură zi: pe 31 iulie 2026 a urcat <strong>+15,32%</strong> după raportarea de trimestrul doi. Asta e important de reținut înainte de orice altceva: citești analiza asta a doua zi după una dintre cele mai mari mișcări zilnice din istoria companiei, iar euforia de moment e cel mai prost consilier care există.</p>
+  <p>Acțiunea e la <b>91,5%</b> din intervalul ultimului an — cu 2,51% sub maxim și cu 38,56% peste minim. E singura companie din acest folder aflată aproape de vârful ei, și ajunsă acolo într-o singură ședință.</p>
 
   <figure class="viz" data-viz="compare">
     <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
@@ -352,49 +359,44 @@ footer b{color:var(--ink-2)}
 
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ COMPARAȚIA</div>
-    <p>Etalonul (<em>benchmark</em>) e alternativa care nu cerea nicio muncă: un ETF pe S&amp;P 500, cumpărat și uitat. Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât indicele?".</p>
-    <p>Aici răspunsul e neplăcut de nuanțat. Pe <strong>5 ani, Amazon a făcut +63,2% în timp ce indicele a făcut +70,4%</strong> — cine a cumpărat în 2021 și a stat, a rămas în urma variantei leneșe, în ciuda tuturor titlurilor din presă. Pe 1 an, la fel: +16,0% față de +18,2%. Pe 3 ani a bătut clar indicele (+103,2% față de +63,2%), pentru că punctul de plecare era după prăbușirea din 2022. Aceeași companie arată strălucit sau mediocru <em>doar</em> în funcție de data de start pe care o alegi — de aceea niciodată nu te uita la un singur orizont.</p>
+    <p>Patru ferestre de timp, patru concluzii diferite. Pe trei ani, Amazon a bătut indicele detașat: <b>+103,16%</b> față de +63,18%. Pe cinci ani a pierdut în fața lui: +63,23% față de +70,36%. Pe un an, tot sub. Aceeași companie, aceleași cifre, verdicte opuse — iar diferența e doar de unde începi să numeri.</p>
+    <p>De aceea un singur interval nu spune niciodată destul, și de aceea graficele de randament din prezentările de investiții încep aproape întotdeauna exact din anul care le convine. Când vezi „+103% în trei ani", prima întrebare utilă e ce s-a întâmplat în celelalte ferestre.</p>
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="l">Beta (5 ani)</div><div class="v">1,45</div><div class="s">amplifică piața de ~1,45×</div></div>
-    <div class="stat"><div class="l">La 10.000 $ investiți</div><div class="v down">−1.450 $</div><div class="s">la o corecție de piață de 10%</div></div>
-    <div class="stat"><div class="l">Volatilitate zilnică</div><div class="v">N/A</div><div class="s">nu apare pe sursă</div></div>
+    <div class="stat"><div class="l">Beta</div><div class="v">1,45</div><div class="s">amplifică piața de ~1,45×</div></div>
+    <div class="stat"><div class="l">Volatilitate (săpt. / lună)</div><div class="v">3,07% / 2,59%</div><div class="s">pe zi</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.450 $</div><div class="s">la o corecție de piață de 10%</div></div>
   </div>
 
-  <p>Beta 1,45 înseamnă că, istoric, când piața a scăzut cu 10%, Amazon a scăzut în jur de 14,5%. Nu e o acțiune extremă — pentru comparație, multe companii de creștere pură au beta peste 2 — dar nici nu e un adăpost. Dacă o pierdere temporară de 1.450 $ la 10.000 $ investiți te-ar face să vinzi, poziția e prea mare, indiferent cât de bună e compania.</p>
-
-  <h3 style="font-size:14px;margin:18px 0 8px">Ce a mutat prețul: raportarea din 30 iulie 2026</h3>
-  <p>Amazon a raportat pentru trimestrul încheiat pe 30 iunie 2026 venituri de <strong>200,6 mld $, în creștere cu 19,6% față de anul trecut</strong> — prima dată peste pragul de 200 mld $ într-un trimestru. Profitul operațional a urcat la 27,5 mld $, iar <strong>AWS a crescut cu 36,7%, la 42,2 mld $</strong>, față de ~31% cât se aștepta piața. E cel mai rapid ritm al AWS din ultimele 18 trimestre. Conducerea a ridicat totodată bugetul de investiții pentru 2026 la <strong>~220 mld $</strong>.</p>
-  <p>Aici e lecția centrală a acestui raport, și merită citită de două ori. Profitul net raportat a fost de <strong>62,6 mld $</strong> — de peste două ori profitul operațional. Diferența nu vine din afacere: vine dintr-un <strong>câștig contabil de 53,4 mld $ înainte de taxe din reevaluarea participației Amazon în Anthropic</strong>. Nu au intrat bani în cont; s-a rescris valoarea unei dețineri. Câștigul pe acțiune raportat (GAAP) a fost 5,75 $, dar cel ajustat, pe care îl compară analiștii, a fost <strong>1,97 $</strong> față de 1,82 $ estimat. Un început&#8209;tor care se uită doar la „profit net" și la P/E vede o companie de trei ori mai profitabilă decât este — și mult mai ieftină decât este. Secțiunea 8 desface asta în detaliu.</p>
-
-  <h3 style="font-size:14px;margin:18px 0 8px">Vremea pieței</h3>
   <div class="stats">
-    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,8%</div><div class="s">la 31 iul. 2026</div></div>
-    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">+0,44 pp față de acum un an (31 iul. 2026)</div></div>
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−1,76%</div><div class="s">la 31 iul. 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,75%</div><div class="s">la 31 iul. 2026 · +0,44 pp față de acum un an</div></div>
     <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v down">−12,9 pp</div><div class="s">Consumer Cyclical −3,3% · indice +9,6%</div></div>
   </div>
-  <p>Piața americană e aproape de maxim (indicele la 1,8% sub vârful anului), iar dobânda fără risc pe 10 ani era la 4,75% pe 31 iulie 2026, cu 0,44 puncte procentuale mai sus decât acum un an. Sectorul în care e clasificată Amazon — <em>Consumer Cyclical</em> — e pe minus 3,3% de la începutul anului, cu aproape 13 puncte sub indice. Amazon a făcut +17,7% în același timp. Cu alte cuvinte, <strong>acțiunea nu se mai mișcă odată cu sectorul din care face parte oficial</strong>: piața o tranzacționează ca pe o companie de infrastructură AI, nu ca pe un magazin online. Clasificarea de sector e o etichetă administrativă, nu o descriere a ce mișcă prețul — o confuzie utilă de evitat.</p>
-  <p>Pe partea de reglementare, procesul antitrust intentat de FTC și 17 state americane (depus în septembrie 2023) are <strong>judecata programată pentru octombrie 2026</strong>, adică în aproximativ trei luni. În paralel, în Uniunea Europeană, Digital Markets Act prevede amenzi de până la 10% din cifra de afaceri globală pentru favorizarea produselor proprii pe platformă. Sunt fapte datate, nu prognoze; ce se va întâmpla la proces nu se poate ști.</p>
+
+  <p><b>Vremea pieței, la 31 iul. 2026.</b> Indicele e practic la maxim. Sectorul în care e clasificată Amazon — Consumer Cyclical — e pe minus 3,3% de la începutul anului, cu aproape 13 puncte sub indice, iar Amazon a făcut +17,66% în același timp. Acțiunea nu se mai mișcă odată cu sectorul ei, pentru că piața n-o mai tranzacționează ca pe un magazin online, ci ca pe o companie de infrastructură pentru inteligență artificială. <b>Clasificarea de sector e o etichetă administrativă, nu o descriere a ce mișcă prețul</b> — o confuzie utilă de evitat. Vremea se notează, dar nu mută nicio culoare.</p>
+
+  <p><b>Ce a mutat prețul.</b> Pe <b>30 iulie 2026</b>, după închiderea pieței, Amazon a raportat trimestrul II: venituri de <b>200,61 mld $</b> (+19,62%) și profit operațional de <b>27,46 mld $</b> (+43,2%). A doua zi acțiunea a urcat <b>15,32%</b>, pe un volum de 128,4 milioane de acțiuni — de peste două ori și jumătate normalul.</p>
+  <p>Cauza nu a fost profitul net, deși el a arătat spectaculos. A fost <b>AWS</b>: divizia de cloud a crescut cu 36,7%, la 42,23 mld $, față de circa 31% cât aștepta piața — al cincilea trimestru consecutiv de accelerare. Conducerea a anunțat în același timp că ridică bugetul de investiții pentru 2026 la <b>~220 mld $</b>, de la ~200 mld $, motivând creșterea prin scumpirea memoriei. Piața a citit ambele ca pe o confirmare a cererii, nu ca pe o cheltuială scăpată de sub control — și exact aici e miza întregului raport.</p>
+  <p>O notă de care ai nevoie înainte de orice altceva: profitul pe acțiune raportat pentru trimestru a fost <b>5,75 $</b>, dar cel ajustat, pe care îl compară analiștii, a fost <b>1,97 $</b> față de 1,82 $ estimat. Diferența dintre cele două cifre e cea mai importantă lecție de aici, și o desface secțiunea 8.</p>
 </section>
 
 <!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
 <section id="s02">
   <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
-  <p>Amazon e trei afaceri foarte diferite lipite într-o singură acțiune, și <strong>cea care aduce banii nu e cea la care se gândește lumea</strong>. Fondată în 1994 de Jeff Bezos, listată din 1997, are astăzi ~1,58 milioane de angajați și e condusă din 2021 de Andy Jassy — omul care construise anterior AWS.</p>
-
+  <p>Amazon e trei afaceri diferite într-un singur bilanț, iar cea la care se gândește lumea nu e cea care aduce banii. A fost fondată în 1994 de Jeff Bezos, e listată din 1997, are astăzi circa <b>1,58 milioane de angajați</b> și e condusă din 2021 de Andy Jassy — omul care construise anterior AWS. Tabelul de mai jos e cel mai util lucru din tot raportul:</p>
   <div class="tw"><table>
-    <thead><tr><th>Segment (FY2025)</th><th>Venituri</th><th>Pondere</th><th>Creștere</th><th>Profit oper.</th><th>Marjă oper.</th></tr></thead>
+    <thead><tr><th>Segment, T2 2026</th><th>Vânzări</th><th>Pondere</th><th>Creștere an/an</th><th>Profit operațional</th><th>Marjă</th></tr></thead>
     <tbody>
-      <tr><td>North America</td><td>426,0 mld $</td><td>59,4%</td><td class="up">+10%</td><td>29,6 mld $</td><td>6,9%</td></tr>
-      <tr><td>International</td><td>162,0 mld $</td><td>22,6%</td><td class="up">+13%</td><td>4,7 mld $</td><td>2,9%</td></tr>
-      <tr class="me"><td>AWS (cloud)</td><td>128,7 mld $</td><td>18,0%</td><td class="up">+20%</td><td>45,6 mld $</td><td>35,4%</td></tr>
+      <tr><td>North America</td><td>116,18 mld $</td><td>57,9%</td><td class="up">+16,1%</td><td>9,12 mld $</td><td>7,85%</td></tr>
+      <tr><td>International</td><td>42,20 mld $</td><td>21,0%</td><td class="up">+14,8%</td><td>1,72 mld $</td><td>4,07%</td></tr>
+      <tr class="me"><td>AWS (cloud)</td><td>42,23 mld $</td><td>21,1%</td><td class="up">+36,8%</td><td>16,62 mld $</td><td>39,36%</td></tr>
+      <tr class="me"><td>Total</td><td>200,61 mld $</td><td>100%</td><td class="up">+19,6%</td><td>27,46 mld $</td><td>13,69%</td></tr>
     </tbody>
   </table></div>
-
-  <p>Citește tabelul pe orizontală, nu pe verticală. <strong>AWS produce 18% din venituri și 57% din profitul operațional.</strong> Comerțul online din America de Nord, care e „Amazon" în mintea oricui, vinde de trei ori mai mult și câștigă de un an și jumătate mai puțin. Comerțul internațional, cu 162 mld $ vânzări, produce 4,7 mld $ profit — o marjă de 2,9%, adică aproape de zero pe scara asta.</p>
-  <p>Consecința practică pentru un investitor: <strong>când AWS accelerează sau încetinește, prețul acțiunii se mișcă; ce se întâmplă cu vânzările de mărfuri contează mult mai puțin.</strong> De aceea trimestrul din iulie 2026 a produs +15% într-o zi — nu pentru că s-au vândut mai multe cutii, ci pentru că AWS a crescut cu 36,7% în loc de 31%.</p>
-  <p>Pe lângă cele trei segmente raportate, două linii de venit merită numite separat pentru că sunt foarte profitabile și cresc repede: <strong>publicitatea</strong> (68,6 mld $ în 2025, 9,6% din total — Amazon e a treia platformă publicitară din lume, vânzând spații de promovare vânzătorilor din propriul magazin) și <strong>abonamentele</strong>, în principal Prime (49,6 mld $, 6,9%).</p>
+  <p>Cifrele sunt din raportul trimestrial depus la SEC pe 31 iul. 2026. <b>AWS aduce 21,1% din vânzări și 60,5% din profitul operațional.</b> Comerțul — cutiile, depozitele, camionetele, tot ce înseamnă „Amazon" pentru majoritatea oamenilor — face patru cincimi din venituri la o marjă între 4% și 8%. Cine cumpără acțiunea Amazon cumpără, în proporție covârșitoare, o companie de cloud cu un magazin foarte mare atașat.</p>
+  <p>De aceea o zi ca 31 iulie 2026 a produs +15% dintr-o dată: nu pentru că s-au vândut mai multe cutii, ci pentru că segmentul care aduce trei sferturi din profit a accelerat. Pe lângă cele trei segmente raportate, două linii merită numite separat pentru că sunt foarte profitabile și cresc repede: <b>publicitatea</b> (68,6 mld $ în 2025 — Amazon e a treia companie de publicitate din lume, vânzând spații de promovare chiar vânzătorilor din propriul magazin) și <b>abonamentele</b>, în principal Prime (49,6 mld $).</p>
 </section>
 
 <!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
@@ -402,33 +404,33 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">03</span><h2>Moat</h2></div>
   <div class="concept">
     <div class="h">CE E UN MOAT</div>
-    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani mulți și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare — asta se întâmplă în majoritatea industriilor.</p>
-    <p>Cele cinci surse clasice, în ordinea durabilității: costurile de schimbare, efectul de rețea, avantajul de cost, activele intangibile și — cel mai fragil dintre toate — brandul.</p>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel: motivul pentru care un concurent cu bani și oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare. Orice companie <i>susține</i> că are avantaje competitive; dovada e în marjă.</p>
   </div>
   <div class="score">
     <div class="row"><span class="k">Costuri de schimbare</span>
-      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">O firmă care și-a mutat toate sistemele pe AWS nu pleacă la un concurent fără să rescrie integrări și să remigreze petabytes de date — un proiect de ani, nu de săptămâni.</span></div>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic la AWS</span>
+      <span class="t">Asimetric, ca la aproape toate companiile cu mai multe afaceri. Pentru cumpărătorul de pe magazin sunt zero — comanzi mâine de altundeva. Pentru un client AWS sunt uriașe: datele stau acolo, aplicațiile sunt scrise pe serviciile lor, echipele sunt instruite pe uneltele lor, iar mutarea la un concurent e un proiect de ani. Contează varianta a doua, pentru că de acolo vin trei sferturi din profit.</span></div>
     <div class="row"><span class="k">Efect de rețea</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">Marketplace-ul: mai mulți cumpărători atrag mai mulți vânzători, care aduc mai multă marfă și prețuri mai bune, care atrag mai mulți cumpărători.</span></div>
+      <span class="t">Marketplace-ul, și e autentic: mai mulți cumpărători atrag mai mulți vânzători, care aduc mai multă marfă și prețuri mai bune, care atrag mai mulți cumpărători. Un rival poate copia site-ul într-un an, dar nu poate copia cei două milioane de vânzători care sunt deja acolo pentru că acolo sunt clienții.</span></div>
     <div class="row"><span class="k">Avantaj de cost / scară</span>
       <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
-      <span class="t">Rețeaua logistică proprie și 220 mld $ pe an în capex — o sumă pe care nimeni în afară de trei-patru companii din lume nu o poate pune pe masă.</span></div>
+      <span class="t">Rețeaua logistică proprie și un buget de investiții de ~220 mld $ pe an — o sumă pe care în lume o pot pune pe masă cel mult patru companii. Livrarea în aceeași zi nu e o funcție care se copiază, e infrastructură care se construiește în zece ani.</span></div>
     <div class="row"><span class="k">Active intangibile</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
-      <span class="t">Cipurile proprii (Trainium, Graviton) reduc dependența de furnizori, dar nu sunt un monopol legal.</span></div>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Slab</span>
+      <span class="t">Nu există brevete sau licențe care să țină concurența afară. Ce are Amazon e execuție și scară, nu protecție legală — iar acesta e chiar tipul de moat pe care reglementarea îl poate ataca, cum se vede în secțiunea 11.</span></div>
     <div class="row"><span class="k">Brand</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Parțial</span>
-      <span class="t">Prime creează obișnuință, dar nimeni nu plătește mai mult pentru același produs doar pentru siglă — în retail brandul e cel mai slab dintre moaturi.</span></div>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Real, dar nu de preț</span>
+      <span class="t">Brandul aduce încredere și obișnuință — te duci pe Amazon fără să te gândești —, dar nu putere de preț: nimeni nu plătește mai mult pentru aceeași cutie pentru că are sigla lor. Testul brandului e prețul, iar aici răspunsul e nu.</span></div>
   </div>
-
-  <div class="concept">
-    <div class="h">DOVADA ÎN CIFRE, NU POVESTEA</div>
-    <p>Orice companie susține în raportul anual că are avantaje competitive. Testul numeric e <strong>marja brută</strong>: dacă poate ține prețuri bune ani la rând fără să piardă clienți, moat-ul e real.</p>
-    <p>La Amazon marja brută a urcat cinci ani consecutiv: <strong>42,0% (FY2021) → 43,8% → 47,0% → 48,9% → 50,3% (FY2025)</strong>, iar în Q2 2026 a ajuns la 52,3%. Opt puncte procentuale câștigate într-o industrie unde toată lumea se plânge de presiunea pe prețuri. Asta nu se poate falsifica prin contabilitate — e cea mai bună dovadă că moat-ul se întărește, nu se erodează.</p>
-    <p>Nuanța onestă: ROIC-ul (cât profit produce fiecare dolar investit în afacere) a coborât de la 20,95% în FY2024 la 16,99% în FY2025 și la ~12,2% pe ultimele 12 luni. Nu pentru că afacerea s-a stricat, ci pentru că numitorul — capitalul investit — a explodat odată cu datacentrele. E firesc, dar înseamnă că verdictul „moat solid" depinde acum și de <em>randamentul acelor investiții</em>, nu doar de afacerea existentă.</p>
+  <p><b>Verdictul: Solid (verde).</b> Trei moaturi din primele trei categorii, adică cele mai durabile, și dovada în cifre pe cinci ani:</p>
+  <div class="stats">
+    <div class="stat"><div class="l">Marjă brută</div><div class="v up">50,77%</div><div class="s">de la 42,03% în 2021</div></div>
+    <div class="stat"><div class="l">Marjă operațională</div><div class="v up">12,08%</div><div class="s">de la 5,30% în 2021</div></div>
+    <div class="stat"><div class="l">ROIC</div><div class="v up">17,46%</div><div class="s">prag de dovadă: ~15%</div></div>
+    <div class="stat"><div class="l">ROE</div><div class="v up">30,56%</div><div class="s">rentabilitatea capitalului propriu</div></div>
   </div>
+  <p>Marja brută a urcat în fiecare an fără excepție: 42,03% → 43,81% → 46,98% → 48,85% → 50,29% → 50,77%. Opt puncte procentuale în cinci ani, la o companie care vinde de 776 mld $ pe an. Nu se face asta cu discounturi; se face mutând mixul spre lucrurile cu marjă mare — cloud, publicitate, abonamente — și împărțind costurile fixe la tot mai multe vânzări. E cel mai solid argument din raport, și e complet independent de povestea cu inteligența artificială.</p>
 </section>
 
 <!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
@@ -436,36 +438,29 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">04</span><h2>Free cash flow</h2></div>
   <div class="concept">
     <div class="h">CE E FREE CASH FLOW</div>
-    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <em>și</em> investițiile în echipamente, clădiri sau servere. Profitul e o opinie contabilă — depinde de cum amortizezi și când recunoști veniturile. Cash flow-ul e un fapt bancar. Formula: cash flow operațional minus capex.</p>
-    <p>Profitul e ce spune contabilul că ai câștigat; free cash flow-ul e ce arată extrasul de cont.</p>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <i>și</i> investițiile. Profitul e o opinie contabilă; cash flow-ul e un fapt bancar. La Amazon, în acest moment, e cifra care contrazice cel mai tare impresia lăsată de titlurile din presă.</p>
   </div>
-
-  <figure class="viz" data-viz="bars">
-    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
-    <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM iun.26"],
-     "series":[{"name":"FCF","values":[-14.7,-16.9,32.2,32.9,7.7,-11.6]}],
-     "suffix":" mld"}
-    </script>
-  </figure>
-
   <figure class="viz" data-viz="lines">
-    <figcaption><b>De unde vine gaura: cash operațional vs. investiții</b><span class="unit">mld USD</span></figcaption>
+    <figcaption><b>Cash flow operațional, investiții și ce rămâne</b><span class="unit">mld USD</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","TTM iun.26"],
-     "series":[{"name":"Cash flow operațional","values":[46.3,46.8,84.9,115.9,139.5,161.4]},
-               {"name":"Investiții (capex)","values":[61.1,63.6,52.7,83.0,131.8,173.0]}],
+    {"labels":["FY21","FY22","FY23","FY24","FY25","ultimele 12 luni"],
+     "series":[{"name":"Cash flow operațional","values":[46.33,46.75,84.95,115.88,139.51,161.40]},
+               {"name":"Investiții (capex)","values":[61.05,63.65,52.73,83.00,131.82,173.03]},
+               {"name":"Free cash flow","values":[-14.73,-16.89,32.22,32.88,7.70,-11.63]}],
      "suffix":" mld"}
     </script>
   </figure>
+  <p>Linia de sus urcă frumos și fără pauză: afacerea produce 161,40 mld $ pe an, de trei ori și jumătate cât acum cinci ani. Linia din mijloc a urcat mai repede și a trecut-o. Rezultatul e linia de jos: din +32,88 mld $ în 2024, la +7,70 mld $ în 2025, la <b>−11,63 mld $</b> pe ultimele 12 luni.</p>
+  <p><b>Verdict: Atenție (galben), de fază.</b> Pragul de roșu cere „negativ în ultimul an <i>fără explicație clară</i>, sau negativ în majoritatea ultimilor 5 ani". Niciuna nu se aplică: explicația e cifrată și anunțată public, iar în ultimii cinci ani fiscali free cash flow-ul a fost negativ în doi (2021, 2022) și pozitiv în trei. Rămâne galbenul, cu clauza „negativ într-un an din cauza unei investiții mari explicabile".</p>
 
-  <p><strong>Afacerea de bază produce cash ca niciodată.</strong> Cash flow-ul operațional a crescut de la 46,3 mld $ în FY2021 la 161,4 mld $ pe ultimele 12 luni — de trei ori și jumătate în cinci ani. Nu asta e problema.</p>
-  <p>Problema e că <strong>investițiile au crescut și mai repede</strong>: 173,0 mld $ în ultimele 12 luni, față de 52,7 mld $ în FY2023. Rezultatul e că free cash flow-ul, după doi ani buni (32,2 mld $ în FY2023, 32,9 mld $ în FY2024), a coborât la 7,7 mld $ în FY2025 și a devenit <strong>negativ, −11,6 mld $, pe ultimele patru trimestre</strong>. Cu bugetul anunțat de ~220 mld $ pentru 2026, gaura nu se închide anul acesta din simplă aritmetică.</p>
-  <p>Semaforul e galben, nu roșu, pentru un motiv precis: <strong>FCF-ul negativ are o explicație declarată și verificabilă</strong> — construcția de capacitate de calcul pentru AI — și e finanțat din cash generat de afacere plus datorie ieftină, nu din emisiune de acțiuni noi. Dar galbenul rămâne galben. Un investitor trebuie să înțeleagă ce cumpără: în momentul de față, Amazon nu îți produce bani liberi. Îi cheltuie pe toți, pariind că datacentrele de azi vor genera profituri mari peste 5-10 ani. Poate fi o decizie excelentă. Este, sigur, un pariu.</p>
   <div class="concept">
-    <div class="h">CAPCANA CU PLATA ÎN ACȚIUNI</div>
-    <p>Compensarea în acțiuni (<em>stock-based compensation</em>, SBC) a fost de 19,3 mld $ pe ultimele 12 luni. Nu iese numerar din companie, deci nu apasă pe FCF — dar te costă pe tine, ca acționar, prin diluție (vezi secțiunea 6). Raportat la venituri e doar 2,5%, foarte puțin pentru o companie de tehnologie. Raportat la free cash flow-ul de azi, e infinit — pentru că FCF-ul e negativ.</p>
+    <div class="h">DE CE „DE FAZĂ" ȘI NU „STRUCTURAL" — CELE TREI CONDIȚII, PE RÂND</div>
+    <p><b>1. Cauza e investiția, nu operarea.</b> Cash flow-ul operațional e +161,40 mld $ și a crescut cu 33,24% față de anul trecut. Arderea vine integral din capex: 173,03 mld $ pe 12 luni, față de 83,00 mld $ în 2024. Capexul e de aproape cincisprezece ori mai mare decât free cash flow-ul negativ luat în valoare absolută, deci condiția e îndeplinită fără urmă de dubiu.</p>
+    <p><b>2. Finanțarea se vede în cifre.</b> Din bilanțul depus la SEC pe 31 iul. 2026, pentru 30 iun. 2026: <b>78,21 mld $ numerar plus 44,78 mld $ investiții pe termen scurt = 122,99 mld $</b>. Arderea medie pe ultimele patru trimestre e 2,91 mld $ pe trimestru, ceea ce dă o pistă de peste <b>40 de trimestre</b>. Regula cere însă să arăt și varianta severă, pentru că arderea accelerează prin plan: la ritmul ultimului trimestru singur (−8,82 mld $), pista e de <b>~14 trimestre</b>. Ambele sunt mult peste pragul de patru, deci condiția trece lejer indiferent cum o măsori. La asta se adaugă 70 mld $ de datorie nouă contractată în ultimele șase luni — finanțarea e vizibilă, nu presupusă.</p>
+    <p><b>3. Există un prag numit, cu dată.</b> Pe <b>30 iul. 2026</b> conducerea a ridicat bugetul de investiții pentru 2026 la <b>~220 mld $</b>, de la ~200 mld $. Tot atunci a comunicat un <b>backlog AWS de 496 mld $</b>, în creștere de peste trei cifre procentuale, și un ritm anualizat AWS de 169 mld $. Backlogul e reperul cel mai util din tot raportul, pentru că e cererea deja contractată pusă lângă capacitatea care se construiește.</p>
+    <p>Toate trei sunt îndeplinite, deci eticheta e „de fază". Ce <b>nu</b> înseamnă: că e în regulă. Eticheta spune „normal pentru stadiul ăsta, uite cum verifici dacă merge", nu „nu-ți face griji". Amazon a mai avut o fază de supra-investiție, în depozite, în 2021–2022 — iar rezultatul ei a fost singurul an cu pierdere din serie, 2022.</p>
   </div>
+  <p>O comparație de rigoare, cerută de grilă: <b>free cash flow-ul e mult sub profitul net</b> — −11,63 mld $ față de +135,28 mld $. La majoritatea companiilor asta ar fi un semnal de alarmă că banii se blochează în stocuri sau creanțe. Aici sunt două cauze diferite și amândouă contează: o parte e capexul, care e o alegere, iar cealaltă e că profitul net conține 69,38 mld $ de câștiguri care nu sunt bani — vezi secțiunea 8. Când profitul e de zece ori mai mare decât cash-ul, prima întrebare e întotdeauna care dintre cele două cifre descrie realitatea.</p>
 </section>
 
 <!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
@@ -473,30 +468,36 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">05</span><h2>Cash vs. datorii</h2></div>
   <div class="concept">
     <div class="h">DE CE CONTEAZĂ</div>
-    <p>Cifra care contează nu e datoria brută, ci <strong>datoria netă</strong> = datorie totală minus banii pe care compania îi are deja. Iar aceasta se citește raportat la EBITDA (profitul operațional înainte de amortizare): un raport de 4× înseamnă că, dacă ar folosi tot profitul operațional exclusiv pentru datorii, i-ar lua patru ani să scape de ele.</p>
-    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic; una îndatorată e forțată să ia decizii proaste la momentul cel mai prost.</p>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic; una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost. Măsura standard e <b>datoria netă împărțită la EBITDA</b>.</p>
   </div>
-
   <figure class="viz">
-    <figcaption><b>Poziția financiară netă (30 iun. 2026)</b><span class="unit">mld USD</span></figcaption>
+    <figcaption><b>Poziția financiară netă la 30 iun. 2026</b><span class="unit">mld USD</span></figcaption>
     <div class="split">
-      <div class="r"><span class="k">Cash și investiții</span>
-        <span class="t"><span class="f" style="width:55.1%;background:var(--accent)"></span></span>
-        <span class="v">123,0</span></div>
       <div class="r"><span class="k">Datorie totală</span>
         <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
-        <span class="v">223,2</span></div>
+        <span class="v">223,23</span></div>
+      <div class="r"><span class="k">Cash și investiții</span>
+        <span class="t"><span class="f" style="width:55.1%;background:var(--accent)"></span></span>
+        <span class="v">122,99</span></div>
     </div>
   </figure>
-
   <div class="stats">
-    <div class="stat"><div class="l">Poziție netă</div><div class="v down">−100,2 mld $</div><div class="s">datorie netă</div></div>
-    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">0,59×</div><div class="s">prag de risc: 3,0×</div></div>
-    <div class="stat"><div class="l">Datorie totală / capitaluri</div><div class="v">0,40</div><div class="s">la 30 iun. 2026</div></div>
+    <div class="stat"><div class="l">Datorie netă</div><div class="v">100,24 mld $</div><div class="s">datorie minus cash</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v up">0,59×</div><div class="s">prag de risc: 3,0×</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,40</div><div class="s">capitaluri proprii 551,62 mld $</div></div>
   </div>
-
-  <p>La 0,59× EBITDA, Amazon ar putea rambursa <em>toate</em> datoriile nete din profitul operațional a șapte luni. E printre cele mai confortabile poziții posibile pentru o companie de mărimea asta. EBITDA-ul de ~169 mld $ folosit în calcul nu apare direct pe surse — l-am dedus din EV/EBITDA de 17,94 aplicat unei valori de întreprindere de 3,03 T$, iar cifra se confirmă independent prin raportul Datorie/EBITDA de 1,32 publicat pe aceeași sursă.</p>
-  <p>Nuanța care merită urmărită: <strong>datoria totală a crescut de la 153,0 mld $ (31 dec. 2025) la 223,2 mld $ (30 iun. 2026)</strong> — 70 de miliarde în șase luni, împrumutate ca să finanțeze datacentrele. Deocamdată e o decizie rațională, pentru că afacerea produce 161 mld $ cash operațional pe an și acoperă dobânzile fără efort. Dar direcția e clară, iar dacă ritmul continuă doi-trei ani în timp ce FCF-ul rămâne negativ, semaforul ăsta nu mai rămâne verde. E cifra pe care merită să o verifici la fiecare raportare.</p>
+  <p><b>Verdict: Solid (verde).</b> La 0,59× EBITDA, Amazon ar putea rambursa toată datoria netă din circa șapte luni de profit operațional brut. Pragul de risc e 3,0×, de cinci ori mai sus. Nu există aici o problemă de solvabilitate.</p>
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Datoria totală, trimestru cu trimestru</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["dec 24","mar 25","iun 25","sep 25","dec 25","mar 26","iun 26"],
+     "series":[{"name":"Datorie totală","values":[130.90,133.25,133.94,135.42,152.99,209.89,223.23]},
+               {"name":"Datorie netă","values":[29.70,38.68,40.76,41.22,29.96,66.80,100.24]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+  <p><b>Ce merită văzut e viteza, nu nivelul.</b> Timp de cinci trimestre datoria a stat aproape neclintită, în jurul a 133 mld $. Apoi, în șase luni, a urcat la 223,23 mld $ — plus 70 mld $ — iar datoria netă s-a mai mult decât dublat, de la 41 la 100 mld $. Nu e o coincidență de calendar: sunt exact trimestrele în care capexul a trecut de la 35 la 54 mld $ pe trimestru.</p>
+  <p>Așa arată finanțarea unei faze când devine vizibilă în bilanț. Nu schimbă culoarea, pentru că raportul e în continuare de cinci ori sub prag și pentru că banii se duc în active reale, nu în acoperirea pierderilor. Dar schimbă întrebarea pe care merită să ți-o pui: nu „poate Amazon să-și plătească datoriile" — evident că poate —, ci „ce se întâmplă cu profitul dacă activele cumpărate cu banii ăștia nu produc veniturile pentru care au fost cumpărate". Sensibilitatea la refinanțare e treaba acestui pilon, nu a celui de expunere; nu se dublează.</p>
 </section>
 
 <!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
@@ -504,29 +505,28 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție</h2></div>
   <div class="concept">
     <div class="h">CIFRA CARE CONTEAZĂ</div>
-    <p>Nu suma cheltuită pe răscumpărări, ci <strong>evoluția numărului de acțiuni</strong>. Când o companie emite acțiuni noi, felia ta se micșorează chiar dacă numărul tău de acțiuni rămâne același — asta e diluția, cea mai discretă formă de pierdere pentru un investitor de retail, pentru că nu apare niciodată în portofoliu.</p>
-    <p>E ca și cum ai pierde o feliuță din tort în fiecare an, fără să fi mâncat nimic.</p>
+    <p>Nu suma cheltuită pe răscumpărări, ci evoluția numărului de acțiuni. Aici socoteala e neobișnuit de simplă, pentru că Amazon nu răscumpără nimic: numărul de acțiuni spune singur toată povestea.</p>
   </div>
-
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Acțiuni în circulație (sursă: SEC EDGAR)</b><span class="unit">miliarde</span></figcaption>
+    <figcaption><b>Acțiuni în circulație (coperta formularelor depuse la SEC)</b><span class="unit">milioane</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25","iul. 26"],
-     "series":[{"name":"Acțiuni în circulație","values":[10.18,10.25,10.39,10.60,10.73,10.79]}]}
+    {"labels":["aug 25","oct 25","feb 26","apr 26","iul 26"],
+     "series":[{"name":"Acțiuni în circulație","values":[10664.9,10690.2,10734.9,10757.1,10786.3]}]}
     </script>
   </figure>
-
   <div class="stats">
-    <div class="stat"><div class="l">Variație FY21 → FY25</div><div class="v down">+5,5%</div><div class="s">felia ta s-a micșorat</div></div>
-    <div class="stat"><div class="l">Diluție anuală</div><div class="v down">~1,3%</div><div class="s">medie pe 4 ani</div></div>
-    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">nu plătește dividend</div></div>
-    <div class="stat"><div class="l">Randament buyback</div><div class="v">0%</div><div class="s">niciun buyback din 2022</div></div>
+    <div class="stat"><div class="l">Variație 12 luni</div><div class="v down">+1,14%</div><div class="s">felia ta a scăzut</div></div>
+    <div class="stat"><div class="l">Răscumpărări (12 luni)</div><div class="v down">0 $</div><div class="s">ultima oară în 2022, 6 mld $</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0%</div><div class="s">niciun dividend, niciodată</div></div>
+    <div class="stat"><div class="l">Randament total acționar</div><div class="v down">0%</div><div class="s">nici dividend, nici răscumpărări</div></div>
   </div>
-
-  <p>Aici e cel mai puțin flatant capitol al analizei, și e unul pe care presa nu-l scrie niciodată. Numărul de acțiuni a crescut de la <strong>10,18 miliarde (sfârșitul lui FY2021, ajustat pentru splitul 20:1 din iunie 2022) la 10,79 miliarde în iulie 2026</strong> — o creștere de 5,5%, adică aproximativ 1,3% pe an. Cifrele sunt din raportările depuse la SEC, nu estimate.</p>
-  <p><strong>Randamentul total pentru acționar e zero — de fapt, negativ.</strong> Amazon nu plătește dividend. Nu a mai răscumpărat acțiuni de la cele 6 mld $ din 2022. Iar în fiecare an emite acțiuni noi pentru angajați. Suma: partea ta din companie scade cu ~1,3% pe an, automat, fără să faci nimic.</p>
-  <p>Asta nu e neapărat rău — și e important de înțeles de ce. O companie care reinvestește tot cash-ul cu randamente bune creează mai multă valoare decât una care îl împarte. Dacă cele 220 mld $ de capex produc peste ani profituri pe măsură, acționarii câștigă mult mai mult decât din 1,3% dividend. Dar e o alegere, iar consecința practică pentru tine e clară: <strong>singura ta sursă de randament la Amazon e creșterea prețului acțiunii.</strong> Nu primești nimic pe drum. Cine caută venit dintr-un portofoliu trebuie să știe asta dinainte.</p>
-  <p>Semaforul e galben și nu roșu pentru că 1,3% pe an e sub pragul de 2% la care diluția devine alarmantă — dar e la marginea proastă a galbenului, și tendința nu s-a inversat de cinci ani.</p>
+  <p><b>Verdict: Atenție (galben), structural.</b> Numărul de acțiuni crește constant, cu circa 0,25% pe trimestru — de la 10.664,9 milioane (1 aug. 2025) la 10.786,3 milioane (31 iul. 2026), adică <b>+1,14% pe an</b>. E peste banda de ±1% care definește „aproximativ plat", dar sub pragul de ~2% de la care rândul ar deveni roșu. Cifrele sunt de pe coperta formularelor depuse la SEC, nu derivate din alte mărimi.</p>
+  <div class="concept">
+    <div class="h">CE ÎNSEAMNĂ „RANDAMENT TOTAL ZERO" ȘI DE CE NU E NEAPĂRAT RĂU</div>
+    <p>Un începător compară instinctiv doar dividendele și conchide că o companie fără dividend „nu-i dă nimic". La celelalte companii din acest folder răspunsul e că le dă prin răscumpărări. La Amazon nu: <b>nici dividend, nici răscumpărări, deci randament direct zero</b>, iar felia ta scade cu 1,14% pe an. Tot ce câștigi trebuie să vină din creșterea prețului.</p>
+    <p>Asta nu e automat un lucru rău. O companie care are unde să investească fiecare dolar cu o rentabilitate de 17,46% face mai bine reinvestindu-i decât dându-i înapoi, iar Amazon exact asta susține că face cu cele 220 mld $ pe an. Judecata corectă e deci condiționată: <i>merită dacă rentabilitatea investiției se menține</i>. Dacă nu se menține, ai o companie care nu-ți dă nimic și nici nu crește — cazul cel mai prost dintre toate. De aceea rândul e galben și nu verde.</p>
+  </div>
+  <p><b>De ce eticheta e „structural" și nu „de fază".</b> Regula spune că eticheta se acordă doar dacă investiția e cauza <i>dominantă</i> a culorii acelui rând. Aici nu e: diluția vine din plata în acțiuni a angajaților, o politică permanentă de remunerare, iar ritmul ei e neschimbat de ani. Amazon nu emite acțiuni ca să-și finanțeze construcția — pentru asta emite obligațiuni, 70 mld $ în ultimele șase luni. Sunt două mecanisme diferite și nu trebuie confundate. Rândul ar fi fost galben și fără nicio construcție de centre de date.</p>
 </section>
 
 <!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
@@ -534,39 +534,31 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">07</span><h2>Creștere și marje</h2></div>
   <div class="concept">
     <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
-    <p>Veniturile pot fi cumpărate cu discounturi sau cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — o companie care nu mai poate o vede aici întâi, cu ani înainte să apară în profit.</p>
+    <p>Veniturile pot fi cumpărate cu discounturi și cu achiziții. Profitul net poate fi ajustat contabil — și la Amazon chiar a fost, masiv. Marja brută arată direct dacă compania mai poate cere prețul ei, și e indicatorul cu cea mai mare valoare de semnal din tot raportul.</p>
   </div>
-
   <figure class="viz" data-viz="lines">
     <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["FY21","FY22","FY23","FY24","FY25"],
-     "series":[{"name":"Marjă brută","values":[42.03,43.81,46.98,48.85,50.29]},
-               {"name":"Marjă operațională","values":[5.30,2.38,6.41,10.75,11.16]},
-               {"name":"Marjă netă","values":[7.10,-0.53,5.30,9.30,10.91]}],
+    {"labels":["FY21","FY22","FY23","FY24","FY25","12 luni"],
+     "series":[{"name":"Marjă brută","values":[42.03,43.81,46.98,48.85,50.29,50.77]},
+               {"name":"Marjă operațională","values":[5.30,2.38,6.41,10.75,11.16,12.08]},
+               {"name":"Marjă netă","values":[7.10,-0.53,5.30,9.30,10.91,17.51]}],
      "suffix":"%"}
     </script>
   </figure>
-
-  <p>Graficul spune o poveste de redresare rar de găsit la o companie de această mărime. În FY2022 Amazon a pierdut bani (marjă netă −0,53%) și abia a mai fost profitabilă operațional (2,38%). Trei ani mai târziu, marja operațională e de <strong>11,16%</strong> — de aproape cinci ori mai mare — pe venituri cu 39% mai mari. Asta e <em>operating leverage</em>: costurile fixe (depozite, camioane, oameni) se împart la tot mai multe vânzări, iar fiecare dolar suplimentar de vânzări lasă mult mai mult profit decât precedentul. E mecanismul din spatele multor povești de succes în bursă și merită recunoscut când îl vezi.</p>
+  <p>Marja brută urcă în fiecare an, fără o singură excepție. Marja operațională a mai mult decât dublat din 2021. Când marja operațională crește mai repede decât veniturile — de la 5,30% la 12,08% în timp ce veniturile au crescut cu 65% — asta se numește <i>operating leverage</i>: costurile fixe se împart la tot mai multe vânzări. E mecanismul din spatele multor povești de succes în bursă, iar la Amazon are un motor identificabil: mixul se mută spre cloud, publicitate și abonamente.</p>
+  <p>Linia de jos, marja netă, sare la 17,51% pe ultimele 12 luni. <b>Aceea e singura dintre cele trei care minte</b>, și e explicată în secțiunea următoare.</p>
 
   <figure class="viz" data-viz="lines">
-    <figcaption><b>Creșterea veniturilor pe trimestre (față de același trimestru din anul anterior)</b><span class="unit">%</span></figcaption>
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
     <script type="application/json">
-    {"labels":["Q3 24","Q4 24","Q1 25","Q2 25","Q3 25","Q4 25","Q1 26","Q2 26"],
-     "series":[{"name":"Creștere venituri an/an","values":[11.04,10.49,8.62,13.33,13.40,13.63,16.61,19.62]}],
+    {"labels":["T4 24","T1 25","T2 25","T3 25","T4 25","T1 26","T2 26"],
+     "series":[{"name":"Total companie","values":[10.49,8.62,13.33,13.40,13.63,16.61,19.62]}],
      "suffix":"%"}
     </script>
   </figure>
-
-  <div class="concept">
-    <div class="h">PIAȚA TRANZACȚIONEAZĂ RITMUL, NU MEDIA</div>
-    <p>Cifrele anuale ascund ce s-a întâmplat în ultimele trimestre. Cea mai frecventă nedumerire a unui începător — „a raportat rezultate bune și acțiunea a scăzut" — are de obicei aici răspunsul: creșterea încetinise, chiar dacă rămăsese impresionantă. Se numește <em>decelerare</em>, și e o veste proastă pentru piață chiar când cifrele arată bine, pentru că prețul plătit ieri presupunea ritmul de ieri.</p>
-    <p>La Amazon se întâmplă exact invers, și de aceea acțiunea a sărit 15% într-o zi: <strong>creșterea accelerează de cinci trimestre la rând, de la +8,62% în Q1 2025 la +19,62% în Q2 2026</strong>. O companie de 717 miliarde dolari venituri care crește mai repede în fiecare trimestru e o anomalie statistică — legea numerelor mari spune că ar trebui să încetinească.</p>
-  </div>
-
-  <p>Semaforul e verde fără rezerve pe cifre. Rezerva pe care ți-o pui singur e alta: <strong>extrapolarea creșterii recente e una dintre cele mai scumpe greșeli din investiții.</strong> Accelerarea vine dintr-un val de cerere pentru capacitate de calcul AI. Valurile se retrag. Întrebarea de pus la fiecare raportare nu e „a crescut?", ci „AWS a crescut cu mai mult sau cu mai puțin decât trimestrul trecut?".</p>
-  <p>O ultimă corecție de perspectivă: pentru că numărul de acțiuni crește cu ~1,3% pe an, creșterea care ajunge efectiv la tine e cu ~1,3 puncte procentuale mai mică decât cea totală. La +19,6% venituri, partea ta a crescut cu ~18,1%. Diferența e mică aici, dar reflexul de a face scăderea e valoros la orice altă companie.</p>
+  <p><b>Verdict: Solid (verde).</b> Pragul cere venituri în creștere în 4 din 5 ani — sunt în toți cinci — și marjă brută stabilă sau în urcare, ceea ce e cazul cu vârf și îndesat. Iar clauza care de obicei coboară un verde anual la galben cere o încetinire clară în ultimele trei-patru trimestre; aici se întâmplă exact invers, ritmul a urcat de la 8,62% la 19,62% în șase trimestre. Motorul e AWS, cu +36,8% și al cincilea trimestru consecutiv de accelerare.</p>
+  <p>O nuanță cerută de grilă, pentru că numărul de acțiuni crește: la o diluție de 1,14% pe an, creșterea pe acțiune e cu circa un punct procentual sub cea totală. Partea ta e a doua cifră, nu prima — dar la un ritm de aproape 20% diferența nu schimbă concluzia.</p>
 </section>
 
 <!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
@@ -574,76 +566,70 @@ footer b{color:var(--ink-2)}
   <div class="sec"><span class="n">08</span><h2>Evaluare</h2></div>
 
   <div class="concept">
-    <div class="h">ATENȚIE: P/E-UL AFIȘAT E ÎNȘELĂTOR</div>
-    <p>Orice site îți va arăta acum un <strong>P/E de 21,84</strong> pentru Amazon — sub media pieței, aparent o afacere bună pentru o companie care crește cu 20%. Cifra e corectă aritmetic și greșită ca informație.</p>
-    <p>Profitul pe acțiune din ultimele 12 luni (12,43 $) conține <strong>~70 mld $ de câștiguri contabile înainte de taxe din reevaluarea participației în Anthropic</strong> — 16,8 mld $ în Q1 2026 și 53,4 mld $ în Q2 2026. Sunt cifre pe hârtie: valoarea unei dețineri a fost rescrisă în sus, nu au intrat bani în cont, și se pot rescrie la fel de ușor în jos.</p>
-    <p>Cifra onestă: în Q2 2026, câștigul pe acțiune <em>ajustat</em> a fost 1,97 $, față de 5,75 $ raportat. Anualizat brut (1,97 × 4 = 7,88 $), asta dă un <strong>P/E în jur de 34,5</strong> — calcul propriu, aproximativ, pentru că trimestrul patru e cel mai mare la Amazon și un singur trimestru anualizat e o unealtă grosieră. Dar ordinul de mărime e corect, iar diferența față de 21,8 e enormă.</p>
+    <div class="h">ÎNTÂI, DE CE P/E-UL DE 21,84 E FALS-IEFTIN</div>
+    <p>Amazon pare, la prima vedere, mai ieftină decât Microsoft și cam cât Alphabet. Nu e, iar motivul e cea mai utilă lecție de contabilitate din tot folderul.</p>
+    <p>Profitul net pe ultimele 12 luni e 135,28 mld $, în timp ce profitul <b>operațional</b> — banii făcuți din vânzarea de lucruri către clienți — e 93,71 mld $. Diferența vine din venituri nonoperaționale de <b>69,38 mld $ înainte de impozit, înregistrate doar în semestrul I 2026</b>, din care <b>62,81 mld $ sunt „ajustări în sus ale participațiilor în companii private"</b> — cifra e chiar așa numită în nota depusă la SEC pe 31 iul. 2026. Doar în trimestrul II au fost 50,49 mld $.</p>
+    <p>Ce înseamnă practic: Amazon deține participații în companii private care nu se tranzacționează la bursă, iar când o rundă nouă de finanțare le stabilește un preț mai mare, Amazon își rescrie deținerea în sus și trece diferența ca profit. <b>Nu a intrat niciun dolar în cont.</b> Se poate rescrie la fel de ușor în jos. Compania însăși semnalează asta: profitul pe acțiune raportat pe trimestru a fost 5,75 $, dar cel ajustat, pe care îl compară analiștii, a fost 1,97 $.</p>
+    <p>Aritmetica de corecție, cu ipoteza scrisă: dacă scoți cele 69,38 mld $ și le impozitezi la rata efectivă a semestrului (23,0%), profitul pe 12 luni ar fi în jur de <b>81,9 mld $</b> în loc de 135,28 mld $, profitul pe acțiune ar fi ~7,59 $ în loc de 12,43 $, iar <b>P/E-ul ar fi ~36, nu 21,84</b>. Nu e o cifră de pe nicio sursă, e o ilustrație cu premisa la vedere — dar ordinul de mărime e ce contează.</p>
   </div>
 
   <div class="tw"><table>
-    <thead><tr><th>Companie</th><th>P/E</th><th>P/E prospectiv</th><th>P/FCF</th><th>Marjă brută</th><th>Marjă oper.</th><th>ROIC</th><th>Poziție netă</th></tr></thead>
+    <thead><tr><th>Companie</th><th>P/E afișat</th><th>P/FCF</th><th>Marjă brută</th><th>Marjă operațională</th><th>Venituri (12 luni)</th><th>ROIC</th></tr></thead>
     <tbody>
-      <tr class="me"><td>Amazon (AMZN)</td><td>21,84</td><td>29,47</td><td>n/a</td><td>50,3%</td><td>11,2%</td><td>12,2%</td><td>−100,2 mld $</td></tr>
-      <tr><td>Microsoft (MSFT)</td><td>25,89</td><td>23,71</td><td>51,5</td><td>67,9%</td><td>46,8%</td><td>26,2%</td><td>−52,2 mld $</td></tr>
-      <tr><td>Alphabet (GOOGL)</td><td>17,87</td><td>26,81</td><td>81,8</td><td>60,9%</td><td>33,1%</td><td>24,9%</td><td>+121,7 mld $</td></tr>
-      <tr><td>Walmart (WMT)</td><td>39,15</td><td>37,34</td><td>70,5</td><td>25,0%</td><td>4,2%</td><td>13,8%</td><td>−64,8 mld $</td></tr>
+      <tr class="me"><td>AMZN</td><td>21,84 <i>(~36 curățat)</i></td><td>n/a — FCF negativ</td><td>50,77%</td><td>12,08%</td><td>775,68 mld $</td><td>17,46%</td></tr>
+      <tr><td>Microsoft (MSFT)</td><td>25,89</td><td>51,52</td><td>67,94%</td><td>46,78%</td><td>331,84 mld $</td><td>24,22%</td></tr>
+      <tr><td>Alphabet (GOOGL)</td><td>17,89</td><td>81,83</td><td>60,94%</td><td>33,96%</td><td>446,31 mld $</td><td>32,33%</td></tr>
+      <tr><td>Walmart (WMT)</td><td>39,17</td><td>70,50</td><td>24,98%</td><td>4,16%</td><td>725,30 mld $</td><td>15,01%</td></tr>
     </tbody>
   </table></div>
-  <p style="font-size:12px;color:var(--ink-3)">Toate cifrele de pe paginile de statistici stockanalysis.com, 1 aug. 2026, cu excepția marjelor Amazon (an fiscal 2025, raportul anual). Amazon e comparată cu Microsoft și Alphabet pentru partea de cloud și cu Walmart pentru partea de retail — sunt afaceri diferite în aceeași acțiune, iar un singur competitor ar compara doar jumătate de companie. Cel mai apropiat rival din cloud după acești doi e Oracle; în retailul online occidental, Shopify pe partea de infrastructură pentru comercianți.</p>
+  <p>Trei competitori aleși pentru cele două afaceri reale ale companiei: Microsoft și Alphabet sunt rivalii direcți ai AWS pe cloud, Walmart e rivalul direct pe comerț și singura companie din lume care vinde mai mult. Multiplii peers-ilor sunt calculați la aceeași închidere de 31 iulie 2026 ca ai Amazon, ca să nu compar zile diferite. Coloana marjei operaționale arată de ce Amazon e o companie hibridă: 12,08% e mult sub Microsoft și Alphabet, dar de trei ori peste Walmart.</p>
+  <p><b>Concluzia comparației se răstoarnă când folosești cifra curățată.</b> La P/E-ul afișat de 21,84, Amazon e sub mediana peers (25,89) și pare rezonabilă. La ~36, e peste toate cele trei, mai scumpă chiar și decât Walmart. Pe free cash flow comparația nici nu se poate face, pentru că al Amazonului e negativ — ceea ce e în sine informativ: dintre cele patru, e singura care momentan nu produce cash liber.</p>
 
-  <p>Ce spune tabelul, pe rând:</p>
-  <ul class="list">
-    <li><strong>P/FCF: n/a.</strong> Nu e o eroare de afișare — e răspunsul. Amazon nu are free cash flow pozitiv pe ultimele 12 luni, deci indicatorul nu se poate calcula. Toți ceilalți trei îl au. E cea mai concisă descriere a diferenței dintre Amazon de azi și un competitor matur.</li>
-    <li><strong>Marjele sunt structural mai mici</strong> pentru că 82% din venituri vin din comerț, o afacere de volum. Comparația corectă nu e „Amazon are marje mai proaste ca Microsoft", ci „AWS singur are marjă operațională de 35,4%, în aceeași ligă cu ei, iar restul companiei trage media în jos".</li>
-    <li><strong>P/E-ul prospectiv de 29,47 e în linie cu Alphabet (26,81)</strong> și mai mare decât Microsoft (23,71). Amazon nu e ieftină față de colegii ei. Nici absurdă.</li>
-    <li><strong>Este singura din grup fără dividend și fără buyback</strong> (vezi secțiunea 6).</li>
-  </ul>
-
-  <div class="concept">
-    <div class="h">FAȚĂ DE PROPRIA ISTORIE</div>
-    <p>A doua axă de comparație, și cea mai iertătoare pentru Amazon. P/E-ul ei la sfârșitul fiecărui an fiscal: <strong>51,5 (FY2021) · negativ (FY2022) · 52,4 (FY2023) · 39,7 (FY2024) · 32,2 (FY2025)</strong>. Un P/E curățat de ~34 e sub media propriilor ultimi cinci ani.</p>
-    <p>Același lucru pe EV/EBITDA, indicatorul cel mai puțin afectat de câștigurile contabile din investiții: <strong>17,94 astăzi</strong>, față de o medie de ~20,3 pe ultimii cinci ani (28,94 · 17,18 · 19,02 · 19,39 · 17,20). Cu alte cuvinte, față de cum a fost evaluată ea însăși în trecut, Amazon nu e scumpă — deși prețul e la maxim istoric. Cele două afirmații nu se contrazic: prețul a urcat mai încet decât profitul.</p>
+  <div class="stats">
+    <div class="stat"><div class="l">P/E afișat vs. media proprie 5 ani</div><div class="v up">21,84 vs. 43,93</div><div class="s">media pe cei 4 ani cu profit</div></div>
+    <div class="stat"><div class="l">EV/EBITDA vs. media proprie</div><div class="v up">18,10 vs. 20,35</div><div class="s">cu 11,1% sub</div></div>
+    <div class="stat"><div class="l">P/S vs. media proprie</div><div class="v down">3,78 vs. 3,02</div><div class="s">cu 25,2% peste</div></div>
   </div>
-
-  <div class="concept">
-    <div class="h">RANDAMENTUL PROFITULUI VS. DOBÂNDA FĂRĂ RISC</div>
-    <p>P/E-ul citit invers arată cât „produce" compania la prețul de azi. La un P/E curățat de ~34,5, Amazon produce <strong>~2,9% pe an</strong> în profit. Obligațiunile americane pe 10 ani dădeau <strong>4,75%</strong> pe 31 iulie 2026, fără niciun risc.</p>
-    <p>Diferența de aproape două puncte procentuale, în minus, e exact ce plătește cumpărătorul de azi pentru creșterea viitoare. Nu e o prognoză — e o comparație între două fapte de azi. Dacă acea creștere vine, prețul e rezonabil; dacă nu vine, ai plătit pentru ceva ce nu s-a întâmplat, iar alternativa fără risc te-ar fi plătit mai bine în fiecare an de așteptare.</p>
-  </div>
+  <p>Față de propria istorie, imaginea e din nou împărțită. EV/EBITDA — indicatorul cel mai puțin atins de câștigurile contabile, pentru că se oprește deasupra lor — e 18,10 față de o medie proprie pe cinci ani de 20,35, deci ușor sub. P/S e 3,78 față de 3,02, deci cu un sfert peste. P/E-ul afișat pare la jumătate față de istoric, dar am văzut de ce nu se poate folosi. <b>Când trei indicatori arată în direcții diferite, răspunsul onest nu e să alegi unul, ci să spui că evaluarea e în linie și incertă</b> — exact ce înseamnă galbenul.</p>
 
   <div class="concept">
     <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
-    <p>Un multiplu nu e o etichetă de „scump" sau „ieftin". E o afirmație despre viitor pe care piața a făcut-o deja, iar tu pariezi alături de ea sau împotriva ei.</p>
-    <p>La 2,93 T$ capitalizare și un profit ajustat anualizat de ordinul a 85 mld $, prețul de azi presupune, în linii mari, că <strong>AWS își menține ani buni ritmul de creștere de peste 30% și că cele 220 mld $ investite anual produc profituri pe măsură</strong>. Estimarea consensului pentru veniturile FY2026 e de 825,6 mld $ (+15,2%). Dacă AWS încetinește la 20%, aceeași companie va arăta perfect sănătoasă în raportări și acțiunea poate scădea serios — pentru că prețul de azi nu presupunea 20%.</p>
-    <p>Asta explică fenomenul care derutează cel mai tare un începător: <em>o companie raportează rezultate excelente și acțiunea scade</em>. Nu e irațional. Rezultatele au fost bune, dar mai slabe decât ce era deja în preț.</p>
+    <p>Diferența dintre P/E-ul curent și cel prospectiv arată ce creștere e deja inclusă în preț. Aici raportul e neobișnuit: de la un P/E afișat de 21,84 la un P/E prospectiv de <b>~25,9</b>, adică multiplul <i>urcă</i>. Nu e o eroare — e chiar confirmarea a tot ce scrie mai sus: piața știe că profitul de anul acesta conține câștiguri care nu se repetă, deci se așteaptă ca profitul contabil să <i>scadă</i> anul viitor, chiar dacă afacerea merge bine. Un P/E prospectiv mai mare decât cel curent e semnalul standard că profitul raportat conține ceva excepțional.</p>
+    <p>Al doilea reper: <i>randamentul profitului</i>, P/E-ul citit invers. La P/E-ul curățat de ~36, compania „produce" 2,8% pe an la prețul de azi. Obligațiunile americane pe 10 ani, fără practic niciun risc, dau 4,75% (31 iul. 2026). Diferența de aproape două puncte procentuale, în minus, e exact ce plătește cumpărătorul de azi pentru creșterea viitoare. E o comparație între două fapte de azi, nu o prognoză.</p>
   </div>
-
-  <p><strong>De reținut:</strong> evaluarea nu e un semnal de moment potrivit. O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat.</p>
+  <p><b>Verdict: Atenție (galben), structural.</b> Cele trei axe: <i>față de propria istorie</i> — sub pe EV/EBITDA, peste pe P/S, imposibil de citit pe P/E; <i>față de competitori</i> — sub mediana pe cifra afișată, peste toți pe cea curățată; <i>față de propria creștere</i> — venituri +19,6% și AWS +36,8% justifică un multiplu ridicat, dar nu orice multiplu. Pragul de verde cere „sub media proprie <b>și</b> sub competitori", ceea ce nu se susține pe cifra onestă; pragul de roșu cere „semnificativ peste ambele", ceea ce iarăși nu e clar cazul. Rămâne galbenul. Rândul e mereu structural: prețul de azi e un fapt despre azi, nu o etapă.</p>
+  <div class="concept">
+    <div class="h">EVALUAREA NU E UN SEMNAL DE MOMENT</div>
+    <p>Acțiunea e la 2,5% de maximul ei istoric după ce a urcat 15% într-o zi. Nici asta, nici P/E-ul nu-ți spun ce face prețul luna viitoare. O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat. Ce spune secțiunea asta e doar pe ce pariezi la 271,58 $: pe faptul că AWS își menține ritmul destul cât cele 220 mld $ de investiții anuale să se transforme în profit operațional înainte să se transforme în amortizare.</p>
+  </div>
 </section>
 
 <!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
 <section id="s09">
   <div class="sec"><span class="n">09</span><h2>Sentiment de piață</h2></div>
-  <p>E pilonul cu cea mai slabă valoare predictivă din tot raportul. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum. Îl notăm pentru că mișcă prețul pe termen scurt, nu pentru că ar prezice ceva.</p>
-
   <div class="stats">
-    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">66,7%</div><div class="s">normal la mărimea ei (72,2% pe altă sursă)</div></div>
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">67–72%</div><div class="s">66,7% MarketBeat · 72,2% altă sursă</div></div>
     <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+136,6 mld $</div><div class="s">4.631 cumpărători / 3.290 vânzători</div></div>
-    <div class="stat"><div class="l">Short interest</div><div class="v">1,09%</div><div class="s">din float · 1,8–2,2 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v up">1,09%</div><div class="s">din float · 1,8–2,2 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">1,3×</div><div class="s">pe an · cea mai mică din folder</div></div>
   </div>
-
-  <p>Direcția banilor instituționali e clar pozitivă: <strong>207,2 mld $ intrări față de 70,6 mld $ ieșiri</strong> în ultimele 12 luni. Procentul de deținere (66,7% sau 72,2%, în funcție de sursă) nu spune nimic în sine — peste 60% e situația normală la orice companie americană mare. Direcția spune.</p>
-
+  <p><b>Verdict: Solid (verde).</b> E pilonul cu cea mai slabă valoare predictivă din toate și merită spus limpede: nu zice nimic despre calitatea afacerii, doar despre ce cred alții acum. Toate semnalele sunt bune și niciunul nu a prezis saltul de 15% din 31 iulie — pentru că acela a venit dintr-o cifră de vânzări, nu din poziționarea pieței.</p>
   <div class="concept">
-    <div class="h">SHORT INTEREST — CITEȘTE-L CA RISC, NU CA OPORTUNITATE</div>
-    <p>Cine vinde în lipsă (<em>short</em>) împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. Un short interest mare înseamnă că mulți profesioniști pariază pe scădere — mult mai des un avertisment că cineva mai bine informat vede o problemă decât o ocazie de „short squeeze", care e un eveniment rar și imprevizibil, nu o strategie.</p>
-    <p>La Amazon, 1,09% din float e practic zero. Aproape nimeni nu pariază împotrivă. Adaugă apartenența simultană la S&amp;P 500, Nasdaq-100 și Dow Jones — care aduce cumpărare automată și constantă din partea fondurilor pasive, independent de rezultate — și ai un context tehnic favorabil. Care nu spune absolut nimic despre ce va face prețul.</p>
+    <div class="h">SHORT INTEREST — CITEȘTE-L ÎNTÂI CA RISC</div>
+    <p>Cine vinde în lipsă împrumută acțiuni pe care nu le are, le vinde imediat și speră să le răscumpere mai ieftin. La Amazon doar <b>1,09% din float</b> e în această situație — cel mai mic procent din acest folder și mult sub pragul de 3%. Un începător aude „short squeeze" și îl citește ca pe o oportunitate; în realitate un short interest mare e mult mai des un avertisment că cineva mai bine informat vede o problemă. Aici nu există practic niciun combustibil de squeeze, ceea ce înseamnă că saltul de 15,32% din 31 iulie a fost <b>cumpărare reală, nu acoperire de poziții</b>. Când o acțiune urcă atât cu short interest aproape zero, mișcarea e opinia cumpărătorilor, nu panica adversarilor — și asta o face mai serioasă, nu mai puțin.</p>
   </div>
-
   <div class="concept">
-    <div class="h">CONSENSUL ANALIȘTILOR — CU TOATE REZERVELE</div>
-    <p><strong>62 de analiști, preț-țintă mediu 320,18 $ (+17,9% față de 271,58 $), median 320 $, minim 207 $ (−23,8%), maxim 400 $ (+47,3%), recomandare medie „Strong Buy" (1,22).</strong></p>
-    <p>Trei lucruri de știut înainte să pui vreo greutate pe cifrele astea. Întâi, analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul: mai multe dintre țintele de peste 350 $ au fost publicate în zilele de după saltul de 15%, deci descriu entuziasmul de acum, nu viitorul. Al doilea, recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania — „Strong Buy" e starea implicită la o companie mare și populară, nu o distincție. Al treilea, dispersia: de la −23,8% la +47,3%. Când intervalul e atât de larg, media de +17,9% nu înseamnă aproape nimic — înseamnă doar că nici profesioniștii nu se înțeleg.</p>
+    <div class="h">DE UNDE VINE CEREREA</div>
+    <p><b>Rotația float-ului:</b> volumul mediu zilnic de 49,47 mln acțiuni × 250 de zile ÷ un float de 9,79 mld acțiuni = <b>~1,3×</b> pe an. Tot free float-ul își schimbă proprietarul o dată și un sfert într-un an — cea mai mică rotație din tot folderul. E cifra unei companii <i>deținute</i>, nu tranzacționate: aici nu găsești speculație de retail, găsești fonduri de pensii și indici. Pentru comparație, un titlu speculativ se rotește de zeci de ori pe an.</p>
+    <p><b>Includerea în indici</b> e a doua sursă de cerere, și Amazon e în toate trei cele mari — Dow Jones, S&amp;P 500 și Nasdaq-100 —, deci fondurile pasive o cumpără automat, indiferent de rezultate.</p>
+    <p><b>Narativul, numit și datat.</b> Ce tranzacționează piața aici, la 31 iul. 2026: <i>Amazon nu mai e un magazin online, e un furnizor de infrastructură pentru inteligență artificială</i>. Reperele datate ale poveștii, toate din 30 iul. 2026: AWS +36,7%, al cincilea trimestru consecutiv de accelerare; backlog contractat de 496 mld $; buget de investiții ridicat la ~220 mld $. E o poveste plauzibilă, sprijinită pe cifre reale — și foarte scumpă. Nu e o prognoză de venituri și nu o transform în cifră.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
+  </div>
+  <p><b>Banii instituționali.</b> În 12 luni au intrat 207,2 mld $ și au ieșit 70,6 mld $, de la 4.631 de cumpărători față de 3.290 de vânzători — un plus net de 136,6 mld $. Direcția e clar pozitivă. Nivelul de deținere în sine, între 67% și 72% în funcție de sursă, e normalul oricărei companii americane mari și nu spune nimic; direcția banilor spune.</p>
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR, CU AVERTISMENTELE LUI</div>
+    <p>62 de analiști, preț-țintă mediu <b>320,18 $</b> (+17,9% față de 271,58 $), mediană 320 $, recomandare medie „cumpărare puternică" (1,22). Trei lucruri de știut înainte să pui vreo greutate pe cifre. Analiștii își revizuiesc țintele <i>după</i> ce se mișcă prețul, nu înainte — iar acțiunea tocmai a urcat 15% într-o zi, deci o parte din ținte descriu deja acel salt. Recomandările de vânzare sunt foarte rare, pentru că băncile care le emit vor să păstreze relația cu compania; o medie de „cumpărare puternică" e starea implicită, nu o distincție.</p>
+    <p>Al treilea, cel mai util: <b>ținta minimă e 207 $ (−23,8%), cea maximă 400 $ (+47,3%)</b>. Între cel mai pesimist și cel mai optimist analist e o distanță de aproape două ori. Când dispersia e atât de mare, media nu înseamnă aproape nimic — arată doar că nici profesioniștii nu se înțeleg.</p>
   </div>
 </section>
 
@@ -651,88 +637,90 @@ footer b{color:var(--ink-2)}
 <section id="s10">
   <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
   <ul class="list">
-    <li><b>CEO: Andy Jassy</b>, din iulie 2021. Nu e fondator, dar nici manager adus din afară: a construit AWS de la zero începând din 2003. Fondatorul Jeff Bezos a rămas președinte executiv al consiliului. Faptul că omul care conduce compania vine din partea de cloud explică unde se duc banii.</li>
-    <li><b>Insiderii dețin ~8,9%</b> din companie — un procent mare pentru o firmă de această dimensiune, dat în principal de pachetul lui Bezos. Un management și un consiliu care dețin aproape 9% mănâncă din aceeași oală cu tine; nu e o garanție de decizii bune, dar e o aliniere reală de interese.</li>
-    <li><b>Tranzacții în 12 luni: 0 cumpărători, 9 vânzători</b>, 106,8 mil. $ vânzări totale — printre care Andy Jassy, Douglas Herrington (CEO Worldwide Stores; ultima vânzare, 1.000 de acțiuni, 239.770 $, pe 1 iulie 2026) și David Zapolsky (SVP). Vânzările spun puțin: directorii sunt plătiți în mare parte în acțiuni și vând programat ca să-și plătească facturile și taxele. Absența totală a cumpărărilor e zgomot obișnuit la companiile mari — <em>cumpărările</em> din bani proprii ar fi fost semnalul rar și puternic, dar lipsa lor nu e un semn negativ în sine.</li>
-    <li><b>Structura de vot: o singură clasă de acțiuni ordinare</b>, un vot pe acțiune, fără acțiuni de fondator cu drepturi speciale. E o veste bună de care puțini investitori știu că trebuie să se intereseze: la multe companii de tehnologie fondatorii dețin o clasă cu zece voturi, iar acționarii minoritari nu pot schimba nimic indiferent câte acțiuni au. La Amazon, votul tău cântărește proporțional. Se poate confirma în raportul anual 10-K sau în documentul de vot (<em>proxy statement</em>) de pe SEC EDGAR.</li>
+    <li><b>Director general: Andy Jassy</b>, din iulie 2021. Nu e fondator, dar nici manager adus din afară: a construit AWS de la zero începând din 2003. Fondatorul Jeff Bezos a rămas președinte executiv al consiliului. Faptul că omul care conduce compania vine din partea de cloud explică destul de bine unde se duc banii.</li>
+    <li><b>Cât dețin cei care conduc:</b> insiderii dețin ~8,95% din companie, un procent mare pentru o firmă de această dimensiune, dat în principal de pachetul lui Bezos. Un consiliu care deține aproape 9% mănâncă din aceeași oală cu tine — nu e o garanție de decizii bune, dar e o aliniere reală de interese.</li>
+    <li><b>Insideri, 12 luni: 9 vânzători, 0 cumpărători, ~106,8 mln $ vânduți</b> — printre care Andy Jassy, Douglas Herrington (director general al comerțului mondial; ultima vânzare, 1.000 de acțiuni, 239.770 $, pe 1 iulie 2026) și David Zapolsky. Vânzările insiderilor sunt de obicei zgomot: sunt plătiți parțial în acțiuni și vând programat. Raportată la capitalizarea de 2.929 mld $, suma e nesemnificativă. Ce merită notat, ca fapt, e că nu există nicio cumpărare din bani proprii în 12 luni.</li>
+    <li><b>Structura de vot: o singură clasă de acțiuni ordinare, un vot pe acțiune</b>, fără acțiuni de fondator cu drepturi speciale — confirmat pe coperta formularului depus la SEC pe 31 iul. 2026, care raportează o singură linie de acțiuni în circulație. E o veste bună de care puțini investitori știu că trebuie să se intereseze: la multe companii de tehnologie fondatorii dețin o clasă cu zece voturi pe acțiune și controlează compania cu o fracțiune din capital. Aici, dacă deții 1% din acțiuni, ai 1% din voturi.</li>
   </ul>
 </section>
 
 <!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
 <section id="s11">
   <div class="sec"><span class="n">11</span><h2>Expunerea la lume</h2></div>
-  <p>Pilonii de până acum au judecat corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <em>expunerea</em> — o proprietate stabilă a afacerii — nu vremea de azi.</p>
-
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <b>expunerea</b> — o proprietate stabilă a afacerii — nu vremea de azi, care stă datată în secțiunea 1.</p>
   <div class="concept">
     <div class="h">COMPRIMAREA MULTIPLILOR</div>
-    <p>Când prețul unei acțiuni are un P/E mare, cea mai mare parte din el nu e profitul de anul acesta — e profitul anilor 5–15 de acum încolo, adus în prezent. Dobânda fără risc e gravitația tuturor evaluărilor: când urcă, viitorul îndepărtat valorează mai puțin în banii de azi, și multiplul se comprimă.</p>
-    <p>Concret: compania poate livra exact ce a promis, profitul poate crește, dar dacă P/E-ul coboară de la 34 la 24, prețul scade cu el. Nu s-a stricat afacerea — s-a scumpit banul. E a doua jumătate a răspunsului la nedumerirea „rezultatele au fost bune, de ce a scăzut?".</p>
+    <p>La un P/E mare, cea mai mare parte a prețului e profitul anilor 5–15 de acum încolo, adus în prezent. Când dobânda fără risc urcă, viitorul îndepărtat valorează mai puțin în banii de azi, multiplul se comprimă și acțiunea scade <i>deși compania livrează exact ce a promis</i>. Nu s-a stricat afacerea; s-a scumpit banul.</p>
   </div>
-
   <div class="score">
     <div class="row"><span class="k">Dobânzi</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Free cash flow negativ azi (−11,6 mld $ TTM) și P/E prospectiv de 29,5: valoarea stă aproape integral în profiturile viitoare ale unor datacentre care abia se construiesc.</span></div>
+      <span class="t"><b>Steag.</b> Nu din cauza multiplului — P/E-ul prospectiv de ~25,9 e sub pragul orientativ de ~35 —, ci din cauza celei de-a doua clauze: <b>free cash flow-ul e negativ azi</b>. O companie care consumă cash net în prezent depinde de condiții de finanțare bune ca să-și continue planul, iar cele 70 mld $ de datorie nouă din ultimele șase luni arată exact cât de direct e canalul. Refinanțarea bilanțului e treaba pilonului 5; aici se notează doar că prețul se sprijină pe profituri care nu au sosit încă.</span></div>
     <div class="row"><span class="k">Ciclu economic</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">82% din venituri vin din comerț cu bunuri (mult din el discreționar) plus 68,6 mld $ publicitate — primul buget tăiat de orice firmă la vreme rea.</span></div>
+      <span class="t"><b>Steag.</b> Patru cincimi din venituri vin din comerț cu amănuntul, adică din cerere discreționară: într-o recesiune oamenii amână exact genul de cumpărături care umplu coșul de pe Amazon. Nici cealaltă cincime nu e imună — bugetele de cloud se pot reduce, chiar dacă mai lent. Istoria confirmă: în 2022, singurul an slab din serie, marja operațională a căzut la 2,38% și compania a raportat pierdere netă.</span></div>
     <div class="row"><span class="k">Geografie și politică</span>
-      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
-      <span class="t">Segmentul nord-american e 59,4% din venituri, iar marfa vândută pe marketplace depinde masiv de importuri expuse la tarife.</span></div>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>Steag.</b> Piața nord-americană aduce <b>59,4% din venituri</b>, mult peste pragul de ~40%. Se adaugă o a doua expunere, de alt tip: marfa vândută pe marketplace depinde masiv de importuri, deci de tarife — un cost care nu se vede în niciun indicator financiar până în ziua în care se vede în marja brută.</span></div>
     <div class="row"><span class="k">Reglementare</span>
       <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
-      <span class="t">Proces antitrust FTC + 17 state, judecată programată în octombrie 2026; în UE, Digital Markets Act prevede amenzi de până la 10% din cifra de afaceri globală.</span></div>
+      <span class="t"><b>Steag.</b> Acțiune concretă, numită și în curs: procesul antitrust intentat de <b>FTC și 17 state americane</b> în septembrie 2023, care acuză Amazon că își menține ilegal poziția dominantă prin politici anti-discount, prin manipularea casetei de cumpărare și prin condiționarea eligibilității Prime de folosirea propriei logistici. Judecata, fără jurați, e programată acum pentru <b>29 martie 2027</b>, după două amânări. În paralel, în Uniunea Europeană, Digital Markets Act prevede amenzi de până la 10% din cifra de afaceri globală.</span></div>
   </div>
-
-  <p><strong>Trei steaguri complete și unul parțial — cel mai slab pilon din raport, și singurul roșu.</strong> Steagul de reglementare singur ar fi fost suficient: o acțiune concretă, cu nume, cu dată, la trei luni distanță. Un proces antitrust nu se termină de obicei cu dispariția companiei, dar poate impune schimbări în modul în care Amazon își favorizează propriile produse și serviciile proprii de livrare pe platformă — exact mecanismele care fac marketplace-ul profitabil.</p>
-  <p>Steagul de dobânzi merită explicat, pentru că e contraintuitiv: Amazon are un P/E prospectiv de 29,5, nu de 60. Nu e o acțiune speculativă. Dar <strong>nu produce free cash flow astăzi</strong> — toți banii se duc în capacitate care va da roade peste ani. Asta o face structural sensibilă la costul banului, în același fel în care e sensibilă o companie de creștere clasică: valoarea prezentă a unui profit din 2032 scade mult mai mult decât valoarea unui profit din 2027 când dobânzile urcă.</p>
-  <p><strong>Expunere mare nu înseamnă companie proastă.</strong> Amazon are verde la moat, la bilanț, la creștere și la sentiment — e o corabie solidă pe o mare agitată. Lecția pentru un investitor nu e „evit-o", ci „dimensionează poziția ca să poți sta în ea când vine valul". Vânzarea în panică pe fundul valului e felul în care expunerea se transformă în pierdere reală.</p>
+  <p><b>Verdict: Risc (roșu), structural.</b> Patru steaguri din patru — cel mai slab pilon al companiei și singurul roșu din raport. Regula e oricum fără echivoc: steagul de reglementare nu stă la galben și duce singur la roșu. Rândul e prin construcție structural, pentru că descrie unde își face banii compania și sub ce reguli, lucruri care supraviețuiesc oricărei etape de investiții.</p>
+  <p><b>Expunere mare nu înseamnă companie proastă.</b> Amazon are patru piloni verzi, trei moaturi reale și marja brută în urcare de cinci ani — o corabie foarte bună pe o mare agitată. Lecția nu e „evit-o", ci „dimensionează poziția ca să suporți valurile": la beta 1,45 și cu o zi de +15% proaspăt în urmă, mișcările vin în ambele direcții. Ce e specific companiei stă la secțiunea 12 și nu se numără de două ori aici.</p>
 </section>
 
-<!-- ══ 12. RISCURI ═════════════════════════════════════════════════════════ -->
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
 <section id="s12">
-  <div class="sec"><span class="n">12</span><h2>Riscuri specifice acestei companii</h2></div>
-  <p>Aici stă doar ce e specific Amazonului. Ciclul economic, geografia și reglementarea au fost judecate la secțiunea 11 și nu se repetă.</p>
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+  <p>Un raport care listează doar riscuri lasă cititorul fără explicația pentru ce vede pe ecran; unul care listează doar promisiuni e o broșură. Mai jos, ambele — teza taurului citată din surse cu dată, nu compusă de mine.</p>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
   <ul class="list">
-    <li class="crit"><b>Concentrarea profitului în AWS.</b> 18% din venituri produc 57% din profitul operațional (FY2025). Un an prost la AWS — pierderea unui client mare, o eroare de securitate, un concurent care câștigă teren — lovește profitul companiei mult mai tare decât ar sugera ponderea în vânzări. Restul afacerii, cu 588 mld $ vânzări, produce doar 34,3 mld $ profit operațional.</li>
-    <li class="crit"><b>Pariul de 220 mld $ pe an.</b> E cel mai mare risc de execuție din raport. Datacentrele se amortizează în ~6 ani; dacă cererea de calcul AI încetinește înainte ca ele să se plătească, Amazon rămâne cu active scumpe care apasă pe profit prin amortizare, fără veniturile care le justificau. Nu e o ipoteză teoretică — e exact ce s-a întâmplat cu supra-investiția în depozite din 2021-2022, care a dus la anul pierderilor din FY2022.</li>
-    <li class="crit"><b>Circularitatea din jurul investițiilor în AI.</b> Amazon a investit în Anthropic și, potrivit relatărilor din 31 iulie 2026, a finalizat o investiție de 50 mld $ în OpenAI. Aceleași companii cumpără apoi capacitate de calcul de la AWS. O parte din creșterea AWS e astfel finanțată indirect de Amazon însăși. Nu e ilegal și nu e neobișnuit în industrie, dar face ca veniturile să fie mai puțin independente decât par — iar reevaluările acestor participații, care au adăugat ~70 mld $ la profitul ultimelor două trimestre, funcționează la fel de bine în sens invers.</li>
-    <li><b>Dependența de un singur executiv la AWS.</b> Motorul de profit al companiei e o afacere unde diferența dintre creștere de 20% și de 37% se face din execuție și relații comerciale. Amazon a trecut deja prin schimbări de conducere la AWS de când Jassy a urcat la vârf.</li>
+    <li><b>Backlog AWS contractat de 496 mld $</b>, în creștere de peste trei cifre procentuale — comunicat pe <b>30 iul. 2026</b>. E cea mai puternică linie din toată teza, pentru că nu e o proiecție: sunt contracte semnate, adică cerere care există deja pe hârtie pentru capacitatea care se construiește. Raportat la un ritm anualizat AWS de 169 mld $, backlogul e de aproape trei ori veniturile anuale ale diviziei.</li>
+    <li><b>AWS a crescut cu 36,8% în trimestrul II 2026, al cincilea trimestru consecutiv de accelerare</b> — raport depus la SEC pe 31 iul. 2026. Divizia aduce 60,5% din profitul operațional la o marjă de 39,36%. Teza taurului nu are nevoie de nicio ipoteză aici: se întâmplă deja.</li>
+    <li><b>Investiții de ~220 mld $ în 2026, prag numit cu dată</b> — ridicat de la ~200 mld $ pe <b>30 iul. 2026</b>, motivat prin scumpirea memoriei. Conducerea a spus în aceeași zi că nici la această sumă nu va avea destulă capacitate cât să acopere cererea din 2026 și că situația se va menține și în 2027. E o afirmație verificabilă, nu o promisiune vagă.</li>
+    <li><b>Ghidaj pentru trimestrul III 2026: vânzări de 197–202 mld $ și profit operațional de 22,5–26,5 mld $</b> — publicat tot pe 30 iul. 2026. E cea mai apropiată verificare din listă, la circa trei luni distanță.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Profitul raportat ascunde cât produce de fapt afacerea.</b> 69,38 mld $ din profitul ultimelor 12 luni sunt reevaluări de participații în companii private — bani care nu au intrat în cont și care se pot rescrie în jos la fel de ușor cum au fost scriși în sus. Riscul concret nu e contabil, e de percepție: un investitor care cumpără uitându-se la un P/E de 21,84 crede că plătește jumătate din cât plătește în realitate.</li>
+    <li class="crit"><b>Circularitatea din jurul investițiilor în inteligență artificială.</b> Amazon a investit în Anthropic și, potrivit relatărilor din 31 iulie 2026, a finalizat o investiție de 50 mld $ în OpenAI. Aceleași companii cumpără apoi capacitate de calcul de la AWS. O parte din creșterea AWS e deci finanțată indirect chiar de Amazon, iar aceleași participații generează și câștigurile contabile de mai sus. Nu e o acuzație de neregulă — e o structură în care creșterea și profitul raportat provin parțial din aceeași sursă, ceea ce le face mai puțin independente decât par.</li>
+    <li class="crit"><b>Precedentul din 2021–2022 e al aceleiași companii.</b> Amazon a mai dublat capacitatea în avans o dată, în depozite, pornind de la o cerere care părea permanentă. Când cererea a revenit la normal, a rămas cu active scumpe care apăsau pe profit prin amortizare, fără veniturile care le justificau — iar 2022 a fost singurul an cu pierdere netă din serie și cu marja operațională la 2,38%. Mecanismul e identic, doar activul e altul.</li>
+    <li><b>Concentrarea profitului, nu a veniturilor.</b> Se citează des că niciun client nu contează prea mult la Amazon, ceea ce e adevărat. Dar 60,5% din profitul operațional vine dintr-un singur segment, AWS, iar cererea aceea vine în bună parte de la un grup restrâns de companii care construiesc modele de inteligență artificială. Diversificarea veniturilor nu se traduce în diversificarea profitului.</li>
   </ul>
 
   <div class="concept">
-    <div class="h">CE AR INVALIDA TEZA</div>
-    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade. Trei lucruri observabile, verificabile la fiecare raportare trimestrială:</p>
-    <p><strong>1.</strong> Creșterea AWS coboară două trimestre consecutive sub ~20% an/an (de la 36,7% în Q2 2026) — semn că valul de cerere AI se retrage, în timp ce capex-ul rămâne angajat.<br>
-    <strong>2.</strong> Marja brută consolidată scade sub ~48% două trimestre la rând (de la 52,3% în Q2 2026) — semnul cel mai timpuriu că moat-ul se erodează.<br>
-    <strong>3.</strong> Free cash flow rămâne negativ și în FY2027, cu datoria totală continuând să crească cu peste 100 mld $ pe an — momentul în care pariul devine o problemă de bilanț, nu doar o alegere de alocare a capitalului.</p>
+    <div class="h">ARBITRUL</div>
+    <p><b>Prima verificare, la raportarea trimestrului III 2026</b> (ghidajul e 197–202 mld $ vânzări; raportarea anterioară a fost pe 30 iul. 2026): <b>rămâne creșterea AWS peste ~30%?</b> Dacă ea coboară două trimestre consecutiv sub ~20%, în timp ce capexul rămâne angajat, teza taurului se rupe exact în punctul ei cel mai tare.</p>
+    <p><b>A doua, în oricare dintre următoarele două raportări:</b> se menține marja brută consolidată peste ~50%? E semnalul cel mai timpuriu că moat-ul se erodează, și singurul indicator din raport care nu poate fi înfrumusețat contabil.</p>
+    <p><b>A treia, pe parcursul lui 2027:</b> redevine free cash flow-ul pozitiv, sau rămâne negativ și în anul următor? Un an de free cash flow negativ e o fază; trei la rând, cu datoria în creștere, e altceva. Iar reperul de calendar care nu depinde de companie e <b>29 martie 2027</b>, data procesului cu FTC.</p>
+    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade.</p>
   </div>
 </section>
 
 <!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
 <section id="s13">
-  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și ce să întrebi data viitoare</h2></div>
-
-  <p style="margin-bottom:14px">Trei concepte pe care raportul ăsta le-a folosit și care se aplică la orice companie:</p>
-  <ul class="list">
-    <li><b>Profitul raportat nu e profitul afacerii.</b> Cei 62,6 mld $ din Q2 2026 conțineau 53,4 mld $ dintr-o reevaluare contabilă. Un P/E calculat pe un profit contaminat de câștiguri nerecurente e o cifră frumoasă și inutilă. Verifică întotdeauna dacă profitul net e mult mai mare decât profitul operațional — dacă e, întreabă de unde vine diferența.</li>
-    <li><b>Free cash flow negativ nu e automat un semnal rău, dar schimbă complet ce cumperi.</b> O companie care nu produce bani liberi te plătește doar prin creșterea prețului. Întrebarea nu e „e rău?", ci „de unde vin banii care acoperă gaura — din cash propriu, din datorie, sau din acțiuni noi?".</li>
-    <li><b>Un pilon roșu nu anulează șapte verzi, dar nici invers.</b> Amazon are moat solid, bilanț solid, creștere care accelerează — și o expunere la reglementare care e reală, datată și la trei luni distanță. Analiza nu se rezolvă prin însumarea semafoarelor.</li>
-  </ul>
-
-  <p style="margin:18px 0 12px">Patru întrebări de pus la următoarea companie pe care o analizezi:</p>
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici și întrebări pentru data viitoare</h2></div>
+  <p><b>Trei concepte pe care compania asta le predă mai bine decât un manual.</b> Primul: <i>profitul net poate fi aproape ficțiune</i> — 69,38 mld $ din profitul Amazonului sunt rescrieri de valoare, nu bani, iar diferența dintre un P/E de 22 și unul de 36 stă exact acolo; când profitul e mult peste cash flow, întreabă întotdeauna de ce. Al doilea: <i>o companie nu e ce vinde, ci de unde câștigă</i> — AWS e 21% din vânzări și 60% din profit, deci Amazon e o firmă de cloud, nu un magazin. Al treilea: <i>fereastra de timp alege concluzia</i> — aceeași acțiune bate indicele cu 40 de puncte pe trei ani și pierde în fața lui pe cinci.</p>
   <ul class="list qa">
-    <li>Numărul de acțiuni în circulație a crescut sau a scăzut în ultimii 3-5 ani? (Cifra autoritară e în raportările de la SEC, nu pe siteuri de agregare.)</li>
-    <li>Marja brută urcă sau coboară de la an la an? E cel mai timpuriu semn că un moat se întărește sau crapă.</li>
-    <li>Cum s-a comportat față de S&amp;P 500 pe 1, 3 și 5 ani — nu doar pe orizontul care arată cel mai bine?</li>
-    <li>Cât din profitul operațional vine dintr-un singur segment sau de la câțiva clienți? Ponderea în vânzări poate ascunde o concentrare mult mai mare a profitului.</li>
+    <li>Profitul net e apropiat de free cash flow? Dacă nu, care e diferența și din ce provine?</li>
+    <li>P/E-ul prospectiv e mai mare decât cel curent? Dacă da, profitul de azi conține ceva ce nu se repetă.</li>
+    <li>Care segment aduce profitul, nu veniturile? Sunt rareori același.</li>
+    <li>Compania îți returnează ceva — dividend sau răscumpărări — sau doar reinvestește? Și la ce rentabilitate?</li>
+    <li>Când o companie își dublează investițiile, a mai făcut-o înainte și cum s-a terminat?</li>
+    <li>Câți analiști acoperă acțiunea și cât de departe sunt ținta minimă de cea maximă?</li>
   </ul>
 </section>
 
 <footer>
-  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (companyconcept API), comunicate de rezultate Amazon · date la <b>1 august 2026</b>, prețuri la închiderea de 31 iulie 2026.
-  Raportările financiare au întârziere de până la un trimestru; short interest până la două săptămâni; dețineri instituționale până la 45 de zile. Unde două surse au diferit cu peste 5% (ROIC, deținere instituțională, P/E prospectiv), ambele valori apar în text.<br>
-  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu momentul potrivit de cumpărare, și nu ține cont de situația financiară, orizontul de timp sau toleranța la risc a nimănui.
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (formular 10-Q depus pe 31 iul. 2026 pentru segmente, contul de profit, bilanț, fluxuri de trezorerie și nota de venituri nonoperaționale; seria numărului de acțiuni de pe coperta formularelor depuse), comunicatul și transcrierea rezultatelor din 30 iul. 2026 pentru ghidaje, presă juridică de specialitate pentru calendarul procesului FTC · date de piață la închiderea din <b>31 iulie 2026</b>; rezultatele trimestrului II 2026 raportate pe 30 iul. 2026. Multiplii competitorilor sunt calculați la aceeași închidere de 31 iulie 2026.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile. Unde două surse au diferit cu peste 5%, ambele valori apar în text.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
 </footer>
 </div>
 
@@ -771,7 +759,6 @@ footer b{color:var(--ink-2)}
     var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
     var type=fig.dataset.viz,sfx=d.suffix||'';
 
-    /* ── compare ─────────────────────────────────────────────────────────── */
     if(type==='compare'){
       var rows=d.rows||[];if(!rows.length)return;
       var html=rows.map(function(r){
@@ -797,7 +784,6 @@ footer b{color:var(--ink-2)}
     var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
     if(!all.length)return;
 
-    /* ── bars: ÎNTOTDEAUNA de la zero ────────────────────────────────────── */
     if(type==='bars'){
       var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
       var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
@@ -820,7 +806,6 @@ footer b{color:var(--ink-2)}
       return;
     }
 
-    /* ── lines ───────────────────────────────────────────────────────────── */
     if(type==='lines'){
       var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
       var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
