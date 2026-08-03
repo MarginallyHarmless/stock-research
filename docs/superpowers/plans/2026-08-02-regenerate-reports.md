@@ -47,8 +47,19 @@ Dacă vrei să propui altceva, varianta corectă pe termen lung e ca numele să 
 | SOFI | gata, commit `115fe4e` |
 | NFLX | gata, commit `4d9fc76` |
 | META | gata, commit `b076fde` |
-| AMZN | **date strânse, raport nescris** — vezi `_AMZN-notes.md` din directorul de lucru |
-| ORCL | neînceput |
+| AMZN | gata, commit `935b72b` |
+| ORCL | **date strânse, raport nescris** — vezi `_ORCL-notes.md` din directorul de lucru |
+
+Publicat pe GitHub Pages la 3 aug. 2026. `IREN` a primit separat o corecție de emoji (`e909c81`).
+Rămâne **doar ORCL**.
+
+**Avertisment pentru ORCL, din datele deja strânse.** Nu e un raport de rutină ca META sau AMZN:
+acțiunea e cu 62% sub maximul de 52 de săptămâni, marja brută scade **patru ani la rând** (79,08% →
+65,82%), datoria netă e la **4,16× EBITDA** — peste pragul de roșu de 3× — iar ROIC-ul e 8,60%, sub
+pragul de 15% al dovezii de moat. Cel puțin două rânduri arată roșu pe praguri, iar dacă versiunea
+publicată le are altfel, **e o mutare reală de culoare care trebuie explicată în raport, nu trecută
+cu vederea**. Anul fiscal se încheie în mai, deci ultimele cifre sunt din raportarea de 10 iun. 2026
+și au aproape două luni — de spus explicit.
 
 **Regula de nume, decisă de proprietar pe 3 aug. 2026: linkurile publicate nu se mișcă.** Fiecare
 raport regenerat se suprascrie pe numele lui deja publicat, oricare ar fi data din el. Secțiunea
