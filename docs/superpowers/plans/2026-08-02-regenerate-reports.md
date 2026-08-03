@@ -39,6 +39,33 @@ Deci: **fișier nou cu data reală a datelor, iar cel vechi șters în același 
 
 Dacă vrei să propui altceva, varianta corectă pe termen lung e ca numele să nu mai conțină deloc data (`reports/NFLX.html`), cu data doar în pagină. Linkurile se schimbă o dată și pe urmă niciodată. E o decizie a proprietarului, nu una de luat în trecere.
 
+## Stadiul, la 3 august 2026
+
+| Raport | Stare |
+|---|---|
+| ONDS | gata, commit `cc73fb5` |
+| SOFI | gata, commit `115fe4e` |
+| NFLX | gata, commit `4d9fc76` |
+| META | gata, commit `b076fde` |
+| AMZN | **date strânse, raport nescris** — vezi `_AMZN-notes.md` din directorul de lucru |
+| ORCL | neînceput |
+
+Nimic nu a fost publicat (`git push`) — asta rămâne o decizie a proprietarului.
+
+**Data datelor pentru tot lotul e închiderea de vineri 31 iul. 2026**, iar fișierele se numesc
+`{TICKER}-2026-07-31.html`. Pe 3 august piața americană era încă deschisă când s-a lucrat, deci o
+închidere de 3 august nici nu exista. La AMZN și ORCL, multiplii dependenți de preț se rescalează
+la închiderea de 31 iulie (factorul e `închidere_31iul / preț_curent`); EPS, vânzările și cash
+flow-ul pe acțiune nu se mișcă intraday, deci rescalarea e aritmetică exactă, nu estimare.
+Pagina `stockanalysis.com/stocks/{t}/financials/ratios/` calculează oricum multiplii pe închiderea
+precedentă — verifică întâi acolo înainte să rescalezi ceva de mână.
+
+**Unelte lăsate în directorul de lucru**, ca să nu se rescrie de fiecare dată:
+`_shell_head.html` / `_shell_tail.html` (carcasa raportului, fără corp), `_rp.py` (citește o pagină
+R din EDGAR ca text), `_snap.py` (snapshot finviz + istoric de preț), `_fin.py` (tabelele
+financiare de pe stockanalysis), `_verify.py` (rulează lista de verificare pe fișierul salvat și
+validează JSON-ul fiecărui grafic).
+
 ## Ordinea de lucru
 
 Ordonată după cât de mult contează, nu alfabetic. Nu regenera în paralel — fiecare raport cere ~12 fetch-uri plus un val doi, iar rulările paralele se calcă pe surse și consumă bugetul de sesiune.
