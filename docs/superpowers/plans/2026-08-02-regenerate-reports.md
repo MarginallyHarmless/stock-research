@@ -48,7 +48,19 @@ Dacă vrei să propui altceva, varianta corectă pe termen lung e ca numele să 
 | NFLX | gata, commit `4d9fc76` |
 | META | gata, commit `b076fde` |
 | AMZN | gata, commit `935b72b` |
-| ORCL | **date strânse, raport nescris** — vezi `_ORCL-notes.md` din directorul de lucru |
+| ORCL | gata, commit `3bdb513` |
+
+**Lotul e încheiat.** Toate cele opt rapoarte din `reports/` sunt pe versiunea curentă a skill-ului.
+La ORCL, o singură culoare s-a mutat — „Creștere și marje", din galben în roșu — și nu din date noi:
+versiunea publicată enunța chiar în rândul respectiv că marja brută scade patru ani la rând, adică
+exact pragul de roșu din §5, și păstra galbenul. Aceeași clasă de eroare ca la NFLX. Corectura e
+explicată vizibil în raport.
+
+Tot la ORCL a apărut o constatare pe care regulile nu o cer nicăieri explicit: profitul net din
+FY2026 conține 2.811 mln $ de câștiguri din investiții, iar curățat de ele crește cu ~16,7% în loc
+de 36,5% — în linie cu profitul operațional — iar P/E-ul trece de la 22,28 la ~26. E a cincea
+companie din șase cu profitul umflat de un câștig fără cash. Vezi propunerea de clauză din nota
+finală către proprietar.
 
 Publicat pe GitHub Pages la 3 aug. 2026. `IREN` a primit separat o corecție de emoji (`e909c81`).
 Rămâne **doar ORCL**.
