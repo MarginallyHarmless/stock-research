@@ -50,11 +50,22 @@ Dacă vrei să propui altceva, varianta corectă pe termen lung e ca numele să 
 | AMZN | **date strânse, raport nescris** — vezi `_AMZN-notes.md` din directorul de lucru |
 | ORCL | neînceput |
 
-Nimic nu a fost publicat (`git push`) — asta rămâne o decizie a proprietarului.
+**Regula de nume, decisă de proprietar pe 3 aug. 2026: linkurile publicate nu se mișcă.** Fiecare
+raport regenerat se suprascrie pe numele lui deja publicat, oricare ar fi data din el. Secțiunea
+„Regula pentru numele fișierelor" de mai jos spunea contrariul — fișier nou cu data reală, cel vechi
+șters — și a fost aplicată la SOFI și META înainte de decizie; ambele au fost redenumite înapoi la
+`-2026-08-01.html`. Restul secțiunii rămâne pentru context, dar **nu mai e regula în vigoare**.
 
-**Data datelor pentru tot lotul e închiderea de vineri 31 iul. 2026**, iar fișierele se numesc
-`{TICKER}-2026-07-31.html`. Pe 3 august piața americană era încă deschisă când s-a lucrat, deci o
-închidere de 3 august nici nu exista. La AMZN și ORCL, multiplii dependenți de preț se rescalează
+Compromisul e asumat: numele `SOFI-2026-08-01.html` și `META-2026-08-01.html` conțin o dată care nu
+e data datelor. Ce ține raportul onest e că **fiecare pagină își scrie propria dată în subsol**
+(„date de piață la închiderea din 31 iulie 2026") — de verificat că rămâne așa la fiecare
+regenerare, pentru că acum e singurul loc unde cititorul o mai găsește. Varianta curată pe termen
+lung rămâne cea din secțiunea de mai jos: nume fără dată deloc (`reports/SOFI.html`), cu data doar
+în pagină. Linkurile s-ar schimba o dată și pe urmă niciodată.
+
+**Data datelor pentru tot lotul e închiderea de vineri 31 iul. 2026.** Pe 3 august piața americană
+era încă deschisă când s-a lucrat, deci o închidere de 3 august nici nu exista. La AMZN și ORCL,
+multiplii dependenți de preț se rescalează
 la închiderea de 31 iulie (factorul e `închidere_31iul / preț_curent`); EPS, vânzările și cash
 flow-ul pe acțiune nu se mișcă intraday, deci rescalarea e aritmetică exactă, nu estimare.
 Pagina `stockanalysis.com/stocks/{t}/financials/ratios/` calculează oricum multiplii pe închiderea
