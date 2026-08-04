@@ -1,0 +1,948 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVGO — analiză</title>
+<style>
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --rule:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --wash:rgba(42,120,214,.06);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --plane:#0d0d0d; --surface:#1a1a19;
+  --ink:#fff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --accent-2:#d95926; --wash:rgba(57,135,229,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+p{margin:0 0 .7em;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* ─── header ─────────────────────────────────────────────────────────────── */
+header{padding:36px 0 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.tick{display:flex;align-items:baseline;gap:10px}
+.tick h1{font-size:30px}
+.tick .co{color:var(--ink-3);font-size:14px}
+.px{text-align:right}
+.px .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.px .d{font-family:var(--mono);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0;width:100%}
+.chip{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+.themer{position:fixed;top:14px;right:14px;z-index:9;width:30px;height:30px;
+  border:1px solid var(--ring);border-radius:8px;background:var(--surface);
+  color:var(--ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.themer:active{transform:scale(.94)}
+
+/* ─── cuprins ────────────────────────────────────────────────────────────── */
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 2px}
+nav.toc a{font-size:11.5px;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 9px;background:var(--surface);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--axis)}
+nav.toc .tn{font:600 10px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em;margin-right:5px}
+html,body{scroll-behavior:smooth}
+
+/* ─── section ────────────────────────────────────────────────────────────── */
+section{padding:30px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec .n{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.09em}
+.sec h2{font-size:17px}
+.sec ~ .sec{margin-top:26px}
+
+/* ─── scorecard ──────────────────────────────────────────────────────────── */
+.score{display:grid;gap:0}
+.row{display:grid;grid-template-columns:170px 104px 1fr;gap:14px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.row .k{font-size:13.5px;font-weight:500}
+.row .t{font-size:13px;color:var(--ink-2)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap}
+.st svg{width:13px;height:13px;flex:none}
+.st[data-s=good]{color:var(--good)}
+.st[data-s=warn]{color:#8a6100}   /* pe fundal deschis, --warn nu trece 3:1 */
+.st[data-s=crit]{color:var(--crit)}
+.st[data-s=none]{color:var(--ink-3)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])) .st[data-s=warn]{color:var(--warn)}}
+:root[data-theme=dark] .st[data-s=warn]{color:var(--warn)}
+.duo-head{display:grid;grid-template-columns:170px 104px 104px 1fr;gap:14px;padding:0 0 4px}
+.duo-head span{font:600 10.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.05em}
+.row.duo{grid-template-columns:170px 104px 104px 1fr}
+
+/* ─── concept callout ────────────────────────────────────────────────────── */
+.concept{border-left:2px solid var(--accent);background:var(--wash);
+  padding:12px 14px;margin:0 0 16px;border-radius:0 6px 6px 0}
+.concept .h{font:600 10.5px/1 var(--mono);letter-spacing:.09em;color:var(--accent);
+  margin-bottom:7px}
+.concept p{font-size:13.5px;color:var(--ink-2);margin-bottom:.5em}
+
+/* ─── stat tiles ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;margin:0 0 18px}
+.stat{background:var(--surface);padding:11px 13px}
+.stat .l{font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:3px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* ─── charts ─────────────────────────────────────────────────────────────── */
+figure.viz{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:14px 16px 12px}
+figure.viz figcaption{font-size:12px;color:var(--ink-2);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+figure.viz figcaption b{color:var(--ink);font-weight:600;font-size:12.5px}
+.unit{font:400 11px/1 var(--mono);color:var(--ink-3);white-space:nowrap}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:11px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:6px;height:112px;position:relative}
+.bars .col{flex:1;height:100%;position:relative;display:flex;flex-direction:column}
+.bars .track{flex:1;position:relative}
+.bars .b{position:absolute;left:0;right:0;background:var(--accent);border-radius:3px 3px 0 0;
+  transition:filter .15s}
+.bars .b.neg{border-radius:0 0 3px 3px;background:var(--crit)}
+.bars .b.alt{background:var(--accent-2)}
+.bars .col:hover .b{filter:brightness(1.12)}
+.bars .zero{position:absolute;left:0;right:0;height:1px;background:var(--axis)}
+.bars .vl{position:absolute;left:0;right:0;transform:translateY(-15px);
+  font:600 10.5px/1 var(--mono);color:var(--ink-2);text-align:center;white-space:nowrap}
+.bars{padding-top:16px}
+.xax{display:flex;gap:6px;margin-top:6px}
+.xax div{flex:1;text-align:center;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+
+/* lines */
+.lwrap{position:relative}
+.lines{width:100%;height:auto;display:block}
+.lines .gl{stroke:var(--rule);stroke-width:1;vector-effect:non-scaling-stroke}
+.lines .pl{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lines .dot{stroke:var(--surface);stroke-width:2}
+.yax{position:absolute;top:0;bottom:0;right:0;width:44px;pointer-events:none}
+.yax span{position:absolute;right:0;font:400 10px/1 var(--mono);color:var(--ink-3);
+  background:var(--surface);padding-left:5px}
+.yax .hi{top:0} .yax .lo{bottom:0}
+
+/* range bar */
+.range{padding:6px 0 2px}
+.range .tr{position:relative;height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--rule),var(--axis))}
+.range .mk{position:absolute;top:-5px;width:3px;height:16px;border-radius:2px;
+  background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.range .ends{display:flex;justify-content:space-between;margin-top:8px;
+  font:400 11px/1 var(--mono);color:var(--ink-3)}
+.range .now{position:absolute;top:18px;transform:translateX(-50%);
+  font:600 11px/1 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* split (cash vs debt) */
+.split{display:grid;gap:9px}
+.split .r{display:grid;grid-template-columns:96px 1fr 84px;gap:11px;align-items:center}
+.split .r .k{font-size:12.5px;color:var(--ink-2)}
+.split .r .t{display:block;height:16px;background:var(--rule);border-radius:3px;overflow:hidden}
+.split .r .f{display:block;height:100%;border-radius:3px}
+.split .r .v{font:600 12.5px/1 var(--mono);text-align:right}
+
+/* compare */
+.cmp{display:grid;gap:15px}
+.cmp .cr{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center}
+.cmp .cl{font:600 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.cmp .cb{display:grid;gap:4px}
+.cmp .bar{display:grid;grid-template-columns:1fr 76px;gap:9px;align-items:center}
+.cmp .bt{display:block;height:13px;background:var(--rule);border-radius:3px;overflow:hidden}
+.cmp .bf{display:block;height:100%;border-radius:3px;transition:filter .15s}
+.cmp .bar:hover .bf{filter:brightness(1.12)}
+.cmp .bv{font:600 11.5px/1 var(--mono);text-align:right}
+.cmp .dl{font:500 11px/1.3 var(--sans);color:var(--ink-3);margin-top:2px}
+.cmp .dl b{font-family:var(--mono);font-weight:600}
+
+/* ─── table ──────────────────────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 16px;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13px}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap;border-top:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{border-top:0;font:600 10.5px/1.3 var(--mono);color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+tbody td:first-child{font-family:var(--sans);color:var(--ink);font-weight:500}
+tbody tr.me td{color:var(--ink);font-weight:600}
+tbody tr.me td:first-child{color:var(--accent)}
+
+/* ─── lists ──────────────────────────────────────────────────────────────── */
+ul.list{margin:0;padding:0;list-style:none}
+ul.list li{padding:9px 0 9px 20px;border-top:1px solid var(--rule);position:relative;
+  font-size:13.5px;color:var(--ink-2)}
+ul.list li:first-child{border-top:0}
+ul.list li::before{content:"";position:absolute;left:2px;top:16px;width:5px;height:5px;
+  border-radius:50%;background:var(--axis)}
+ul.list li.crit::before{background:var(--crit)}
+ul.list li b{color:var(--ink)}
+.qa{counter-reset:q}
+.qa li{padding-left:26px}
+.qa li::before{counter-increment:q;content:counter(q);width:auto;height:auto;
+  border-radius:0;background:none;left:2px;top:9px;
+  font:600 11px/1.5 var(--mono);color:var(--accent)}
+
+/* ─── footer ─────────────────────────────────────────────────────────────── */
+footer{padding:24px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+
+/* ─── tooltip ────────────────────────────────────────────────────────────── */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:var(--plane);font:500 11.5px/1.45 var(--sans);
+  padding:6px 9px;border-radius:6px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.16)}
+#tip .n{font-family:var(--mono);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 56px}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .row .t{grid-column:1/-1;font-size:12.5px}
+  .row.duo{grid-template-columns:1fr auto auto}
+  .duo-head{grid-template-columns:1fr auto auto;gap:6px 10px}
+  .duo-head span:last-child{display:none}
+  .tick h1{font-size:24px} .px .v{font-size:21px}
+  .split .r{grid-template-columns:70px 1fr 70px}
+}
+@media print{
+  .themer,nav.toc{display:none} body{background:#fff}
+  section{break-inside:avoid;border-bottom:1px solid #ddd}
+}
+</style>
+
+<button class="themer" onclick="var r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark')" aria-label="Comută tema">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- ══ ANTET ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="tick">
+    <h1>AVGO</h1>
+    <span class="co">Broadcom Inc. · NASDAQ</span>
+  </div>
+  <div class="px">
+    <div class="v">391,42 $</div>
+    <div class="d up">+0,55% (+2,14 $)</div>
+  </div>
+  <div class="chips">
+    <span class="chip">Tehnologie · <b>Semiconductori</b></span>
+    <span class="chip">Indici: <b>S&amp;P 500, NDX</b></span>
+    <span class="chip">Capitalizare <b>1,86 T$</b></span>
+    <span class="chip">An fiscal se încheie <b>noiembrie</b></span>
+    <span class="chip">Următoarea raportare <b>2 sep 2026</b></span>
+  </div>
+</header>
+
+<!-- ══ CUPRINS ══════════════════════════════════════════════════════════════ -->
+<nav class="toc" aria-label="Cuprins">
+  <a href="#s01"><span class="tn">01</span>Poziția</a>
+  <a href="#s02"><span class="tn">02</span>Compania</a>
+  <a href="#s03"><span class="tn">03</span>Moat</a>
+  <a href="#s04"><span class="tn">04</span>Free cash flow</a>
+  <a href="#s05"><span class="tn">05</span>Cash vs. datorii</a>
+  <a href="#s06"><span class="tn">06</span>Buyback</a>
+  <a href="#s07"><span class="tn">07</span>Creștere</a>
+  <a href="#s08"><span class="tn">08</span>Evaluare</a>
+  <a href="#s09"><span class="tn">09</span>Sentiment</a>
+  <a href="#s10"><span class="tn">10</span>Management</a>
+  <a href="#s11"><span class="tn">11</span>Expunere</a>
+  <a href="#s12"><span class="tn">12</span>Teze</a>
+  <a href="#s13"><span class="tn">13</span>Ce ai învățat</a>
+</nav>
+
+<!-- ══ SCORECARD ═══════════════════════════════════════════════════════════ -->
+<section id="scorecard">
+  <div class="sec"><span class="n">SCORECARD</span><h2>Cei opt piloni</h2></div>
+  <div class="score">
+    <div class="row">
+      <span class="k">Moat</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Costuri de schimbare mari plus scară; marja brută urcă de patru ani, ROIC 24,2%.</span>
+    </div>
+    <div class="row">
+      <span class="k">Free cash flow</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">26,9 mld $ în FY2025, marjă FCF 42,1%, în creștere cinci ani la rând.</span>
+    </div>
+    <div class="row">
+      <span class="k">Cash vs. datorii</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Datorie netă 45,3 mld $, adică 1,09× EBITDA; se dezîndatorează din FY2024.</span>
+    </div>
+    <div class="row">
+      <span class="k">Buyback vs. diluție</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — plata în acțiuni (7,57 mld $) depășește răscumpărările (6,31 mld $): numărul de acțiuni urcă, nu scade.</span>
+    </div>
+    <div class="row">
+      <span class="k">Creștere și marje</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Ritmul accelerează: de la +20,2% în Q2 FY2025 la +47,9% în Q2 FY2026, cu marja operațională de la 38,9% la 48,6%.</span>
+    </div>
+    <div class="row">
+      <span class="k">Evaluare</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t"><b>structural</b> — la mijloc față de competitori, dar cu 84% peste media proprie pe 5 ani la multiplul pe cash.</span>
+    </div>
+    <div class="row">
+      <span class="k">Sentiment de piață</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Solid</span>
+      <span class="t">Capital instituțional net intrat 56,2 mld $ în 12 luni, short interest 1,46% din float, prezentă în S&amp;P 500 și NDX.</span>
+    </div>
+    <div class="row">
+      <span class="k">Expunere la lume</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t"><b>structural</b> — 56,2% din venituri din Asia-Pacific, industrie ciclică, plus o procedură antitrust europeană activă pe licențierea VMware.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 1. UNDE SE AFLĂ ACȚIUNEA ════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="sec"><span class="n">01</span><h2>Unde se află acțiunea acum și de ce</h2></div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția în intervalul de 52 de săptămâni</b><span class="unit">USD</span></figcaption>
+    <div class="range">
+      <div class="tr">
+        <div class="mk" style="left:51.5%"></div>
+        <div class="now" style="left:51.5%">391,42</div>
+      </div>
+      <div class="ends"><span>min 281,61</span><span>max 495,00</span></div>
+    </div>
+  </figure>
+
+  <p>Exact la mijlocul intervalului de un an: cu <strong>20,9% sub maximul</strong> de 495,00 $ și cu 39,0% peste minimul de 281,61 $. Nici euforie, nici panică — o acțiune care a urcat mult, a corectat, și acum stă la jumătatea drumului.</p>
+
+  <figure class="viz" data-viz="compare">
+    <figcaption><b>Randament față de S&amp;P 500</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"a":"AVGO","b":"S&P 500","suffix":"%","deltaUnit":" pp",
+     "rows":[{"label":"YTD","a":13.09,"b":11.22},
+             {"label":"1 an","a":35.61,"b":21.99},
+             {"label":"3 ani","a":342.29,"b":68.98},
+             {"label":"5 ani","a":704.08,"b":71.92}]}
+    </script>
+  </figure>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ COMPARAȚIA CU INDICELE</div>
+    <p>Întrebarea corectă nu e „a crescut acțiunea mea?", ci „a crescut mai mult decât dacă puneam banii într-un ETF pe S&amp;P 500, fără nicio muncă de analiză?". Fără această comparație, cineva poate pierde bani ani la rând față de alternativa leneșă și să vadă doar verde în portofoliu.</p>
+    <p>Aici răspunsul e limpede: AVGO a bătut indicele pe toate cele patru orizonturi, iar pe 5 ani cu <strong>632 de puncte procentuale</strong> — 10.000 $ investiți acum cinci ani ar fi ajuns la ~80.400 $ în acțiune față de ~17.200 $ în indice. Asta e o performanță reală, nu o iluzie statistică.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">DAR COMPARĂ ȘI CU SECTORUL — AICI E LECȚIA</div>
+    <p>Într-un sector la modă aproape totul crește, și companiile bune și cele mediocre. Sectorul tehnologic a făcut <strong>+18,75% YTD</strong> (finviz, 3 aug 2026), iar AVGO doar <strong>+13,09%</strong>. Deci în 2026, până acum, acțiunea a bătut indicele general dar a rămas cu <strong>5,7 puncte procentuale sub propriul sector</strong>.</p>
+    <p>Pe un an situația se inversează: +35,61% pentru acțiune față de +28,09% pentru sector. Morala nu e că un interval contează mai mult decât altul, ci că „a bătut S&amp;P 500" e o afirmație mai slabă decât pare — o parte din randament e valul sectorului, nu înotul companiei.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Beta</div><div class="v">1,47</div><div class="s">amplifică piața de ~1,5×</div></div>
+    <div class="stat"><div class="l">Volatilitate</div><div class="v">4,20%</div><div class="s">pe zi (10 zile) · 3,73% anualizat</div></div>
+    <div class="stat"><div class="l">La 10.000 $</div><div class="v down">−1.470 $</div><div class="s">la o corecție de piață de 10%</div></div>
+  </div>
+
+  <p>Beta 1,47 înseamnă că, istoric, când piața scade 10%, acțiunea asta scade în jur de 14,7%. Dacă ai 10.000 $ aici, o corecție obișnuită de piață înseamnă în jur de <strong>−1.470 $</strong> pe hârtie. Nu e o acțiune extremă — sunt titluri cu beta peste 2 — dar e o mișcare pe care trebuie să o poți duce fără să vinzi în panică. Iar coborârea de 20,9% de la maxim, deja întâmplată, arată că nu e o ipoteză teoretică.</p>
+
+  <div class="concept">
+    <div class="h">CE A MUTAT PREȚUL — ȘI CE URMEAZĂ</div>
+    <p><strong>Ultimul trimestru raportat a accelerat, nu a încetinit.</strong> În Q2 FY2026 (încheiat 3 mai 2026, 10-Q depus la 9 iunie 2026) veniturile au fost <strong>22.187 mil. $, cu +47,9% peste același trimestru de anul trecut</strong> — față de +29,5% în Q1 FY2026 și +20,2% în Q2 FY2025. Marja operațională a urcat în același timp de la 38,9% la 48,6%.</p>
+    <p>Asta merită subliniat, pentru că e situația inversă celei obișnuite: de regulă „de ce a scăzut" se explică prin decelerare — creșterea încetinește, iar prețul plătit ieri presupunea ritmul de ieri. Aici ritmul s-a <em>întărit</em>, iar acțiunea e totuși cu 20,9% sub maxim. Explicația nu stă în cifrele companiei, ci în cât s-a plătit pentru ele înainte (secțiunea 8) și în ce s-a întâmplat în jurul ei (mai jos).</p>
+    <p>Următoarea raportare: <strong>2 septembrie 2026</strong>, pentru Q3 FY2026 (anunț al companiei din 1 august 2026).</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="l">S&amp;P 500 față de max 52s</div><div class="v">−0,26%</div><div class="s">la 3 aug 2026</div></div>
+    <div class="stat"><div class="l">Dobânda 10 ani (SUA)</div><div class="v">4,70%</div><div class="s">la 3 aug 2026 · de la ~4,20% acum un an</div></div>
+    <div class="stat"><div class="l">Sector YTD vs. S&amp;P 500</div><div class="v">+7,5 pp</div><div class="s">tehnologie +18,75% · indice +11,22%</div></div>
+  </div>
+
+  <p><strong>Vremea pieței, la 3 august 2026:</strong> S&amp;P 500 e practic la maximul lui pe 52 de săptămâni (−0,26%), deci nu suntem într-o piață în stres. Dobânda americană pe 10 ani e la 4,70%, cu circa o jumătate de punct procentual mai sus decât acum un an — banul s-a scumpit, iar asta apasă pe toate evaluările mari (mecanismul e explicat în secțiunea 11). Sectorul tehnologic conduce piața cu 7,5 puncte procentuale YTD. Prin urmare scăderea de 20,9% de la maxim a AVGO <em>nu</em> e vremea: nici piața, nici sectorul nu sunt în declin. E specific acțiunii.</p>
+
+  <p><strong>Curentele de reglementare care o ating acum:</strong> pe 3 iulie 2026, titlurile au consemnat că acțiunea a scăzut după ce compania a pierdut o dispută antitrust majoră în UE. Pe 3 august 2026, Broadcom a pierdut și încercarea de a suspenda cererea Comisiei Europene de a predă documente juridice americane privilegiate, iar la mijlocul lui iulie 2026 cinci asociații de furnizori de cloud europeni (printre care CISPE) au cerut Comisiei să impună măsuri interimare împotriva practicilor de licențiere VMware. Detaliile și de ce contează atât de mult: secțiunile 11 și 12.</p>
+</section>
+
+<!-- ══ 2. CE FACE COMPANIA ═════════════════════════════════════════════════ -->
+<section id="s02">
+  <div class="sec"><span class="n">02</span><h2>Ce face compania</h2></div>
+
+  <p>Broadcom nu e o companie, e un <strong>portofoliu de puncte de taxare</strong> pe infrastructura digitală. Modelul, condus de Hock E. Tan, e repetitiv: cumpără o afacere consacrată de care clienții depind, taie costurile care nu produc, urcă prețurile, și încasează cash-ul. Ce vinde efectiv se împarte în două jumătăți foarte diferite.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Segment (FY2025)</th><th>Venituri</th><th>Pondere</th><th>Creștere a/a</th><th>Marjă op.</th></tr></thead>
+    <tbody>
+      <tr><td>Semiconductor Solutions</td><td>36.858 mil. $</td><td>57,7%</td><td class="up">+22,5%</td><td>57,6%</td></tr>
+      <tr><td>Infrastructure Software</td><td>27.029 mil. $</td><td>42,3%</td><td class="up">+25,8%</td><td>76,8%</td></tr>
+      <tr class="me"><td>Total</td><td>63.887 mil. $</td><td>100%</td><td class="up">+23,9%</td><td>39,9%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Partea de cipuri</strong> nu vinde procesoare cu numele Broadcom pe ele. Co-proiectează, împreună cu marii operatori de centre de date, acceleratoare personalizate pentru inteligență artificială — cipuri făcute pentru un singur client, pentru un singur tip de sarcină. Lângă asta vinde comutatoarele și rutere-le care leagă serverele între ele, cipurile de conectivitate din telefoane, echipamente de bandă largă și de stocare.</p>
+
+  <p><strong>Partea de software</strong> e, în esență, ce a cumpărat: VMware (virtualizare și cloud privat), software de mainframe de la CA, securitate de la Symantec. O marjă operațională de <strong>76,8%</strong> pe un segment de software nu se obține prin inovație spectaculoasă — se obține când clienții nu pot pleca și li se poate cere mai mult. Reține cifra asta: e și dovada moat-ului (secțiunea 3) și motivul procedurii europene (secțiunea 11).</p>
+
+  <p>Împărțirea pe tip de venit arată tranziția: <strong>44.847 mil. $ produse</strong> (70,2%) față de <strong>19.040 mil. $ abonamente și servicii</strong> (29,8%) în FY2025. Partea de abonamente a crescut de la 6.870 mil. $ în FY2023 — aproape în întregime prin VMware.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Venituri pe zonă (FY2025)</th><th>Sumă</th><th>Pondere</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>Asia-Pacific</td><td>35.896 mil. $</td><td>56,2%</td></tr>
+      <tr><td>Americi</td><td>18.939 mil. $</td><td>29,6%</td></tr>
+      <tr><td>Europa, Orientul Mijlociu, Africa</td><td>9.052 mil. $</td><td>14,2%</td></tr>
+      <tr><td>— din care SUA</td><td>16.506 mil. $</td><td>25,8%</td></tr>
+      <tr><td>— din care China (inclusiv Hong Kong)</td><td>11.155 mil. $</td><td>17,5%</td></tr>
+      <tr><td>— din care Singapore</td><td>10.796 mil. $</td><td>16,9%</td></tr>
+      <tr><td>— din care Taiwan</td><td>6.451 mil. $</td><td>10,1%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>O precizare care schimbă interpretarea tabelului: veniturile se înregistrează după <em>locul livrării</em>, nu după locul clientului final. Cele 16,9% din Singapore reflectă centre de distribuție, nu cerere din Singapore. Tabelul supraestimează, deci, cât de diversificată e baza reală de clienți — iar despre concentrarea pe clienți, care e adevărata problemă, vezi secțiunea 12.</p>
+</section>
+
+<!-- ══ 3. MOAT ═════════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="sec"><span class="n">03</span><h2>Moat — are ceva ce o face greu de înlocuit?</h2></div>
+
+  <div class="concept">
+    <div class="h">CE E UN MOAT</div>
+    <p>Termenul vine de la șanțul cu apă din jurul unui castel. Un moat e motivul pentru care un concurent cu bani și cu oameni buni tot nu poate lua clienții acestei companii. Fără moat, orice profit bun atrage concurență, iar concurența macină prețurile până când profitul dispare — asta se întâmplă în majoritatea industriilor.</p>
+    <p>Orice companie susține în prezentări că are avantaje competitive. <strong>Marja brută e testul</strong>: dacă poate ține prețuri mari ani la rând fără să piardă clienți, moat-ul e real.</p>
+  </div>
+
+  <div class="score">
+    <div class="row"><span class="k">Costuri de schimbare</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Un accelerator co-proiectat pe 2–3 ani nu se schimbă la mijlocul programului; software-ul de mainframe și de virtualizare stă sub aplicații critice.</span></div>
+    <div class="row"><span class="k">Efect de rețea</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Produsul nu devine mai valoros pentru un client pentru că îl folosesc alții.</span></div>
+    <div class="row"><span class="k">Avantaj de cost și scară</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">3.407 mil. $ de cercetare în semiconductori, împărțiți pe 36.858 mil. $ de venituri; un rival mic plătește același design pe un volum mult mai mic.</span></div>
+    <div class="row"><span class="k">Active intangibile</span>
+      <span class="st" data-s="good"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Puternic</span>
+      <span class="t">Portofoliu de brevete și proprietate intelectuală de conectivitate; 31.453 mil. $ de intangibile nete în bilanț la 2 nov 2025.</span></div>
+    <div class="row"><span class="k">Brand</span>
+      <span class="st" data-s="none"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3.5 8h9"/></svg>Absent</span>
+      <span class="t">Vinde inginerilor, nu consumatorilor. Nimeni nu plătește mai mult pentru siglă — și e în regulă, brandul e oricum cel mai fragil tip de moat.</span></div>
+  </div>
+
+  <p><strong>Dovada în cifre.</strong> Marja brută a urcat de la <strong>61,4% în FY2021 la 67,8% în FY2025</strong>, iar în ultimele douăsprezece luni (însumând cele patru trimestre raportate) e <strong>68,3%</strong>. O companie care își pierde puterea de negociere o vede aici întâi, cu ani înainte să apară în profit — la Broadcom curba merge invers. ROIC-ul, adică profitul produs la fiecare dolar investit în afacere, e <strong>24,2%</strong> după stockanalysis și 19,5% după finviz: ambele sunt bine peste pragul de ~15% de la care un moat se consideră dovedit numeric.</p>
+
+  <p><strong>Dovada cea mai neobișnuită vine însă din partea adversă.</strong> Când cinci asociații de furnizori europeni de cloud cer în iulie 2026 unui regulator să intervină în modul în care Broadcom licențiază VMware, ele spun implicit că <em>nu pot pur și simplu să plece la un concurent</em>. O plângere la autoritatea de concurență e ce faci când costurile de schimbare sunt prea mari ca să te muți. Moat-ul e real — și exact de aceea e atacat.</p>
+
+  <p><strong>Unde e slab.</strong> Semiconductorii nu sunt o poziție veșnică: dacă un client mare decide să-și proiecteze singur acceleratorul, sau alege un alt partener de design, contractul nu se reînnoiește. Moat-ul pe partea de cipuri e la nivel de relație și de program, nu de platformă — mai puternic decât un brand, mai fragil decât un sistem de operare.</p>
+</section>
+
+<!-- ══ 4. FREE CASH FLOW ═══════════════════════════════════════════════════ -->
+<section id="s04">
+  <div class="sec"><span class="n">04</span><h2>Free cash flow — banii care rămân efectiv</h2></div>
+
+  <div class="concept">
+    <div class="h">CE E FREE CASH FLOW</div>
+    <p>Banii care rămân efectiv în cont după ce compania și-a plătit toate cheltuielile <em>și</em> investițiile în echipamente sau fabrici. Profitul e o opinie contabilă — depinde de cum amortizezi, când recunoști veniturile, ce provizioane faci. Cash flow-ul e un fapt bancar. O companie poate raporta profit ani la rând și totuși să rămână fără bani.</p>
+    <p>Pe scurt: profitul e ce spune contabilul că ai câștigat, free cash flow-ul e ce arată extrasul de cont.</p>
+  </div>
+
+  <figure class="viz" data-viz="bars">
+    <figcaption><b>Free cash flow pe an fiscal</b><span class="unit">mld USD</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25"],
+     "series":[{"name":"FCF","values":[13.32,16.31,17.63,19.41,26.91]}],
+     "suffix":" mld"}
+    </script>
+  </figure>
+
+  <div class="stats">
+    <div class="stat"><div class="l">FCF FY2025</div><div class="v">26,91 mld $</div><div class="s">+38,6% față de FY2024</div></div>
+    <div class="stat"><div class="l">Marjă FCF</div><div class="v">42,1%</div><div class="s">prag de „solid": ~10%</div></div>
+    <div class="stat"><div class="l">Capex FY2025</div><div class="v">623 mil. $</div><div class="s">doar 1,0% din venituri</div></div>
+    <div class="stat"><div class="l">FCF vs. profit net</div><div class="v">1,16×</div><div class="s">26,91 mld $ vs. 23,13 mld $</div></div>
+  </div>
+
+  <p><strong>Ce înseamnă.</strong> Free cash flow-ul a crescut în fiecare din ultimii cinci ani fiscali, de la 13,32 la 26,91 mld $ — o dublare. Marja de 42,1% e de patru ori pragul de la care un pilon se consideră solid. Verificarea de bază iese exact: 27.537 mil. $ cash operațional minus 623 mil. $ investiții = 26.914 mil. $.</p>
+
+  <p>Două lucruri merită observate. Primul: <strong>FCF-ul e mai mare decât profitul net</strong> (26,91 față de 23,13 mld $ în FY2025). Când raportul e invers — profit mare, cash mic — banii se blochează undeva. Aici e pe partea bună. Al doilea: <strong>capex-ul e derizoriu</strong>, 1% din venituri. Broadcom nu deține fabrici; producția e externalizată. Asta face afacerea foarte generoasă în cash, dar o leagă de capacitatea altcuiva (vezi Taiwan, secțiunea 11).</p>
+
+  <div class="concept">
+    <div class="h">CORECȚIA OBLIGATORIE — PLATA ÎN ACȚIUNI</div>
+    <p>Free cash flow-ul raportat e umflat de un cost care nu iese ca numerar: <strong>plata angajaților în acțiuni</strong> (stock-based compensation), <strong>7.568 mil. $ în FY2025 — 11,8% din venituri</strong>. Nu iese un dolar din cont, deci nu apare în FCF, dar te costă pe tine, prin diluție: felia ta din companie se micșorează.</p>
+    <p>Peste pragul de ~10% din venituri, cifra trebuie spusă cu voce tare. Dacă ai scădea-o din FCF, marja de 42,1% ar coborî spre 30% — încă foarte bună, dar nu 42%. Consecința practică se vede în secțiunea următoare, unde suma cheltuită pe răscumpărări nu reușește să scadă numărul de acțiuni.</p>
+  </div>
+</section>
+
+<!-- ══ 5. CASH VS DATORII ══════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="sec"><span class="n">05</span><h2>Cash vs. datorii — cât de solidă e la o furtună</h2></div>
+
+  <div class="concept">
+    <div class="h">DE CE CONTEAZĂ</div>
+    <p>Cele mai multe falimente nu vin din lipsă de profit, ci din lipsă de cash la o scadență. O companie cu datorie mică traversează o recesiune fără să vândă active pe nimic și fără să emită acțiuni noi la preț prost. Una îndatorată e forțată să ia decizii proaste exact la momentul cel mai prost.</p>
+    <p>Cifra brută a datoriei nu spune nimic singură. Ce contează e <strong>datoria netă</strong> — datoria totală minus banii pe care compania îi are deja — raportată la profitul operațional anual (EBITDA). Pragul de risc din grila acestui raport e 3,0×.</p>
+  </div>
+
+  <figure class="viz">
+    <figcaption><b>Poziția financiară la 3 mai 2026</b><span class="unit">mld USD</span></figcaption>
+    <div class="split">
+      <div class="r"><span class="k">Cash</span>
+        <span class="t"><span class="f" style="width:30.24%;background:var(--accent)"></span></span>
+        <span class="v">19,63</span></div>
+      <div class="r"><span class="k">Datorie totală</span>
+        <span class="t"><span class="f" style="width:100%;background:var(--crit)"></span></span>
+        <span class="v">64,91</span></div>
+    </div>
+  </figure>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Datorie netă</div><div class="v">45,28 mld $</div><div class="s">64,91 − 19,63</div></div>
+    <div class="stat"><div class="l">Datorie netă / EBITDA</div><div class="v">1,09×</div><div class="s">prag de risc: 3,0</div></div>
+    <div class="stat"><div class="l">Lichiditate curentă</div><div class="v">2,24</div><div class="s">active curente / datorii curente</div></div>
+    <div class="stat"><div class="l">Datorie / capitaluri</div><div class="v">0,74</div><div class="s">de la 1,64 în FY2023</div></div>
+  </div>
+
+  <p><strong>Ce înseamnă 1,09×.</strong> Dacă Broadcom și-ar folosi tot profitul operațional exclusiv pentru datorii, i-ar lua puțin peste un an să scape de ele. Pragul de la care situația devine îngrijorătoare e de trei ori mai sus. Cei 45,3 mld $ de datorie netă sună enorm în valoare absolută, dar la 26,9 mld $ de free cash flow anual sunt gestionabili cu ușurință — de aceea raportul, nu suma, e cifra care contează.</p>
+
+  <p><strong>Direcția e la fel de importantă ca nivelul.</strong> Raportul datorie/capitaluri a coborât de la 1,64 în FY2023 la 1,00 în FY2024, 0,80 în FY2025 și 0,74 acum. Datoria totală a scăzut de la 67.566 mil. $ (FY2024) la 64.907 mil. $. Broadcom s-a împrumutat masiv ca să cumpere VMware în noiembrie 2023 și de atunci se dezîndatorează constant din cash-ul generat. Asta e exact ce vrei să vezi după o achiziție mare.</p>
+
+  <div class="concept">
+    <div class="h">CAPCANA DIN BILANȚ — VALOAREA CONTABILĂ TANGIBILĂ E NEGATIVĂ</div>
+    <p>La 3 mai 2026, <strong>goodwill-ul e 97.801 mil. $, iar capitalurile proprii totale 87.691 mil. $</strong>. Goodwill-ul e diferența dintre cât a plătit compania pe achizițiile ei și valoarea contabilă a activelor cumpărate — nu e o clădire, nu e un cip, e o cifră care exprimă cât a plătit peste. Când depășește capitalurile proprii, înseamnă că <strong>valoarea contabilă tangibilă e negativă</strong>: dacă ștergi din bilanț tot ce nu se poate atinge, rămâne un gol.</p>
+    <p>Nu e un semnal de alarmă imediat — la o companie cu 26,9 mld $ de cash generat anual, valoarea nu stă în active, stă în fluxul de bani. Dar e lucrul de știut: dacă afacerea cumpărată se depreciază, pierderea apare brusc și mare, ca ajustare contabilă a acestui goodwill. Iar 31.453 mil. $ de intangibile mai așteaptă să fie amortizate, dintre care 7.880 mil. $ programate doar în FY2026.</p>
+  </div>
+
+  <p>O cifră pe care nu am putut-o confirma: rata de acoperire a dobânzii (profit operațional împărțit la cheltuiala cu dobânzile) — cheltuiala cu dobânzile este <strong>N/A (nu apare pe sursă)</strong> în paginile citite. Judecând după datoria netă de 1,09× EBITDA și după cash-ul generat, acoperirea e confortabilă, dar cifra exactă ar trebui citită din situația de venituri din 10-K.</p>
+</section>
+
+<!-- ══ 6. BUYBACK, DIVIDEND, DILUȚIE ═══════════════════════════════════════ -->
+<section id="s06">
+  <div class="sec"><span class="n">06</span><h2>Buyback, dividend, diluție — partea ta crește sau scade?</h2></div>
+
+  <div class="concept">
+    <div class="h">CIFRA CARE CONTEAZĂ</div>
+    <p>Nu suma cheltuită pe răscumpărări, ci <strong>evoluția numărului de acțiuni</strong>. Multe companii anunță răscumpărări de miliarde, iar titlurile din presă sună excelent — dar dacă în același an au emis aproape la fel de multe acțiuni noi pentru angajați, numărul total rămâne plat. Compania a cheltuit miliarde și tu nu deții cu nimic mai mult.</p>
+    <p>Testul e mecanic: uită-te la numărul de acțiuni pe 3–5 ani, nu la suma anunțată. Broadcom e un caz de manual.</p>
+  </div>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Acțiuni în circulație (ajustat pentru splitul 10:1 din iulie 2024)</b><span class="unit">miliarde</span></figcaption>
+    <script type="application/json">
+    {"labels":["aug 2023","nov 2023","nov 2024","nov 2025","mai 2026"],
+     "series":[{"name":"Acțiuni în circulație","values":[4.127,4.681,4.687,4.741,4.758]}]}
+    </script>
+  </figure>
+
+  <p>Cifrele sunt luate direct din formularele depuse la SEC, nu derivate din alte mărimi, și sunt înmulțite cu 10 pentru anii de dinaintea splitului din iulie 2024, ca să fie comparabile.</p>
+
+  <p><strong>Se citesc două povești diferite în același grafic.</strong> Prima e saltul din noiembrie 2023: de la 4,127 la 4,681 miliarde de acțiuni, adică <strong>+13,4% dintr-o singură mișcare</strong>. Aceea e plata parțială în acțiuni pentru VMware. Cine deținea AVGO înainte a rămas, peste noapte, cu o felie mai mică cu 13% din companie — în schimbul unei afaceri noi adăugate. Poate a fost un schimb bun; ce nu e discutabil e că a fost plătit din felia acționarilor, nu din cash.</p>
+
+  <p>A doua poveste e mai tăcută și continuă până azi: de la 4,687 (nov 2024) la 4,741 (nov 2025) la 4,758 miliarde (mai 2026). <strong>Numărul de acțiuni urcă cu ~1% pe an</strong>, în fiecare an, în ciuda miliardelor cheltuite pe răscumpărări.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Răscumpărări FY2025</div><div class="v">6,31 mld $</div><div class="s">0,34% din capitalizare</div></div>
+    <div class="stat"><div class="l">Plată în acțiuni FY2025</div><div class="v">7,57 mld $</div><div class="s">mai mult decât răscumpărările</div></div>
+    <div class="stat"><div class="l">Variație acțiuni 12 luni</div><div class="v down">+1,04%</div><div class="s">felia ta scade</div></div>
+    <div class="stat"><div class="l">Randament dividend</div><div class="v">0,66%</div><div class="s">2,54 $/acțiune în ultimele 12 luni</div></div>
+  </div>
+
+  <p><strong>Aritmetica e limpede.</strong> În FY2025 Broadcom a cheltuit 6.310 mil. $ pe răscumpărări și a acordat 7.568 mil. $ în acțiuni angajaților. Diferența explică de ce numărul de acțiuni a urcat cu 1,15% într-un an în care compania a returnat acționarilor <strong>17,45 mld $</strong> (6,31 răscumpărări + 11,14 dividende). Randamentul total pentru acționar calculat de stockanalysis pentru FY2025 este <strong>−0,93%</strong>: dividendul de 0,64% minus diluția netă.</p>
+
+  <p><strong>Ce înseamnă pentru cineva care deține acțiunea.</strong> Dividendul de 0,66% e real și îl primești. Răscumpărările, în schimb, nu îți măresc felia — doar încetinesc micșorarea ei. E diferența dintre a bea din găleată și a turna apă într-o găleată care curge. Nu e o companie care distruge valoare: profitul pe acțiune crește oricum, pentru că afacerea crește mult mai repede decât 1% pe an. Dar e important să nu citești „6,3 miliarde în răscumpărări" ca pe un cadou primit.</p>
+
+  <p>Dividendul e acoperit confortabil: 11.142 mil. $ plătiți în FY2025 din 26.914 mil. $ de free cash flow, adică o rată de acoperire de 43,3% — nu e finanțat din datorie și nu depinde de un an bun. A crescut cu ~12,9% pe an în ultimii trei ani.</p>
+
+  <p>Eticheta pe acest pilon e <strong>structural</strong>, nu „de fază": diluția nu vine dintr-o investiție care se termină la un moment dat, ci din modul permanent în care compania își plătește oamenii.</p>
+</section>
+
+<!-- ══ 7. CREȘTERE ȘI MARJE ════════════════════════════════════════════════ -->
+<section id="s07">
+  <div class="sec"><span class="n">07</span><h2>Creștere și marje — afacerea se întărește sau se erodează?</h2></div>
+
+  <div class="concept">
+    <div class="h">MARJA BRUTĂ E TESTUL MOAT-ULUI</div>
+    <p>Veniturile pot fi cumpărate cu discounturi sau cu achiziții. Profitul net poate fi ajustat contabil. Marja brută arată direct dacă compania mai poate cere prețul ei — e indicatorul cu cea mai mare valoare de semnal din tot raportul.</p>
+    <p>Iar când marja operațională crește mai repede decât veniturile, e semn de <em>operating leverage</em>: costurile fixe se împart la mai multe vânzări. E mecanismul din spatele multor povești de succes în bursă.</p>
+  </div>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Marje pe an fiscal</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["FY21","FY22","FY23","FY24","FY25"],
+     "series":[{"name":"Marjă brută","values":[61.36,66.55,68.93,63.03,67.77]},
+               {"name":"Marjă operațională","values":[31.03,42.84,45.25,26.10,39.89]},
+               {"name":"Marjă netă","values":[24.54,34.62,39.31,11.96,36.20]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+
+  <p><strong>Groapa din FY2024 nu e o afacere care s-a stricat.</strong> Marja netă a căzut de la 39,3% la 12,0% și profitul de la 14.082 la 5.895 mil. $ — dar veniturile au crescut în același an cu 44%. Explicația e achiziția VMware: costurile de integrare și, mai ales, amortizarea activelor necorporale cumpărate au trecut prin contul de profit. În FY2025 marja netă revine la 36,2%. Cine ar fi privit doar profitul net în 2024 ar fi văzut un colaps care nu exista.</p>
+
+  <figure class="viz" data-viz="lines">
+    <figcaption><b>Creșterea veniturilor pe trimestre (an/an)</b><span class="unit">%</span></figcaption>
+    <script type="application/json">
+    {"labels":["Q3 25","Q4 25","Q1 26","Q2 26"],
+     "series":[{"name":"Creștere venituri a/a","values":[22.03,28.18,29.47,47.87]},
+               {"name":"Marjă brută","values":[67.09,67.99,68.13,69.48]},
+               {"name":"Marjă operațională","values":[36.90,41.68,44.34,48.62]}],
+     "suffix":"%"}
+    </script>
+  </figure>
+
+  <p><strong>Ritmul, care e ce tranzacționează piața.</strong> Cifrele anuale ascund ce s-a întâmplat în ultimele trimestre, iar de obicei ascund o decelerare. Aici ascund opusul: creșterea a urcat <strong>de la +20,2% în Q2 FY2025 la +22,0%, +28,2%, +29,5% și +47,9% în Q2 FY2026</strong>. În același interval marja operațională a urcat de la 38,9% la 48,6% și marja brută de la 68,0% la 69,5%. Veniturile trimestriale au trecut de la 15.004 la 22.187 mil. $.</p>
+
+  <p>Asta e o combinație rară: creștere care accelerează <em>și</em> marje care se lărgesc simultan. Fiecare dolar nou de venit costă mai puțin de produs decât cel anterior.</p>
+
+  <div class="concept">
+    <div class="h">TESTUL CREȘTERII CUMPĂRATE — GOODWILL-UL</div>
+    <p>O companie poate „crește" ani la rând cumpărând alte companii, cu datorie sau cu acțiuni noi care te diluează. Veniturile urcă, dar afacerea de bază poate stagna. Semnul de pe bilanț: goodwill-ul sare în sus exact în anii cu creștere mare.</p>
+    <p>La Broadcom testul dă un răspuns clar și în ambele direcții. Goodwill-ul a sărit de la <strong>43.653 mil. $ (FY2023) la 97.873 mil. $ (FY2024)</strong> — deci cei +44,0% din FY2024 au fost, în bună parte, <em>cumpărați</em>. Dar apoi goodwill-ul a rămas plat: 97.801 mil. $ în FY2025 și la fel în mai 2026. Prin urmare cei <strong>+23,9% din FY2025 și accelerarea la +47,9% din Q2 FY2026 sunt organice</strong> — vin din afacerea existentă, nu din altă achiziție. Aceea e distincția care contează, iar aici e favorabilă.</p>
+  </div>
+
+  <p><strong>Nuanța pe acțiune.</strong> Cu o diluție de ~1% pe an, veniturile pe acțiune cresc cu circa un punct procentual mai puțin decât veniturile totale. La un ritm de +47,9% diferența e neglijabilă; ar fi contat dacă creșterea ar fi fost de o cifră. Merită totuși reținut ca reflex: partea ta e cea pe acțiune.</p>
+</section>
+
+<!-- ══ 8. EVALUARE ═════════════════════════════════════════════════════════ -->
+<section id="s08">
+  <div class="sec"><span class="n">08</span><h2>Evaluare — la ce preț, și ce presupune prețul ăsta</h2></div>
+
+  <p>Nu există un P/E „corect" universal. Un multiplu se citește pe trei axe: față de propria istorie, față de competitorii direcți, și față de creșterea proprie.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Companie</th><th>P/E</th><th>P/FCF</th><th>EV/EBITDA</th><th>Marjă brută</th><th>Marjă op.</th><th>Dat. netă/EBITDA</th></tr></thead>
+    <tbody>
+      <tr class="me"><td>AVGO — Broadcom</td><td>64,79</td><td>56,80</td><td>45,93</td><td>68,3%</td><td>44,2%</td><td>1,09×</td></tr>
+      <tr><td>NVDA — NVIDIA</td><td>30,74</td><td>42,38</td><td>30,24</td><td>74,2%</td><td>64,0%</td><td>net cash</td></tr>
+      <tr><td>MRVL — Marvell</td><td>66,48</td><td>99,83</td><td>62,73</td><td>51,5%</td><td>16,4%</td><td>0,54×</td></tr>
+      <tr><td>NTNX — Nutanix</td><td>63,94</td><td>21,38</td><td>52,11</td><td>87,1%</td><td>8,9%</td><td>net cash</td></tr>
+      <tr><td>Mediana competitorilor</td><td>63,94</td><td>42,38</td><td>52,11</td><td>74,2%</td><td>16,4%</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Competitorii sunt aleși ca să acopere ambele jumătăți ale afacerii: <strong>Marvell</strong> e rivalul direct pe proiectarea de acceleratoare personalizate (împreună, cele două dețin cea mai mare parte a acestei nișe), <strong>NVIDIA</strong> e etalonul de siliciu pentru inteligență artificială, iar <strong>Nutanix</strong> e concurentul direct al VMware pe virtualizare și cloud privat — jumătatea de software pe care celelalte două nu o acoperă. Toate cifrele lor vin din paginile de statistici citite la 3 august 2026.</p>
+
+  <p><strong>Față de competitori, AVGO e la mijloc, nu în vârf.</strong> P/E-ul de 64,79 e practic egal cu mediana de 63,94; pe EV/EBITDA (45,93) e chiar <em>sub</em> mediana de 52,11. E mai scumpă decât NVIDIA pe toate liniile — și NVIDIA are marje mai bune, ROIC de 104,7% față de 24,2% și o poziție de net cash. Dar e vizibil mai ieftină decât Marvell, care se tranzacționează la 99,83 ori cash-ul liber cu o marjă operațională de 16,4%.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Multiplu</th><th>Acum</th><th>Media proprie 5 ani</th><th>Diferență</th></tr></thead>
+    <tbody>
+      <tr><td>P/E</td><td>64,79</td><td>58,71</td><td class="down">+10%</td></tr>
+      <tr class="me"><td>P/FCF</td><td>56,80</td><td>30,83</td><td class="down">+84%</td></tr>
+      <tr><td>EV/EBITDA</td><td>45,93</td><td>27,20</td><td class="down">+69%</td></tr>
+      <tr><td>EV/Vânzări</td><td>25,26</td><td>14,17</td><td class="down">+78%</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Față de propria istorie, însă, e scumpă — și aici e semnalul curat.</strong> Mediile pe 5 ani sunt calculate din multiplii pe fiecare an fiscal, de pe pagina de rapoarte. P/E-ul pare aproape normal (+10%), dar media lui e umflată de FY2024, când amortizarea VMware a strivit profitul contabil și a împins P/E-ul la 137,33. <strong>Multiplul pe cash nu are această distorsiune</strong>, pentru că amortizarea nu atinge cash-ul: la 56,80 față de o medie de 30,83, acțiunea se tranzacționează cu <strong>84% peste norma proprie</strong>. EV/EBITDA și EV/Vânzări confirmă, cu +69% și +78%.</p>
+
+  <p>De aceea semaforul e galben și nu verde: la mijloc între competitori, dar mult peste cât a valorat propria afacere în ultimii cinci ani, raportat la banii care intră efectiv.</p>
+
+  <div class="concept">
+    <div class="h">CE PRESUPUNE PREȚUL ACTUAL</div>
+    <p>Un multiplu nu e o etichetă de „scump" — e o afirmație despre viitor pe care piața a făcut-o deja, iar tu pariezi alături de ea sau împotriva ei.</p>
+    <p>Profitul pe acțiune din ultimele douăsprezece luni raportate e <strong>6,01 $</strong>, ceea ce la 391,42 $ dă P/E-ul de 64,79. Consensul analiștilor (48 de analiști, pagina de prognoze) pune profitul pe acțiune la <strong>11,63 $ în FY2026</strong> și <strong>19,49 $ în FY2027</strong>. La aceste estimări prețul de azi înseamnă 33,7 ori profitul FY2026 și 20,1 ori pe cel din FY2027.</p>
+    <p>Tradus: <strong>ca acțiunea să fie evaluată la un multiplu banal de ~20, profitul trebuie să se tripleze față de cel raportat acum</strong>, iar veniturile să treacă de la 63,9 mld $ (FY2025) la 106,0 mld $ în FY2026 și 173,2 mld $ în FY2027, adică de 2,7 ori în doi ani. Dacă asta se întâmplă, prețul de azi e rezonabil. Dacă veniturile cresc „doar" cu 30% pe an, ai plătit prea mult chiar dacă compania merge foarte bine.</p>
+    <p>Asta explică fenomenul care derutează cel mai tare un începător: o companie raportează rezultate excelente și acțiunea scade. Nu e irațional — rezultatele au fost bune, dar mai slabe decât ce era deja în preț. Broadcom a raportat +47,9% creștere și e cu 20,9% sub maxim.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">ATENȚIE — CELE DOUĂ P/E NU SE MĂSOARĂ CU ACEEAȘI UNITATE</div>
+    <p>P/E-ul prospectiv diferă între surse: <strong>20,03 la finviz și 24,70 la stockanalysis</strong>. Nu e o eroare — finviz folosește estimarea pentru FY2027 (19,49 $), iar stockanalysis o valoare intermediară pentru următoarele douăsprezece luni calendaristice. Arată-le pe ambele și nu le amesteca.</p>
+    <p>Mai important: profitul de 6,01 $ e cel contabil raportat, în timp ce estimările analiștilor exclud de regulă cheltuieli care la Broadcom sunt uriașe. Numai amortizarea activelor necorporale cumpărate e programată la <strong>7.880 mil. $ în FY2026</strong> (circa 1,66 $ pe acțiune), iar plata în acțiuni a fost 7.568 mil. $ în FY2025 (circa 1,59 $ pe acțiune). Dovada mărimii acestor ajustări e în chiar raportul anual: profitul operațional însumat al celor două segmente e 41.997 mil. $, în timp ce cel consolidat al companiei e 25.484 mil. $ — o diferență de 16,5 mld $ de costuri nealocate segmentelor.</p>
+    <p>Concluzia practică: nu scădea 20,03 din 64,79 ca să deduci creșterea așteptată. Cele două cifre descriu profituri definite diferit. Compară istorie cu istorie și estimare cu estimare.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">RANDAMENTUL PROFITULUI FAȚĂ DE DOBÂNDA FĂRĂ RISC</div>
+    <p>P/E-ul citit invers arată cât „produce" compania la prețul de azi. La P/E 64,79, profitul îți dă <strong>1,54% pe an</strong>. Chiar și pe estimarea FY2026, randamentul e <strong>2,97%</strong>. În același timp, obligațiunile americane pe 10 ani, fără practic niciun risc, dau <strong>4,70%</strong> (3 august 2026).</p>
+    <p>Diferența e exact cât plătește cineva pentru creșterea viitoare. E o comparație între două fapte de azi, nu o prognoză — dar e cifra care arată cel mai bine de ce evaluarea nu e neutră: alternativa fără risc plătește mai mult acum, iar diferența trebuie recuperată din creștere.</p>
+  </div>
+
+  <p><strong>Evaluarea nu e un semnal de moment.</strong> O acțiune scumpă poate rămâne scumpă ani buni, iar una ieftină poate fi ieftină pentru un motiv întemeiat. Iar calculele de mai sus presupun că multiplul revine la o normă — poate să nu revină, în nicio direcție. Piața a plătit ani la rând multipli peste medie pentru companii care au livrat.</p>
+</section>
+
+<!-- ══ 9. SENTIMENT DE PIAȚĂ ═══════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec"><span class="n">09</span><h2>Sentiment de piață — instituționali, short interest, analiști</h2></div>
+
+  <p>E pilonul cu cea mai slabă valoare predictivă din toate. Nu spune nimic despre calitatea afacerii — doar despre ce cred alții acum.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">Deținere instituțională</div><div class="v">76–79%</div><div class="s">normal pentru mărimea ei</div></div>
+    <div class="stat"><div class="l">Capital net intrat (12 luni)</div><div class="v up">+56,2 mld $</div><div class="s">3.508 cumpărători / 2.555 vânzători</div></div>
+    <div class="stat"><div class="l">Short interest</div><div class="v">1,46%</div><div class="s">din float · 2,5 zile de acoperire</div></div>
+    <div class="stat"><div class="l">Rotația float-ului</div><div class="v">1,4×</div><div class="s">pe an · se deține, nu se tranzacționează</div></div>
+  </div>
+
+  <p><strong>Direcția banilor e clar pozitivă.</strong> În ultimele douăsprezece luni au intrat 119,79 mld $ și au ieșit 63,59 mld $ din pozițiile instituționale, cu 3.508 cumpărători față de 2.555 vânzători. Nivelul deținerii (între 76,4% după MarketBeat și 79,1% după stockanalysis — numitorii diferă) e doar context: peste 60% e normal la orice companie americană mare. Direcția spune ceva; nivelul nu.</p>
+
+  <p>Prezența în <strong>S&amp;P 500 și Nasdaq-100</strong> aduce o cerere automată din partea fondurilor pasive care replică indicii — cumpărare constantă care nu ține de rezultatele companiei. Excluderea ar funcționa invers.</p>
+
+  <div class="concept">
+    <div class="h">DE UNDE VINE CEREREA — ȘI CE ÎNSEAMNĂ CÂND E PLICTISITOARE</div>
+    <p><strong>Rotația float-ului</strong> arată de câte ori pe an își schimbă proprietarul tot pachetul disponibil la tranzacționare: volumul mediu zilnic (25,86 mil. acțiuni) înmulțit cu ~250 de zile, împărțit la float (4,67 mld) = <strong>1,4 ori pe an</strong>. O companie tranzacționată pe narativ se rotește de zeci de ori pe an. Broadcom, de 1,4. Acțiunea asta e <em>deținută</em>, nu jucată.</p>
+    <p>Al doilea indicator merge în aceeași direcție: <strong>short interest de doar 1,46% din float</strong>, cu 2,5 zile de acoperire. Nu există aici combustibil de squeeze. Într-un titlu cu 30% din float vândut în lipsă, un anunț de contract mișcă prețul cu cât costă ieșirea celor prinși pe partea greșită, nu cu cât valorează contractul. La Broadcom mișcările de preț reflectă ce cred deținătorii pe termen lung despre afacere — nu o mecanică de poziționare.</p>
+    <p><strong>Narativul tranzacționat acum</strong>, la 3 august 2026: construcția de infrastructură pentru inteligență artificială și acceleratoarele personalizate. Titluri din perioadă: un acord de furnizare de cipuri de memorie cu Samsung raportat pe 27 iulie 2026, tranzacționarea de către bănci a unor părți dintr-un contract de cipuri pe 22 iulie 2026, ieșirea companiei din lista de acțiuni favorite a unei bănci pe 31 iulie 2026, și un avertisment general adresat investitorilor în acțiuni de inteligență artificială pe 3 august 2026.</p>
+    <p>Hype-ul e o forță reală asupra prețului și zero forță asupra afacerii. Schimbă cât de bine poți vinde mâine, niciodată cât câștigă compania. De aceea sentimentul nu mută nicio culoare din celelalte șapte rânduri.</p>
+  </div>
+
+  <div class="concept">
+    <div class="h">CONSENSUL ANALIȘTILOR — CITEȘTE DISPERSIA, NU MEDIA</div>
+    <p>48 de analiști, preț-țintă mediu <strong>527,88 $</strong> (cu 34,9% peste piață), median 530 $. Recomandări: 37 „cumpărare puternică", 7 „cumpărare", 4 „păstrare", <strong>zero vânzare</strong>.</p>
+    <p>Trei lucruri de spus o dată. Întâi, analiștii își revizuiesc țintele <em>după</em> ce se mișcă prețul, nu înainte — o țintă cu 35% peste piață descrie entuziasmul de acum, nu viitorul. Al doilea, recomandările de vânzare sunt foarte rare, pentru că băncile vor să păstreze relația cu compania: „cumpărare" e starea implicită, nu o distincție.</p>
+    <p>Al treilea, și cel mai grăitor: <strong>ținta minimă e 215,88 $ (cu 44,8% sub prețul de azi), iar cea maximă 675 $ (cu 72,5% peste)</strong>. Când doi profesioniști care se uită la aceleași cifre ajung la concluzii aflate la o distanță de peste 200%, media dintre ei nu înseamnă aproape nimic. Exact asta merită spus — nu media.</p>
+  </div>
+</section>
+
+<!-- ══ 10. MANAGEMENT ȘI INSIDERI ══════════════════════════════════════════ -->
+<section id="s10">
+  <div class="sec"><span class="n">10</span><h2>Management, insideri și structura de vot</h2></div>
+  <ul class="list">
+    <li><b>Hock E. Tan</b> — președinte, director general și membru executiv al consiliului. Compania are rădăcini din 1961 și e listată din 6 august 2009; strategia de creștere prin achiziții mari, urmate de reducere de costuri și creștere de prețuri, e semnătura lui și e cea care explică forma bilanțului din secțiunea 5.</li>
+    <li><b>Cât dețin cei care conduc:</b> între 1,11% (stockanalysis) și 1,92% (finviz) din companie. E puțin — un management care deține 10–20% mănâncă din aceeași oală cu acționarii; la 1–2% e mai aproape de salariat decât de co-proprietar. Nu e un semafor, dar schimbă cum citești rândul următor.</li>
+    <li><b>Insideri, ultimele 12 luni:</b> 1 cumpărător (1,93 mil. $) față de 8 vânzători (639,97 mil. $). Vânzările recente, nominal: Mark David Brazeal 25.000 acțiuni la 401,33 $ (10 iulie 2026) și 25.000 la 379,19 $ (8 iulie 2026); Gayla J. Delly, membru al consiliului, 1.890 acțiuni la 385,38 $ (8 iulie 2026); Justine Page, membru al consiliului, 1.602 acțiuni la 373,86 $ (29 iunie 2026).<br><br><b>Cum se citește corect:</b> vânzările sunt în mare parte zgomot. Directorii primesc o parte din salariu în acțiuni — 7.568 mil. $ în FY2025, cum ai văzut la secțiunea 6 — și vând programat, ca să-și plătească facturile. „Zero cumpărători, opt vânzători" e situația normală la o companie de tehnologie, nu un semnal de alarmă. Ce ar fi un semnal rar și puternic e opusul: un director care cumpără din bani proprii, pentru că există un singur motiv să faci asta. Aici există o singură astfel de cumpărare, mică.</li>
+    <li><b>Structura de vot:</b> o singură clasă de acțiuni ordinare, un vot pe acțiune — raportul anual FY2025 nu conține limbaj de tip „Class A / Class B common stock". Asta e o veste bună pe care majoritatea începătorilor nu știu că trebuie să o caute: la multe companii, acțiunile vândute publicului au un vot sau niciunul, în timp ce fondatorii dețin o clasă cu zece voturi, iar acționarii minoritari nu pot schimba nimic. Aici nu e cazul. Sursele gratuite nu expun asta de încredere, deci verificarea autoritară rămâne documentul de vot (proxy statement) de pe SEC EDGAR.</li>
+  </ul>
+</section>
+
+<!-- ══ 11. EXPUNEREA LA LUME ═══════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="sec"><span class="n">11</span><h2>Expunerea la lume — vânt din față sau din spate?</h2></div>
+
+  <p>Pilonii de până aici judecă corabia. Acesta judecă cât de tare o clatină marea: cât de sensibilă e compania la lucruri pe care nu le controlează. Semaforul notează <strong>expunerea</strong> — o proprietate stabilă a afacerii — nu vremea de azi, care e datată în secțiunea 1.</p>
+
+  <div class="concept">
+    <div class="h">COMPRIMAREA MULTIPLILOR</div>
+    <p>Prețul unei acțiuni scumpe e, în cea mai mare parte, profitul anilor îndepărtați adus în prezent. Dobânda fără risc e gravitația tuturor evaluărilor: când urcă, viitorul îndepărtat valorează mai puțin în banii de azi, și multiplul se comprimă. Compania poate livra exact ce a promis și acțiunea tot să scadă serios. Nu s-a stricat afacerea; s-a scumpit banul.</p>
+    <p>La Broadcom se vede în cifre concrete: la un multiplu de 56,80 ori cash-ul liber, cea mai mare parte a prețului sunt banii de peste cinci-cincisprezece ani. Iar dobânda pe 10 ani a urcat de la ~4,20% la 4,70% în ultimul an. Cine deține acțiunea trebuie să știe că o parte din mișcările ei nu vor avea nicio legătură cu ce raportează compania.</p>
+  </div>
+
+  <div class="score">
+    <div class="row"><span class="k">Dobânzi</span>
+      <span class="st" data-s="warn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2.6l6 10.8H2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg>Atenție</span>
+      <span class="t">P/E prospectiv 20,0–24,7 e sub pragul de risc, iar cash-ul e puternic pozitiv — dar randamentul profitului de 1,54% față de 4,70% fără risc și multiplul de 56,8× cash-ul lasă evaluarea sensibilă. Steag parțial.</span></div>
+    <div class="row"><span class="k">Ciclu economic</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">57,7% din venituri vin din semiconductori, industria ciclică de manual, iar creșterea pentru care se plătește azi depinde de investițiile în centre de date — cheltuiala cel mai ușor de amânat din tehnologie.</span></div>
+    <div class="row"><span class="k">Geografie și politică</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">56,2% din veniturile FY2025 din Asia-Pacific, peste pragul de ~40%; China 17,5%, Taiwan 10,1%; producția e externalizată în Asia, iar cipurile de inteligență artificială sunt obiect de control la export.</span></div>
+    <div class="row"><span class="k">Reglementare</span>
+      <span class="st" data-s="crit"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l8 8M12 4l-8 8"/></svg>Risc</span>
+      <span class="t">Procedură antitrust europeană activă pe licențierea VMware, cu cerere de măsuri interimare depusă de cinci asociații de furnizori de cloud în iulie 2026.</span></div>
+  </div>
+
+  <p><strong>Ciclul.</strong> Semiconductorii sunt exemplul din manual de industrie ciclică: cererea vine în valuri, iar la vârf de ciclu profiturile par permanente. Ce atenuează aici e jumătatea de software — 42,3% din venituri, în mare parte abonamente (19.040 mil. $ în FY2025), cu marjă operațională de 76,8%. Abonamentele la software de mainframe și de virtualizare nu se anulează într-o recesiune; ele sunt sub aplicații pe care clientul nu le poate opri. Așa că Broadcom e mai puțin ciclică decât un producător pur de cipuri — dar creșterea pentru care se plătește prețul de azi vine din partea ciclică, nu din cea stabilă.</p>
+
+  <p><strong>Geografia.</strong> Cei 56,2% din Asia-Pacific depășesc clar pragul de la care se pune steag. Nuanța corectă e că expunerea la China a <em>scăzut</em> ca pondere: 11.533 mil. $ în FY2023 (32,2% din venituri) față de 11.155 mil. $ în FY2025 (17,5%) — suma e aproape aceeași, dar restul afacerii a crescut în jurul ei. Rămân totuși două dependențe reale: capacitatea de producție din Asia, pentru o companie care nu deține fabrici, și faptul că acceleratoarele pentru inteligență artificială sunt exact categoria de produse pe care guvernele reglementează la export.</p>
+
+  <p><strong>Reglementarea, care e steagul cel mai concret.</strong> Nu e o îngrijorare generică — e o procedură cu nume și date. Comisia Europeană cercetează modificările de licențiere aduse VMware după achiziție. La 3 august 2026, Broadcom a pierdut încercarea de a suspenda cererea Comisiei de a predă documente juridice americane privilegiate; la mijlocul lui iulie 2026, cinci asociații de furnizori de cloud din Europa, printre care CISPE, au cerut Comisiei să impună măsuri interimare asupra practicilor companiei; pe 3 iulie 2026 acțiunea a scăzut pe fondul unei înfrângeri antitrust europene. Ținta e chiar modelul de preț al segmentului care aduce 42,3% din venituri cu marjă operațională de 76,8%. Un steag de reglementare activ și material duce singur culoarea la roșu — și aici există și celelalte două.</p>
+
+  <p><strong>Ce înseamnă un roșu aici.</strong> Nu că e o companie proastă — restul scorecardului spune limpede contrariul. Înseamnă o corabie solidă pe o mare agitată: ajunge la destinație, dar nu ține pasagerii care sar peste bord la primul val. Lecția practică nu e „evită", ci <strong>dimensionează poziția ca să poți suporta valurile</strong>. Volatilitatea vine la pachet cu expunerea, iar vânzarea în panică pe fundul valului e felul în care expunerea devine pierdere reală. Ce e specific companiei — clienții, integrarea, diluția — stă în secțiunea următoare; aici a stat doar ce e sistematic.</p>
+</section>
+
+<!-- ══ 12. CELE DOUĂ TEZE ══════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="sec"><span class="n">12</span><h2>Cele două teze</h2></div>
+
+  <div class="sec"><span class="n">TAUR</span><h2>Ce trebuie să fie adevărat</h2></div>
+  <ul class="list">
+    <li><b>Veniturile trebuie să treacă de 106,0 mld $ în FY2026 și 173,2 mld $ în FY2027</b> — consensul a 43–48 de analiști de pe pagina de prognoze, la iulie 2026, față de 63,9 mld $ realizați în FY2025. Verificabil aritmetic chiar acum: primul semestru FY2026 a adus 41.498 mil. $ (19.311 + 22.187), deci <b>al doilea semestru ar trebui să aducă în jur de 64,5 mld $</b> — circa 32 mld $ pe trimestru, față de 22,19 mld $ realizați în Q2. Aceea e ștacheta reală din spatele prețului de azi.</li>
+    <li><b>Accelerarea din Q2 FY2026 trebuie să continue, nu să fie un vârf</b> — și e singurul punct din această listă care e deja fapt, nu estimare: 22.187 mil. $ venituri (+47,9% a/a), marjă operațională 48,62%, marjă brută 69,48%, în trimestrul încheiat la 3 mai 2026 și depus la SEC pe 9 iunie 2026.</li>
+    <li><b>Jumătatea de software trebuie să-și țină marja</b> — Infrastructure Software a produs 27.029 mil. $ venituri și 20.765 mil. $ profit operațional de segment în FY2025 (76,8%), conform raportului anual depus la 18 decembrie 2025. Repoziționarea VMware funcționează în cifre depuse, nu în promisiuni. Riscul care atacă exact acest rând e la ursul de mai jos.</li>
+    <li><b>Acordul de furnizare de cipuri de memorie cu Samsung, raportat la circa 200 mld $ pe 27 iulie 2026</b> — inclus cu o precizare importantă: e un titlu de presă din tabelul de știri, nu o cifră dintr-un document depus de companie. Nu am putut sursa suma într-o raportare oficială, deci se citește ca narativ, nu ca venit contractat.</li>
+  </ul>
+
+  <div class="sec"><span class="n">URS</span><h2>Ce ar strica</h2></div>
+  <ul class="list">
+    <li class="crit"><b>Un singur client face 32% din venituri — și procentul crește an de an.</b> Din raportul anual FY2025: un client (un distribuitor din segmentul de semiconductori) a reprezentat <b>32% din veniturile nete în FY2025, față de 28% în FY2024 și 21% în FY2023</b>. Primii cinci clienți finali fac circa 40%, iar distribuitorii 48%. Mai mult: acel client reprezenta <b>44% din creanțele nete la 2 noiembrie 2025, față de 18% un an înainte</b>. Asta e cea mai importantă cifră negativă din tot raportul. O companie unde un client face o treime din vânzări e fragilă indiferent cât de bune arată marjele — iar concentrarea creanțelor înseamnă că și riscul de încasare s-a strâns în același loc.</li>
+    <li class="crit"><b>Procedura europeană atacă exact motorul de marjă.</b> Cererea de măsuri interimare din iulie 2026 vizează modul în care Broadcom licențiază VMware. Segmentul respectiv aduce 42,3% din venituri la 76,8% marjă operațională — adică marja aceea provine în bună parte din libertatea de a stabili prețurile și condițiile de licențiere. O intervenție care limitează acea libertate nu ar reduce veniturile cu câteva procente; ar schimba modelul economic al jumătății mai profitabile a companiei.</li>
+    <li><b>Bilanțul are 97,8 mld $ de goodwill peste 87,7 mld $ de capitaluri proprii.</b> Valoarea contabilă tangibilă e negativă, iar 31.453 mil. $ de active necorporale mai așteaptă amortizarea — 7.880 mil. $ programate doar în FY2026. Dacă cererea pentru inteligență artificială se normalizează, veniturile încetinesc dar amortizarea continuă exact la fel, iar profitul contabil se comprimă din două direcții simultan. FY2024 e repetiția generală: marjă netă de 11,96% într-un an cu creștere de 44%.</li>
+    <li><b>Diluția pe care răscumpărările nu o opresc.</b> Plata în acțiuni de 7.568 mil. $ (11,8% din venituri) depășește răscumpărările de 6.310 mil. $, iar numărul de acțiuni a urcat cu 1,15% în FY2025 în ciuda celor 17,45 mld $ returnați acționarilor. Nu e fatal la o creștere de 47%, dar e o scurgere permanentă din felia ta, iar la o creștere de o cifră ar deveni vizibilă.</li>
+  </ul>
+
+  <div class="concept">
+    <div class="h">ARBITRUL</div>
+    <p>Un investitor care își notează dinainte ce l-ar face să se răzgândească ia decizii mult mai bune decât unul care improvizează când prețul cade. Patru verificări observabile, cu datele lor:</p>
+    <p><b>1. Raportarea din 2 septembrie 2026 (Q3 FY2026).</b> Trece venitul trimestrial de vârful de 22.187 mil. $ din Q2? Și, mai important, se menține ritmul anual în jurul lui +47,9% sau recade spre cei 20–28% din FY2025? Decelerarea, nu nivelul, e ce tranzacționează piața.</p>
+    <p><b>2. Aritmetica semestrului doi.</b> Pentru ca consensul de 106,0 mld $ pe FY2026 să se materializeze, e nevoie de circa 32 mld $ pe fiecare din ultimele două trimestre. Compară cifra raportată în septembrie cu acest reper — e cel mai direct test al prețului de azi.</p>
+    <p><b>3. Raportul anual FY2026, așteptat în jurul lui decembrie 2026.</b> Urcă ponderea clientului unic peste 32%? Rămâne concentrarea creanțelor lângă 44%? Aceste două cifre apar în același loc în fiecare an și se compară în treizeci de secunde.</p>
+    <p><b>4. Dosarul european.</b> Se impun măsuri interimare asupra licențierii VMware, sau procedura se închide cu angajamente? Rezultatul decide dacă marja de 76,8% din software e o proprietate a afacerii sau o etapă.</p>
+  </div>
+</section>
+
+<!-- ══ 13. CE AI ÎNVĂȚAT ═══════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="sec"><span class="n">13</span><h2>Ce ai învățat aici + întrebări pentru data viitoare</h2></div>
+
+  <p><strong>Trei concepte pe care raportul ăsta le-a folosit și care se aplică la orice altă companie:</strong></p>
+
+  <p><b>Creșterea cumpărată față de cea organică, citită din goodwill.</b> Ai văzut mecanismul complet: goodwill-ul a sărit de la 43,7 la 97,9 mld $ în FY2024, deci creșterea de 44% din acel an a fost cumpărată; apoi a rămas plat, deci accelerarea la +47,9% din 2026 e organică. Aceeași verificare, pe orice companie care crește repede, îți spune în două minute dacă afacerea crește sau doar cumpără.</p>
+
+  <p><b>Răscumpărările nu sunt un cadou — numărul de acțiuni e.</b> Broadcom a cheltuit 6,3 mld $ pe răscumpărări în FY2025, iar felia fiecărui acționar tot s-a micșorat, pentru că plata în acțiuni a angajaților a fost mai mare. Titlul din presă spune „miliarde returnate"; graficul acțiunilor în circulație spune adevărul.</p>
+
+  <p><b>Profitul contabil și cel folosit de analiști nu sunt același lucru.</b> Un P/E de 64,79 și unul prospectiv de 20,03 par să descrie o triplare de profit. În realitate măsoară profituri definite diferit, iar diferența — amortizarea a 7,9 mld $ de active cumpărate și 7,6 mld $ de plată în acțiuni — e chiar mărimea pe care o exclud estimările. Când cele două multiple par să spună o poveste prea bună, verifică întâi dacă vorbesc despre aceeași cifră.</p>
+
+  <p><strong>Cinci întrebări de pus la următoarea companie:</strong></p>
+
+  <ul class="list qa">
+    <li>Numărul de acțiuni în circulație a scăzut în ultimii trei ani — sau doar suma cheltuită pe răscumpărări a fost mare?</li>
+    <li>Goodwill-ul a sărit exact în anii cu creștere mare? Dacă da, creșterea a fost cumpărată, și întrebarea devine cu ce s-a plătit: cash, datorie sau felia mea.</li>
+    <li>Cât din venituri vine de la cel mai mare client, și procentul urcă sau coboară de la an la an? Cifra e în raportul anual și e adesea singurul lucru cu adevărat fragil la o companie care arată bine.</li>
+    <li>Acțiunea a bătut nu doar indicele S&amp;P 500, ci și propriul sector? Într-un sector la modă, a bate indicele general nu dovedește nimic.</li>
+    <li>Multiplul pe cash (P/FCF) e peste sau sub media proprie pe cinci ani? E mai greu de distorsionat contabil decât P/E-ul și de obicei spune povestea mai curat.</li>
+  </ul>
+</section>
+
+<footer>
+  <b>Surse:</b> stockanalysis.com, finviz.com, marketbeat.com, SEC EDGAR (raportul anual FY2025 depus la 18 decembrie 2025 și raportul trimestrial Q2 FY2026 depus la 9 iunie 2026) · date la 3 august 2026.
+  Anul fiscal Broadcom se încheie în noiembrie: FY2025 s-a încheiat la 2 noiembrie 2025, deci acoperă în cea mai mare parte anul calendaristic 2025.
+  Raportările au întârziere de până la un trimestru; short interest până la două
+  săptămâni; dețineri instituționale până la 45 de zile.<br>
+  <b>Nu este consultanță de investiții.</b> Analiza descrie calitatea afacerii, nu
+  momentul potrivit de cumpărare, și nu ține cont de situația financiară,
+  orizontul de timp sau toleranța la risc a nimănui.
+</footer>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,html){tip.innerHTML=html;tip.style.opacity=1;move(e)}
+  function move(e){
+    var r=tip.getBoundingClientRect(),x=e.clientX+12,y=e.clientY-r.height-10;
+    if(x+r.width>innerWidth-8)x=e.clientX-r.width-12;
+    if(y<8)y=e.clientY+16;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hide(){tip.style.opacity=0}
+  function bind(el,html){
+    el.addEventListener('mouseenter',function(e){show(e,html)});
+    el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',hide);
+  }
+  var COL=['var(--accent)','var(--accent-2)','#1baf7a'];
+  function fmt(v,s){
+    var n=Math.abs(v)>=100?v.toFixed(0):Math.abs(v)>=10?v.toFixed(1):v.toFixed(2);
+    return n.replace('.',',')+(s||'');
+  }
+  function legend(names){
+    if(names.length<2)return '';
+    return '<div class="legend">'+names.map(function(n,i){
+      return '<span><i style="background:'+COL[i%3]+'"></i>'+n+'</span>';
+    }).join('')+'</div>';
+  }
+
+  document.querySelectorAll('figure.viz[data-viz]').forEach(function(fig){
+    var raw=fig.querySelector('script[type="application/json"]');
+    if(!raw)return;
+    var d;try{d=JSON.parse(raw.textContent)}catch(err){return}
+    var type=fig.dataset.viz,sfx=d.suffix||'';
+
+    /* ── compare: perechi orizontale, fiecare rând cu scala lui ───────────── */
+    if(type==='compare'){
+      var rows=d.rows||[];if(!rows.length)return;
+      var html=rows.map(function(r){
+        var m=Math.max(Math.abs(r.a),Math.abs(r.b))||1;
+        var bar=function(v,c,nm){
+          return '<span class="bar" data-t="'+nm+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+            '</span>"><span class="bt"><span class="bf" style="width:'+
+            (Math.abs(v)/m*100).toFixed(2)+'%;background:'+(v<0?'var(--crit)':c)+
+            '"></span></span><span class="bv'+(v<0?' down':'')+'">'+fmt(v,sfx)+'</span></span>';
+        };
+        var dv=r.a-r.b, win=dv>=0;
+        return '<div class="cr"><span class="cl">'+r.label+'</span><span class="cb">'+
+          bar(r.a,COL[0],d.a)+bar(r.b,COL[1],d.b)+
+          '<span class="dl">'+(win?'peste':'sub')+' indice cu <b>'+
+          fmt(Math.abs(dv),d.deltaUnit||'')+'</b></span></span></div>';
+      }).join('');
+      fig.insertAdjacentHTML('beforeend','<div class="cmp">'+html+'</div>'+legend([d.a,d.b]));
+      fig.querySelectorAll('.bar').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    var S=d.series||[],L=d.labels||[];
+    var all=S.reduce(function(a,s){return a.concat(s.values)},[]);
+    if(!all.length)return;
+
+    /* ── bars: ÎNTOTDEAUNA de la zero. Pentru variații mici, folosește lines. ─ */
+    if(type==='bars'){
+      var hi=Math.max(0,Math.max.apply(null,all)),lo=Math.min(0,Math.min.apply(null,all));
+      var span=(hi-lo)||1,zpct=hi/span*100,showZero=lo<0;
+      var host=document.createElement('div');host.className='bars';
+      host.innerHTML=L.map(function(lab,i){
+        var v=S[0].values[i];
+        var h=Math.abs(v)/span*100, top=v>=0?(hi-v)/span*100:zpct;
+        return '<div class="col"><div class="track">'+
+          '<span class="vl" style="top:'+top.toFixed(2)+'%">'+fmt(v,sfx)+'</span>'+
+          '<span class="b'+(v<0?' neg':'')+'" style="top:'+top.toFixed(2)+'%;height:'+
+          h.toFixed(2)+'%" data-t="'+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+
+          '</span>"></span>'+
+          (showZero?'<div class="zero" style="top:'+zpct.toFixed(2)+'%"></div>':'')+
+          '</div></div>';
+      }).join('');
+      fig.appendChild(host);
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="xax">'+L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>');
+      host.querySelectorAll('.b').forEach(function(b){bind(b,b.dataset.t)});
+      return;
+    }
+
+    /* ── lines: axa poate fi trunchiată, dar min/max sunt afișate explicit ─── */
+    if(type==='lines'){
+      var mx=Math.max.apply(null,all),mn=Math.min.apply(null,all);
+      var pad=(mx-mn)*0.12||Math.abs(mx*0.05)||1;
+      var yhi=mx+pad,ylo=mn-pad,ysp=(yhi-ylo)||1;
+      var W=600,H=132,PL=8,PR=52,TOP=10,BOT=12;
+      var x=function(i){return PL+i*((W-PL-PR)/Math.max(1,L.length-1))};
+      var y=function(v){return TOP+(1-(v-ylo)/ysp)*(H-TOP-BOT)};
+      var g='';
+      for(var t=0;t<=3;t++){var gy=TOP+t*((H-TOP-BOT)/3);
+        g+='<line class="gl" x1="0" x2="'+(W-PR+6)+'" y1="'+gy+'" y2="'+gy+'"/>'}
+      var paths=S.map(function(s,k){
+        var pts=s.values.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+        var dots=s.values.map(function(v,i){
+          return '<circle class="dot" cx="'+x(i)+'" cy="'+y(v)+'" r="3.4" fill="'+COL[k%3]+'" '+
+            'data-t="'+s.name+' · '+L[i]+' · <span class=&quot;n&quot;>'+fmt(v,sfx)+'</span>"/>';
+        }).join('');
+        return '<polyline class="pl" points="'+pts+'" stroke="'+COL[k%3]+'"/>'+dots;
+      }).join('');
+      fig.insertAdjacentHTML('beforeend',
+        '<div class="lwrap"><svg class="lines" viewBox="0 0 '+W+' '+H+'">'+g+paths+
+        '<text x="'+(W-PR+8)+'" y="'+(TOP+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(yhi,sfx)+'</text>'+
+        '<text x="'+(W-PR+8)+'" y="'+(H-BOT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#898781">'+fmt(ylo,sfx)+'</text>'+
+        '</svg></div>'+
+        '<div class="xax" style="padding-right:'+(PR/W*100).toFixed(1)+'%">'+
+        L.map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>'+
+        legend(S.map(function(s){return s.name})));
+      fig.querySelectorAll('.dot').forEach(function(c){bind(c,c.dataset.t)});
+    }
+  });
+})();
+</script>
